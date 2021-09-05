@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="RFIA_CreateRequest">
+		<script file="scripts/ui/rfia_create_request.lua"/>
+		<frame>charselect</frame>
+		<sizelimits>
+			<minimum width="500" height="900" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<sheetdata>						
+			<windowtitlebar name="title">
+				<resource>RFIA_window_title_display</resource>
+			</windowtitlebar>
+					
+			<rfi_button name="rolls_list_button" width="110" height="25">
+				<bounds>0,0,-1,40</bounds>
+				<parameters>
+					<controly>5</controly>
+					<controlheight>25</controlheight>
+					<controlwidth>130</controlwidth>
+				</parameters>
+				<textres>RFIA_button_label_rolls_list</textres>
+				<script>
+					function onInit()
+						window.onSizeChanged = updatePosition;
+						updatePosition();
+					end
+					function onButtonPress()
+						RFIARequestManager.openRollRequestListForDm();
+					end
+					function updatePosition()
+						local wWindow, hWindow = window.getSize();
+						local wTitle, hTitle = window.title.getSize();
+						local hpTitle, vpTitle = window.title.getPosition();
+						setStaticBounds((wWindow - parameters[1].controlwidth[1]) / 2, hTitle+vpTitle+parameters[1].controly[1], parameters[1].controlwidth[1], parameters[1].controlheight[1]);
+					end
+				</script>
+				<center />
+				
+			</rfi_button>
+			<rfi_button name="select_random_pc_button">
+				<anchored width="130" height="25">
+					<top parent="rolls_list_button" anchor="bottom" relation="relative" offset="10"/>
+					<left parent="rolls_list_button" anchor="left"  offset="0"/>
+				</anchored>
+				<textres>RFIA_button_label_select_random_pc</textres>
+				<script>
+					function onButtonPress()
+						math.randomseed( os.time() );
+						math.random();
+						math.random();
+						math.random();
+						
+						numberOfWindows = window.rfia_pc_list.getWindowCount(true);
+						
+						if numberOfWindows > 1 then 
+						
+							randomIndex = math.random(numberOfWindows);
+							windowList = window.rfia_pc_list.getWindows(true);
+							randomEntry = windowList[randomIndex];
+
+							for _,vEntry in pairs(window.rfia_pc_list.getWindows(true)) do 
+								vEntry.setEntryUnselected();
+							end
+							
+							randomEntry.setEntrySelected();
+						end
+					end
+				</script>
+			</rfi_button>
+			
+			<rfi_button name="select_all_pc_button">
+				<anchored width="110" height="25">
+					<top parent="select_random_pc_button" anchor="top"  offset="0"/>
+					<left offset="35"/>
+				</anchored>
+				<textres>RFI_button_label_select_all_pc</textres>
+				<script>
+					function onButtonPress()
+						for _,vEntry in pairs(window.rfia_pc_list.getWindows(true)) do 
+							vEntry.setEntrySelected();
+						end
+					end
+				</script>
+			</rfi_button>
+
+			<rfi_button name="unselect_all_pc_button">
+				<anchored width="110" height="25">
+					<top parent="select_random_pc_button" anchor="top"  offset="0"/>
+					<right offset="-35"/>
+				</anchored>
+				<textres>RFI_button_label_unselect_all_pc</textres>
+				<script>
+					function onButtonPress()
+						for _,vEntry in pairs(window.rfia_pc_list.getWindows(true)) do 
+							vEntry.setEntryUnselected();
+						end
+					end
+				</script>
+			</rfi_button>
+			
+			<windowlist name="rfia_pc_list" >	
+				<datasource>combattracker.list</datasource>
+				<columns width="45" fillwidth="true"/>
+				<frame name="groupbox" offset="13,5,10,5" />
+				<parameters>
+					<listType>charsheet</listType>
+				</parameters>				
+<!-- 				<script>
+					function onFilter( w )	
+						return window.filter("charsheet", w.getDatabaseNode(), "rfia_entry");							
+					end
+				</script> -->
+				<class>rfia_entry</class>				
+				<anchored height="50">
+					<top parent="rolls_list_button" anchor="bottom" relation="relative" offset="35" />
+					<left offset="37"/>
+					<right offset="-35"/>
+				</anchored>	
+			</windowlist>
+			
+			<scrollbar name="pc_list_scroll_bar">
+				<anchored to="rfia_pc_list" offset="-5,-10" />
+				<target>rfia_pc_list</target>
+			</scrollbar>
+			
+			<rfia_group_title name="pc_list_title">
+				<anchored to="rfia_pc_list" position="insidetop" offset="-20,0"/>
+				<static textres="RFIA_pc_list_group_title" />
+				<targetList>rfia_pc_list</targetList>
+			</rfia_group_title>
+	
+			<rfi_button name="select_all_npc_button">
+				<anchored width="110" height="25">
+					<top parent="rfia_pc_list" anchor="bottom" relation="relative" offset="10"/>
+					<left offset="35"/>
+				</anchored>				
+				<textres>RFIA_button_label_select_all_npc</textres>
+				<script>
+					function onButtonPress()
+						for _,vEntry in pairs(window.rfia_npc_list.getWindows(true)) do 
+							vEntry.setEntrySelected();
+						end
+					end
+				</script>
+			</rfi_button>
+			
+			<rfi_button name="select_random_npc_button">
+				<anchored width="134" height="25">
+					<top parent="select_all_npc_button" anchor="top"  offset="0"/>
+					<left parent="rolls_list_button" anchor="left"  offset="-2"/>
+				</anchored>
+				
+				<textres>RFIA_button_label_select_random_npc</textres>
+				<script>
+					function onButtonPress()
+						math.randomseed( os.time() );
+						math.random();
+						math.random();
+						math.random();
+						
+						
+						numberOfWindows = window.rfia_npc_list.getWindowCount(true);
+						
+						if numberOfWindows > 1 then 
+						
+							randomIndex = math.random(numberOfWindows);
+							windowList = window.rfia_npc_list.getWindows(true);
+							randomEntry = windowList[randomIndex];
+
+							for _,vEntry in pairs(window.rfia_npc_list.getWindows(true)) do 
+								vEntry.setEntryUnselected();
+							end
+							
+							randomEntry.setEntrySelected();
+						end
+					end
+				</script>
+			</rfi_button>			
+			
+			<rfi_button name="unselect_all_npc_button">
+				<anchored width="110" height="25">
+					<top parent="rfia_pc_list" anchor="bottom" relation="absolute" offset="10"/>
+					<right offset="-35"/>
+				</anchored>
+				<textres>RFIA_button_label_unselect_all_npc</textres>
+				<script>
+					function onButtonPress()
+						for _,vEntry in pairs(window.rfia_npc_list.getWindows(true)) do 
+							vEntry.setEntryUnselected();
+						end
+					end
+				</script>
+			</rfi_button>
+			
+			<windowlist name="rfia_npc_list">
+				<datasource>combattracker.list</datasource>
+				<columns width="45" fillwidth="true"/>
+				<frame name="groupbox" offset="13,5,10,5" />
+				<parameters>
+					<listType>npc</listType>
+				</parameters>
+<!-- 				<script>
+					function onFilter( w )	
+						return window.filter("npc", w.getDatabaseNode(), "rfia_entry");							
+					end
+				</script> -->
+				<class>rfia_entry</class>				
+				<anchored height="50">
+					<top parent="rfia_pc_list" anchor="bottom" relation="relative" offset="35" />
+					<left offset="37"/>
+					<right offset="-35"/>
+				</anchored>	
+			</windowlist>
+
+			<scrollbar name="npc_list_scroll_bar">
+				<anchored to="rfia_npc_list" offset="-5,-10" />
+				<target>rfia_npc_list</target>
+			</scrollbar>
+			
+			<rfia_group_title name="npc_list_title">
+				<anchored to="rfia_npc_list" position="insidetop" offset="-20,0"/>
+				<static textres="RFIA_npc_list_group_title" />
+				<targetList>rfia_npc_list</targetList>
+			</rfia_group_title>	
+
+			
+			<rfi_roll_list name="ability_roll_list">
+				<anchored width="50" height="180">
+					<top parent="rfia_npc_list" anchor="bottom" relation="relative" offset="30" />
+					<left offset="35"/>
+				</anchored>
+				<datasource>RFIA_Root.rolls.abilities</datasource>
+			</rfi_roll_list>
+			
+			<rfi_roll_group_title name="ability_roll_title">
+				<anchored width="40">
+					<top parent="ability_roll_list"/>
+					<left offset="5" parent="ability_roll_list"/>
+				</anchored>
+				<static textres="RFI_check_roll_group_title" />
+			</rfi_roll_group_title>
+			
+			<rfi_roll_list name="save_roll_list">
+				<anchored width="50">
+					<top parent="ability_roll_list" anchor="top" offset="0" />
+					<left parent="ability_roll_list" anchor="right" offset="20"/>
+				</anchored>
+				<datasource>RFIA_Root.rolls.saves</datasource>
+			</rfi_roll_list>
+			<rfi_roll_group_title name="save_roll_title">
+				<anchored width="40">
+					<top parent="save_roll_list"/>
+					<left offset="5" parent="save_roll_list"/>
+				</anchored>
+				<static textres="RFI_save_roll_group_title" />
+			</rfi_roll_group_title>
+			
+			<subwindow name="RFIA_modifiers_subwindow">
+				<class>RFIA_Modifiers_window</class>
+				<anchored height="140" width="200">
+					<top parent="save_roll_list" anchor="top" offset="-25"/>
+					<left parent="save_roll_list" anchor="right" offset="-5"/>
+				</anchored>
+				<activate/>
+			</subwindow>
+			
+			<rfi_roll_list name="raw_roll_list">
+				<anchored width="50">
+					<top parent="save_roll_list" anchor="top" offset="0" />
+					<left parent="RFIA_modifiers_subwindow" anchor="right" offset="-5"/>
+				</anchored>
+				<datasource>RFIA_Root.rolls.dice</datasource>
+			</rfi_roll_list>
+			<rfi_roll_group_title name="raw_roll_title">
+				<anchored width="40">
+					<top parent="raw_roll_list"/>
+					<left offset="5" parent="raw_roll_list"/>
+				</anchored>
+				<static textres="RFI_raw_roll_group_title" />
+			</rfi_roll_group_title>
+		
+			<rfi_roll_list name="extra_roll_list">
+				<anchored width="50">
+					<top parent="raw_roll_list" anchor="top" offset="0" />
+					<left parent="raw_roll_list" anchor="right" offset="20"/>
+				</anchored>
+				<datasource>RFIA_Root.rolls.extras</datasource>
+			</rfi_roll_list>
+			<rfi_roll_group_title name="extra_roll_title">
+				<anchored width="40">
+					<top parent="extra_roll_list"/>
+					<left offset="5" parent="extra_roll_list"/>
+				</anchored>
+				<static textres="RFI_extra_roll_group_title" />
+			</rfi_roll_group_title>
+			<windowlist name="skill_roll_list">
+				<anchored>
+					<top parent="raw_roll_list" anchor="bottom" offset="40" />
+					<left offset="40"/>
+					<right offset="-40"/>
+				</anchored>
+				<datasource>RFIA_Root.rolls.skills</datasource>
+				<frame name="groupbox" offset="10,10,10,10" />
+				<columns width="130"/>
+				<child>
+					<frame offset="5,5,5,5"/>
+				</child>
+				<sizelimits>
+					<dynamic />
+				</sizelimits>
+				<class>RFI_roll_item_multi_column</class>
+			</windowlist>						
+			<rfi_roll_group_title name="skill_roll_title">
+				<anchored to="skill_roll_list" position="insidetop" offset="-20,0"/>
+				<static textres="RFI_skill_roll_group_title" />
+				<targetList>skill_roll_list</targetList>
+			</rfi_roll_group_title>
+			
+			<rfi_button name="request_roll_button">
+				<anchored height="50">
+					<top parent="RFIA_modifiers_subwindow" anchor="bottom" relation="relative" offset="0"/>
+					<left parent="save_roll_list" anchor="right" offset="20"/>
+					<right parent="raw_roll_list" anchor="left" offset="-20"/>
+				</anchored>
+				<textres>RFI_button_label_request_roll</textres>
+				<script>
+					function onButtonPress()						
+						RFIARequestManager.requestRoll();
+					end
+				</script>
+			</rfi_button>
+			
+			<resize_charselect name="resize_charselect" />
+			<close_charselect name="close_charselect" />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="RFIA_Modifiers_window">
+		<script file="scripts/ui/rfia_create_request_modifiers.lua"/>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			<genericcontrol name="frame">
+				<anchored height="120">
+					<top anchor="top" offset="15"/>
+					<left offset="15"/>
+					<right offset="-15"/>
+				</anchored>
+				<frame name="groupbox" offset="0,0,0,0"/>
+			</genericcontrol>
+			<stringcontrol>
+				<anchored height="20">
+					<top offset="3"/>
+					<left offset="40"/>
+					<right offset="-40"/>
+				</anchored>
+				<frame name="metalplate" offset="10,2,10,2"/>
+				<font>subwindowsmalltitle</font>
+				<center />
+				<nodrag />
+				<readonly />
+				<static textres="RFI_modifier_group_title" />
+			</stringcontrol>
+			
+			<subwindow name="modifiers">
+				<class>rfia_modifierstack</class>
+				<anchored height="60" width="70">
+					<top parent="columnanchor" anchor="bottom" offset="30"/>
+					<left offset="20"/>
+				</anchored>
+				<activate/>
+			</subwindow>
+			
+			<rfi_modifier_button name="DIS">
+				<anchored  height="25" width="35">
+					<top parent="columnanchor" anchor="bottom" offset="35"/>
+					<left parent="modifiers" anchor="right" offset="5"/>
+				</anchored>
+				<text>DIS</text>
+			</rfi_modifier_button>
+			<rfi_modifier_button name="ADV">
+				<anchored  height="25" width="35">
+					<top parent="columnanchor" anchor="bottom" offset="35"/>
+					<left parent="DIS" anchor="right" offset="5"/>
+				</anchored>
+				<text>ADV</text>
+			</rfi_modifier_button>
+			<rfi_modifier_button name="HIDDEN">
+				<anchored  height="25" width="75">
+					<top parent="DIS" anchor="bottom" offset="5"/>
+					<left parent="modifiers" anchor="right" offset="5"/>
+				</anchored>
+				<text>HIDDEN</text>
+			</rfi_modifier_button>
+			<label name="dclabel">
+				<anchored  height="25">
+					<top parent="modifiers" anchor="bottom" offset="5"/>
+					<left offset="100"/>
+				</anchored>
+				<static textres="dc" />
+			</label>
+			<basicnumberc name="DC">
+				<anchored width="30" height="20">
+					<top parent="dclabel" anchor="top" offset="2"/>
+					<left parent="dclabel" anchor="right" offset="10"/>
+				</anchored>
+				<script>
+					function onValueChanged()
+						RFIAModifierManager.setModifier(getName(), getValue());
+					end
+					
+					function onDrop(x, y, dragInfo)
+						setValue(dragInfo.getNumberData());
+					end
+					
+					function onClickDown( button, x, y )
+						if button == 2 then
+							setValue(0);
+						end
+					end		
+					
+					function onWheel(n)					
+						local mult = 1;
+						if wheel then
+							mult = tonumber(wheel[1]) or 1;
+						end
+						setValue(getValue() + (n * mult));
+						return true;
+					end
+				</script>
+				<droptypes>
+					<type>attack</type>
+					<type>damage</type>
+					<type>heal</type>
+					<type>init</type>
+					<type>save</type>
+					<type>check</type>
+					<type>number</type>
+				</droptypes>
+			</basicnumberc>	
+		</sheetdata>
+	</windowclass>
+	
+	
+	<windowclass name="rfia_entry">
+		<script file="scripts/ui/rfia_entry.lua" />
+		<sheetdata>
+			<hn name="isSelectedForRFIA" />
+			<hn name="rollStatusForRFIA" />			
+			<anchor_column name="columnanchor" />
+			<stringfield name="name">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>	
+				<readonly />
+				<invisible />
+			</stringfield>
+		
+			<tokenfield name="token">
+				<anchored width="40" height="40">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<readonly />
+				<nodrag />
+				<nodrop />
+				<empty>token_empty</empty>			
+			</tokenfield>		
+			
+			<genericcontrol name="selection">
+				<anchored  to="token" position="over"/>
+				<script>
+					function onClickDown( button, x, y )
+						if button == 1 then
+							return true;
+						end
+						
+						return false;
+					end
+					
+					function onClickRelease( button, x, y )
+						if button == 1 then
+							window.toggleEntry();
+						end
+					end
+					
+					function onHover(state)
+						window.onHover(state, window.getDatabaseNode());
+					end			
+				</script>
+				<icon>RFI_PcUnselected</icon>
+			</genericcontrol>
+			
+			<genericcontrol  name="roll_status">
+				<anchored height="10">
+					<bottom parent="token" anchor="bottom" offset="5"/>
+					<left parent="token" anchor="left" offset="5"/>
+					<right/>
+				</anchored>
+				<invisible />
+				<icon></icon>				
+			</genericcontrol >
+		</sheetdata>
+	</windowclass>	
+	
+	
+	<windowclass name="RFI_roll_item">
+		<script file="scripts/ui/rfi_roll_item.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			<rfi_toggle_button name="select_button">
+				<anchored width="50" height="25">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left/>
+				</anchored>
+				<script>
+					function onButtonPress()
+						RFIA.selectRoll(window.getDatabaseNode());
+					end
+				</script>
+			</rfi_toggle_button>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="RFI_roll_item_multi_column">
+		<script file="scripts/ui/rfi_roll_item.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			<rfi_toggle_button name="select_button">
+				<anchored width="120" height="25">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<script>
+					function onButtonPress()
+						RFIA.selectRoll(window.getDatabaseNode());
+					end
+				</script>
+			</rfi_toggle_button>
+		</sheetdata>
+	</windowclass>
+</root>

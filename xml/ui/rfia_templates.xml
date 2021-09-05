@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<template name="rfia_group_title">	
+		<stringcontrol>
+			<anchored height="20">
+				<top anchor="top" offset="-22"/>
+				<left offset="20"/>
+			</anchored>
+			<frame name="metalplate" offset="10,2,10,2"/>
+			<font>subwindowsmalltitle</font>
+			<center />
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	
+	<template name="rfi_roll_list">
+		<windowlist name="list">
+			<frame name="groupbox" offset="10,10,10,10" />
+			<columns width="100"/>
+			<sizelimits>
+				<dynamic />
+			</sizelimits>
+			<class>RFI_roll_item</class>
+		</windowlist>
+	</template>
+		
+	<template name="rfi_roll_group_title">	
+		<stringcontrol>
+			<anchored height="20">
+				<top anchor="top" offset="-22"/>
+				<left offset="20"/>
+			</anchored>
+			<frame name="metalplate" offset="10,2,10,2"/>
+			<font>subwindowsmalltitle</font>
+			<center />
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	
+	<template name="rfi_toggle_button">
+		<buttoncontrol>
+			<font>button-white</font>
+			<state frame="buttonup" frameoffset="1,1"/>
+			<state frame="buttondown" frameoffset="1,1"/>
+		</buttoncontrol>
+	</template>
+	<template name="rfi_button">
+		<buttoncontrol>
+			<font>button-white</font>
+			<pressed frame="buttondown" frameoffset="1,1"/>
+			<state frame="buttonup" frameoffset="1,1"/>
+		</buttoncontrol>
+	</template>
+	
+	<template name="rfi_modifier_button">
+		<buttoncontrol>
+			<state frame="buttonup" frameoffset="1,1" />
+			<state frame="buttondown" frameoffset="1,1"/>
+			<font>button-white</font>
+			<script>
+				local bInit = false;
+				function onInit()
+					bInit = true;
+				end
+				function onValueChanged()
+					if bInit then
+						if getValue() ~= 0 then
+							RFIAModifierManager.setModifier(getName(), 1);
+						else
+							RFIAModifierManager.setModifier(getName(), 0);
+						end
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	<windowclass name="rfia_modifierstack">
+		<noclose />
+		<script>
+			function onInit()
+				RFIAModifierStack.registerControl(self);
+			end
+			
+			function onClose()
+				RFIAModifierStack.registerControl(nil);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>5,5,64,52</bounds>
+				<icon>modcollector</icon>
+				<counters>
+					<icon>modcollector_counter</icon>
+					<offset>
+						<x>9</x>
+						<y>45</y>
+					</offset>
+					<spacing>9</spacing>
+					<hoversize>4</hoversize>
+				</counters>
+				<acceptdrop>
+					<type>dice</type>
+					<type>number</type>
+					<type>attack</type>
+					<type>damage</type>
+					<type>heal</type>
+					<type>init</type>
+					<type>save</type>
+					<type>check</type>
+					<type>recovery</type>
+				</acceptdrop>
+				<script file="scripts/ui/modifiers/rfi_modifierstack_base.lua" />
+			</genericcontrol>
+			<numbercontrol name="modifier">
+				<bounds>15,12,42,22</bounds>
+				<stateframe>
+					<keyedit name="modstackfocus" />
+					<hover name="modstackfocus" />
+					<drophilight name="modstackfocus" />
+				</stateframe>
+				<font>modcollector</font>
+				<displaysign />
+				<droptypes>
+					<type>number</type>
+					<type>dice</type>
+				</droptypes>
+				<script file="scripts/ui/modifiers/rfi_modifierstack_modifier.lua" />
+			</numbercontrol>
+			<stringcontrol name="label">
+				<bounds>9,34,54,12</bounds>
+				<font>modcollectorlabel</font>
+				<static textres="modstack_label_modifier" />
+				<center />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.base.onDrop(x, y, draginfo);
+					end
+				</script>
+			</stringcontrol>
+		</sheetdata>
+	</windowclass>	
+</root>

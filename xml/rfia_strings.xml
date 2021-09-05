@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+    <string name="RFIA_window_title_display">ROLL FOR INITIATIVE++</string>
+	<string name="RFIA_pc_list_group_title">PCS</string>
+	<string name="RFIA_npc_list_group_title">NPCS</string>
+	<string name="RFIA_dm_request_list_group_title">DM'S ROLL REQUESTS</string>
+	<string name="RFIA_override_save_request_list_group_title">OVERRIDE SAVE REQUESTS</string>
+	<string name="RFIA_npc_filter">npc</string>
+	<string name="RFIA_window_title">Roll For Initiative Addon!</string>
+	
+    <string name="RFI_request_roll_window_title">Time to Roll!</string>
+
+    <string name="RFI_button_label">Roll</string>
+    <string name="RFI_button_label_tooltip">Time to roll!</string>
+    <string name="RFI_request_description">The DM is requesting a new roll!</string>
+	
+	
+	
+	<string name="RFIA_button_label_rolls_list">DM's Roll Requests</string>
+    <string name="RFI_button_label_select_all_pc">Select all PCs</string>
+    <string name="RFI_button_label_unselect_all_pc">Deselect all PCs</string>
+    <string name="RFIA_button_label_select_random_pc">Select random PC</string>	
+    <string name="RFIA_button_label_select_all_npc">Select all NPCs</string>
+    <string name="RFIA_button_label_unselect_all_npc">Deselect all NPCs</string>
+	<string name="RFIA_button_label_select_random_npc">Select random NPC</string>
+	
+    <string name="RFI_button_label_request_roll">REQUEST ROLL</string>
+	
+    <string name="RFI_check_roll_group_title">CHECK</string>
+    <string name="RFI_save_roll_group_title">SAVES</string>
+    <string name="RFI_skill_roll_group_title">SKILLS</string>
+    <string name="RFI_extra_roll_group_title">EXTRA</string>
+    <string name="RFI_raw_roll_group_title">DICE</string>
+    <string name="RFI_modifier_group_title">MODIFIERS</string>
+	
+	<string name="RFI_hidden_tooltip_modifier">This roll is hidden</string>
+	<string name="RFI_adv_tooltip_modifier">This roll has Advantage</string>
+	<string name="RFI_dis_tooltip_modifier">This roll has Disadvantage</string>
+	<string name="RFI_mod_tooltip_modifier">This roll has a MOD modifier</string>
+	<string name="RFI_dc_tooltip_modifier">This roll has DC: DCVALUE</string>
+    <string name="RFI_modifier_roll_request_title">MODIFIERS:</string>
+    <string name="RFI_cancel_roll_request">Cancel the roll request</string>
+	
+	<!-- OPTIONS -->
+    <string name="RFIA_option_header">Roll For Initiative Addon</string>
+	
+    <string name="RFIA_show_dc_to_players">Show DC to players</string>
+    <string name="RFIA_show_dc_on">On</string>
+    <string name="RFIA_show_dc_off">Off</string>	
+	
+    <string name="RFIA_manual_save_rolls_pc">Manual Save Rolls PC</string>
+    <string name="RFIA_manual_save_rolls_pc_on">On</string>
+    <string name="RFIA_manual_save_rolls_pc_off">Off</string>	
+	
+	<string name="RFIA_manual_save_rolls_npc">Manual Save Rolls NPC</string>
+    <string name="RFIA_manual_save_rolls_npc_on">On</string>
+    <string name="RFIA_manual_save_rolls_npc_off">Off</string>	
+	
+    <!-- NOTE: modifiied hide sidebar-->
+	<string name="RFIA_hide_sidebar_button">Hide Sidebar Button (requires reload)</string>
+    <string name="RFIA_hide_sidebar_button_on">On</string>
+    <string name="RFIA_hide_sidebar_button_off">Off</string>		
+	
+</root>
