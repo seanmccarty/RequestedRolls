@@ -21,7 +21,6 @@ end
 
 --Initial setup of the roll information and modifiers (unfortunately does not include the modifier stack!)
 function modSave(rSource, rTarget, rRoll)
-	Debug.chat(rRoll);
 	if User.isHost() then 
 		modSaveForHost(rSource, rTarget, rRoll);
 	else
@@ -56,7 +55,6 @@ function modSaveForHost(rSource, rTarget, rRoll)
 
 	
 	if  bShouldOverride then 
-		Debug.chat("tstg");
 		local dice = UtilityManager.copyDeep(rRoll.aDice);
 		--NOTE comment out the below line
 		--ActionSave.modSave(rSource, rTarget, rRoll);
@@ -64,7 +62,6 @@ function modSaveForHost(rSource, rTarget, rRoll)
 		rollOverrideData.aDice = dice;
 		--We have now stopped the dice from rolling yay!
 		rRoll.aDice = {};
-		Debug.chat(rRoll);
 		RFIARollOverrideManager.requestSaveOverrideModSave(ctNode, isPc, rollOverrideData, rRoll);
 	else
 		ActionSave.modSave(rSource, rTarget, rRoll);
@@ -77,8 +74,8 @@ function modSaveForPlayer(rSource, rTarget, rRoll)
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	local bInitialRequestSetupOccured = (rRoll.bRollOverride ~= nil);
 	local bIsRFIAManualRequest = rRoll.bRFIARequestRoll ~=nil;
+
 	if bManualSaveRollForPCOn and not bInitialRequestSetupOccured and not bIsRFIAManualRequest then
-		Debug.chat(rRoll);
 		local dice = UtilityManager.copyDeep(rRoll.aDice);
 		local rollOverrideData = UtilityManager.copyDeep(rRoll);
 		rollOverrideData.aDice = dice;
@@ -112,7 +109,7 @@ function onSaveForHost(rSource, rTarget, rRoll)
 	local bShouldOverride = false;
 	local ctNode;
 
-	Debug.chat("123");
+
 	if bOverrideTurnedOn and  not bInitialRequestSetupOccured and  not bIsRFIAManualRequest then
 		ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
 		isPc = RFIAEntriesManager.isPcFromNode(ctNode);	
@@ -124,7 +121,7 @@ function onSaveForHost(rSource, rTarget, rRoll)
 		end
 	end
 	
-	--modifier issue before here
+
 	if  bShouldOverride then
 		RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
 	else
@@ -138,7 +135,7 @@ function onSaveForPlayer(rSource, rTarget, rRoll)
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	local bInitialRequestSetupOccured = (rRoll.bRollOverride ~= nil);
 	local bIsRFIAManualRequest = rRoll.bRFIARequestRoll ~=nil;
-	Debug.chat("tst");
+	
 	if bManualSaveRollForPCOn and not bInitialRequestSetupOccured and not bIsRFIAManualRequest then
 		-- Debug.console("Time to let the DM know that he should update a request!");
 	else

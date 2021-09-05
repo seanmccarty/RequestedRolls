@@ -273,7 +273,6 @@ function getSaveOverrideRoll()
 		for i=1,table.getn(all_rolls) do
 		itemRoll = all_rolls[i];
 		if itemRoll.name == "SAV" then
-			Debug.chat(itemroll);
 			return itemRoll;
 		end
 	end

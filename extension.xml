@@ -3,8 +3,8 @@
 <root version="3.0">
 	<properties>
 		<name>5E - Roll For Initiative Addon (Beta)!</name>
-		<version>0.19</version>
-		<author>Adapted by Houndy - Originally created by Gerark</author>
+		<version>0.20</version>
+		<author>Revived by srmccarty - Then Adapted by Houndy - Originally created by Gerark</author>
 		<loadorder>99</loadorder>
 		<ruleset>
 			<name>5E</name>
@@ -12,12 +12,12 @@
 		</ruleset>
 		<description>
 			<text>5E - Roll For Initiative Addon (Beta)!</text>
-			<author>Adapted by Houndy - Originally created by Gerark</author>
+			<author>Revived by srmccarty - Then Adapted by Houndy - Originally created by Gerark</author>
 		</description>
 	</properties>
-	<announcement text="Sean 3"/>
-	<announcement text="---\r5E - Roll For Initiative Addon version 0.19\rby Houndy, 2020 " font="emotefont" icon="RFIA_Logo_Houndy"/>
-	<announcement text="Adapted from Roll For Iniaitive! by Gerark" font="emotefont" icon="RFI_Logo"/>
+	<announcement text="---\r5E - Roll For Initiative Addon version 0.20\rRevived by srmccarty" font="emotefont"/>>
+	<announcement text="Adapted from Roll For Initiative Addon version 0.19, by Houndy, 2020 " font="emotefont" icon="RFIA_Logo_Houndy"/>
+	<announcement text="Adapted from Roll For Iniaitive!, by Gerark" font="emotefont" icon="RFI_Logo"/>
 	<announcement text="For slash commands type /rfia \r---" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />

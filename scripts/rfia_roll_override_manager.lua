@@ -15,13 +15,12 @@ end
 --Unfortunately the stack mod is added after onMod is called, so we have to partially setup the request, then wait for onSave.
 function requestSaveOverrideModSave(ctNode, isPc, rollOverrideData, rRoll)
 	--Save the rRoll into the database. 
-	Debug.chat("TrequestSaveOverrideModSave");
 	createRequestSaveOverrideModSave(ctNode, isPc, rollOverrideData, rRoll);
 end
 
 
 function createRequestSaveOverrideModSave(ctNode, isPc, rollOverrideData, rRoll)
-	Debug.chat(rRoll);
+
 	owner = RFIAEntriesManager.getOwner(ctNode);
 	requestList = RFIARequestManager.createOrGetRequestGroupForPlayer(owner);
 	token =  RFIAEntriesManager.getToken(ctNode);
@@ -47,7 +46,7 @@ function addRequestSaveOverrideModSave(requestList, ctNode, identity, rfiaRoll, 
 	request:setRollOverrideData(rollOverrideData);
 	
 	local sType = rRoll.sType;
-	Debug.chat(rRoll);
+
 	if sType ==  "death" then
 		addDescriptionForDeathSave(request);
 	elseif sType == "concentration" then
@@ -146,8 +145,6 @@ function updateRequestSaveOverrideOnSave(ctNode, rRoll)
 	else
 		Comm.deliverOOBMessage(message, owner);
 	end
-	Debug.chat(rRoll);
-	Debug.chat(request);
 end
 
 function updateModifierForUi(description, name, reg, request)
@@ -192,7 +189,7 @@ function onRollOverrideRequest(message)
 		return;
 	end
 	
-	Debug.chat("onRollOverrideRequest");
+	
 	local sSource = message.sCreatureNode;
 	local rSource = ActorManager.getActor("pc", sSource);
 	local rRoll = {};
