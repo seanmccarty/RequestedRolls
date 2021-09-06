@@ -124,8 +124,6 @@ end
 
 function onRollRequest(message)
 	-- Debug.console("onRollRequest message", message);
-	--NOTE comment out
-	--RFIA.updateSidebarShortcut();
 	requestList = createOrGetRequestGroupForPlayer(message.username);
 	Interface.openWindow("RFIA_RollRequest", requestList);
 end

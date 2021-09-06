@@ -27,8 +27,8 @@ function registerOptions()
 	OptionsManager.registerCallback(rfiaHideSidebarButtonKey, onHideSideBarButtonOptionUpdate);	
 	
 	--Now that options have been registered we can 	updateSidebarShortcut();
-	if User.isHost() then
-		onHideSideBarButtonOptionUpdate();
+	if User.isHost() and not isHideSideBarButtonOn() then
+		RFIA.createSideBarShortcut();
 	end
 	
 end
@@ -36,16 +36,6 @@ end
 function onManualSaveRollOptionUpdate()
 	if User.isHost() then
 		RFIARequestManager.deleteAndCreateRequestsNode();
-	end
-end
-
-function onHideSideBarButtonOptionUpdate()
-	-- Debug.console("onHideSideBarButtonOptionUpdate");
-	if isHideSideBarButtonOn() then
-		--RFIA.deregisterSidebarShortcut();
-	else
-		--RFIA.updateSidebarShortcut();
-		RFIA.createSideBarShortcut();
 	end
 end
 

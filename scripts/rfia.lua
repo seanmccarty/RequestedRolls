@@ -4,7 +4,6 @@ local buttonDownImage = "RFIA_DefaultButtonDown";
 local tooltipTextKey = "RFIA_window_title";
 local isSidebarInitialized = false;
 local createRequestWindowName = "RequestRolls";
-local rollRequestWindowName = "RFIA_RollRequest";
 
 function onInit()
 	registerNodes();
