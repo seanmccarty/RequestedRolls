@@ -3,7 +3,7 @@ local buttonUpImage = "RFIA_DefaultButtonUp";
 local buttonDownImage = "RFIA_DefaultButtonDown";
 local tooltipTextKey = "RFIA_window_title";
 local isSidebarInitialized = false;
-local createRequestWindowName = "RFIA_CreateRequest";
+local createRequestWindowName = "RequestRolls";
 local rollRequestWindowName = "RFIA_RollRequest";
 
 function onInit()

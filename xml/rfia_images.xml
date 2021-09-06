@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-	<icon name="RFIA_Logo_Houndy" file="graphics/icons/rfia_logo_houndy.png" />
+	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
 	
 	<icon name="RFI_RollNotDone" file="graphics/icons/rfi_roll_not_done.png" />
 	<icon name="RFI_RollDone" file="graphics/icons/rfi_roll_done.png" />
@@ -19,7 +19,6 @@
 	<icon name="RFIA_5EThemeSidebarButtonUp" file="graphics/icons/rfia_5E_theme_button_up.png" />
 	<icon name="RFIA_5EThemeSidebarButtonDown" file="graphics/icons/rfia_5E_theme_button_down.png" />	
 	
-	<icon name="RFI_Logo" file="graphics/icons/rfi_logo.png" />
 	<icon name="RFI_Adv" file="graphics/icons/rfi_adv_icon.png" />
 	<icon name="RFI_Dis" file="graphics/icons/rfi_dis_icon.png" />
 	<icon name="RFI_Hidden" file="graphics/icons/rfi_hidden_icon.png" />

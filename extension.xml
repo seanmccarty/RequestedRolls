@@ -2,23 +2,23 @@
 
 <root version="3.0">
 	<properties>
-		<name>5E - Roll For Initiative Addon (Beta)!</name>
-		<version>0.20</version>
-		<author>Revived by srmccarty - Then Adapted by Houndy - Originally created by Gerark</author>
+		<name>5E - Requested Rolls</name>
+		<version>0.1</version>
+		<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
 		<loadorder>99</loadorder>
 		<ruleset>
 			<name>5E</name>
 			<minrelease>7</minrelease>
 		</ruleset>
 		<description>
-			<text>5E - Roll For Initiative Addon (Beta)!</text>
-			<author>Revived by srmccarty - Then Adapted by Houndy - Originally created by Gerark</author>
+			<text>5E - Requested Rolls</text>
+			<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
 		</description>
 	</properties>
-	<announcement text="---\r5E - Roll For Initiative Addon version 0.20\rRevived by srmccarty" font="emotefont"/>>
-	<announcement text="Adapted from Roll For Initiative Addon version 0.19, by Houndy, 2020 " font="emotefont" icon="RFIA_Logo_Houndy"/>
-	<announcement text="Adapted from Roll For Iniaitive!, by Gerark" font="emotefont" icon="RFI_Logo"/>
-	<announcement text="For slash commands type /rfia \r---" font="emotefont"/>
+	<announcement text="5E - Requested Rolls version 0.1\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="-Adapted from Roll For Initiative Addon, by Houndy" font="emotefont"/>
+	<announcement text="-Adapted from Roll For Initiative!, by Gerark" font="emotefont"/>
+	<announcement text="For slash commands type /rfia" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />
 		<includefile source="xml/rfia_scripts.xml" />

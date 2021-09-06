@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-    <string name="RFIA_window_title_display">ROLL FOR INITIATIVE++</string>
+    <string name="RFIA_window_title_display">Requested Rolls</string>
 	<string name="RFIA_pc_list_group_title">PCS</string>
 	<string name="RFIA_npc_list_group_title">NPCS</string>
 	<string name="RFIA_dm_request_list_group_title">DM'S ROLL REQUESTS</string>
 	<string name="RFIA_override_save_request_list_group_title">OVERRIDE SAVE REQUESTS</string>
 	<string name="RFIA_npc_filter">npc</string>
-	<string name="RFIA_window_title">Roll For Initiative Addon!</string>
+	<string name="RFIA_window_title">Requested Rolls</string>
 	
     <string name="RFI_request_roll_window_title">Time to Roll!</string>
 
@@ -43,7 +43,7 @@
     <string name="RFI_cancel_roll_request">Cancel the roll request</string>
 	
 	<!-- OPTIONS -->
-    <string name="RFIA_option_header">Roll For Initiative Addon</string>
+    <string name="RFIA_option_header">Requested Rolls</string>
 	
     <string name="RFIA_show_dc_to_players">Show DC to players</string>
     <string name="RFIA_show_dc_on">On</string>

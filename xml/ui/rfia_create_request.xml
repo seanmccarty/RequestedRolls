@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
-	<windowclass name="RFIA_CreateRequest">
+	<windowclass name="RequestRolls">
 		<script file="scripts/ui/rfia_create_request.lua"/>
 		<frame>charselect</frame>
 		<sizelimits>

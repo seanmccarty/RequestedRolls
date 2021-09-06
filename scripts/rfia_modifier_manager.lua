@@ -56,5 +56,5 @@ function getModifiers()
 end
 
 function getModifiersWindow()
-	return Interface.findWindow("RFIA_CreateRequest", RFIA.getDbRootName()).RFIA_modifiers_subwindow.subwindow;
+	return Interface.findWindow("RequestRolls", RFIA.getDbRootName()).RFIA_modifiers_subwindow.subwindow;
 end
