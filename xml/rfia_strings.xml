@@ -43,23 +43,16 @@
     <string name="RFI_cancel_roll_request">Cancel the roll request</string>
 	
 	<!-- OPTIONS -->
-    <string name="RFIA_option_header">Requested Rolls</string>
+    <string name="RR_option_header">Requested Rolls</string>
 	
-    <string name="RFIA_show_dc_to_players">Show DC to players</string>
-    <string name="RFIA_show_dc_on">On</string>
-    <string name="RFIA_show_dc_off">Off</string>	
+    <string name="RR_option_label_showDC">Show DC to Players</string>
 	
-    <string name="RFIA_manual_save_rolls_pc">Manual Save Rolls PC</string>
-    <string name="RFIA_manual_save_rolls_pc_on">On</string>
-    <string name="RFIA_manual_save_rolls_pc_off">Off</string>	
+    <string name="RR_option_label_pcRolls">Manual Save Rolls PC</string>	
 	
-	<string name="RFIA_manual_save_rolls_npc">Manual Save Rolls NPC</string>
-    <string name="RFIA_manual_save_rolls_npc_on">On</string>
-    <string name="RFIA_manual_save_rolls_npc_off">Off</string>	
+	<string name="RR_option_label_npcRolls">Manual Save Rolls NPC</string>
 	
-    <!-- NOTE: modifiied hide sidebar-->
-	<string name="RFIA_hide_sidebar_button">Hide Sidebar Button (requires reload)</string>
-    <string name="RFIA_hide_sidebar_button_on">On</string>
-    <string name="RFIA_hide_sidebar_button_off">Off</string>		
+	<string name="RR_option_label_sidebar">Hide Sidebar Button (requires reload)</string>
+    <string name="RR_option_val_hide">Hide</string>
+    <string name="RR_option_val_show">Show</string>		
 	
 </root>
