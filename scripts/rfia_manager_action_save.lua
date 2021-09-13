@@ -53,7 +53,7 @@ function modSaveForHost(rSource, rTarget, rRoll)
 	end
 	
 
-	
+
 	if  bShouldOverride then 
 		local dice = UtilityManager.copyDeep(rRoll.aDice);
 		--NOTE comment out the below line
@@ -71,6 +71,7 @@ end
 
 --If the player is going to do the roll
 function modSaveForPlayer(rSource, rTarget, rRoll)
+	--Debug.chat("modsaveforplayer", rSource);
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	local bInitialRequestSetupOccured = (rRoll.bRollOverride ~= nil);
 	local bIsRFIAManualRequest = rRoll.bRFIARequestRoll ~=nil;
@@ -90,7 +91,7 @@ end
 
 --Unfortunately the stack mod only gets added on after the modHandler, so we have to update it in the following methods;
 function onSave(rSource, rTarget, rRoll)
-	
+	--Debug.chat("rfia_onsave");
 	if User.isHost() then 
 		onSaveForHost(rSource, rTarget, rRoll);
 	else
@@ -125,7 +126,7 @@ function onSaveForHost(rSource, rTarget, rRoll)
 	if  bShouldOverride then
 		RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
 	else
-		ActionSave.onSave(rSource, rTarget, rRoll);	
+		ActionSave.onSave(rSource, rTarget, rRoll);
 	end
 
 end

@@ -29,7 +29,7 @@ function createRequestSaveOverrideModSave(ctNode, isPc, rollOverrideData, rRoll)
 	
 end
 function addRequestSaveOverrideModSave(requestList, ctNode, identity, rfiaRoll, token, isPc, rollOverrideData, rRoll)
-
+	--Debug.chat("addRequestSaveOverrideModSave");
 	ctIdentity = RFIAEntriesManager.getCTEntryId(ctNode);
 	requestNode = requestList.createChild();
 	RFIAEntriesManager.setRollStateRequested(ctNode);
@@ -56,6 +56,7 @@ function addRequestSaveOverrideModSave(requestList, ctNode, identity, rfiaRoll, 
 	else
 		ChatManager.SystemMessage("[" .. Interface.getString("tag_warning") .. "] ( sType not found)");
 	end	
+	--Debug.chat("addRequestSaveOverrideModSave",2);
 end
 
 function addDescriptionForSave(rRoll, request)
@@ -181,7 +182,7 @@ function createMessage(rSource, rTarget, rRoll)
 end
 
 function onRollOverrideRequest(message)
-	
+	--Debug.chat("rolloverriderequest",message);
 	
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	--Host must have changed options inbetween rolls.
@@ -204,7 +205,7 @@ function onRollOverrideRequest(message)
 	rRoll.nMod = nMod;
 
 	local ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
-	requestSaveOverrideModSave(ctNode, true, rRoll, rRoll);
+	requestSaveOverrideModSave(ctNode, ActorManager.isPC(sSource), rRoll, rRoll);
 	ActionsManager.lockModifiers();
 	--NOTE comment out the below line
 	--ActionSave.modSave(rSource, nill, rRoll);
