@@ -66,7 +66,7 @@ end
 
 function updateDC()
 	request = getRequest();
-	showDC = request:getDC() ~= nil and request:getDC() ~= 0 and RFIAOptionsManager.isShdowDcOn();
+	showDC = request:getDC() ~= nil and request:getDC() ~= 0 and RFIAOptionsManager.isShowDCOn();
 	dc.setVisible(showDC);
 	
 	if showDC then

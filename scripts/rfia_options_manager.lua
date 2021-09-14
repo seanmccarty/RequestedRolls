@@ -22,16 +22,16 @@ function registerOptions()
 	OptionsManager.registerCallback(rfiaManualSaveRollKeyPc, onManualSaveRollOptionUpdate);
 	OptionsManager.registerCallback(rfiaManualSaveRollKeyNpc, onManualSaveRollOptionUpdate);
 	
+	--the button to show/hide the shortcut is only shown for the GM
 	if Session.IsHost then
 		OptionsManager.registerOption2(rfiaHideSidebarButtonKey, true, "RR_option_header", "RR_option_label_sidebar", "option_entry_cycler", 
-			{ labels = "RR_option_val_hide", values = "hide", baselabel = "RR_option_val_show", baseval = "show", default = "show" });		
+			{ labels = "RR_option_val_hide", values = "hide", baselabel = "RR_option_val_show", baseval = "show", default = "show" });	
+		
+		--Now that options have been registered we can 	add the shortcut
+		if 	OptionsManager.isOption(rfiaHideSidebarButtonKey, "show") then
+			RFIA.createSideBarShortcut();
+		end
 	end
-	
-	--Now that options have been registered we can 	updateSidebarShortcut();
-	if Session.IsHost and OptionsManager.isOption(rfiaHideSidebarButtonKey, "show") then
-		RFIA.createSideBarShortcut();
-	end
-	
 end
 
 function onManualSaveRollOptionUpdate()
@@ -48,6 +48,6 @@ function isManualSaveRollNpcOn()
 	return OptionsManager.isOption(rfiaManualSaveRollKeyNpc, "on");
 end
 
-function isShdowDcOn()
+function isShowDCOn()
 	return OptionsManager.isOption(rfiaShowDcKey, "on");
 end

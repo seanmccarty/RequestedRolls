@@ -16,7 +16,7 @@ end
 
 -- Create the root node
 function registerNodes()
-	if User.isHost() then 
+	if Session.IsHost then 
 		rootNode = DB.createNode(dbRootName);
 	end
 end
@@ -34,7 +34,7 @@ end
 
 
 function openCreateRequestWindow()
-	if User.isHost() then
+	if Session.IsHost then
 		Interface.openWindow(createRequestWindowName, dbRootName);
 	end
 end

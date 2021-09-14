@@ -45,13 +45,13 @@
 	<!-- OPTIONS -->
     <string name="RR_option_header">Requested Rolls</string>
 	
-    <string name="RR_option_label_showDC">Show DC to Players</string>
+    <string name="RR_option_label_showDC">Player: Show DC</string>
 	
-    <string name="RR_option_label_pcRolls">Manual Save Rolls PC</string>	
+    <string name="RR_option_label_pcRolls">PC: Manual Click to Save</string>	
 	
-	<string name="RR_option_label_npcRolls">Manual Save Rolls NPC</string>
+	<string name="RR_option_label_npcRolls">NPC: Manual Click to Save</string>
 	
-	<string name="RR_option_label_sidebar">Hide Sidebar Button (requires reload)</string>
+	<string name="RR_option_label_sidebar">View: Sidebar Button (requires reload)</string>
     <string name="RR_option_val_hide">Hide</string>
     <string name="RR_option_val_show">Show</string>		
 	
