@@ -22,7 +22,7 @@ end
 
 
 function modSave(rSource, rTarget, rRoll)
-	if bDebug then Debug.chat("rfia mod save 2"); end
+	if bDebug then Debug.chat("rfia mod save"); end
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	local bManualSaveRollForNPCOn = RFIAOptionsManager.isManualSaveRollNpcOn();
 
@@ -61,61 +61,43 @@ end
 
 --Unfortunately the stack mod only gets added on after the modHandler, so we have to update it in the following methods;
 function onSave(rSource, rTarget, rRoll)
-	if bDebug then Debug.chat("rfia_onsave"); end
-	if User.isHost() then 
-		onSaveForHost(rSource, rTarget, rRoll);
-	else
-		onSaveForPlayer(rSource, rTarget, rRoll);
-	end	
-	
-end
+	if bDebug then Debug.chat("rfia on save 2"); end
 
-function onSaveForHost(rSource, rTarget, rRoll)
-	if bDebug then Debug.chat("onsaveforhost"); end
 	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
 	local bManualSaveRollForNPCOn = RFIAOptionsManager.isManualSaveRollNpcOn();
-	local bOverrideTurnedOn = ( bManualSaveRollForPCOn or bManualSaveRollForNPCOn);
+
 	local bInitialRequestSetupOccured = (rRoll.bRollOverride ~= nil);
 	local bIsRFIAManualRequest = rRoll.bRFIARequestRoll ~=nil;
 	local bShouldOverride = false;
-	local ctNode;
 
-
-	if bOverrideTurnedOn and  not bInitialRequestSetupOccured and  not bIsRFIAManualRequest then
-		ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
-		isPc = RFIAEntriesManager.isPcFromNode(ctNode);	
-		if isPc and bManualSaveRollForPCOn then
-			bShouldOverride = true;
-		end
-		if not isPc and bManualSaveRollForNPCOn then
-			bShouldOverride = true;
+	if not bInitialRequestSetupOccured and  not bIsRFIAManualRequest then
+		if ActorManager.isPC(sSource) then
+			if bManualSaveRollForPCOn then
+				bShouldOverride = true;
+			end
+		else
+			if bManualSaveRollForNPCOn then
+				bShouldOverride = true;
+			end
 		end
 	end
-	
 
-	if  bShouldOverride then
-		RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
+	if bShouldOverride then
+		local dice = UtilityManager.copyDeep(rRoll.aDice);
+		local rollOverrideData = UtilityManager.copyDeep(rRoll);
+		rollOverrideData.aDice = dice;
+		--We have now stopped the dice from rolling yay!
+		rRoll.aDice = {};
+		if Session.IsHost then
+			ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
+			RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
+		else
+			-- do nothing?
+		end
 	else
-		ActionSave.onSave(rSource, rTarget, rRoll);
-	end
-
-end
-
-function onSaveForPlayer(rSource, rTarget, rRoll)
-
-	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
-	local bInitialRequestSetupOccured = (rRoll.bRollOverride ~= nil);
-	local bIsRFIAManualRequest = rRoll.bRFIARequestRoll ~=nil;
-	
-	if bManualSaveRollForPCOn and not bInitialRequestSetupOccured and not bIsRFIAManualRequest then
-		-- Debug.console("Time to let the DM know that he should update a request!");
-	else
-		ActionSave.onSave(rSource, rTarget, rRoll);
+		ActionSave.modSave(rSource, rTarget, rRoll);
 	end
 end
-
-
-
 
 function onDeathRoll(rSource, rTarget, rRoll)
 
