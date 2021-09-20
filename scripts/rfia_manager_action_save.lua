@@ -101,7 +101,7 @@ end
 
 function onDeathRoll(rSource, rTarget, rRoll)
 
-	if User.isHost() then 
+	if Session.IsHost then 
 		onDeathRollForHost(rSource, rTarget, rRoll);
 	else
 		onDeathRollForPlayer(rSource, rTarget, rRoll);
@@ -158,7 +158,7 @@ end
 
 function onConcentrationRoll(rSource, rTarget, rRoll)
 
-	if User.isHost() then 
+	if Session.IsHost then 
 		onConcentrationRollForHost(rSource, rTarget, rRoll);
 	else
 		onConcentrationRollForPlayer(rSource, rTarget, rRoll);

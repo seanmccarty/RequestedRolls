@@ -3,7 +3,7 @@ Listens to the CT, if skills are changed for an entry then we update.
 ]]
 
 function onInit()
-	if User.isHost() then
+	if Session.IsHost then
 		registerToCTEvents();
 	end
 end

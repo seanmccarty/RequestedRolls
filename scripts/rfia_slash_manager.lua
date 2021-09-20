@@ -2,7 +2,7 @@ function onInit()
 
 	Comm.registerSlashHandler("rfia", onSlashCommandRFIAHelp);
 	Comm.registerSlashHandler("rfiarolls", onSlashCommandRFIARollsOpen);
-	if User.isHost()  then
+	if Session.IsHost  then
 		Comm.registerSlashHandler("rfiarequest ", onSlashCommandRFIARequestOpen);
 	end
 end
@@ -12,7 +12,7 @@ function onSlashCommandRFIAHelp(sCommand, sParams)
 	ChatManager.SystemMessage("----------------");
 	ChatManager.SystemMessage("/rfia");
 	ChatManager.SystemMessage("\t list of available rfia commands");		
-	if User.isHost()  then	
+	if Session.IsHost  then	
 		ChatManager.SystemMessage("/rfiarequest");
 		ChatManager.SystemMessage("\t DM only - open the create request window");
 	end	
@@ -22,7 +22,7 @@ function onSlashCommandRFIAHelp(sCommand, sParams)
 end
 
 function onSlashCommandRFIARollsOpen(sCommand, sParams)
-	if User.isHost()  then	
+	if Session.IsHost  then	
 		RFIARequestManager.openRollRequestListForDm();
 	else
 		RFIARequestManager.openRollRequestListForUser(User.getUsername());
@@ -30,7 +30,7 @@ function onSlashCommandRFIARollsOpen(sCommand, sParams)
 end
 
 function onSlashCommandRFIARequestOpen(sCommand, sParams)
-	if User.isHost()  then		
+	if Session.IsHost  then		
 		RFIA.openCreateRequestWindow();
 	end	
 end

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 --[[
 Handles the rolls list and the rolls.
 
@@ -38,7 +39,7 @@ local DIE_CATEGORY = "Die";
 function onInit()
 	
 	-- OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_RFI_ROLL_DONE, onRollDone);
-	if User.isHost() then
+	if Session.IsHost then
 		OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_RFI_HIDE_ROLL, performHiddenRoll);
 	end
 	
@@ -50,7 +51,7 @@ end
  ------------- Database Setup -----------
 
 function createRootNodes()
-	if User.isHost() then
+	if Session.IsHost then
 		rollList = getOrCreateRootNode();
 		rollList.delete();
 		getOrCreateRootNode();
@@ -151,7 +152,7 @@ function addItem(name, category, parentNode, count, rolltype, rolldescription, r
 		abilitiesCount = abilitiesCount + 1;
 		item.id = abilitiesCount;
 
-		if User.isHost() then
+		if Session.IsHost then
 			node = parentNode.createChild();
 			roll = RFIWrapper.wrapRoll(node);
 			roll:setName(item.name);
@@ -300,7 +301,7 @@ function sendHiddenRollRequestToHost(request)
 end
 
 function performRoll(request)
-	if request:isHidden() and User.isHost() == false then
+	if request:isHidden() and Session.IsHost == false then
 		addTowerMessage(request);
 		sendHiddenRollRequestToHost(request);
 	else
@@ -346,7 +347,7 @@ end
 -- end
 
 -- function onRollDone(msgOOB)
-	-- if User.isHost() then
+	-- if Session.IsHost then
 		-- Debug.console("Hello from onRollDone msgOOB", msgOOB);
 		-- entryNode = RFIAEntriesManager.getEntryById(msgOOB.username);
 		-- RFIAEntriesManager.setRollStateDone(entryNode);
@@ -354,10 +355,10 @@ end
 -- end
 
 function performInitRoll(request)
-	local rRoll = ActionInit.getRoll(request:getActor(), bSecretRoll);
+	local rRoll = ActionInit.getRoll(request:getActor(), nil);
 	rRoll.bSecret = request:isHidden();
 	rRoll.bTower = request:isHidden();	
-	ActionsManager.performAction(draginfo, request:getActor(), rRoll);
+	ActionsManager.performAction(nil, request:getActor(), rRoll);
 end
 
 function performCheckRoll( request )

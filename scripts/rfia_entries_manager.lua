@@ -19,7 +19,7 @@ function getRfiaNpcSkillsPath()
 end
 
 function onInit()
-	if User.isHost() then
+	if Session.IsHost then
 		initListWithCT();
 	end
 end
