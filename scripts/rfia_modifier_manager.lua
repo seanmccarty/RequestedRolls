@@ -5,7 +5,7 @@ function onInit()
 end
 
 function createNodes()
-	if User.isHost() then 
+	if Session.IsHost then 
 		createNode(RFIA_MODIFIERS);
 		populateModifiers();
 	end

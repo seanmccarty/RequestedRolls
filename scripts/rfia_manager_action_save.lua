@@ -21,7 +21,7 @@ end
 
 --Initial setup of the roll information and modifiers (unfortunately does not include the modifier stack!)
 function modSave(rSource, rTarget, rRoll)
-	if User.isHost() then 
+	if Session.IsHost then 
 		modSaveForHost(rSource, rTarget, rRoll);
 	else
 		modSaveForPlayer(rSource, rTarget, rRoll);
@@ -92,7 +92,7 @@ end
 --Unfortunately the stack mod only gets added on after the modHandler, so we have to update it in the following methods;
 function onSave(rSource, rTarget, rRoll)
 	--Debug.chat("rfia_onsave");
-	if User.isHost() then 
+	if Session.IsHost then 
 		onSaveForHost(rSource, rTarget, rRoll);
 	else
 		onSaveForPlayer(rSource, rTarget, rRoll);
@@ -149,7 +149,7 @@ end
 
 function onDeathRoll(rSource, rTarget, rRoll)
 
-	if User.isHost() then 
+	if Session.IsHost then 
 		onDeathRollForHost(rSource, rTarget, rRoll);
 	else
 		onDeathRollForPlayer(rSource, rTarget, rRoll);
@@ -206,7 +206,7 @@ end
 
 function onConcentrationRoll(rSource, rTarget, rRoll)
 
-	if User.isHost() then 
+	if Session.IsHost then 
 		onConcentrationRollForHost(rSource, rTarget, rRoll);
 	else
 		onConcentrationRollForPlayer(rSource, rTarget, rRoll);

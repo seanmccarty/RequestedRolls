@@ -7,7 +7,7 @@ function onInit()
 end
 
 function createNodes()
-	if User.isHost() then 
+	if Session.IsHost then 
 		deleteAndCreateRequestsNode();
 		updateCanRequestRoll();
 		createOrGetRequestGroupForPlayer(RFIAOwnershipManager.getDMUsername());
@@ -42,7 +42,7 @@ function notifyRollRequestTo(roll, selectedEntryList)
 end
 
 function requestRoll()
-	if User.isHost() then
+	if Session.IsHost then
 		roll = RFIARollManager.getSelectedRoll();
 		selectedEntryList = RFIAEntriesManager.getSelectedEntries();
 		notifyRollRequestTo(roll, selectedEntryList);
@@ -129,7 +129,7 @@ function onRollRequest(message)
 end
 
 function openRollRequestListForDm()
-	if User.isHost() then
+	if Session.IsHost then
 		requestList = createOrGetRequestGroupForPlayer(RFIAOwnershipManager.getDMUsername());
 		Interface.openWindow("RFIA_RollRequest", requestList);
 	end

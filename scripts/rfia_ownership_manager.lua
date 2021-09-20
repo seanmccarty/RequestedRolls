@@ -6,7 +6,7 @@ function getDMUsername()
 end
 
 function onInit()
-	if User.isHost() then
+	if Session.IsHost then
 		User.onIdentityActivation = onIdentityActivation;
 		User.onLogin = onLogin;
 	end
@@ -14,7 +14,7 @@ end
 
 function onLogin(username, activated)
 	-- Debug.console("onLogin");
-	if User.isHost() then	
+	if Session.IsHost then	
 		-- Debug.console("onLogin isHost");
 		if activated == true then
 			RFIARequestManager.createOrGetRequestGroupForPlayer(username);

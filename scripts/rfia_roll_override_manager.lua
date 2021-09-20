@@ -6,7 +6,7 @@ Handles any saves if the roll override options are turned on.
 local OOB_MSGTYPE_RFIA_ROLL_REQUEST = "rfia_rolloverride";
 local RFIA_OVERRIDE_TEMP = "RFIA_OVERRIDE_TEMP";
 function onInit()
-	if User.isHost() then
+	if Session.IsHost then
 		OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_RFIA_ROLL_REQUEST, onRollOverrideRequest);
 		ActionsManager.initAction(RFIA_OVERRIDE_TEMP);
 	end
@@ -212,7 +212,7 @@ function onRollOverrideRequest(message)
 	--Temp change the type
 	local originalType = UtilityManager.copyDeep(rRoll.sType);
 	rRoll.sType = RFIA_OVERRIDE_TEMP;
-	ActionsManager.applyModifiers(rSource, nill, rRoll, false);
+	ActionsManager.applyModifiers(rSource, nil, rRoll, false);
 	ActionsManager.unlockModifiers(true);
 	--Change the type back
 	rRoll.sType = originalType;
