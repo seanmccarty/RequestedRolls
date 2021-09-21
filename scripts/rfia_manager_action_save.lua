@@ -5,7 +5,6 @@ So lets create a special rfia_request roll for the player to roll.
 Here we overtake the 5e manager_action_save handlers. We always make sure to recall these methods eventually so nothing is missed out. 
 
 ]]
-local bDebug = true;
 function onInit()
 
 	ActionsManager.registerModHandler("save", modSave);	
@@ -79,7 +78,7 @@ function onSave(rSource, rTarget, rRoll)
 			-- do nothing?
 		end
 	else
-		ActionSave.modSave(rSource, rTarget, rRoll);
+		ActionSave.onSave(rSource, rTarget, rRoll);
 	end
 end
 
@@ -87,7 +86,8 @@ function onDeathRoll(rSource, rTarget, rRoll)
 	if RFIA.bDebug then Debug.chat("rfia on death"); end
 	if  shouldOverride(rRoll, rSource) then
 		if Session.IsHost then
-		RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
+			ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
+			RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
 		else
 			--do nothing?
 		end
@@ -100,6 +100,7 @@ function onConcentrationRoll(rSource, rTarget, rRoll)
 	if RFIA.bDebug then Debug.chat("rfia on concentration"); end
 	if  shouldOverride(rRoll, rSource) then
 		if Session.IsHost then
+			ctNode = RFIAEntriesManager.getEntryByPath(rSource.sCTNode);
 			RFIARollOverrideManager.requestSaveOverrideOnSave(ctNode, rRoll);
 		else
 			--do nothing?
