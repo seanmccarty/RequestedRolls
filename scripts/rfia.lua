@@ -5,6 +5,8 @@ local tooltipTextKey = "RFIA_window_title";
 local isSidebarInitialized = false;
 local createRequestWindowName = "RequestRolls";
 
+bDebug = false;
+
 function onInit()
 	registerNodes();
 	updateButtons();
