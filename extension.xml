@@ -3,7 +3,7 @@
 <root version="3.0">
 	<properties>
 		<name>5E - Requested Rolls</name>
-		<version>0.1</version>
+		<version>1.0</version>
 		<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
 		<loadorder>99</loadorder>
 		<ruleset>
@@ -15,9 +15,7 @@
 			<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
 		</description>
 	</properties>
-	<announcement text="5E - Requested Rolls version 0.1\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
-	<announcement text="-Adapted from Roll For Initiative Addon, by Houndy" font="emotefont"/>
-	<announcement text="-Adapted from Roll For Initiative!, by Gerark" font="emotefont"/>
+	<announcement text="5E - Requested Rolls version 1.0\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /rfia" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />
