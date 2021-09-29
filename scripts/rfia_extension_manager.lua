@@ -4,6 +4,7 @@ local coloredSideBarThemeName = "Colored Sidebar";
 
 function onInit()
 	-- debugExtensions();
+	bCharacterSheetTweaksEnabled = isThemeEnabled("Mad Nomad's Character Sheet Tweaks");
 end
 
 
