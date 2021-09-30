@@ -184,13 +184,6 @@ end
 function onRollOverrideRequest(message)
 	--Debug.chat("rolloverriderequest",message);
 	
-	local bManualSaveRollForPCOn = RFIAOptionsManager.isManualSaveRollPcOn();
-	--Host must have changed options inbetween rolls.
-	if not bManualSaveRollForPCOn then
-		return;
-	end
-	
-	
 	local sSource = message.sCreatureNode;
 	local rSource = ActorManager.getActor("pc", sSource);
 	local rRoll = {};

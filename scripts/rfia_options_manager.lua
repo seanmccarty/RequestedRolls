@@ -13,7 +13,7 @@ function registerOptions()
 	OptionsManager.registerOption2(rfiaShowDcKey, false, "RR_option_header", "RR_option_label_showDC", "option_entry_cycler", 
 			{ labels = "option_val_off", values = "off", baselabel = "option_val_on", baseval = "on", default = "on" });
 			
-	OptionsManager.registerOption2(rfiaManualSaveRollKeyPc, false, "RR_option_header", "RR_option_label_pcRolls", "option_entry_cycler", 
+	OptionsManager.registerOption2(rfiaManualSaveRollKeyPc, true, "RR_option_header", "RR_option_label_pcRolls", "option_entry_cycler", 
 			{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
 			
 	OptionsManager.registerOption2(rfiaManualSaveRollKeyNpc, false, "RR_option_header", "RR_option_label_npcRolls", "option_entry_cycler", 
