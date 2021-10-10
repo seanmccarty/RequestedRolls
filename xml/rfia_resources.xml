@@ -3,7 +3,6 @@
 <root>
 	<includefile source="xml/rfia_images.xml" />
 	<includefile source="xml/rfia_strings.xml" />
-<!-- 	<includefile source="xml/rfia_options.xml" /> -->
 	<includefile source="xml/ui/rfia_templates.xml" />
 	<includefile source="xml/ui/rfia_create_request.xml" />
 	<includefile source="xml/ui/rfia_roll_request.xml" />

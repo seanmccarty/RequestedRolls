@@ -4,7 +4,7 @@
 		<script file="scripts/ui/rfia_create_request.lua"/>
 		<frame>charselect</frame>
 		<sizelimits>
-			<minimum width="500" height="900" />
+			<minimum width="500" height="850" />
 			<dynamic />
 		</sizelimits>
 		<nodelete />
@@ -109,7 +109,7 @@
 				</parameters>				
 <!-- 				<script>
 					function onFilter( w )	
-						return window.filter("charsheet", w.getDatabaseNode(), "rfia_entry");							
+						return window.filter("charsheet", w.getDatabaseNode(), "rfia_entry");
 					end
 				</script> -->
 				<class>rfia_entry</class>				
@@ -201,11 +201,15 @@
 				<parameters>
 					<listType>npc</listType>
 				</parameters>
-<!-- 				<script>
-					function onFilter( w )	
-						return window.filter("npc", w.getDatabaseNode(), "rfia_entry");							
+				<script>
+					function onFilter( w )
+						if CombatGroupsManager then
+							return CombatGroupsManager.onFilter(w.getDatabaseNode());
+						else
+							return true;
+						end
 					end
-				</script> -->
+				</script>
 				<class>rfia_entry</class>				
 				<anchored height="50">
 					<top parent="rfia_pc_list" anchor="bottom" relation="relative" offset="35" />
