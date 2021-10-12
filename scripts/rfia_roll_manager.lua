@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-field
 --[[
 Handles the rolls list and the rolls.
 
@@ -204,7 +203,7 @@ function populateDB()
 	addSkillItem("Sleight of Hand",	"Skill", 		"Sleight of Hand Check",		performSkillRoll);
 	addSkillItem("Stealth", 		"Skill", 		"Stealth Check",				performSkillRoll);
 	addSkillItem("Survival", 		"Skill", 		"Survival Check",				performSkillRoll);
-	if bCharacterSheetTweaksEnabled then
+	if RFIAExtensionManager.bCharacterSheetTweaksEnabled then
 		addSkillItem("Tools/Items: Artisans Tools", "Skill", "Artisans Tools",			performSkillRoll); 
 		addSkillItem("Tools/Items: Gaming Set", "Skill", "Gaming Set", 					performSkillRoll); 
 		addSkillItem("Tools/Items: Instrument", "Skill", "Instrument", 					performSkillRoll); 
