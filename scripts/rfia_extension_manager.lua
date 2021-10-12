@@ -3,7 +3,7 @@ local coreSideBarThemeName = "Core Sidebar for 5e";
 local coloredSideBarThemeName = "Colored Sidebar";
 
 function onInit()
-	-- debugExtensions();
+	if RFIA.bDebug then debugExtensions(); end
 	bCharacterSheetTweaksEnabled = isThemeEnabled("Mad Nomad's Character Sheet Tweaks");
 end
 

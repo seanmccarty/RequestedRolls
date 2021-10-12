@@ -2,6 +2,7 @@
 
 <root>
 	<script name="RFIA" file="scripts/rfia.lua" />
+	<script name="RFIAExtensionManager" file="scripts/rfia_extension_manager.lua" />
 	<script name="RFIAOptionsManager" file="scripts/rfia_options_manager.lua" />
 	<script name="RFIAEntriesManager" file="scripts/rfia_entries_manager.lua" />
 	<script name="RFIACTListener" file="scripts/rfia_ct_listener.lua" />
@@ -12,7 +13,7 @@
 	<script name="RFIAManagerActionSave" file="scripts/rfia_manager_action_save.lua" />
 	<script name="RFIARollOverrideManager" file="scripts/rfia_roll_override_manager.lua" />
 	<script name="RFIASlashManager" file="scripts/rfia_slash_manager.lua" />	
-	<script name="RFIAExtensionManager" file="scripts/rfia_extension_manager.lua" />
+
 	<script name="RFIAModifierStack" file="scripts/rfia_modifierstack.lua" />	
 	
 	<script name="RFIWrapper" file="scripts/rfi_wrapper.lua" />
