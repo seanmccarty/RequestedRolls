@@ -2,7 +2,6 @@ local rfiaManualSaveRollKeyPc = "RR_option_label_pcRolls";
 local rfiaManualSaveRollKeyNpc = "RR_option_label_npcRolls";
 local rfiaHideSidebarButtonKey = "RR_option_label_sidebar";
 local rfiaShowDcKey = "RR_option_label_showDC";
-local rfiaDebugOn = "";
 
 function onInit()
 	registerOptions();

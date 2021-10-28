@@ -2,7 +2,6 @@ local dbRootName = "RFIA_Root";
 local buttonUpImage = "RFIA_DefaultButtonUp";
 local buttonDownImage = "RFIA_DefaultButtonDown";
 local tooltipTextKey = "RFIA_window_title";
-local isSidebarInitialized = false;
 local createRequestWindowName = "RequestRolls";
 
 bDebug = false;

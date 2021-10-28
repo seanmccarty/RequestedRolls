@@ -8,10 +8,10 @@ function onInit()
 end
 
 
-function debugExtensions()
+function listExtensions()
 	local extensions = Extension.getExtensions();
     for _, extension in ipairs(extensions) do
-    	Debug.console("checkAndHandleExtensionCompatibility extension", Extension.getExtensionInfo(extension).name);
+    	Debug.console("listExtension", Extension.getExtensionInfo(extension).name);
     end
 end
 
