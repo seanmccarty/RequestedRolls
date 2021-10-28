@@ -1,5 +1,7 @@
-local ADV_MODIFIER = "RFIA_Root.modifiers.ADV";
-local DIS_MODIFIER = "RFIA_Root.modifiers.DIS";
+if User.getRulesetName()=="5E" then
+	local ADV_MODIFIER = "RFIA_Root.modifiers.ADV";
+	local DIS_MODIFIER = "RFIA_Root.modifiers.DIS";
+end
 local HIDDEN_MODIFIER = "RFIA_Root.modifiers.HIDDEN";
 local DC_MODIFIER = "RFIA_Root.modifiers.DC";
 
@@ -18,8 +20,10 @@ end
 
 function updateModifierButtons()
 	-- Debug.console("rfia_create_request_modifiers.lua updateModifierButtons");
-	updateButton(ADV, ADV_MODIFIER);
-	updateButton(DIS, DIS_MODIFIER);
+	if User.getRulesetName()=="5E" then
+		updateButton(ADV, ADV_MODIFIER);
+		updateButton(DIS, DIS_MODIFIER);
+	end
 	updateButton(HIDDEN, HIDDEN_MODIFIER);
 end
 
@@ -31,8 +35,10 @@ end
 
 function clearButtons()
 	-- Debug.console("rfia_create_request_modifiers.lua clearButtons");
-	clearButton(ADV);
-	clearButton(DIS);
+	if User.getRulesetName()=="5E" then
+		clearButton(ADV);
+		clearButton(DIS);
+	end
 	clearButton(HIDDEN);
 end
 

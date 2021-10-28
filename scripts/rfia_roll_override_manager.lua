@@ -122,8 +122,10 @@ function updateRequestSaveOverrideOnSave(ctNode, rRoll)
 	
 	request = RFIWrapper.wrapRequest(requestNode);
 		--Sort out modifiers for UI
-	updateModifierForUi(rRoll.sDesc, "ADV", "%[ADV%]", request)
-	updateModifierForUi(rRoll.sDesc, "DIS", "%[DIS%]", request)
+	if User.getRulesetName()=="5E" then
+		updateModifierForUi(rRoll.sDesc, "ADV", "%[ADV%]", request)
+		updateModifierForUi(rRoll.sDesc, "DIS", "%[DIS%]", request)
+	end
 	if rRoll.nTarget ~= 0 and rRoll.nTarget ~= nil then
 		request:setModifier("DC", rRoll.nTarget);
 	end
