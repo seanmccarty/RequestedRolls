@@ -1,7 +1,5 @@
-if User.getRulesetName()=="5E" then
-	local ADV_MODIFIER = "RFIA_Root.modifiers.ADV";
-	local DIS_MODIFIER = "RFIA_Root.modifiers.DIS";
-end
+local ADV_MODIFIER = "RFIA_Root.modifiers.ADV";
+local DIS_MODIFIER = "RFIA_Root.modifiers.DIS";
 local HIDDEN_MODIFIER = "RFIA_Root.modifiers.HIDDEN";
 local DC_MODIFIER = "RFIA_Root.modifiers.DC";
 

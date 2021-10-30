@@ -3,6 +3,8 @@
 <root>
 	<includefile source="xml/rfia_images.xml" />
 	<includefile source="xml/rfia_strings.xml" />
+	<includefile ruleset="PFRPG" source="xml/ui/rr_templates_PFRPG.xml" />
+	<includefile ruleset="5E" source="xml/ui/rr_templates_5E.xml" />
 	<includefile source="xml/ui/rfia_templates.xml" />
 	<includefile source="xml/ui/rfia_create_request.xml" />
 	<includefile source="xml/ui/rfia_roll_request.xml" />
