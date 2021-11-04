@@ -406,7 +406,10 @@ function performInitRoll(request)
 end
 
 function performCheckRoll( request )
-	local rRoll = ActionCheck.getRoll(request:getActor(), string.lower(request:getRollName()));
+	local rRoll = ActionAbility.getRoll(request:getActor(),string.lower(request:getRollName()));
+	if User.getRulesetName()=="5E" then
+		rRoll = ActionCheck.getRoll(request:getActor(), string.lower(request:getRollName()));
+	end
 	rRoll.bSecret = request:isHidden();
 	rRoll.bTower = request:isHidden();
 	rRoll.nTarget = request:getDC();
@@ -487,7 +490,11 @@ function performSkillRollForNpc(request)
 			local itemSkillName = DB.getValue(node,"name","");
 			if string.lower(itemSkillName) ==  string.lower(rollName) then
 				local nMod = DB.getValue(node,"mod", "number", 0);
-				ActionSkill.performNPCRoll(nil, rActor, itemSkillName, nMod);
+				if User.getRulesetName()=="5E" then
+					ActionSkill.performNPCRoll(nil, rActor, itemSkillName, nMod);
+				else
+					ActionSkill.performRoll(nil, rActor, itemSkillName, nMod);
+				end
 				return;
 			end
 		end	
@@ -495,15 +502,21 @@ function performSkillRollForNpc(request)
 	--If we didnt find it in the npcProfSkills list then we will use their ability score 
 	if DataCommon.skilldata[rollName] then
 		local stat = DataCommon.skilldata[rollName].stat;
-		local npcAbilitiesList = ctNode.getChild("abilities");
-		for k,node in pairs(npcAbilitiesList.getChildren()) do
-			local abilityName = node.getName();
-			if abilityName ==  stat then
-				local nMod = DB.getValue(node,"bonus", "number", 0);
-				ActionSkill.performNPCRoll(nil, rActor, rollName, nMod);
-				return;
+		if User.getRulesetName()=="5E" then
+			local npcAbilitiesList = ctNode.getChild("abilities");
+			for k,node in pairs(npcAbilitiesList.getChildren()) do
+				local abilityName = node.getName();
+				if abilityName ==  stat then
+					local nMod = DB.getValue(node,"bonus", "number", 0);
+					ActionSkill.performNPCRoll(nil, rActor, rollName, nMod);
+					return;
+				end
 			end
+		else
+			local nMod = ActorManager35E.getAbilityBonus(rActor, stat);
+			ActionSkill.performRoll(nil, rActor, rollName, nMod);
 		end
+		return;
 	end
 		
 	-- Have not found the skill at all. 
