@@ -12,7 +12,10 @@ Optionally, this extension can cause a dialog to popup for any saving throw requ
 * Better Menus https://forge.fantasygrounds.com/shop/items/69/view
 * Combat Groups https://forge.fantasygrounds.com/shop/items/154/view
 # Attribution
-SmiteWorks owns rights to code sections copied from their rulesets by permission for Fantasy Grounds community development. 'Fantasy Grounds' is a trademark of SmiteWorks USA, LLC. 'Fantasy Grounds' is Copyright 2004-2021 SmiteWorks USA LLC.
+**Lead Maintainer**: srmccarty  
+**PFRPG Developer**: Jacob Proffitt
+
+SmiteWorks owns rights to code sections copied from their rulesets by permission for Fantasy Grounds community development. 'Fantasy Grounds' is a trademark of SmiteWorks USA, LLC. 'Fantasy Grounds' is Copyright 2004-2021 SmiteWorks USA LLC.  
 This project is based on the work of Houndy for Roll For Initiative Addon, which is in turn based on the work of Gerark for Roll For Initiative.
 # Disclaimer
 By using this extension, you agree that it is provided as-is and you use it at your own risk. This includes anything bad happening to your campaign.
