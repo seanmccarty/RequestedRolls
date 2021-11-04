@@ -353,19 +353,17 @@
 				</anchored>
 				<frame name="groupbox" offset="0,0,0,0"/>
 			</genericcontrol>
-			<stringcontrol>
+			<rr_header>
 				<anchored height="20">
 					<top offset="3"/>
 					<left offset="40"/>
 					<right offset="-40"/>
 				</anchored>
-				<frame name="metalplate" offset="10,2,10,2"/>
-				<font>subwindowsmalltitle</font>
 				<center />
 				<nodrag />
 				<readonly />
 				<static textres="RFI_modifier_group_title" />
-			</stringcontrol>
+			</rr_header>
 			
 			<subwindow name="modifiers">
 				<class>rfia_modifierstack</class>
@@ -377,6 +375,13 @@
 			</subwindow>
 			
 			<rfi_modifier_button name="DIS">
+				<script>
+					function onInit()
+						if User.getRulesetName()~="5E" then
+							setVisible(false);
+						end
+					end
+				</script>
 				<anchored  height="25" width="35">
 					<top parent="columnanchor" anchor="bottom" offset="35"/>
 					<left parent="modifiers" anchor="right" offset="5"/>
@@ -384,6 +389,13 @@
 				<text>DIS</text>
 			</rfi_modifier_button>
 			<rfi_modifier_button name="ADV">
+				<script>
+					function onInit()
+						if User.getRulesetName()~="5E" then
+							setVisible(false);
+						end
+					end
+				</script>
 				<anchored  height="25" width="35">
 					<top parent="columnanchor" anchor="bottom" offset="35"/>
 					<left parent="DIS" anchor="right" offset="5"/>

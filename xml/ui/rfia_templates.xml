@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
 	<template name="rfia_group_title">	
-		<stringcontrol>
+		<rr_header>
 			<anchored height="20">
 				<top anchor="top" offset="-22"/>
 				<left offset="20"/>
 			</anchored>
-			<frame name="metalplate" offset="10,2,10,2"/>
-			<font>subwindowsmalltitle</font>
 			<center />
 			<nodrag />
 			<readonly />
-		</stringcontrol>
+		</rr_header>
 	</template>
 	
 	<template name="rfi_roll_list">
@@ -26,17 +24,15 @@
 	</template>
 		
 	<template name="rfi_roll_group_title">	
-		<stringcontrol>
+		<rr_header>
 			<anchored height="20">
 				<top anchor="top" offset="-22"/>
 				<left offset="20"/>
 			</anchored>
-			<frame name="metalplate" offset="10,2,10,2"/>
-			<font>subwindowsmalltitle</font>
 			<center />
 			<nodrag />
 			<readonly />
-		</stringcontrol>
+		</rr_header>
 	</template>
 	
 	<template name="rfi_toggle_button">

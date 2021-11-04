@@ -2,20 +2,24 @@
 
 <root version="3.0">
 	<properties>
-		<name>5E - Requested Rolls</name>
-		<version>1.1.1</version>
-		<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
+		<name>Requested Rolls</name>
+		<version>1.2</version>
+		<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
 		<loadorder>99</loadorder>
 		<ruleset>
 			<name>5E</name>
 			<minrelease>7</minrelease>
 		</ruleset>
+		<ruleset>
+			<name>PFRPG</name>
+			<minrelease>1</minrelease>
+		</ruleset>
 		<description>
-			<text>5E - Requested Rolls</text>
-			<author>Revived by srmccarty - Adapted by Houndy - Originally created by Gerark</author>
+			<text>Requested Rolls</text>
+			<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
 		</description>
 	</properties>
-	<announcement text="5E - Requested Rolls version 1.1.1\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 1.2\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />

@@ -90,7 +90,7 @@
 					<right />
 				</anchored>				
 				<datasource>.</datasource>
-				<class>RFIA_SaveOverrideRollRequestItem</class>
+				<class>RFIA_RollRequestItem</class>
 				<script>
 					function onFilter( w )	
 						return window.filter(true, w.getDatabaseNode());							
@@ -195,150 +195,26 @@
 					<textres>RFI_dis_tooltip_modifier</textres>
 				</tooltip>
 			</genericcontrol>
-			<stringcontrol name="mod">
+			<rr_header name="mod">
 				<anchored height="25">
 					<top parent="roll_button" anchor="bottom" offset="0"/>
 					<left parent="token" anchor="right" relation="relative" offset="20"/>
 				</anchored>
-				<frame name="metalplate" offset="10,2,10,2"/>
-				<font>subwindowsmalltitle</font>
 				<center />
 				<nodrag />
 				<readonly />
 				<static textres="RFI_modifier_group_title" />
-			</stringcontrol>
-			<stringcontrol name="dc">
+			</rr_header>
+			<rr_header name="dc">
 				<anchored height="25">
 					<top parent="roll_button" anchor="bottom" offset="0"/>
 					<left parent="token" anchor="right" relation="relative" offset="20"/>
 				</anchored>
-				<frame name="metalplate" offset="10,2,10,2"/>
-				<font>subwindowsmalltitle</font>
 				<center />
 				<nodrag />
 				<readonly />
 				<static textres="RFI_modifier_group_title" />
-			</stringcontrol>			
-
-			<close name="close_button">
-				<anchored>
-					<top offset="0" />
-					<right offset="-5" />
-				</anchored>
-				<script>
-					function onButtonPress()
-						window.cancel();
-					end
-				</script>
-			</close>			
-		</sheetdata>
-	</windowclass>
-	
-	
-	<windowclass name="RFIA_SaveOverrideRollRequestItem">
-		<script file="scripts/ui/rfia_roll_request_item.lua"/>
-		<margins control="5,10,2,10" />
-		<sheetdata>
-			<genericcontrol name="columnanchor">
-				<anchored position="insidetop" offset="0,-5" height="0"/>
-				<disabled />
-				<invisible />
-			</genericcontrol>
-			<tokenfield name="token">
-				<anchored width="70" height="70">
-					<top parent="columnanchor" anchor="bottom" offset="5"/>
-					<left offset="10"/>
-				</anchored>
-				<readonly />
-				<nodrag />
-				<nodrop />
-				<empty>token_empty</empty>			
-			</tokenfield>	
-			<buttoncontrol name="roll_button" >
-				<anchored height="35">
-					<top parent="token" anchor="top" relation="relative" offset="0"/>
-					<left parent="token" anchor="right" offset="5"/>
-					<right offset="-27"/>
-				</anchored>
-				<script>
-					function onButtonPress()
-						window.roll();
-					end
-				</script>
-				<frame name="buttonup" offset="2,2,2,2" />
-				<stateframe>
-					<pressed name="buttondown" offset="2,2,2,2" nobaseframe="true" />
-					<hover name="buttonhover" offset="2,2,2,2" nobaseframe="true" />
-				</stateframe>
-				<font>diemod</font>
-				<pressed offset="1,1" />
-				<state textres="RFI_button_label" />
-			</buttoncontrol>
-			<stringcontrol name="modifier_title">
-				<anchored height="20">
-					<top parent="roll_button" anchor="bottom" offset="3"/>
-					<left parent="token" anchor="right" relation="relative" offset="13"/>
-				</anchored>
-				<font>sheettext</font>
-				<center />
-				<nodrag />
-				<readonly />
-				<static textres="RFI_modifier_roll_request_title" />
-			</stringcontrol>
-			<genericcontrol name="hidden">
-				<anchored width="25" height="25">
-					<top parent="roll_button" anchor="bottom" offset="0"/>
-					<left parent="token" anchor="right" relation="relative" offset="10"/>
-				</anchored>
-				<icon>RFI_Hidden</icon>
-				<tooltip>
-					<textres>RFI_hidden_tooltip_modifier</textres>
-				</tooltip>
-			</genericcontrol>
-			<genericcontrol name="adv">
-				<anchored width="25" height="25">
-					<top parent="roll_button" anchor="bottom" offset="0"/>
-					<left parent="token" anchor="right" relation="relative" offset="10"/>
-				</anchored>
-				<icon>RFI_Adv</icon>
-				<tooltip>
-					<textres>RFI_adv_tooltip_modifier</textres>
-				</tooltip>
-			</genericcontrol>
-			<genericcontrol name="dis">
-				<anchored width="25" height="25">
-					<top parent="roll_button" anchor="bottom" offset="0"/>
-					<left parent="token" anchor="right" relation="relative" offset="10"/>
-				</anchored>
-				<icon>RFI_Dis</icon>
-				<tooltip>
-					<textres>RFI_dis_tooltip_modifier</textres>
-				</tooltip>
-			</genericcontrol>
-			<stringcontrol name="mod">
-				<anchored height="25">
-					<top parent="roll_button" anchor="bottom" offset="0"/>
-					<left parent="token" anchor="right" relation="relative" offset="20"/>
-				</anchored>
-				<frame name="metalplate" offset="10,2,10,2"/>
-				<font>subwindowsmalltitle</font>
-				<center />
-				<nodrag />
-				<readonly />
-				<static textres="RFI_modifier_group_title" />
-			</stringcontrol>
-			<stringcontrol name="dc">
-				<anchored height="25">
-					<top parent="roll_button" anchor="bottom" offset="0"/>
-					<left parent="token" anchor="right" relation="relative" offset="20"/>
-				</anchored>
-				<frame name="metalplate" offset="10,2,10,2"/>
-				<font>subwindowsmalltitle</font>
-				<center />
-				<nodrag />
-				<readonly />
-				<static textres="RFI_modifier_group_title" />
-			</stringcontrol>			
+			</rr_header>			
 
 			<close name="close_button">
 				<anchored>
@@ -353,5 +229,4 @@
 			</close>			
 		</sheetdata>
 	</windowclass>	
-	
 </root>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <template name="rr_header">
+        <stringcontrol>
+            <frame name="metalplate" offset="10,2,10,2"/>
+            <font>subwindowsmalltitle</font>
+        </stringcontrol>
+    </template>
+</root>
