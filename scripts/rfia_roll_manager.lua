@@ -406,9 +406,11 @@ function performInitRoll(request)
 end
 
 function performCheckRoll( request )
-	local rRoll = ActionAbility.getRoll(request:getActor(),string.lower(request:getRollName()));
+	local rRoll;
 	if User.getRulesetName()=="5E" then
 		rRoll = ActionCheck.getRoll(request:getActor(), string.lower(request:getRollName()));
+	else
+		rRoll = ActionAbility.getRoll(request:getActor(),string.lower(request:getRollName()));
 	end
 	rRoll.bSecret = request:isHidden();
 	rRoll.bTower = request:isHidden();
