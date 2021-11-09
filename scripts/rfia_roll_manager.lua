@@ -483,7 +483,7 @@ function performSkillRollForNpc(request)
 	
 	local ctNode = RFIAEntriesManager.getEntryById(request:getCtIdentity());
 	local rollName = request:getRollName();	
-	local rActor = ActorManager.getActorFromCT(ctNode);
+	local rActor = ActorManager.resolveActor(ctNode);
 	
 	local npcSkillList = ctNode.getChild(RFIAEntriesManager.getRfiaNpcSkillsPath());
 	if npcSkillList ~= nil then		

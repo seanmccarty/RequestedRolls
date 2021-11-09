@@ -19,7 +19,7 @@
 			<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
 		</description>
 	</properties>
-	<announcement text="Requested Rolls version 1.2.1\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 1.2.2\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />

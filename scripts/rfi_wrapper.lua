@@ -147,12 +147,8 @@ function wrapRequest(requestNode)
 	
 	
 	request.getActor = function(request)
-		if isPc then
-			return ActorManager.getActor("pc", request:getIdentity());
-		else
-			local ctNode = RFIAEntriesManager.getEntryById(request:getCtIdentity());
-			return ActorManager.getActorFromCT(ctNode);
-		end
+		local ctNode = RFIAEntriesManager.getEntryById(request:getCtIdentity());
+		return ActorManager.resolveActor(ctNode);
 	end
 	
 	request.destroy = function(request) request.node.delete(); end

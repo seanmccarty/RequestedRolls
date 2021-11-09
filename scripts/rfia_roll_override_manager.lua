@@ -187,7 +187,7 @@ function onRollOverrideRequest(message)
 	--Debug.chat("rolloverriderequest",message);
 	
 	local sSource = message.sCreatureNode;
-	local rSource = ActorManager.getActor("pc", sSource);
+	local rSource = ActorManager.resolveActor(sSource);
 	local rRoll = {};
 	rRoll.sSource = message.roll_sSource
 	rRoll.nTarget = message.roll_nTarget
