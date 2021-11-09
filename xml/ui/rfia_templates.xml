@@ -56,17 +56,11 @@
 			<state frame="buttondown" frameoffset="1,1"/>
 			<font>button-white</font>
 			<script>
-				local bInit = false;
-				function onInit()
-					bInit = true;
-				end
 				function onValueChanged()
-					if bInit then
-						if getValue() ~= 0 then
-							RFIAModifierManager.setModifier(getName(), 1);
-						else
-							RFIAModifierManager.setModifier(getName(), 0);
-						end
+					if getValue() ~= 0 then
+						RFIAModifierManager.setModifier(getName(), 1);
+					else
+						RFIAModifierManager.setModifier(getName(), 0);
 					end
 				end
 			</script>
