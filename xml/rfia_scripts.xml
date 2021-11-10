@@ -17,5 +17,7 @@
 	<script name="RFIAModifierStack" file="scripts/rfia_modifierstack.lua" />	
 	
 	<script name="RFIWrapper" file="scripts/rfi_wrapper.lua" />
+
+	<script name="RRActionManager" file="scripts/rr_manager_action2.lua"/>
 	
 </root>
