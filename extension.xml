@@ -23,6 +23,5 @@
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />
-		<includefile source="xml/rfia_scripts.xml" />
 	</base>    
 </root>

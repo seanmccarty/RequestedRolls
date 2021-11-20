@@ -46,6 +46,21 @@ function requestRoll()
 		roll = RFIARollManager.getSelectedRoll();
 		selectedEntryList = RFIAEntriesManager.getSelectedEntries();
 		notifyRollRequestTo(roll, selectedEntryList);
+		--Debug.chat("roll",roll);
+		--Debug.chat(roll:getName(),roll:getRealName(),roll:getType(),roll:getId(),roll:getCategory());
+		local sSave = roll:getRealName():lower();
+		Debug.chat(sSave);
+		for i=1, table.getn(selectedEntryList) do
+			--Debug.chat(DB.findNode(selectedEntryList[i]));
+			local rActor = ActorManager.resolveActor(selectedEntryList[i]);
+
+			Debug.chat(rActor);
+			--ActionSave.performPartySheetRoll(nil, rActor, sSave);
+			local rRoll = ActionSave.getRoll(rActor, sSave);
+			Debug.chat(rRoll);
+			ActionSave.performRoll(nil,rActor,sSave);
+		end
+
 		RFIAModifierManager.clearAllModifierButtons();
 	end
 end
