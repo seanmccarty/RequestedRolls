@@ -9,17 +9,17 @@
 	<windowclass name="partysheet_host2">
 		<frame>partysheet</frame>
 		<placement>
-			<size width="800" height="500" />
+			<size width="500" height="400" />
 		</placement>
 		<sizelimits>
-			<minimum width="800" height="500" />
+			<minimum width="100" height="300" />
 			<dynamic />
 		</sizelimits>
 		<softclose />
 		<nodelete />
 		<sheetdata>
 			<windowtitlebar name="title">
-				<resource>ps_window_title</resource>
+				<resource>RFIA_window_title_display</resource>
 			</windowtitlebar>
 			<anchor_title_partysheet name="contentanchor" />
 			
@@ -43,99 +43,81 @@
 	<windowclass name="rr_console">
 		<script file="ps/scripts/ps_main.lua" />
 		<sheetdata>
-			<anchor_partysheet_main_header />
+			<anchor_partysheet_main_header/>
 			
-			<label_ps name="namelabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="55,0" width="85" />
-				<static textres="ps_label_name" />
+			<!-- PC list -->
+			<RR_window_selector name="rr_list_pc" >	
+				<datasource>combattracker.list</datasource>
+				<parameters>
+					<listType>charsheet</listType>
+				</parameters>							
+				<anchored>
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="5" />
+				</anchored>	
+			</RR_window_selector>
+
+			<scrollbar>
+				<anchored to="rr_list_pc" />
+				<target>rr_list_pc</target>
+			</scrollbar>
+
+			<label_ps name="label_PC">
+				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
+				<static textres="RR_pc" />
 				<center />
 			</label_ps>
-			<label_ps name="racelabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="150,0" width="85" />
-				<static textres="ps_label_race" />
+
+			<button_select_all name="PC_all">
+				<anchored to="label_PC" position="right"/>
+			</button_select_all>
+			<button_select_random name="PC_random">
+				<anchored to="PC_all" position="right"/>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="PC_random" position="right"/>
+			</button_deselect_all>>
+
+			<!-- NPC list -->
+			<RR_window_selector name="rr_list_npc">
+				<datasource>combattracker.list</datasource>
+				<parameters>
+					<listType>npc</listType>
+				</parameters>
+				<script>
+					function onFilter( w )
+						if CombatGroupsManager then
+							return CombatGroupsManager.onFilter(w.getDatabaseNode());
+						else
+							return true;
+						end
+					end
+				</script>			
+				<anchored>
+					<top parent="rr_list_pc" anchor="bottom" relation="relative" offset="35" />
+				</anchored>	
+			</RR_window_selector>
+			<scrollbar>
+				<anchored to="rr_list_npc" />
+				<target>rr_list_npc</target>
+			</scrollbar>
+
+			<label_ps name="label_NPC">
+				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
+				<static textres="RR_npc" />
 				<center />
 			</label_ps>
-			<label_ps name="classlevellabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="55,17" width="180" />
-				<static textres="ps_label_classlevel" />
-				<center />
-			</label_ps>			
-			<label_ps name="hplabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="234,0" width="45" />
-				<static textres="hp" />
-				<center />
-			</label_ps>
-			<label_ps name="hdlabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="234,17" width="45" />
-				<static textres="hd" />
-				<center />
-			</label_ps>		
-			<label_ps name="abilitieslabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="279,0" width="190" />
-				<static textres="ps_label_abilities" />
-				<center />
-			</label_ps>
-			<label_ps name="strlabel">
-				<anchored to="abilitieslabel" position="belowleft" offset="0,-3" width="25" />
-				<static textres="str" />
-				<center />
-			</label_ps>
-			<label_ps name="dexlabel">
-				<anchored to="strlabel" position="righthigh" offset="8,0" width="25" />
-				<static textres="dex" />
-				<center />
-			</label_ps>
-			<label_ps name="conlabel">
-				<anchored to="dexlabel" position="righthigh" offset="8,0" width="25" />
-				<static textres="con" />
-				<center />
-			</label_ps>
-			<label_ps name="intlabel">
-				<anchored to="conlabel" position="righthigh" offset="8,0" width="25" />
-				<static textres="int" />
-				<center />
-			</label_ps>
-			<label_ps name="wislabel">
-				<anchored to="intlabel" position="righthigh" offset="8,0" width="25" />
-				<static textres="wis" />
-				<center />
-			</label_ps>
-			<label_ps name="chalabel">
-				<anchored to="wislabel" position="righthigh" offset="8,0" width="25" />
-				<static textres="cha" />
-				<center />
-			</label_ps>
-			<label_ps name="aclabel">
-				<anchored to="abilitieslabel" position="righthigh" offset="15,0" width="25" />
-				<static textres="ps_label_ac" />
-				<center />
-			</label_ps>
-			<label_ps name="perclabel">
-				<anchored to="aclabel" position="below" offset="0,-3" />
-				<static textres="ps_label_perc" />
-				<center />
-			</label_ps>
-			<label_ps name="defenseslabel">
-				<anchored to="abilitieslabel" position="righthigh" offset="10,0">
-					<right parent="" offset="-30" />
-				</anchored>
-				<static textres="ps_label_defenses" />
-				<center />
-			</label_ps>
-			<label_ps name="senseslabel">
-				<anchored to="defenseslabel" position="below" offset="0,-3" />
-				<static textres="ps_label_senses" />
-				<center />
-			</label_ps>
+
+			<button_select_all name="NPC_all">
+				<anchored to="label_NPC" position="right"/>
+			</button_select_all>
+			<button_select_random name="NPC_random">
+				<anchored to="NPC_all" position="right"/>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="NPC_random" position="right"/>
+			</button_deselect_all>
 			
-			<button_iedit name="list_iedit">
-				<anchored to="headeranchor" position="insidebottomright" offset="10,5" />
-				<target>list</target>
-				<gmvisibleonly />
-			</button_iedit>
-			
-			<!-- <scrollbar_list /> -->
-			
+			<!-- Roll selectors -->
 			<anchor_partysheet_main_footer />
 			
 			<genericcontrol name="leftanchor">
@@ -289,4 +271,68 @@
 			</basicnumber>
 		</sheetdata>
 	</windowclass>
+
+
+	<!-- the individual entries in the npc/pc list -->
+	<windowclass name="rr_entry">
+		<script file="scripts/ui/rfia_entry.lua" />
+		<sheetdata>
+			<hn name="isSelectedForRFIA" />
+			<hn name="rollStatusForRFIA" />			
+			<anchor_column name="columnanchor" />
+			<stringfield name="name">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>	
+				<readonly />
+				<invisible />
+			</stringfield>
+		
+			<tokenfield name="token">
+				<anchored width="40" height="40">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<readonly />
+				<nodrag />
+				<nodrop />
+				<empty>token_empty</empty>			
+			</tokenfield>		
+			
+			<genericcontrol name="selection">
+				<anchored  to="token" position="over"/>
+				<script>
+					function onClickDown( button, x, y )
+						if button == 1 then
+							return true;
+						end
+						
+						return false;
+					end
+					
+					function onClickRelease( button, x, y )
+						if button == 1 then
+							window.toggleEntry();
+						end
+					end
+					
+					function onHover(state)
+						window.onHover(state, window.getDatabaseNode());
+					end			
+				</script>
+				<icon>RFI_PcUnselected</icon>
+			</genericcontrol>
+			
+			<genericcontrol  name="roll_status">
+				<anchored height="10">
+					<bottom parent="token" anchor="bottom" offset="5"/>
+					<left parent="token" anchor="left" offset="5"/>
+					<right/>
+				</anchored>
+				<invisible />
+				<icon></icon>				
+			</genericcontrol >
+		</sheetdata>
+	</windowclass>	
 </root>

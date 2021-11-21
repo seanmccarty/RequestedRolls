@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <template name="button_select_all" >
+		<buttoncontrol>
+			<anchored width="20"/>
+			<icon normal="button_dialog_ok" pressed="button_dialog_ok_down" />
+			<tooltip textres="RFI_button_label_select_all_pc" />
+			<script>
+				function onButtonPress()
+					window.processOK();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_select_random" >
+		<buttoncontrol>
+			<anchored width="20"/>
+			<icon normal="button_ctnextround" pressed="button_ctnextround_down" />
+			<tooltip textres="RFIA_button_label_select_random_pc" />
+			<script>
+				function onButtonPress()
+					window.processOK();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_deselect_all" >
+		<buttoncontrol>
+			<anchored width="20" />
+			<icon normal="button_dialog_cancel" pressed="button_dialog_cancel_down" />
+			<tooltip textres="RFI_button_label_unselect_all_pc" />
+			<script>
+				function onButtonPress()
+					window.processOK();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+    <template name="RR_window_selector">
+        <windowlist name="list" >	
+            <columns width="45" fillwidth="true"/>
+            <frame name="groupbox" offset="13,5,10,5" />			
+            <class>rr_entry</class>				
+            <anchored>
+                <top offset="5"/>
+                <left offset="17"/>
+                <right offset="-15"/>
+            </anchored>	
+        </windowlist>
+    </template>
+    
+</root>

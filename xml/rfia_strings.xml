@@ -2,8 +2,8 @@
 
 <root>
     <string name="RFIA_window_title_display">Requested Rolls</string>
-	<string name="RFIA_pc_list_group_title">PCS</string>
-	<string name="RFIA_npc_list_group_title">NPCS</string>
+	<string name="RFIA_pc_list_group_title">PCs</string>
+	<string name="RFIA_npc_list_group_title">NPCs</string>
 	<string name="RFIA_dm_request_list_group_title">DM'S ROLL REQUESTS</string>
 	<string name="RFIA_override_save_request_list_group_title">OVERRIDE SAVE REQUESTS</string>
 	<string name="RFIA_npc_filter">npc</string>
@@ -54,5 +54,8 @@
 	<string name="RR_option_label_sidebar">View: Sidebar button (requires reload)</string>
     <string name="RR_option_val_hide">Hide</string>
     <string name="RR_option_val_show">Show</string>		
+
+    <string name="RR_pc">PCs</string>
+	<string name="RR_npc">NPCs</string>
 	
 </root>
