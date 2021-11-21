@@ -1,8 +1,16 @@
 -- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
---
+--[[ 
+s'vRoll' | { s'sSource' = s'combattracker.list.id-00003', s'nMod' = #3, s'sDesc' = s'[SAVE] Wisdom', s'sType' = s'save', s'sSaveDesc' = s'[SAVE VS] Frightful presence [WIS DC 16]', s'aDice' = { #1 = s'd20' }, s'nTarget' = s'16' }
 
+s'vRoll' | { s'aDice' = { #1 = s'd8' }, s'bCritical' = bFALSE, s'sDesc' = s'[DAMAGE] Sacred flame - cantrip (at will) [TYPE: radiant (1d8)()(1)()]', s'clauses' = { #1 = { s'dice' = { #1 = s'd8' }, s'modifier' = #0, s'dmgtype' = s'radiant', s'statmult' = #1, s'stat' = s'', s'nTotal' = #0 } }, s'nMod' = #0, s'sType' = s'damage', s'nOrigClauses' = #1 }
+
+s'vSource' | { s'sType' = s'charsheet', s'sCreatureNode' = s'charsheet.id-00002', s'sCTNode' = s'combattracker.list.id-00002', s'sName' = s'Bard Test' }
+
+s'vTargets' | { #1 = { s'sType' = s'charsheet', s'sCreatureNode' = s'charsheet.id-00002', s'sCTNode' = s'combattracker.list.id-00002', s'sName' = s'Bard Test' }, #2 = { s'sType' = s'charsheet', s'sCreatureNode' = s'charsheet.id-00001', s'sCTNode' = s'combattracker.list.id-00001', s'sName' = s'test' } }
+
+ ]]
 local vRoll = nil;
 local vSource = nil;
 local vTargets = nil;
@@ -55,19 +63,6 @@ function setData(rRoll, rSource, aTargets)
 		desc.setVisible(false);
 	end
 	
-	for kDie,vDie in ipairs(rRoll.aDice) do
-		local w = list.createWindow();
-		w.sort.setValue(kDie);
-		if type(vDie) == "table" then
-			w.label.setValue(vDie.type);
-		else
-			w.label.setValue(vDie);
-		end
-		if kDie == 1 then
-			w.value.setFocus();
-		end
-	end
-	list.applySort();
 	vRoll = rRoll;
 
 	if rSource then
@@ -112,63 +107,6 @@ end
 function processRoll()
 	local rThrow = ActionsManager.buildThrow(vSource, vTargets, vRoll, true);
 	Comm.throwDice(rThrow);
-	close();
-end
-
-function processFauxRoll()
-	if not Session.IsHost then return; end
-	
-	local aReplaceDieResult = {};
-	for _,w in ipairs(list.getWindows()) do
-		local nSort = w.sort.getValue();
-		local nValue = w.value.getValue();
-		
-		if vRoll.aDice[nSort] then
-			local sType;
-			if type(vRoll.aDice[nSort]) == "table" then
-				sType = vRoll.aDice[nSort].type;
-			else
-				sType = vRoll.aDice[nSort];
-			end
-			if sType:sub(1,1) == "-" then nValue = -nValue; end
-			aReplaceDieResult[nSort] = nValue;
-		end
-	end
-	vRoll.sReplaceDieResult = table.concat(aReplaceDieResult, "|");
-	
-	local rThrow = ActionsManager.buildThrow(vSource, vTargets, vRoll, true);
-	Comm.throwDice(rThrow);
-	close();
-end
-
-function processOK()
-	for _,w in ipairs(list.getWindows()) do
-		local nSort = w.sort.getValue();
-		local nValue = w.value.getValue();
-		
-		if vRoll.aDice[nSort] then
-			if type(vRoll.aDice[nSort]) ~= "table" then
-				local rDieTable = {};
-				rDieTable.type = vRoll.aDice[nSort];
-				vRoll.aDice[nSort] = rDieTable;
-			end
-			if vRoll.aDice[nSort].type:sub(1,1) == "-" then
-				vRoll.aDice[nSort].result = -nValue;
-			else
-				vRoll.aDice[nSort].result = nValue;
-			end
-			vRoll.aDice[nSort].value = nil;
-		end
-	end
-	
-	if not Session.IsHost then
-		if vRoll.sDesc ~= "" then
-			vRoll.sDesc = vRoll.sDesc .. " ";
-		end
-		vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("message_manualroll") .. "]";
-	end
-	
-	ActionsManager.handleResolution(vRoll, vSource, vTargets);
 	close();
 end
 

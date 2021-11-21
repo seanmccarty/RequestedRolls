@@ -31,4 +31,6 @@
 	<includefile source="roll/rr_roll_request.xml" />
 	<script name="RRRollEntry" file="roll/scripts/rr_roll_entry.lua"/>
 
+	<includefile source="console/rr_console.xml"/>
+
 </root>

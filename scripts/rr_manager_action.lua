@@ -10,8 +10,11 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	
 	--this portion is added to display the popup
     if ActionsManager.doesRollHaveDice(rRoll) then
-    	local wRequestedRoll = Interface.openWindow("RR_RollRequest", "");
-    	wRequestedRoll.addRoll(rRoll, rSource, vTargets);
+    	--local wRequestedRoll = Interface.openWindow("RR_RollRequest", "");
+    	--wRequestedRoll.addRoll(rRoll, rSource, vTargets);
+
+		local wManualRoll = Interface.openWindow("manualrolls", "");
+		wManualRoll.addRoll(rRoll, rSource, vTargets);
 	end
 
     if ActionsManager.doesRollHaveDice(rRoll) then

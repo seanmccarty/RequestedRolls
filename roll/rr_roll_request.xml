@@ -30,9 +30,9 @@ This code is built off the manual roll window. It has been redesigned to focus o
 		</sheetdata>
 	</windowclass>
 	
-	<windowclass name="manualroll_entry">
+	<windowclass name="manualroll_entry2">
 		<margins control="0,0,0,5" />
-		<frame name="manualroll_entry" />
+		<frame name="manualroll_entry2" />
 		<script file="roll/scripts/rr_roll_entry.lua" />
 		<sheetdata>
 			<hnc name="sort" />
@@ -116,6 +116,9 @@ This code is built off the manual roll window. It has been redesigned to focus o
 			function addRoll(vRoll, vSource, vTargets)
 				local w = list.createWindow();
 				w.setData(vRoll, vSource, vTargets);
+				Debug.chat("vRoll", vRoll);
+				Debug.chat("vSource", vSource);
+				Debug.chat("vTargets", vTargets);
 			end
 		</script>
 		<sheetdata>
@@ -132,7 +135,7 @@ This code is built off the manual roll window. It has been redesigned to focus o
 					<bottom parent="" offset="-50" />
 				</anchored>
 				<frame name="groupbox" offset="15,15,20,15" />
-				<class>manualroll_entry</class>
+				<class>manualroll_entry2</class>
 				<skipempty />
 				<sortby>
 					<control>sort</control>
