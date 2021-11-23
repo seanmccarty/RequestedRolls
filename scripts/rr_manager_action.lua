@@ -3,7 +3,11 @@
 
 function onInit()
     ActionsManager.roll = rollOverride;
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRoll);
+
 end
+
+OOB_MSGTYPE_APPLYROLL = "applyroll";
 
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
     if RFIA.bDebug then Debug.chat("rollOverride"); end
@@ -13,8 +17,9 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
     	--local wRequestedRoll = Interface.openWindow("RR_RollRequest", "");
     	--wRequestedRoll.addRoll(rRoll, rSource, vTargets);
 
-		local wManualRoll = Interface.openWindow("manualrolls", "");
-		wManualRoll.addRoll(rRoll, rSource, vTargets);
+		--local wManualRoll = Interface.openWindow("manualrolls", "");
+		--wManualRoll.addRoll(rRoll, rSource, vTargets);
+		notifyApplyRoll(rRoll, rSource, vTargets);
 	end
 
     if ActionsManager.doesRollHaveDice(rRoll) then
@@ -32,4 +37,35 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 			ActionsManager.handleResolution(rRoll, rSource, { vTargets });
 		end
 	end
+end
+
+function handleApplyRoll(msgOOB)
+	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
+	local rRoll = {};
+	rRoll.sSource = msgOOB.sSource;
+	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
+	rRoll.sType = msgOOB.sType;
+	rRoll.sDesc = msgOOB.sDesc;
+	
+	--local nTotal = tonumber(msgOOB.nTotal) or 0;
+	--applyAttack(rSource, rTarget, (tonumber(msgOOB.nSecret) == 1), msgOOB.sAttackType, msgOOB.sDesc, nTotal, msgOOB.sResults);
+	Debug.chat("postsendroll", rRoll);
+	local wManualRoll = Interface.openWindow("manualrolls", "");
+	wManualRoll.addRoll(rRoll, rActor, nil);
+end
+
+function notifyApplyRoll(rRoll, rSource, vTargets)
+	local msgOOB = {};
+	Debug.chat("vRoll", rRoll);
+	Debug.chat("vSource", rSource);
+	Debug.chat("vTargets", vTargets);
+	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
+
+	msgOOB.sSourceNode = ActorManager.resolveActor(rActor);
+	msgOOB.sSource = rRoll.sSource;
+	msgOOB.sType = rRoll.sType;
+	msgOOB.sDesc = rRoll.sDesc;
+	msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
+
+	Comm.deliverOOBMessage(msgOOB);
 end

@@ -42,8 +42,8 @@ function performCheckRoll(rActor, sCheck)
 		rRoll.bTower = true;
 	end
 
-	--ActionsManager.performAction(draginfo, rActor, rRoll);
-	notifyApplyCheck(rActor, rRoll)
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+	--notifyApplyCheck(rActor, rRoll)
 end
 
 --from manager_action_attack
