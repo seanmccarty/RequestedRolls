@@ -192,7 +192,7 @@
 			</genericcontrol>			
 			<button_roll name="saveroll">
 				<anchored to="saveframe" position="insidetopleft" offset="2,0" />
-				<script file="ps/scripts/ps_roll_save.lua" />
+				<script file="console/scripts/rr_console_save.lua" />
 				<gmvisibleonly />
 			</button_roll>
 			<label name="savelabel">
