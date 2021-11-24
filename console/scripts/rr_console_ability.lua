@@ -31,6 +31,7 @@ end
 --originally from actionCheck.performpartysheetroll
 function performCheckRoll(rActor, sCheck)
 	local rRoll = ActionCheck.getRoll(rActor, sCheck);
+	rRoll.RR = true;
 	local nTargetDC = DB.getValue("requestsheet.checkdc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;

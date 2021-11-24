@@ -21,3 +21,4 @@ function isEntrySelected(node)
     end
     return false;
 end
+
