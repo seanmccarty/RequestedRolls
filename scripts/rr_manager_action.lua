@@ -39,13 +39,18 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	end
 end
 
+local boolNum={ [true]=1, [false]=0 }
+
 function handleApplyRoll(msgOOB)
+	Debug.chat("postMsgOOB",msgOOB);
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 	local rRoll = {};
 	rRoll.sSource = msgOOB.sSource;
 	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
 	rRoll.sType = msgOOB.sType;
 	rRoll.sDesc = msgOOB.sDesc;
+	rRoll.bSecret = msgOOB.bSecret;
+	rRoll.bTower = msgOOB.bTower;
 	
 	--local nTotal = tonumber(msgOOB.nTotal) or 0;
 	--applyAttack(rSource, rTarget, (tonumber(msgOOB.nSecret) == 1), msgOOB.sAttackType, msgOOB.sDesc, nTotal, msgOOB.sResults);
@@ -66,6 +71,8 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	msgOOB.sType = rRoll.sType;
 	msgOOB.sDesc = rRoll.sDesc;
 	msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
-
+	msgOOB.bSecret = boolNum[rRoll.bSecret];
+	msgOOB.bTower = boolNum[rRoll.bTower];
+	Debug.chat("preMsgOOB",msgOOB);
 	Comm.deliverOOBMessage(msgOOB);
 end
