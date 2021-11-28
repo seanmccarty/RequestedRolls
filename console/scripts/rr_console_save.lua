@@ -28,15 +28,15 @@ function action(draginfo)
 	return true;
 end
 
-function performSaveRoll(draginfo, rActor, sSave)
+function performSaveRoll(rActor, sSave)
 	local rRoll = ActionSave.getRoll(rActor, sSave);
-	
-	local nTargetDC = DB.getValue("partysheet.savedc", 0);
+	rRoll.RR = true;
+	local nTargetDC = DB.getValue("requestsheet.savedc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
 	rRoll.nTarget = nTargetDC;
-	if DB.getValue("partysheet.hiderollresults", 0) == 1 then
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
 		rRoll.bSecret = true;
 		rRoll.bTower = true;
 	end
