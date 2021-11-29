@@ -296,6 +296,34 @@
 				<static textres="RR_label_init" />
 				<gmvisibleonly />
 			</label>
+			<!-- Dice roll -->
+			<genericcontrol name="diceframe">
+				<anchored to="initframe" position="right" offset="15,0"  width="115" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>							
+			<button_roll name="diceroll">
+				<anchored to="diceframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_dice.lua" />
+				<gmvisibleonly />
+			</button_roll>
+			<label name="dicelabel">
+				<anchored to="diceroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_dice" />
+				<gmvisibleonly />
+			</label>	
+			<combobox name="diceselected">
+				<anchored to="dicelabel" position="righthigh" offset="10,0" width="40" height="20" />
+				<gmvisibleonly />
+				<listmaxsize>12</listmaxsize>
+				<unsorted />
+				<script>
+					function onInit()
+						super.onInit();
+						addItems({"d4","d6","d8","d10","d12","d20","d100"});
+					end
+				</script>
+			</combobox>
 		</sheetdata>
 	</windowclass>
 

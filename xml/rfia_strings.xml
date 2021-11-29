@@ -59,5 +59,6 @@
 	<string name="RR_npc">NPCs</string>
 
     <string name="RR_label_init">Init</string>
+    <string name="RR_label_dice">Die</string>
 	
 </root>
