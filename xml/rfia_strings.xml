@@ -57,5 +57,7 @@
 
     <string name="RR_pc">PCs</string>
 	<string name="RR_npc">NPCs</string>
+
+    <string name="RR_label_init">Init</string>
 	
 </root>

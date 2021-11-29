@@ -280,6 +280,22 @@
 				<displaysign />
 				<gmvisibleonly />
 			</basicnumber>
+			<!-- Init -->
+			<genericcontrol name="initframe">
+				<anchored to="atkframe" position="right" offset="15,0" width="50" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>							
+			<button_roll name="initroll">
+				<anchored to="initframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_init.lua"/>
+				<gmvisibleonly />
+			</button_roll>
+			<label name="initlabel">
+				<anchored to="initroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_init" />
+				<gmvisibleonly />
+			</label>
 		</sheetdata>
 	</windowclass>
 
