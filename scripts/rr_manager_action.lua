@@ -55,7 +55,7 @@ function handleApplyRoll(msgOOB)
 	rRoll.sDesc = msgOOB.sDesc;
 	rRoll.bSecret = msgOOB.bSecret;
 	rRoll.bTower = msgOOB.bTower;
-	rRoll.nTarget = tonumber(msgOOB.nTarget) or 0;
+	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
 	--rRoll.RR = msgOOB.RR;
 	
 	--local nTotal = tonumber(msgOOB.nTotal) or 0;
