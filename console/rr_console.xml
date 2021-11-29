@@ -245,7 +245,7 @@
 					function onInit()
 						super.onInit();
 						addItems(DataCommon.psskilldata);
-						--addItems({"Test"});
+						addItems({"Test","Test (Good)"});
 					end
 				</script>
 			</combobox>

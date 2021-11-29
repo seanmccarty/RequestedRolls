@@ -5,7 +5,6 @@
 function onInit()
     ActionsManager.roll = rollOverride;
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRoll);
-
 end
 
 OOB_MSGTYPE_APPLYROLL = "applyroll";
@@ -47,7 +46,7 @@ end
 local boolNum={ [true]=1, [false]=0 }
 
 function handleApplyRoll(msgOOB)
-	Debug.chat("postMsgOOB",msgOOB);
+	if RFIA.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 	local rRoll = {};
 	rRoll.sSource = msgOOB.sSource;
@@ -61,16 +60,16 @@ function handleApplyRoll(msgOOB)
 	
 	--local nTotal = tonumber(msgOOB.nTotal) or 0;
 	--applyAttack(rSource, rTarget, (tonumber(msgOOB.nSecret) == 1), msgOOB.sAttackType, msgOOB.sDesc, nTotal, msgOOB.sResults);
-	Debug.chat("postsendroll", rRoll);
+	if RFIA.bDebug then Debug.chat("postsendroll", rRoll); end
 	local wManualRoll = Interface.openWindow("manualrolls", "");
 	wManualRoll.addRoll(rRoll, rActor, nil);
 end
 
 function notifyApplyRoll(rRoll, rSource, vTargets)
 	local msgOOB = {};
-	Debug.chat("vRoll", rRoll);
-	Debug.chat("vSource", rSource);
-	Debug.chat("vTargets", vTargets);
+	if RFIA.bDebug then Debug.chat("vRoll", rRoll); end
+	if RFIA.bDebug then Debug.chat("vSource", rSource); end
+	if RFIA.bDebug then Debug.chat("vTargets", vTargets); end
 	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
 
 	msgOOB.sSourceNode = rSource.sCTNode;
@@ -82,7 +81,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	msgOOB.bTower = boolNum[rRoll.bTower];
 	msgOOB.RR = boolNum[rRoll.RR];
 	msgOOB.nTarget = rRoll.nTarget;
-	Debug.chat("preMsgOOB",msgOOB);
+	if RFIA.bDebug then Debug.chat("preMsgOOB",msgOOB);end
 
 	needsBroadcast(rSource, msgOOB);
 --maybe make a loop through the roll object with object constructors and then lopp throuhg on the other end?
