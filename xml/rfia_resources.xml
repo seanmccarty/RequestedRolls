@@ -5,9 +5,6 @@
 	<includefile source="xml/rfia_strings.xml" />
 	<includefile ruleset="PFRPG" source="xml/ui/rr_templates_PFRPG.xml" />
 	<includefile ruleset="5E" source="xml/ui/rr_templates_5E.xml" />
-	<includefile source="xml/ui/rfia_templates.xml" />
-	<includefile source="xml/ui/rfia_create_request.xml" />
-	<includefile source="xml/ui/rfia_roll_request.xml" />
 
 	<script name="RFIA" file="scripts/rfia.lua" />
 	<script name="RFIAExtensionManager" file="scripts/rfia_extension_manager.lua" />
@@ -15,16 +12,10 @@
 	<script name="RFIAEntriesManager" file="scripts/rfia_entries_manager.lua" />
 	<script name="RFIACTListener" file="scripts/rfia_ct_listener.lua" />
 	<script name="RFIARequestManager" file="scripts/rfia_request_manager.lua" />
-	<script name="RFIAModifierManager" file="scripts/rfia_modifier_manager.lua" />
-	<script name="RFIAOwnershipManager" file="scripts/rfia_ownership_manager.lua" />	
 	<script name="RFIARollManager" file="scripts/rfia_roll_manager.lua" />
 	<script name="RFIAManagerActionSave" file="scripts/rfia_manager_action_save.lua" />
 	<script name="RFIARollOverrideManager" file="scripts/rfia_roll_override_manager.lua" />
 	<script name="RFIASlashManager" file="scripts/rfia_slash_manager.lua" />	
-
-	<script name="RFIAModifierStack" file="scripts/rfia_modifierstack.lua" />	
-	<script name="RFIWrapper" file="scripts/rfi_wrapper.lua" />
-
 
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 

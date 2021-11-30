@@ -18,11 +18,7 @@
 	
 	<icon name="RFIA_5EThemeSidebarButtonUp" file="graphics/icons/rfia_5E_theme_button_up.png" />
 	<icon name="RFIA_5EThemeSidebarButtonDown" file="graphics/icons/rfia_5E_theme_button_down.png" />	
-	
-	<icon name="RFI_Adv" file="graphics/icons/rfi_adv_icon.png" />
-	<icon name="RFI_Dis" file="graphics/icons/rfi_dis_icon.png" />
-	<icon name="RFI_Hidden" file="graphics/icons/rfi_hidden_icon.png" />
-	
+		
 	<framedef name="buttonhover">
 		<bitmap file="graphics/frames/buttonhover.png" />
 		<offset>11,16,15,16</offset>
