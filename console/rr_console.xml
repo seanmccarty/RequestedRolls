@@ -41,7 +41,7 @@
 	</windowclass>
 
 	<windowclass name="rr_console">
-		<script file="ps/scripts/ps_main.lua" />
+		<!-- <script file="ps/scripts/ps_main.lua" /> -->
 		<script file="console/scripts/rr_console.lua"/>
 		<sheetdata>
 			<anchor_partysheet_main_header/>
