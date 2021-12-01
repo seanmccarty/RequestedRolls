@@ -44,7 +44,15 @@
 		<!-- <script file="ps/scripts/ps_main.lua" /> -->
 		<script file="console/scripts/rr_console.lua"/>
 		<sheetdata>
-			<anchor_partysheet_main_header/>
+			<!-- header anchor -->
+--			<genericcontrol name="headeranchor">
+				<anchored height="25">
+					<top  />
+					<left offset="10" />
+					<right offset="-15" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
 			
 			<!-- PC list -->
 			<RR_window_selector name="rr_list_pc" >	
@@ -75,7 +83,7 @@
 				<target>rr_list_pc</target>
 			</scrollbar>
 
-			<label_ps name="label_PC">
+--			<label_ps name="label_PC">
 				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_pc" />
 				<center />
@@ -122,7 +130,7 @@
 				<target>rr_list_npc</target>
 			</scrollbar>
 
-			<label_ps name="label_NPC">
+--			<label_ps name="label_NPC">
 				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_npc" />
 				<center />
@@ -142,8 +150,15 @@
 			</button_deselect_all>
 			
 			<!-- Roll selectors -->
-			<anchor_partysheet_main_footer />
-			
+			<!-- Footer anchors -->
+--			<genericcontrol name="footeranchor">
+				<anchored height="20">
+					<bottom offset="-65" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>
+				<gmvisibleonly />
+			</genericcontrol>
 			<genericcontrol name="leftanchor">
 				<anchored to="footeranchor" position="insidetopleft" width="0" height="20" />
 				<disabled />
@@ -175,7 +190,7 @@
 			</button_roll>
 			<label name="checklabel">
 				<anchored to="checkroll" position="righthigh" offset="3,0" />
-				<static textres="ps_label_groupcheck" />
+--				<static textres="ps_label_groupcheck" />
 				<gmvisibleonly />
 			</label>
 			<combobox name="checkselected">
@@ -214,7 +229,7 @@
 			</button_roll>
 			<label name="savelabel">
 				<anchored to="saveroll" position="righthigh" offset="3,0" />
-				<static textres="ps_label_groupsave" />
+--				<static textres="ps_label_groupsave" />
 				<gmvisibleonly />
 			</label>
 			<combobox name="saveselected">
