@@ -121,20 +121,17 @@ function toggleEntry()
 	else 
 		setEntryUnselected();
 	end	
-	RFIARequestManager.updateCanRequestRoll();
 end
 
 function setEntrySelected()
 	-- Debug.console("rfia_entry.lua setEntrySelected");
 	selection.setIcon("RFI_PcSelected");
 	isSelectedForRFIA.setValue(1);
-	RFIARequestManager.updateCanRequestRoll();
 end
 function setEntryUnselected()
 	-- Debug.console("rfia_entry.lua setEntryUnselected");
 	selection.setIcon("RFI_PcUnselected");
 	isSelectedForRFIA.setValue(0);
-	RFIARequestManager.updateCanRequestRoll();
 end
 
 

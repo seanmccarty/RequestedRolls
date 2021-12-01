@@ -9,7 +9,7 @@
                 <!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
 				function onButtonPress()
                     for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.setEntrySelected();
+                        vEntry.selection.setValue(1);
                     end
 				end
 			</script>
@@ -38,10 +38,10 @@
                         randomEntry = windowList[randomIndex];
 
                         for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                            vEntry.setEntryUnselected();
+                        vEntry.selection.setValue(0);
                         end
                         
-                        randomEntry.setEntrySelected();
+                        randomEntry.selection.setValue(1);
                     end
 				end
 			</script>
@@ -56,7 +56,7 @@
 			<script>
 				function onButtonPress()
                     for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.setEntryUnselected();
+                    vEntry.selection.setValue(0);
                     end
 				end
 			</script>

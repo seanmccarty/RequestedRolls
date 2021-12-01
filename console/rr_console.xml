@@ -55,6 +55,19 @@
 				<anchored>
 					<top parent="headeranchor" anchor="bottom" relation="relative" offset="5" />
 				</anchored>	
+				<script>
+					function onFilter( w )
+						if  ActorManager.isPC(w.getDatabaseNode()) then
+							if CombatGroupsManager then
+								return CombatGroupsManager.onFilter(w.getDatabaseNode());
+							else
+								return true;
+							end
+						else
+							return false;
+						end
+					end
+				</script>
 			</RR_window_selector>
 
 			<scrollbar>
@@ -89,10 +102,14 @@
 				</parameters>
 				<script>
 					function onFilter( w )
-						if CombatGroupsManager then
-							return CombatGroupsManager.onFilter(w.getDatabaseNode());
+						if  not ActorManager.isPC(w.getDatabaseNode()) then
+							if CombatGroupsManager then
+								return CombatGroupsManager.onFilter(w.getDatabaseNode());
+							else
+								return true;
+							end
 						else
-							return true;
+							return false;
 						end
 					end
 				</script>			
@@ -330,19 +347,30 @@
 
 	<!-- the individual entries in the npc/pc list -->
 	<windowclass name="rr_entry">
-		<script file="scripts/ui/rfia_entry.lua" />
+		<!-- <script file="scripts/ui/rfia_entry.lua" /> -->
+		<script file="console/scripts/rr_entry.lua"/>
 		<sheetdata>
 			<hn name="isSelectedForRFIA" />
 			<hn name="rollStatusForRFIA" />			
 			<anchor_column name="columnanchor" />
-			<stringfield name="name">
+			<hsx name="name">
 				<anchored height="20">
 					<top parent="columnanchor" anchor="bottom" offset="10"/>
 					<left offset="10"/>
 				</anchored>	
 				<readonly />
 				<invisible />
-			</stringfield>
+				<script>
+					function onInit()
+						super.onInit()
+						window.selection.setTooltipText(getValue());
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						window.selection.setTooltipText(getValue());
+					end
+				</script>
+			</hsx>
 		
 			<tokenfield name="token">
 				<anchored width="40" height="40">
@@ -355,9 +383,14 @@
 				<empty>token_empty</empty>			
 			</tokenfield>		
 			
-			<genericcontrol name="selection">
+			<buttoncontrol name="selection">
+				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
+				<state icon="RFI_PcUnselected"/>
+				<state icon="RFI_PcSelected"/>
+				<hover icon="RFI_PcHover"/>
 				<anchored  to="token" position="over"/>
 				<script>
+					--[[ 
 					function onClickDown( button, x, y )
 						if button == 1 then
 							return true;
@@ -368,16 +401,17 @@
 					
 					function onClickRelease( button, x, y )
 						if button == 1 then
-							window.toggleEntry();
+							--window.toggleEntry();
 						end
 					end
 					
 					function onHover(state)
-						window.onHover(state, window.getDatabaseNode());
-					end			
+						--window.onHover(state, window.getDatabaseNode());
+					end	
+					]]		
 				</script>
-				<icon>RFI_PcUnselected</icon>
-			</genericcontrol>
+				<!-- <tooltip field="selection"/> -->
+			</buttoncontrol>
 			
 			<genericcontrol  name="roll_status">
 				<anchored height="10">
