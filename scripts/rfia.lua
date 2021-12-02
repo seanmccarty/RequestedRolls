@@ -1,4 +1,4 @@
-local dbRootName = "RFIA_Root";
+local dbRootName = "requestsheet";
 local buttonUpImage = "RFIA_DefaultButtonUp";
 local buttonDownImage = "RFIA_DefaultButtonDown";
 local tooltipTextKey = "RFIA_window_title";

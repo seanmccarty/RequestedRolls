@@ -23,11 +23,7 @@ function processRRCommandList(sCommand, sParams)
 end
 
 function processRRRolls(sCommand, sParams)
-	if Session.IsHost  then	
-		RFIARequestManager.openRollRequestListForDm();
-	else
-		RFIARequestManager.openRollRequestListForUser(User.getUsername());
-	end
+	local wManualRoll = Interface.openWindow("manualrolls", "");
 end
 
 function processRRConsole(sCommand, sParams)
