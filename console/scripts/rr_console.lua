@@ -1,5 +1,5 @@
 function onInit()
-    DB.createNode("requestsheet").setPublic(true);
+    if Session.IsHost then DB.createNode("requestsheet").setPublic(true); end
 end
 
 function getSelectedChars()

@@ -4,10 +4,14 @@
 
 function onInit()
     ActionsManager.roll = rollOverride;
-	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRoll);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRollRR);
 end
 
-OOB_MSGTYPE_APPLYROLL = "applyroll";
+function starts(String,Start)
+	return string.sub(String,1,string.len(Start))==Start
+end
+
+OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
     if RFIA.bDebug then Debug.chat("rollOverride"); end
@@ -23,17 +27,26 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	--end
 
     if ActionsManager.doesRollHaveDice(rRoll) then
-		if rRoll.RR then
-			notifyApplyRoll(rRoll, rSource, vTargets);
-		else
-			if not rRoll.bTower and OptionsManager.isOption("MANUALROLL", "on") then
+		if (RFIAOptionsManager.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RFIAOptionsManager.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
+			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
 				local wManualRoll = Interface.openWindow("manualrolls", "");
 				wManualRoll.addRoll(rRoll, rSource, vTargets);
-			else
-				local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, bMultiTarget);
-				Comm.throwDice(rThrow);
+				return;
 			end
 		end
+		if rRoll.RR then
+			notifyApplyRoll(rRoll, rSource, vTargets);
+			return;
+		end
+
+		if not rRoll.bTower and OptionsManager.isOption("MANUALROLL", "on") then
+			local wManualRoll = Interface.openWindow("manualrolls", "");
+			wManualRoll.addRoll(rRoll, rSource, vTargets);
+		else
+			local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, bMultiTarget);
+			Comm.throwDice(rThrow);
+		end
+		
 	else
 		if bMultiTarget then
 			ActionsManager.handleResolution(rRoll, rSource, vTargets);
@@ -45,7 +58,7 @@ end
 
 local boolNum={ [true]=1, [false]=0 }
 
-function handleApplyRoll(msgOOB)
+function handleApplyRollRR(msgOOB)
 	if RFIA.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 	local rRoll = {};
@@ -109,11 +122,11 @@ function needsBroadcast(rTarget, msgOOB)
 			end
 		else
 			if DB.isOwner(nodeTarget) then
-				handleApplyRoll(msgOOB);
+				handleApplyRollRR(msgOOB);
 				Debug.chat("uh oh this should have been unreachable in needsBroadcast")
 				return;
 			end
 		end
 	end
-    handleApplyRoll(msgOOB);
+    handleApplyRollRR(msgOOB);
 end
