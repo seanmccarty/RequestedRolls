@@ -15,7 +15,7 @@ function action(draginfo)
 	
 	ModifierStack.lock();
 	for _,v in pairs(aParty) do
-		performInitRoll(v, sAbilityStat);
+		performInitRoll(v);
 	end
 	ModifierStack.unlock(true);
 
@@ -28,7 +28,7 @@ function onButtonPress()
     end
 end	
 
-function performInitRoll(rActor, sSave)
+function performInitRoll(rActor)
 	local rRoll = ActionInit.getRoll(rActor, false);
 	rRoll.RR = true;
 	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then

@@ -56,8 +56,8 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	end
 end
 
-local boolNum={ [true]=1, [false]=0 }
-
+local boolNum={ [true]=1, [false]=0};
+local numBool={["1"]=true, ["0"]=false};
 function handleApplyRollRR(msgOOB)
 	if RFIA.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
@@ -66,8 +66,8 @@ function handleApplyRollRR(msgOOB)
 	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
 	rRoll.sType = msgOOB.sType;
 	rRoll.sDesc = msgOOB.sDesc;
-	rRoll.bSecret = msgOOB.bSecret;
-	rRoll.bTower = msgOOB.bTower;
+	rRoll.bSecret = numBool[msgOOB.bSecret];
+	rRoll.bTower = numBool[msgOOB.bTower];
 	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
 	--rRoll.RR = msgOOB.RR;
 	
