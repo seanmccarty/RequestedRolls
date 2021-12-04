@@ -379,10 +379,12 @@
 					function onInit()
 						super.onInit()
 						window.selection.setTooltipText(getValue());
+						window.selection.setStateTooltipText(1, getValue());
 					end
 					function onValueChanged()
 						super.onValueChanged()
 						window.selection.setTooltipText(getValue());
+						window.selection.setStateTooltipText(1, getValue());
 					end
 				</script>
 			</hsx>
