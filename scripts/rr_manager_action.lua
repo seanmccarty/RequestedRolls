@@ -57,7 +57,6 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 end
 
 local boolNum={ [true]=1, [false]=0};
-local numBool={["1"]=true, ["0"]=false};
 function handleApplyRollRR(msgOOB)
 	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
@@ -66,8 +65,13 @@ function handleApplyRollRR(msgOOB)
 	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
 	rRoll.sType = msgOOB.sType;
 	rRoll.sDesc = msgOOB.sDesc;
-	rRoll.bSecret = numBool[msgOOB.bSecret];
-	rRoll.bTower = numBool[msgOOB.bTower];
+	-- if bSecret and bTower are present, even if false it will cause the action manager results to display as secret if DC is not 0
+	if (tonumber(msgOOB.bSecret) == 1) then
+		rRoll.bSecret = (tonumber(msgOOB.bSecret) == 1);
+	end
+	if (tonumber(msgOOB.bTower) == 1) then
+		rRoll.bTower = (tonumber(msgOOB.bTower) == 1);
+	end
 	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
 	--rRoll.RR = msgOOB.RR;
 	

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Adds the script file that partially overrides the manual roll 
+    function so that tower rolls can be intercepted and sent back to host -->
+<root>
+    <windowclass name="manualroll_entry" merge="join">
+		  <script file="roll/scripts/rr_manualroll_entry.lua" />
+    </windowclass>
+</root>
