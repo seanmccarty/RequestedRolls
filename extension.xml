@@ -11,6 +11,10 @@
 			<minrelease>7</minrelease>
 		</ruleset>
 		<ruleset>
+			<name>CoreRPG</name>
+			<minrelease>7</minrelease>
+		</ruleset>
+		<ruleset>
 			<name>PFRPG</name>
 			<minrelease>1</minrelease>
 		</ruleset>

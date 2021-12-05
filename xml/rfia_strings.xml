@@ -55,6 +55,7 @@
     <string name="RR_option_val_hide">Hide</string>
     <string name="RR_option_val_show">Show</string>		
 
+    <!-- CONSOLE -->
     <string name="RR_pc">PCs</string>
 	<string name="RR_npc">NPCs</string>
 

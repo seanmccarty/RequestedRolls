@@ -6,11 +6,7 @@
 	<includefile ruleset="PFRPG" source="xml/ui/rr_templates_PFRPG.xml" />
 	<includefile ruleset="5E" source="xml/ui/rr_templates_5E.xml" />
 
-	<script name="RFIA" file="scripts/rfia.lua" />
-	<script name="RFIAExtensionManager" file="scripts/rfia_extension_manager.lua" />
-	<script name="RFIAOptionsManager" file="scripts/rfia_options_manager.lua" />
-	<script name="RFIASlashManager" file="scripts/rfia_slash_manager.lua" />	
-
+	<script name="RR" file="scripts/rr.lua"/>
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 
 	<includefile source="roll/rr_roll_request.xml" />

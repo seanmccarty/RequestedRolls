@@ -14,7 +14,7 @@ end
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
-    if RFIA.bDebug then Debug.chat("rollOverride"); end
+    if RR.bDebug then Debug.chat("rollOverride"); end
 	
 	--this portion is added to display the popup
     --if ActionsManager.doesRollHaveDice(rRoll) then
@@ -27,7 +27,7 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	--end
 
     if ActionsManager.doesRollHaveDice(rRoll) then
-		if (RFIAOptionsManager.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RFIAOptionsManager.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
+		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
 			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
 				local wManualRoll = Interface.openWindow("manualrolls", "");
 				wManualRoll.addRoll(rRoll, rSource, vTargets);
@@ -59,7 +59,7 @@ end
 local boolNum={ [true]=1, [false]=0};
 local numBool={["1"]=true, ["0"]=false};
 function handleApplyRollRR(msgOOB)
-	if RFIA.bDebug then Debug.chat("postMsgOOB",msgOOB); end
+	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 	local rRoll = {};
 	rRoll.sSource = msgOOB.sSource;
@@ -73,16 +73,16 @@ function handleApplyRollRR(msgOOB)
 	
 	--local nTotal = tonumber(msgOOB.nTotal) or 0;
 	--applyAttack(rSource, rTarget, (tonumber(msgOOB.nSecret) == 1), msgOOB.sAttackType, msgOOB.sDesc, nTotal, msgOOB.sResults);
-	if RFIA.bDebug then Debug.chat("postsendroll", rRoll); end
+	if RR.bDebug then Debug.chat("postsendroll", rRoll); end
 	local wManualRoll = Interface.openWindow("manualrolls", "");
 	wManualRoll.addRoll(rRoll, rActor, nil);
 end
 
 function notifyApplyRoll(rRoll, rSource, vTargets)
 	local msgOOB = {};
-	if RFIA.bDebug then Debug.chat("vRoll", rRoll); end
-	if RFIA.bDebug then Debug.chat("vSource", rSource); end
-	if RFIA.bDebug then Debug.chat("vTargets", vTargets); end
+	if RR.bDebug then Debug.chat("vRoll", rRoll); end
+	if RR.bDebug then Debug.chat("vSource", rSource); end
+	if RR.bDebug then Debug.chat("vTargets", vTargets); end
 	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
 
 	msgOOB.sSourceNode = rSource.sCTNode;
@@ -94,7 +94,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	msgOOB.bTower = boolNum[rRoll.bTower];
 	msgOOB.RR = boolNum[rRoll.RR];
 	msgOOB.nTarget = rRoll.nTarget;
-	if RFIA.bDebug then Debug.chat("preMsgOOB",msgOOB);end
+	if RR.bDebug then Debug.chat("preMsgOOB",msgOOB);end
 
 	needsBroadcast(rSource, msgOOB);
 --maybe make a loop through the roll object with object constructors and then lopp throuhg on the other end?
