@@ -10,15 +10,29 @@ function onInit()
 	updateButtons();
     registerOptions();
 	registerSlashHandlers();
-    
     registerExtensions();
-
 end
 
-function registerOptions()
+---Depending on which ruleset and themes are enabled, changes the sidebar buttons.
+---The default buttons are for 5E without any themes.
+function updateButtons()
+	-- if the ruleset is not 5E or it is one of the two other themes listed, change to the core sidebar buttons
+	if User.getRulesetName()~="5E" or isThemeEnabled("Colored Sidebar") or isThemeEnabled("Core Sidebar for 5e") then
+		buttonUpImage = "RFIA_CoreSidebarButtonUp";
+		buttonDownImage = "RFIA_CoreSidebarButtonDown";	
+	elseif isThemeEnabled("5E Theme - Wizards") then
+		buttonUpImage = "RFIA_5EThemeSidebarButtonUp";
+		buttonDownImage = "RFIA_5EThemeSidebarButtonDown";			
+    end
+end
 
-	OptionsManager.registerOption2("RR_option_label_showDC", false, "RR_option_header", "RR_option_label_showDC", "option_entry_cycler", 
-			{ labels = "option_val_off", values = "off", baselabel = "option_val_on", baseval = "on", default = "on" });
+--#region options manager
+
+---Loads the options onto the settings page. Also, adds the shortcut item to the bar if enabled.
+function registerOptions()
+	-- This option is not currently used
+	--OptionsManager.registerOption2("RR_option_label_showDC", false, "RR_option_header", "RR_option_label_showDC", "option_entry_cycler", 
+	--		{ labels = "option_val_off", values = "off", baselabel = "option_val_on", baseval = "on", default = "on" });
 			
 	OptionsManager.registerOption2("RR_option_label_pcRolls", true, "RR_option_header", "RR_option_label_pcRolls", "option_entry_cycler", 
 			{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
@@ -39,32 +53,45 @@ function registerOptions()
 	end
 end
 
-function updateButtons()
-	-- if the ruleset is not 5E or it is one of the two other themes listed, change to the core sidebar buttons
-	if User.getRulesetName()~="5E" or isThemeEnabled("Colored Sidebar") or isThemeEnabled("Core Sidebar for 5e") then
-		buttonUpImage = "RFIA_CoreSidebarButtonUp";
-		buttonDownImage = "RFIA_CoreSidebarButtonDown";	
-	elseif isThemeEnabled("5E Theme - Wizards") then
-		buttonUpImage = "RFIA_5EThemeSidebarButtonUp";
-		buttonDownImage = "RFIA_5EThemeSidebarButtonDown";			
-    end
-        
-
+---Checks if the automatic vs throws option is on for PCs.
+---On means it should popup a throw when a vs throw is made against the player.
+---@return boolean "true if option is on"
+function isManualSaveRollPcOn()
+	return OptionsManager.isOption("RR_option_label_pcRolls", "on");
 end
 
--- Extensions
+---Checks if the automatic vs throws option is on for NPCs.
+---On means it should popup a throw when a vs throw is made against the player.
+---@return boolean "true if option is on"
+function isManualSaveRollNpcOn()
+	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
+end
+
+---Checks if the show DC option is on. Currently not used.
+---@return boolean "true if option is on"
+function isShowDCOn()
+	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
+end
+--#endregion
+
+--#region Extensions
+
+---Checks if certain extensions are loaded. Enables a central point to manage the names.
 function registerExtensions()
 	if RR.bDebug then debugExtensions(); end
 	bCharacterSheetTweaksEnabled = isThemeEnabled("Mad Nomad's Character Sheet Tweaks");
 end
 
-
+---Lists loaded extension names to the console
 function listExtensions()
     for _, extension in ipairs(Extension.getExtensions()) do
     	Debug.console("listExtension", Extension.getExtensionInfo(extension).name);
     end
 end
 
+---Loops through the extension list checking extension names
+---@param themeName string the name of the extension to be checked
+---@return boolean bool is the extension enabled
 function isThemeEnabled(themeName)
     for _, extension in ipairs(Extension.getExtensions()) do
     	if Extension.getExtensionInfo(extension).name == themeName then
@@ -74,20 +101,11 @@ function isThemeEnabled(themeName)
 	return false;
 end
 
--- options
-function isManualSaveRollPcOn()
-	return OptionsManager.isOption("RR_option_label_pcRolls", "on");
-end
+--#endregion
 
-function isManualSaveRollNpcOn()
-	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
-end
+--#region slash handler
 
-function isShowDCOn()
-	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
-end
-
--- slash manager
+---Registers the slash handlers that RR uses. This groups the calls together to make onInit easier to read
 function registerSlashHandlers()
 	Comm.registerSlashHandler("RR", processRRCommandList);
 	Comm.registerSlashHandler("RRrolls", processRRRolls);
@@ -97,6 +115,9 @@ function registerSlashHandlers()
 	Comm.registerSlashHandler("RRdebug",processRRdebug);
 end
 
+---Outputs the list of available commands to the chat log
+---@param sCommand string not used
+---@param sParams string not used
 function processRRCommandList(sCommand, sParams)
 	ChatManager.SystemMessage(Interface.getString("message_slashcommands"));
 	ChatManager.SystemMessage("----------------");
@@ -111,18 +132,26 @@ function processRRCommandList(sCommand, sParams)
 	ChatManager.SystemMessage("/RRdebug <on/off> \t sets the debug status");
 end
 
+---Opens the rolls window to make the actual rolls
+---@param sCommand string not used
+---@param sParams string not used
 function processRRRolls(sCommand, sParams)
 	Interface.openWindow("manualrolls", "");
 end
 
+---Opens the console window, if host, to send rolls to users
+---@param sCommand string not used
+---@param sParams string not used
 function processRRConsole(sCommand, sParams)
 	if Session.IsHost  then		
 		Interface.openWindow(createRequestWindowName, dbRootName);
 	end	
 end
 
---Changes debug if on/off parameter is not passed
---lists current extensions to the log
+---Sets debug status. Flips status if on/off parameter is not passed.
+---Also lists current extensions to the log.
+---@param sCommand string not used
+---@param sParams string|nil on or off
 function processRRdebug(sCommand, sParams)
 	sParams = StringManager.trim(sParams);
 	if sParams == "off" then
@@ -139,3 +168,5 @@ function processRRdebug(sCommand, sParams)
 		listExtensions();
 	end
 end
+
+--#endregion

@@ -6,7 +6,7 @@ function onInit()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_DICETOWER, handleRRDiceTower);
 end
 
--- override functions
+---Pass through function to get the local variables into this script. You cannot access local vars in a different layer
 function setData(rRoll, rSource, aTargets)
     vRoll = rRoll;
     vSource = rSource;
@@ -14,6 +14,7 @@ function setData(rRoll, rSource, aTargets)
     super.setData(rRoll, rSource, aTargets);
 end
 
+---Override function if roll is for tower, otherwise it passes it through
 function processRoll()
     if RR.bDebug then Debug.chat("vRoll",vRoll); end
     if vRoll.bTower == true then
@@ -25,6 +26,8 @@ function processRoll()
 	
 end
 
+---The tower roll function for this is basically a copy of the super.processOK but the final call is to sendTower
+---instead of handleResolution
 function processOK()
     if vRoll.bTower == true then
         for _,w in ipairs(list.getWindows()) do
@@ -63,6 +66,41 @@ end
 -- New functions
 
 OOB_MSGTYPE_DICETOWER = "RRdicetower";
+
+---Processes the hidden rolls that were sent from the console to the player.
+---It needs to come back becuase only the host can make the hidden rolls.
+---@param msgOOB table the OOB msg from sendTower
+function handleRRDiceTower(msgOOB)
+	local rActor = nil;
+	if msgOOB.sender and msgOOB.sender ~= "" then
+		rActor = ActorManager.resolveActor(msgOOB.sender);
+	end
+	local rRoll = DiceTowerManager.decodeRollFromOOB(msgOOB);
+
+    -- if player actually did a manual roll, there are results associated
+    if msgOOB.sResults then
+        local res = stringToResults(msgOOB.sResults);
+        -- for each dice in aDice, we initialize it to a blank array and then add the type and result items
+        for i,sDice in ipairs(rRoll.aDice) do
+            rRoll.aDice[i] = {};
+            rRoll.aDice[i].type = sDice;
+            rRoll.aDice[i].result = res[i];
+        end
+    end
+	rRoll.sDesc = "[" .. Interface.getString("dicetower_tag") .. "] " .. (rRoll.sDesc or "");
+    rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
+    -- if rRoll.aDice[1].result exists this was a manual roll
+    if rRoll.aDice[1].result then
+        ActionsManager.handleResolution(rRoll, rActor, nil);
+    else
+        ActionsManager.roll(rActor, nil, rRoll);
+    end
+end
+
+---Creates the outgoing roll and sends it to the hsot for execution
+---@param rRoll table the same info to be passed to the manualRolls
+---@param rSource table the same info to be passed to the manualRolls
+---@param aTargets table the same info to be passed to the manualRolls
 function sendTower(rRoll, rSource, aTargets)
     local msgOOB = {};
 	msgOOB.type = OOB_MSGTYPE_DICETOWER;
@@ -92,33 +130,6 @@ function sendTower(rRoll, rSource, aTargets)
         msg.text = msg.text .. "[" .. msgOOB.sDice .. "]";
         
         Comm.addChatMessage(msg);
-    end
-end
-
-function handleRRDiceTower(msgOOB)
-	local rActor = nil;
-	if msgOOB.sender and msgOOB.sender ~= "" then
-		rActor = ActorManager.resolveActor(msgOOB.sender);
-	end
-	local rRoll = DiceTowerManager.decodeRollFromOOB(msgOOB);
-
-    -- player actually did a manual roll so there are results associated
-    if msgOOB.sResults then
-        local res = stringToResults(msgOOB.sResults);
-        -- for each dice in aDice, we initialize it to a blank array and then add the type and result items
-        for i,sDice in ipairs(rRoll.aDice) do
-            rRoll.aDice[i] = {};
-            rRoll.aDice[i].type = sDice;
-            rRoll.aDice[i].result = res[i];
-        end
-    end
-	rRoll.sDesc = "[" .. Interface.getString("dicetower_tag") .. "] " .. (rRoll.sDesc or "");
-    rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
-    -- if rRoll.aDice[1].result exists this was a manual roll
-    if rRoll.aDice[1].result then
-        ActionsManager.handleResolution(rRoll, rActor, nil);
-    else
-        ActionsManager.roll(rActor, nil, rRoll);
     end
 end
 

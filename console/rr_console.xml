@@ -406,28 +406,6 @@
 				<state icon="RFI_PcSelected"/>
 				<hover icon="RFI_PcHover"/>
 				<anchored  to="token" position="over"/>
-				<script>
-					--[[ 
-					function onClickDown( button, x, y )
-						if button == 1 then
-							return true;
-						end
-						
-						return false;
-					end
-					
-					function onClickRelease( button, x, y )
-						if button == 1 then
-							--window.toggleEntry();
-						end
-					end
-					
-					function onHover(state)
-						--window.onHover(state, window.getDatabaseNode());
-					end	
-					]]		
-				</script>
-				<!-- <tooltip field="selection"/> -->
 			</buttoncontrol>
 			
 			<genericcontrol  name="roll_status">

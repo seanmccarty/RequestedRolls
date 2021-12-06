@@ -1,32 +1,30 @@
 --Overrides the function ActionsManger.roll so that the popup roll page can be managed just like manual rolls
---TODO: Fix how the popup override is integrated. Currently, it runs in addition to passing the roll like normal.
---TODO: pass back dice tower rolls
 
 function onInit()
     ActionsManager.roll = rollOverride;
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRollRR);
 end
 
+---Helper function for if strings start with a certain sequence
+---@param String string the string to search
+---@param Start string the string it should start with
+---@return boolean boolean if string starts with the given sequence
 function starts(String,Start)
 	return string.sub(String,1,string.len(Start))==Start
 end
 
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 
+---Overrides the roll function in ActionManager so that we can add RR rolls after all normal processing has happened
+---@param rSource table mirrors original function
+---@param vTargets table|nil mirrors original function
+---@param rRoll table mirrors original function
+---@param bMultiTarget boolean mirrors original function
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
-    if RR.bDebug then Debug.chat("rollOverride"); end
-	
-	--this portion is added to display the popup
-    --if ActionsManager.doesRollHaveDice(rRoll) then
-    	--local wRequestedRoll = Interface.openWindow("RR_RollRequest", "");
-    	--wRequestedRoll.addRoll(rRoll, rSource, vTargets);
-
-		--local wManualRoll = Interface.openWindow("manualrolls", "");
-		--wManualRoll.addRoll(rRoll, rSource, vTargets);
-		
-	--end
-
     if ActionsManager.doesRollHaveDice(rRoll) then
+		--start where the new code is inserted
+		--Checks if this save could be a roll that needs to be added but wasn't generated from console
+		--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
 		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
 			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
 				local wManualRoll = Interface.openWindow("manualrolls", "");
@@ -34,10 +32,12 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 				return;
 			end
 		end
+		--rRoll.RR is only set when generated from the console so we can guarantee it needs to be displayed to user
 		if rRoll.RR then
 			notifyApplyRoll(rRoll, rSource, vTargets);
 			return;
 		end
+		--end of new code insertion
 
 		if not rRoll.bTower and OptionsManager.isOption("MANUALROLL", "on") then
 			local wManualRoll = Interface.openWindow("manualrolls", "");
@@ -56,10 +56,17 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	end
 end
 
+--helper variable to make bools into numbers
+--TODO: check if this is needed
 local boolNum={ [true]=1, [false]=0};
+
+---Processes console rolls received
+---@param msgOOB table the OOB message for adding the roll to manualRolls
 function handleApplyRollRR(msgOOB)
 	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
+
 	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
+
 	local rRoll = {};
 	rRoll.sSource = msgOOB.sSource;
 	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
@@ -75,13 +82,15 @@ function handleApplyRollRR(msgOOB)
 	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
 	--rRoll.RR = msgOOB.RR;
 	
-	--local nTotal = tonumber(msgOOB.nTotal) or 0;
-	--applyAttack(rSource, rTarget, (tonumber(msgOOB.nSecret) == 1), msgOOB.sAttackType, msgOOB.sDesc, nTotal, msgOOB.sResults);
 	if RR.bDebug then Debug.chat("postsendroll", rRoll); end
 	local wManualRoll = Interface.openWindow("manualrolls", "");
 	wManualRoll.addRoll(rRoll, rActor, nil);
 end
 
+---Creates the outgoing roll for the user, passes the completed message to needsBroadcast for distribution
+---@param rRoll table the same info to be passed to the manualRolls
+---@param rSource table the same info to be passed to the manualRolls
+---@param vTargets table the same info to be passed to the manualRolls
 function notifyApplyRoll(rRoll, rSource, vTargets)
 	local msgOOB = {};
 	if RR.bDebug then Debug.chat("vRoll", rRoll); end
@@ -101,14 +110,15 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	if RR.bDebug then Debug.chat("preMsgOOB",msgOOB);end
 
 	needsBroadcast(rSource, msgOOB);
---maybe make a loop through the roll object with object constructors and then lopp throuhg on the other end?
-
-	
-	--Comm.deliverOOBMessage(msgOOB);
+--TODO:maybe make a loop through the roll object with object constructors and then loop through on the other end?
 end
 
-function needsBroadcast(rTarget, msgOOB)
-    local sTargetNodeType, nodeTarget = ActorManager.getTypeAndNode(rTarget);
+---This determines whether to broadcast or handle the oobmsg locally.
+---This is a separate function from the notifyApplyRoll so that I can use the return to end execution early
+---@param rSource table	passed through from notifyApplyRoll, determines who the message gets sent to
+---@param msgOOB string the message from notifyApplyRoll
+function needsBroadcast(rSource, msgOOB)
+    local sTargetNodeType, nodeTarget = ActorManager.getTypeAndNode(rSource);
 	if nodeTarget and (sTargetNodeType == "pc") then
 		if Session.IsHost then
 			local sOwner = DB.getOwner(nodeTarget);
@@ -127,7 +137,7 @@ function needsBroadcast(rTarget, msgOOB)
 		else
 			if DB.isOwner(nodeTarget) then
 				handleApplyRollRR(msgOOB);
-				Debug.chat("uh oh this should have been unreachable in needsBroadcast")
+				Debug.chat("uh oh this should have been unreachable in needsBroadcast");
 				return;
 			end
 		end
