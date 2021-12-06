@@ -44,7 +44,7 @@
 		<script file="console/scripts/rr_console.lua"/>
 		<sheetdata>
 			<!-- header anchor -->
---			<genericcontrol name="headeranchor">
+			<genericcontrol name="headeranchor">
 				<anchored height="25">
 					<top  />
 					<left offset="10" />
@@ -82,7 +82,7 @@
 				<target>rr_list_pc</target>
 			</scrollbar>
 
---			<label_ps name="label_PC">
+			<label_ps name="label_PC">
 				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_pc" />
 				<center />
@@ -99,7 +99,7 @@
 			<button_deselect_all>
 				<anchored to="PC_random" position="right"/>
 				<target>rr_list_pc</target>
-			</button_deselect_all>>
+			</button_deselect_all>
 
 			<!-- NPC list -->
 			<RR_window_selector name="rr_list_npc">
@@ -129,7 +129,7 @@
 				<target>rr_list_npc</target>
 			</scrollbar>
 
---			<label_ps name="label_NPC">
+			<label_ps name="label_NPC">
 				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_npc" />
 				<center />
@@ -148,9 +148,9 @@
 				<target>rr_list_npc</target>
 			</button_deselect_all>
 			
-			<!-- Roll selectors -->
+
 			<!-- Footer anchors -->
---			<genericcontrol name="footeranchor">
+			<genericcontrol name="footeranchor">
 				<anchored height="20">
 					<bottom offset="-65" />
 					<left offset="5" />
@@ -162,7 +162,7 @@
 				<anchored to="footeranchor" position="insidetopleft" width="0" height="20" />
 				<disabled />
 			</genericcontrol>
-			
+			<!-- Roll selectors -->
 			<buttonfield name="hiderollresults">
 				<anchored to="leftanchor" height="20" width="20">
 					<top />
@@ -194,7 +194,7 @@
 			</label>
 			<combobox name="checkselected">
 				<anchored to="checklabel" position="righthigh" offset="10,0" width="100" height="20" />
---				<default textres="ps_default_groupability" />
+				<default textres="ps_default_groupability" />
 				<gmvisibleonly />
 				<script>
 					function onInit()
@@ -233,7 +233,7 @@
 			</label>
 			<combobox name="saveselected">
 				<anchored to="savelabel" position="righthigh" offset="10,0" width="100" height="20" />
---				<default textres="ps_default_groupability" />
+				<default textres="ps_default_groupability" />
 				<gmvisibleonly />
 				<script>
 					function onInit()
@@ -250,14 +250,14 @@
 			<basicnumber name="savedc">
 				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
-			</basicnumber>			
+			</basicnumber>
 
 			<!-- skill -->
 			<genericcontrol name="skillframe">
 				<anchored to="checkframe" position="belowleft" offset="0,15" height="20" width="245" />
 				<frame name="groupbox" offset="10,10,10,10" />
 				<gmvisibleonly />
-			</genericcontrol>							
+			</genericcontrol>
 			<button_roll name="skillroll">
 				<anchored to="skillframe" position="insidetopleft" offset="2,0" />
 				<script file="console/scripts/rr_console_skill.lua" />
@@ -341,7 +341,7 @@
 	<!-- the individual entries in the npc/pc list -->
 	<windowclass name="rr_entry">
 		<!-- <script file="scripts/ui/rfia_entry.lua" /> -->
-		<script file="console/scripts/rr_entry.lua"/>
+		<!-- <script file="console/scripts/rr_entry.lua"/> -->
 		<sheetdata>
 			<hn name="isSelectedForRFIA" />
 			<hn name="rollStatusForRFIA" />			
@@ -386,7 +386,7 @@
 				<anchored  to="token" position="over"/>
 			</buttoncontrol>
 			
-			<genericcontrol  name="roll_status">
+			<!-- <genericcontrol  name="roll_status">
 				<anchored height="10">
 					<bottom parent="token" anchor="bottom" offset="5"/>
 					<left parent="token" anchor="left" offset="5"/>
@@ -394,7 +394,7 @@
 				</anchored>
 				<invisible />
 				<icon></icon>				
-			</genericcontrol >
+			</genericcontrol > -->
 		</sheetdata>
 	</windowclass>	
 </root>

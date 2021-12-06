@@ -5,8 +5,8 @@
 			<anchored width="20"/>
 			<icon normal="button_dialog_ok" pressed="button_dialog_ok_down" />
 			<tooltip textres="RFI_button_label_select_all_pc" />
+            <!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
 			<script>
-                <!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
 				function onButtonPress()
                     for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
                         vEntry.selection.setValue(1);
