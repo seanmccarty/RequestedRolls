@@ -42,6 +42,10 @@
                         end
                         
                         randomEntry.selection.setValue(1);
+                    else
+                        for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+                            vEntry.selection.setValue(1);
+                        end
                     end
 				end
 			</script>

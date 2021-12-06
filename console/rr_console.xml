@@ -12,7 +12,7 @@
 			<size width="500" height="400" />
 		</placement>
 		<sizelimits>
-			<minimum width="100" height="300" />
+			<minimum width="400" height="350" />
 			<dynamic />
 		</sizelimits>
 		<softclose />
@@ -35,13 +35,12 @@
 			</tabs_partysheet>
 			
 			<resize_partysheet />
-			<helper_ps />
+			<!-- <helper_ps /> -->
 			<close_partysheet />
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="rr_console">
-		<!-- <script file="ps/scripts/ps_main.lua" /> -->
 		<script file="console/scripts/rr_console.lua"/>
 		<sheetdata>
 			<!-- header anchor -->
@@ -190,12 +189,12 @@
 			</button_roll>
 			<label name="checklabel">
 				<anchored to="checkroll" position="righthigh" offset="3,0" />
---				<static textres="ps_label_groupcheck" />
+				<static textres="RR_label_check" />
 				<gmvisibleonly />
 			</label>
 			<combobox name="checkselected">
 				<anchored to="checklabel" position="righthigh" offset="10,0" width="100" height="20" />
-				<default textres="ps_default_groupability" />
+--				<default textres="ps_default_groupability" />
 				<gmvisibleonly />
 				<script>
 					function onInit()
@@ -229,12 +228,12 @@
 			</button_roll>
 			<label name="savelabel">
 				<anchored to="saveroll" position="righthigh" offset="3,0" />
---				<static textres="ps_label_groupsave" />
+				<static textres="RR_label_save" />
 				<gmvisibleonly />
 			</label>
 			<combobox name="saveselected">
 				<anchored to="savelabel" position="righthigh" offset="10,0" width="100" height="20" />
-				<default textres="ps_default_groupability" />
+--				<default textres="ps_default_groupability" />
 				<gmvisibleonly />
 				<script>
 					function onInit()
@@ -266,7 +265,7 @@
 			</button_roll>
 			<label name="skilllabel">
 				<anchored to="skillroll" position="righthigh" offset="3,0" />
-				<static textres="ps_label_groupskill" />
+				<static textres="RR_label_skill" />
 				<gmvisibleonly />
 			</label>	
 			<combobox name="skillselected">
@@ -277,7 +276,7 @@
 					function onInit()
 						super.onInit();
 						addItems(DataCommon.psskilldata);
-						addItems({"Test","Test (Good)"});
+						if RR.bCharacterSheetTweaksEnabled then addItems({"Tools/Items: Artisans Tools","Tools/Items: Gaming Set","Tools/Items: Instrument","Tools/Items: Thieves Tools"}); end
 					end
 				</script>
 			</combobox>
@@ -290,47 +289,9 @@
 				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
 			</basicnumber>			
-
-			<!-- Attack -->
-			<genericcontrol name="atkframe">
-				<anchored to="saveframe" position="belowleft" offset="0,15" height="20" width="110" />
-				<frame name="groupbox" offset="10,10,10,10" />
-				<gmvisibleonly />
-			</genericcontrol>							
-			<button_roll name="atkroll">
-				<anchored to="atkframe" position="insidetopleft" offset="2,0" />
-				<script file="ps/scripts/ps_roll_atk.lua" />
-				<gmvisibleonly />
-			</button_roll>
-			<label name="atklabel">
-				<anchored to="atkroll" position="righthigh" offset="3,0" />
-				<static textres="ps_label_groupatk" />
-				<gmvisibleonly />
-			</label>	
-			<basicnumber name="bonus">
-				<anchored to="atklabel" position="righthigh" offset="10,0" width="30" height="20" />
-				<displaysign />
-				<gmvisibleonly />
-			</basicnumber>
-			<!-- Init -->
-			<genericcontrol name="initframe">
-				<anchored to="atkframe" position="right" offset="15,0" width="50" />
-				<frame name="groupbox" offset="10,10,10,10" />
-				<gmvisibleonly />
-			</genericcontrol>							
-			<button_roll name="initroll">
-				<anchored to="initframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_init.lua"/>
-				<gmvisibleonly />
-			</button_roll>
-			<label name="initlabel">
-				<anchored to="initroll" position="righthigh" offset="3,0" />
-				<static textres="RR_label_init" />
-				<gmvisibleonly />
-			</label>
 			<!-- Dice roll -->
 			<genericcontrol name="diceframe">
-				<anchored to="initframe" position="right" offset="15,0"  width="115" />
+				<anchored to="skillframe" position="right" offset="15,0"  width="100" />
 				<frame name="groupbox" offset="10,10,10,10" />
 				<gmvisibleonly />
 			</genericcontrol>							
@@ -356,6 +317,23 @@
 					end
 				</script>
 			</combobox>
+			<!-- Init -->
+			<genericcontrol name="initframe">
+				<anchored to="diceframe" position="right" offset="15,0" width="50" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>							
+			<button_roll name="initroll">
+				<anchored to="initframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_init.lua"/>
+				<gmvisibleonly />
+			</button_roll>
+			<label name="initlabel">
+				<anchored to="initroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_init" />
+				<gmvisibleonly />
+			</label>
+
 		</sheetdata>
 	</windowclass>
 

@@ -98,7 +98,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	if RR.bDebug then Debug.chat("vTargets", vTargets); end
 	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
 
-	msgOOB.sSourceNode = rSource.sCTNode;
+	if rSource then msgOOB.sSourceNode = rSource.sCTNode; end
 	msgOOB.sSource = rRoll.sSource;
 	msgOOB.sType = rRoll.sType;
 	msgOOB.sDesc = rRoll.sDesc;

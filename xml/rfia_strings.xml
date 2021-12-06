@@ -18,9 +18,9 @@
 	
 	
 	<string name="RFIA_button_label_rolls_list">DM's Roll Requests</string>
-    <string name="RFI_button_label_select_all_pc">Select all PCs</string>
-    <string name="RFI_button_label_unselect_all_pc">Deselect all PCs</string>
-    <string name="RFIA_button_label_select_random_pc">Select random PC</string>	
+    <string name="RFI_button_label_select_all_pc">Select all</string>
+    <string name="RFI_button_label_unselect_all_pc">Deselect all</string>
+    <string name="RFIA_button_label_select_random_pc">Select random</string>	
     <string name="RFIA_button_label_select_all_npc">Select all NPCs</string>
     <string name="RFIA_button_label_unselect_all_npc">Deselect all NPCs</string>
 	<string name="RFIA_button_label_select_random_npc">Select random NPC</string>
@@ -61,5 +61,10 @@
 
     <string name="RR_label_init">Init</string>
     <string name="RR_label_dice">Die</string>
+    <string name="RR_label_check">Check</string>
+    <string name="RR_label_save">Save</string>
+    <string name="RR_label_skill">Skill</string>
+    <string name="RR_label_attack">Attack</string>
+
 	
 </root>
