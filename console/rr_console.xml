@@ -233,12 +233,17 @@
 			</label>
 			<combobox name="saveselected">
 				<anchored to="savelabel" position="righthigh" offset="10,0" width="100" height="20" />
-				<default textres="ps_default_groupability" />
+				<default>Select save</default>
 				<gmvisibleonly />
 				<script>
 					function onInit()
 						super.onInit();
-						addItems(DataCommon.psabilitydata);
+						
+						if DataCommon.pssavedata then 
+							addItems(DataCommon.pssavedata)
+						else
+							addItems(DataCommon.psabilitydata);
+						end
 					end
 				</script>
 			</combobox>
@@ -272,10 +277,16 @@
 				<anchored to="skilllabel" position="righthigh" offset="10,0" width="110" height="20" />
 				<gmvisibleonly />
 				<listmaxsize>12</listmaxsize>
+				<default>Select skill</default>
 				<script>
 					function onInit()
 						super.onInit();
-						addItems(DataCommon.psskilldata);
+						if DataCommon.psskilldata then
+							addItems(DataCommon.psskilldata);
+						end
+						if DataCommon.ps2skilldata then
+							addItems(DataCommon.ps2skilldata);
+						end
 						if RR.bCharacterSheetTweaksEnabled then addItems({"Tools/Items: Artisans Tools","Tools/Items: Gaming Set","Tools/Items: Instrument","Tools/Items: Thieves Tools"}); end
 					end
 				</script>
@@ -310,6 +321,7 @@
 				<gmvisibleonly />
 				<listmaxsize>12</listmaxsize>
 				<unsorted />
+				<default>d20</default>
 				<script>
 					function onInit()
 						super.onInit();

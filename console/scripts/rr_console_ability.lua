@@ -30,7 +30,12 @@ end
 
 --originally from actionCheck.performpartysheetroll
 function performCheckRoll(rActor, sCheck)
-	local rRoll = ActionCheck.getRoll(rActor, sCheck);
+	local rRoll;
+	if User.getRulesetName()=="5E" then
+		rRoll = ActionCheck.getRoll(rActor, sCheck);
+	else
+		rRoll = ActionAbility.getRoll(rActor, sCheck);
+	end
 	rRoll.RR = true;
 	local nTargetDC = DB.getValue("requestsheet.checkdc", 0);
 	if nTargetDC == 0 then
@@ -43,5 +48,4 @@ function performCheckRoll(rActor, sCheck)
 	end
 
 	ActionsManager.performAction(draginfo, rActor, rRoll);
-	--notifyApplyCheck(rActor, rRoll)
 end

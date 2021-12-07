@@ -41,7 +41,7 @@ function performDiceRoll(rActor, sDice)
 		rRoll.bTower = true;
 	end
     
-    if sDice=="d20" then
+    if User.getRulesetName()=="5E" and sDice=="d20" then
 		ActionsManager2.encodeAdvantage(rRoll);
     end
 
