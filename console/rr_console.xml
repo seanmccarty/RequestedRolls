@@ -9,10 +9,10 @@
 	<windowclass name="RequestRolls">
 		<frame>partysheet</frame>
 		<placement>
-			<size width="500" height="400" />
+			<size width="620" height="400" />
 		</placement>
 		<sizelimits>
-			<minimum width="400" height="350" />
+			<minimum width="400" height="370" />
 			<dynamic />
 		</sizelimits>
 		<softclose />
@@ -21,6 +21,15 @@
 			<windowtitlebar name="title">
 				<resource>RFIA_window_title_display</resource>
 			</windowtitlebar>
+			<button_text_sm name="manual_rolls">
+				<anchored position="insidetopleft" offset="15,15" width="50" />
+				<state textres="button_manualroll" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("manualrolls", "");
+					end
+				</script>
+			</button_text_sm>
 			<anchor_title_partysheet name="contentanchor" />
 			
 			<sub_ps name="main">
@@ -45,7 +54,7 @@
 		<sheetdata>
 			<!-- header anchor -->
 			<genericcontrol name="headeranchor">
-				<anchored height="25">
+				<anchored height="15">
 					<top  />
 					<left offset="10" />
 					<right offset="-15" />

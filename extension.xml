@@ -3,8 +3,8 @@
 <root version="3.0">
 	<properties>
 		<name>Requested Rolls</name>
-		<version>1.2</version>
-		<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
+		<version>1.99</version>
+		<author>srmccarty et al.-see ReadMe</author>
 		<loadorder>99</loadorder>
 		<ruleset>
 			<name>5E</name>
@@ -33,10 +33,10 @@
 		</ruleset>
 		<description>
 			<text>Requested Rolls</text>
-			<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
+			<author>srmccarty et al.-see ReadMe</author>
 		</description>
 	</properties>
-	<announcement text="Requested Rolls version 1.2.2\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.0-beta\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />
