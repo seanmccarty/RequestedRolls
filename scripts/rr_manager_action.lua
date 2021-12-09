@@ -24,14 +24,24 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
     if ActionsManager.doesRollHaveDice(rRoll) then
 		--start where the new code is inserted
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
-		--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
 		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
+			--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
 			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
 				local wManualRoll = Interface.openWindow("manualrolls", "");
 				wManualRoll.addRoll(rRoll, rSource, vTargets);
 				return;
 			end
+
 		end
+
+		--death auto and concentration rolls originate on host. They need to be sent to the players to check for the popup setting
+		if Session.IsHost == true then
+			if rRoll.sType and (rRoll.sType == "death_auto" or rRoll.sType == "concentration") then 
+				rRoll.RR = true; 
+				rRoll.bPopup = true;
+			end
+		end
+
 		--rRoll.RR is only set when generated from the console so we can guarantee it needs to be displayed to user
 		if rRoll.RR then
 			notifyApplyRoll(rRoll, rSource, vTargets);
@@ -81,10 +91,22 @@ function handleApplyRollRR(msgOOB)
 	end
 	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
 	--rRoll.RR = msgOOB.RR;
+	if (tonumber(msgOOB.bPopup) == 1) then
+		rRoll.bPopup = (tonumber(msgOOB.bPopup) == 1)
+	end
 	
 	if RR.bDebug then Debug.chat("postsendroll", rRoll); end
-	local wManualRoll = Interface.openWindow("manualrolls", "");
-	wManualRoll.addRoll(rRoll, rActor, nil);
+
+	--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
+	--Otherwise add it to the popup menu
+	if rRoll.bPopup and not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rActor)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rActor)) then
+		local rThrow = ActionsManager.buildThrow(rActor, nil, rRoll, true);
+		Comm.throwDice(rThrow);
+	else
+		local wManualRoll = Interface.openWindow("manualrolls", "");
+		wManualRoll.addRoll(rRoll, rActor, nil);
+	end
+
 end
 
 ---Creates the outgoing roll for the user, passes the completed message to needsBroadcast for distribution
@@ -106,6 +128,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	msgOOB.bSecret = boolNum[rRoll.bSecret];
 	msgOOB.bTower = boolNum[rRoll.bTower];
 	msgOOB.RR = boolNum[rRoll.RR];
+	msgOOB.bPopup = boolNum[rRoll.bPopup];
 	msgOOB.nTarget = rRoll.nTarget;
 	if RR.bDebug then Debug.chat("preMsgOOB",msgOOB);end
 
