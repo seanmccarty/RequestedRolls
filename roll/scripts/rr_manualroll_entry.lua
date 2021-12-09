@@ -14,6 +14,15 @@ function setData(rRoll, rSource, aTargets)
     super.setData(rRoll, rSource, aTargets);
 end
 
+---Adds a check to the manual roll window that closes it if you are rolling the last roll in your queue.
+---It closes on count=1 because this is called before the list item is actually deleted.
+function onClose()
+    if windowlist.getWindowCount()==1 then
+        windowlist.window.close();
+    end
+    super.onClose();
+end
+
 ---Override function if roll is for tower, otherwise it passes it through
 function processRoll()
     if RR.bDebug then Debug.chat("vRoll",vRoll); end
@@ -23,7 +32,6 @@ function processRoll()
     else
         super.processRoll();
     end
-	
 end
 
 ---The tower roll function for this is basically a copy of the super.processOK but the final call is to sendTower
