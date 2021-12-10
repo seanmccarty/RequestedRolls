@@ -2,25 +2,14 @@ function onInit()
     if Session.IsHost then DB.createNode("requestsheet").setPublic(true); end
 end
 
+---comment Checks through all combatatants for the number field that the selector button is tied to
+---@return table selectedCharacters a list of selected characters
 function getSelectedChars()
     list = {};
-    for _,entry in pairs(rr_list_npc.getWindows()) do
-        if isEntrySelected(entry) then
-            table.insert(list, entry.getDatabaseNode());
-        end
-    end
-    for _,entry in pairs(rr_list_pc.getWindows()) do
-        if isEntrySelected(entry) then
-            table.insert(list, entry.getDatabaseNode());
+    for _,entry in pairs(CombatManager.getCombatantNodes()) do
+        if DB.getValue(entry,"RRselected")==1 then
+            table.insert(list, entry);
         end
     end
     return list;
-end
-
-function isEntrySelected(node)
-    isSelected = node.selection.getValue();
-    if isSelected == 1 then
-        return true;
-    end
-    return false;
 end

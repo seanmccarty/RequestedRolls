@@ -360,12 +360,10 @@
 
 
 	<!-- the individual entries in the npc/pc list -->
+	<!-- the hidden number "RRselected" is what ties the selection button to the CT nodes -->
 	<windowclass name="rr_entry">
-		<!-- <script file="scripts/ui/rfia_entry.lua" /> -->
-		<!-- <script file="console/scripts/rr_entry.lua"/> -->
-		<sheetdata>
-			<hn name="isSelectedForRFIA" />
-			<hn name="rollStatusForRFIA" />			
+		<sheetdata> 
+			<hn name="RRselected" />
 			<anchor_column name="columnanchor" />
 			<hsx name="name">
 				<anchored height="20">
@@ -377,13 +375,13 @@
 				<script>
 					function onInit()
 						super.onInit()
-						window.selection.setTooltipText(getValue());
-						window.selection.setStateTooltipText(1, getValue());
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
 					end
 					function onValueChanged()
 						super.onValueChanged()
-						window.selection.setTooltipText(getValue());
-						window.selection.setStateTooltipText(1, getValue());
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
 					end
 				</script>
 			</hsx>
@@ -399,13 +397,13 @@
 				<empty>token_empty</empty>			
 			</tokenfield>		
 			
-			<buttoncontrol name="selection">
+			<buttonfield name="RRselected">
 				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
 				<state icon="RFI_PcUnselected"/>
 				<state icon="RFI_PcSelected"/>
 				<hover icon="RFI_PcHover"/>
 				<anchored  to="token" position="over"/>
-			</buttoncontrol>
+			</buttonfield>
 			
 			<!-- <genericcontrol  name="roll_status">
 				<anchored height="10">

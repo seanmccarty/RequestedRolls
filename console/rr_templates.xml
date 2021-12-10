@@ -9,7 +9,7 @@
 			<script>
 				function onButtonPress()
                     for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.selection.setValue(1);
+                        vEntry.RRselected.setValue(1);
                     end
 				end
 			</script>
@@ -38,13 +38,13 @@
                         randomEntry = windowList[randomIndex];
 
                         for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.selection.setValue(0);
+                        vEntry.RRselected.setValue(0);
                         end
                         
-                        randomEntry.selection.setValue(1);
+                        randomEntry.RRselected.setValue(1);
                     else
                         for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                            vEntry.selection.setValue(1);
+                            vEntry.RRselected.setValue(1);
                         end
                     end
 				end
@@ -60,7 +60,7 @@
 			<script>
 				function onButtonPress()
                     for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                    vEntry.selection.setValue(0);
+                    vEntry.RRselected.setValue(0);
                     end
 				end
 			</script>
