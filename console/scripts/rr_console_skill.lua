@@ -110,15 +110,10 @@ function E35skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
 			else
 				sSkillLookup = sSkill;
 			end
-			if DataCommon.skilldata[sSkillLookup] then
-				local stat = DataCommon.skilldata[sSkillLookup].stat;
-				local nMod = ActorManager35E.getAbilityBonus(rActor, stat);
-				local rRoll = ActionSkill.getRoll(rActor, sSkill, nMod);
-				return rRoll;
-			else
-				local rRoll = ActionSkill.getRoll(rActor, sSkill, 0);
-				return rRoll;
-			end
+			
+			local  nSkillMod = CharManager.getSkillValue(rActor, sSkillLookup, sSubSkill);
+			local rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
+			return rRoll;
 		end
 	else
 		local sSubSkill = nil;
