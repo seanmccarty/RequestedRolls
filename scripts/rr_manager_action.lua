@@ -99,7 +99,7 @@ function handleApplyRollRR(msgOOB)
 
 	--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
 	--Otherwise add it to the popup menu
-	if rRoll.bPopup and not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rActor)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rActor)) then
+	if rRoll.bPopup and (not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rActor)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rActor))) then
 		local rThrow = ActionsManager.buildThrow(rActor, nil, rRoll, true);
 		Comm.throwDice(rThrow);
 	else
