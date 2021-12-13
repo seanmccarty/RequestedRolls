@@ -1,7 +1,7 @@
 function action(draginfo)
 
 	local aParty = {};
-	for _,v in pairs(window.getSelectedChars()) do
+	for _,v in pairs(RR.getSelectedChars()) do
 		local rActor = ActorManager.resolveActor(v);
 		if rActor then
 			table.insert(aParty, rActor);
@@ -23,7 +23,7 @@ function action(draginfo)
 end
 
 function onButtonPress()
-    if (table.getn(window.getSelectedChars())>0) then
+    if (table.getn(RR.getSelectedChars())>0) then
         return action();
     end
 end	
