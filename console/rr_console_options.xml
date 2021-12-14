@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+    <windowclass name="rr_options">
+		<!-- <script file="console/scripts/rr_console.lua"/> -->
+		<sheetdata>
+			<button_iedit name="skills_iedit">
+				<anchored position="insidebottomright" offset="10,10" />
+				<tooltip textres="char_skills_tooltip_edit" />
+				<script>
+					function onValueChanged()
+						local bEditMode = (getValue() == 1);
+						
+						window.contents.subwindow.skills.update();
+						window.contents.subwindow.skills2.update();
+						window.contents.subwindow.skills3.update();
+					end
+				</script>
+			</button_iedit>
+
+			<subwindow name="contents">
+                
+				<anchored>
+					<top offset="0" />
+					<bottom offset="-35" />
+					<left offset="0" />
+					<right offset="-15" />
+				</anchored>
+				<class>charsheet_skills_contents2</class>
+				<activate />
+				<fastinit />
+			</subwindow>
+			<scrollbar>
+				<anchored to="contents" offset="-5,-10"/>
+				<target>contents</target>
+			</scrollbar>
+        </sheetdata>
+    </windowclass>
+
+ 	<windowclass name="charsheet_skills_contents2">
+		<margins control="0,0,0,2" />
+		<script>
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
+					<right offset="-15" />
+				</anchored>
+			</genericcontrol>
+
+
+            <label_ps name="name_short_label" width="200">
+				<anchored>
+					<top parent="rightanchor" />
+					<left offset="190" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<static textres="RR_label_shortname" />
+			</label_ps>
+			<label_ps name="name_label">
+				<anchored>
+					<top parent="rightanchor" />
+					<left offset="80" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-32" />
+				</anchored>
+				<static textres="RR_label_name" />
+				<center />
+			</label_ps>
+			<label_ps name="name_label">
+				<anchored>
+					<top parent="rightanchor" />
+					<left offset="10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<static textres="RR_label_show" />
+			</label_ps>
+<!-- check -->
+			<label_ps name="skillstitle">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative"/>
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<static textres="RR_label_check" />
+			</label_ps>
+			<button_iadd name="skills_iadd">
+				<anchored to="skillstitle" position="insidetopright" offset="0,-3" />
+				<target>skills</target>
+			</button_iadd>
+			<windowlist name="skills">
+                <frame name="groupbox" offset="13,5,10,5" />
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<child></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<noscroll />
+				<datasource>.checklist</datasource>
+				<class>item_entry</class>
+				<sortby><control>name</control></sortby>
+				<columns><width>260</width></columns>
+				<script file="console/scripts/rr_console_options.lua" />
+				<activate/>
+				<fastinit/>
+			</windowlist>
+<!-- save -->
+			<label_ps name="skillstitle3">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<static textres="RR_label_save" />
+			</label_ps>
+			<button_iadd name="skills_iadd">
+				<anchored to="skillstitle3" position="insidetopright" offset="0,-3" />
+				<target>skills3</target>
+			</button_iadd>
+			<windowlist name="skills3">
+                <frame name="groupbox" offset="13,5,10,5" />
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<child></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<noscroll />
+				<datasource>.savelist</datasource>
+				<class>item_entry</class>
+				<sortby><control>name</control></sortby>
+				<columns><width>260</width></columns>
+				<script file="console/scripts/rr_console_options.lua" />
+			</windowlist>
+<!-- skill  -->
+			<label_ps name="skillstitle2">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<static textres="RR_label_skill" />
+			</label_ps>
+			<button_iadd name="skills_iadd2">
+				<anchored to="skillstitle2" position="insidetopright" offset="0,-3" />
+				<target>skills2</target>
+			</button_iadd>
+			<windowlist name="skills2">
+                <frame name="groupbox" offset="13,5,10,5" />
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+					<left offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<child></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<noscroll />
+				<datasource>.skilllist</datasource>
+				<class>item_entry</class>
+				<sortby><control>name</control></sortby>
+				<columns><width>260</width></columns>
+				<script file="console/scripts/rr_console_options.lua" />
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+	
+	<!-- List Items-->
+	<windowclass name="item_entry">
+		<margins control="0,0,0,2" />
+		<script file="console/scripts/rr_console_options_item.lua" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
+			</genericcontrol>
+
+			<button_idelete name="idelete">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-2" />
+				</anchored>
+			</button_idelete>
+			
+			<button_skillprof name="prof">
+				<anchored position="insidetopleft" offset="2,6" />
+				<tabtarget next="name" />
+			</button_skillprof>
+            <string_textlistitem name="name_short">
+				<anchored to="rightanchor" width="75">
+					<top />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<tabtarget next="stat" prev="prof" />
+			</string_textlistitem>
+			<string_textlistitem name="name">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="20" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<tabtarget next="stat" prev="prof" />
+			</string_textlistitem>
+
+		</sheetdata>
+	</windowclass>
+</root>

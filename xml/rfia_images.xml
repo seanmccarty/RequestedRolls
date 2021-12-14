@@ -17,4 +17,7 @@
 	
 	<icon name="RFIA_5EThemeSidebarButtonUp" file="graphics/icons/rfia_5E_theme_button_up.png" />
 	<icon name="RFIA_5EThemeSidebarButtonDown" file="graphics/icons/rfia_5E_theme_button_down.png" />	
+	
+	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
+	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
 </root>

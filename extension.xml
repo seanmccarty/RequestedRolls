@@ -36,7 +36,7 @@
 			<author>srmccarty et al.-see ReadMe</author>
 		</description>
 	</properties>
-	<announcement text="Requested Rolls version 2.0-beta\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.0-beta.1\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
 		<includefile source="xml/rfia_resources.xml" />

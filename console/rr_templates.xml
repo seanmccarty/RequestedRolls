@@ -79,5 +79,42 @@
             </anchored>	
         </windowlist>
     </template>
-    
+
+    <!-- from  charwizard -->
+    <template name="button_charwizard_expand_window2">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_expand" />
+			<script>
+				function onButtonPress()
+					if window[self.target[1]].isVisible() then
+						window[self.target[1]].setVisible(false);
+					else
+						window[self.target[1]].setVisible(true);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	<template name="button_charwizard_feat">
+		<buttoncontrol>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<normal name="buttonup" offset="5,5,5,5" nobaseframe="true" />			
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<font>button-white</font>
+			<pressed offset="1,1" />			
+		</buttoncontrol>
+	</template>	
+
+	<template name="button_skillprof">
+		<buttonfield>
+			<anchored width="12" height="12" />
+			<state icon="button_prof" tooltipres="RR_tooltip_show_off" />
+			<state icon="button_prof_down" tooltipres="RR_tooltip_show_on" />
+		</buttonfield>
+	</template>
+
 </root>

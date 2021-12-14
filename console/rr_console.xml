@@ -35,14 +35,22 @@
 			<sub_ps name="main">
 				<class>rr_console</class>
 			</sub_ps>
+			<sub_ps name="options">
+				<class>rr_options</class>
+				<fastinit />
+			</sub_ps>
 			
 			<tabs_partysheet name="tabs">
 				<tab>
 					<icon>tab_main</icon>
 					<subwindow>main</subwindow>
 				</tab>
+				<tab>
+					<icon>tab_other</icon>
+					<subwindow>options</subwindow>
+				</tab>
 			</tabs_partysheet>
-			
+
 			<resize_partysheet />
 			<!-- <helper_ps /> -->
 			<close_partysheet />
@@ -156,7 +164,7 @@
 				<anchored to="NPC_random" position="right"/>
 				<target>rr_list_npc</target>
 			</button_deselect_all>
-			
+
 
 			<!-- Footer anchors -->
 			<genericcontrol name="footeranchor">
@@ -208,7 +216,29 @@
 				<script>
 					function onInit()
 						super.onInit();
-						addItems(DataCommon.psabilitydata);
+						--addItems(DataCommon.psabilitydata);
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "checklist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "checklist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.checklist")) do
+							if DB.getValue(w,"prof",0)==1 then
+								add(DB.getValue(w,"name",""));
+							end
+						end
 					end
 				</script>
 			</combobox>
@@ -249,9 +279,32 @@
 						super.onInit();
 						
 						if DataCommon.pssavedata then 
-							addItems(DataCommon.pssavedata)
+							--addItems(DataCommon.pssavedata)
 						else
-							addItems(DataCommon.psabilitydata);
+							--addItems(DataCommon.psabilitydata);
+						end
+
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "savelist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "savelist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.savelist")) do
+							if DB.getValue(w,"prof",0)==1 then
+								add(DB.getValue(w,"name",""));
+							end
 						end
 					end
 				</script>
@@ -291,12 +344,36 @@
 					function onInit()
 						super.onInit();
 						if DataCommon.psskilldata then
-							addItems(DataCommon.psskilldata);
+							--addItems(DataCommon.psskilldata);
 						end
 						if DataCommon.ps2skilldata then
-							addItems(DataCommon.ps2skilldata);
+							--addItems(DataCommon.ps2skilldata);
 						end
+
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skilllist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+
 						if RR.bCharacterSheetTweaksEnabled then addItems({"Tools/Items: Artisans Tools","Tools/Items: Gaming Set","Tools/Items: Instrument","Tools/Items: Thieves Tools"}); end
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skilllist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.skilllist")) do
+							if DB.getValue(w,"prof",0)==1 then
+								add(DB.getValue(w,"name",""));
+							end
+						end
 					end
 				</script>
 			</combobox>
@@ -355,6 +432,18 @@
 				<gmvisibleonly />
 			</label>
 
+			<!-- old person buttons come last because they are anchored in the middle-->
+			<subwindow name="buttonholderwindow">
+				<anchored>
+					<top parent="rr_list_npc" anchor="bottom" relation="relative" offset="5" />
+					<bottom parent="footeranchor" anchor="top" relation="relative" offset="-10"/>
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>	
+				<class>classwindow_buttonselectors</class>
+				<activate />
+			</subwindow>
+
 		</sheetdata>
 	</windowclass>
 
@@ -404,16 +493,185 @@
 				<hover icon="RFI_PcHover"/>
 				<anchored  to="token" position="over"/>
 			</buttonfield>
-			
-			<!-- <genericcontrol  name="roll_status">
-				<anchored height="10">
-					<bottom parent="token" anchor="bottom" offset="5"/>
-					<left parent="token" anchor="left" offset="5"/>
-					<right/>
-				</anchored>
+		</sheetdata>
+	</windowclass>	
+
+
+	<windowclass name="classwindow_buttonselectors">
+		<sheetdata>
+			<anchor_column name="columnanchor" />	
+			<subwindow name="check_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>				
+				<group_name2>Check</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.checklist</datasource>		
+				<activate/>
+			</subwindow>
+			<subwindow name="save_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>					
+				<group_name2>Save</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.savelist</datasource>		
+				<activate/>
+			</subwindow>
+			<subwindow name="skill_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>		
+				<noscroll />
+				<group_name2>Skill</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.skilllist</datasource>	
+				<activate/>
+			</subwindow>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="expanding_button_selector">
+		<margins control="0,0,10,10" />
+		<frame>groupbox</frame>
+		<script>
+			function onInit()
+				group_name.setValue(parentcontrol.group_name2[1]);
+				selection_window.setDatabaseNode(parentcontrol.datasource[1]);
+				if parentcontrol.datasource[1] ~= "requestsheet.skilllist" then
+					selection_window.setColumnWidth(65);
+				end
+			end
+		</script>
+		<sheetdata>
+			<button_charwizard_expand_window2 name="button_expand_stuff">
+				<anchored position="insidetopleft" offset="10,10" />
+				<target>selection_window</target>
+			</button_charwizard_expand_window2>
+			<basicnumber name="group">
+				<anchored position="insidetopleft" offset="185,10" />
 				<invisible />
-				<icon></icon>				
-			</genericcontrol > -->
+			</basicnumber>
+			<label name="group_name">
+				<anchored position="insidetopleft" offset="40,10" />
+				<readonly />
+			</label>
+			
+			<windowlist name="selection_window">
+				
+				<anchored position="insidetopleft" offset="5,35">
+					<right />
+				</anchored>		
+				<columns width="125" fillwidth="true" />
+				<skipempty />
+				<noscroll />
+				<sortby><control>name</control></sortby>
+				<class>rollselectorbutton</class>
+				<script>
+					function onFilter( w )
+						if  w.prof.getValue() == 1 then
+							return true;
+						else
+							return false;
+						end
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rollselectorbutton">
+		<margins control="0,0,0,10" />
+		<sheetdata>
+
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
+			</genericcontrol>
+			<button_charwizard_feat name="bname">
+				<anchored position="insidetopleft" offset="5,5" height="20">
+					<right offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						DB.setValue("requestsheet.".. window.windowlist.window.group_name.getValue():lower() .."selected", "string",window.name.getValue());
+					end
+				</script>
+			</button_charwizard_feat>
+
+			<hnx name="prof">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+			</hnx>
+
+			<hsx name="name">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+				</script>
+			</hsx>
+
+			<hsx name="name_short">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+				</script>
+			</hsx>
 		</sheetdata>
 	</windowclass>	
 </root>
