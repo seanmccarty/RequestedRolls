@@ -3,20 +3,14 @@
 <root>
 	<includefile source="xml/rfia_images.xml" />
 	<includefile source="xml/rfia_strings.xml" />
-	<includefile ruleset="PFRPG" source="xml/ui/rr_templates_PFRPG.xml" />
-	<includefile ruleset="5E" source="xml/ui/rr_templates_5E.xml" />
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	
 	<script name="RR" file="scripts/rr.lua"/>
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 
-	<!-- <includefile source="roll/rr_roll_request.xml" /> -->
-	<!-- <script name="RRRollEntry" file="roll/scripts/rr_roll_entry.lua"/> -->
-
 	<includefile source="console/rr_console.xml"/>
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
-	<!-- <script name="RRConsoleAbility" file="console/scripts/rr_console_ability.lua"/> -->
 	<script name="RRConsole" file="console/scripts/rr_console.lua"/>
 
 </root>

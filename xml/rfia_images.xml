@@ -3,8 +3,6 @@
 <root>
 	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
 	
-	<icon name="RFI_RollNotDone" file="graphics/icons/rfi_roll_not_done.png" />
-	<icon name="RFI_RollDone" file="graphics/icons/rfi_roll_done.png" />
 	<icon name="RFI_PcSelected" file="graphics/icons/rfi_pc_selected.png" />
 	<icon name="RFI_PcUnselected" file="graphics/icons/rfi_pc_unselected.png" />
 	<icon name="RFI_PcHover" file="graphics/icons/rfi_pc_hover.png" />
