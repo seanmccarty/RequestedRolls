@@ -187,7 +187,7 @@
 
 						local node = window.getDatabaseNode();
 						DB.addHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "checklist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
 						DB.addHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
 
 						buildOptions();
@@ -196,14 +196,14 @@
 					function onClose()
 						local node = window.getDatabaseNode();
 						DB.removeHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "checklist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
 						DB.removeHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
 						for _,w in pairs(DB.getChildren("requestsheet.checklist")) do
-							if DB.getValue(w,"prof",0)>=1 then
+							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
 						end
@@ -245,7 +245,7 @@
 
 						local node = window.getDatabaseNode();
 						DB.addHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "savelist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
 						DB.addHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
 
 						buildOptions();
@@ -254,14 +254,14 @@
 					function onClose()
 						local node = window.getDatabaseNode();
 						DB.removeHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "savelist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
 						DB.removeHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
 						for _,w in pairs(DB.getChildren("requestsheet.savelist")) do
-							if DB.getValue(w,"prof",0)>=1 then
+							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
 						end
@@ -305,7 +305,7 @@
 
 						local node = window.getDatabaseNode();
 						DB.addHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "skilllist.*.prof"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
 						DB.addHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
 
 						buildOptions();
@@ -314,14 +314,14 @@
 					function onClose()
 						local node = window.getDatabaseNode();
 						DB.removeHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "skilllist.*.prof"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
 						DB.removeHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
 						for _,w in pairs(DB.getChildren("requestsheet.skilllist")) do
-							if DB.getValue(w,"prof",0)>=1 then
+							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
 						end

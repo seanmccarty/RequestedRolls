@@ -190,7 +190,7 @@
 				</anchored>
 			</button_idelete>
 			
-			<RR_button_selector_star name="prof">
+			<RR_button_selector_star name="show">
 				<anchored position="insidetopleft" offset="2,6" />
 				<tabtarget next="name" />
 			</RR_button_selector_star>
@@ -200,7 +200,7 @@
 					<right anchor="left" relation="relative" offset="-7" />
 				</anchored>
 				<multilinespacing>20</multilinespacing>
-				<tabtarget next="stat" prev="prof" />
+				<tabtarget next="stat" prev="show" />
 			</string_textlistitem>
 			<string_textlistitem name="name">
 				<anchored to="rightanchor">
@@ -209,7 +209,7 @@
 					<right anchor="left" relation="relative" offset="-7" />
 				</anchored>
 				<multilinespacing>20</multilinespacing>
-				<tabtarget next="stat" prev="prof" />
+				<tabtarget next="stat" prev="show" />
 			</string_textlistitem>
 
 		</sheetdata>

@@ -88,7 +88,7 @@
 				<class>rollselectorbutton</class>
 				<script>
 					function onFilter( w )
-						if  w.prof.getValue() == 2 then
+						if  w.show.getValue() == 2 then
 							return true;
 						else
 							return false;
@@ -124,7 +124,7 @@
 				</script>
 			</RR_button_roll>
 
-			<hnx name="prof">
+			<hnx name="show">
 				<anchored to="rightanchor">
 					<top />
 					<left parent="" offset="0" />

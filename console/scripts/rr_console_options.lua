@@ -84,7 +84,7 @@ function constructDefaultChecks()
 			local w = createWindow();
 			if w then
 				w.name.setValue(t);
-				w.prof.setValue(2);
+				w.show.setValue(2);
 				matches = { w };
 			end
 		end
@@ -133,7 +133,7 @@ function constructDefaultSaves()
 			local w = createWindow();
 			if w then
 				w.name.setValue(t);
-				w.prof.setValue(2);
+				w.show.setValue(2);
 				matches = { w };
 			end
 		end
@@ -173,7 +173,7 @@ function constructDefaultSkills()
 			local w = createWindow();
 			if w then
 				w.name.setValue(k);
-				w.prof.setValue(2);
+				w.show.setValue(2);
 				matches = { w };
 			end
 		end

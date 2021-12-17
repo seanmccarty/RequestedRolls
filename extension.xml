@@ -5,7 +5,7 @@
 		<name>Requested Rolls</name>
 		<version>2.0</version>
 		<author>srmccarty et al.-see ReadMe</author>
-		<loadorder>99</loadorder>
+		<loadorder>10</loadorder>
 		<ruleset>
 			<name>5E</name>
 			<minrelease>8.1</minrelease>
