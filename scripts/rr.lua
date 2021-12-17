@@ -48,7 +48,7 @@ function registerOptions()
 		
 		--Now that options have been registered we can 	add the shortcut
 		if 	OptionsManager.isOption("RR_option_label_sidebar", "show") then
-			table.insert(Desktop.aCoreDesktopStack["host"],{icon=buttonUpImage, icon_down=buttonDownImage, tooltipres="RFIA_window_title", class=createRequestWindowName, path=dbRootName});
+			table.insert(Desktop.aCoreDesktopStack["host"],{icon=buttonUpImage, icon_down=buttonDownImage, tooltipres="RR_window_title", class=createRequestWindowName, path=dbRootName});
 		end
 	end
 end

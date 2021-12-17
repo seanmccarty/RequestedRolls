@@ -19,7 +19,7 @@
 		<nodelete />
 		<sheetdata>
 			<windowtitlebar name="title">
-				<resource>RFIA_window_title_display</resource>
+				<resource>RR_window_title</resource>
 			</windowtitlebar>
 			<button_text_sm name="manual_rolls">
 				<anchored position="insidetopleft" offset="15,15" width="50" />
