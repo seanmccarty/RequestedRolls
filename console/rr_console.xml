@@ -416,9 +416,9 @@
 			<subwindow name="buttonholderwindow">
 				<anchored>
 					<top parent="rr_list_npc" anchor="bottom" relation="relative" offset="5" />
-					<bottom parent="footeranchor" anchor="top" relation="relative" offset="-10"/>
-					<left offset="5" />
-					<right offset="-5" />
+					<bottom parent="footeranchor" anchor="top" offset="-10"/>
+					<left offset="0" />
+					<right offset="0" />
 				</anchored>	
 				<class>classwindow_buttonselectors</class>
 				<activate />
