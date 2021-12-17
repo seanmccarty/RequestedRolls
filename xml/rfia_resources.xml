@@ -9,8 +9,7 @@
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 
 	<includefile source="console/rr_console.xml"/>
+	<includefile source="console/rr_console_buttons.xml"/>
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
-	<script name="RRConsole" file="console/scripts/rr_console.lua"/>
-
 </root>

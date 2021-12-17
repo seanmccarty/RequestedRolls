@@ -65,10 +65,14 @@
     <string name="RR_label_save">Save</string>
     <string name="RR_label_skill">Skill</string>
     <string name="RR_label_attack">Attack</string>
+    <string name="RR_label_nobuttonselected">No options selected. Go to the Other tab and select two stars.</string>
+    <string name="RR_tooltip_expand">Expand</string>
+    <string name="RR_tooltip_collapse">Collapse</string>
 
     <!-- CONSOLE OPTIONS -->
-    <string name="RR_tooltip_show_on">Show on console</string>
+    <string name="RR_tooltip_show_on">Show in combobox</string>
     <string name="RR_tooltip_show_off">Do not show on console</string>
+    <string name="RR_tooltip_show_both">Show in combobox and button</string>
     <string name="RR_label_name">Name</string>
     <string name="RR_label_shortname">Short Name</string>
     <string name="RR_label_show">Show?</string>

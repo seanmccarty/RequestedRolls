@@ -190,10 +190,10 @@
 				</anchored>
 			</button_idelete>
 			
-			<button_skillprof name="prof">
+			<RR_button_selector_star name="prof">
 				<anchored position="insidetopleft" offset="2,6" />
 				<tabtarget next="name" />
-			</button_skillprof>
+			</RR_button_selector_star>
             <string_textlistitem name="name_short">
 				<anchored to="rightanchor" width="75">
 					<top />

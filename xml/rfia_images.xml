@@ -18,4 +18,5 @@
 	
 	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
 	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
+	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
 </root>
