@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-	<includefile source="xml/rfia_images.xml" />
-	<includefile source="xml/rfia_strings.xml" />
+	<includefile source="xml/rr_images.xml" />
+	<includefile source="xml/rr_strings.xml" />
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	
 	<script name="RR" file="scripts/rr.lua"/>

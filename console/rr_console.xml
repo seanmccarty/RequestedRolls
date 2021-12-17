@@ -58,7 +58,6 @@
 	</windowclass>
 
 	<windowclass name="rr_console">
-		<script file="console/scripts/rr_console.lua"/>
 		<sheetdata>
 			<!-- header anchor -->
 			<genericcontrol name="headeranchor">
@@ -72,26 +71,12 @@
 			
 			<!-- PC list -->
 			<RR_window_selector name="rr_list_pc" >	
-				<datasource>combattracker.list</datasource>
 				<parameters>
-					<listType>charsheet</listType>
-				</parameters>							
+					<pc/>
+				</parameters>
 				<anchored>
 					<top parent="headeranchor" anchor="bottom" relation="relative" offset="5" />
-				</anchored>	
-				<script>
-					function onFilter( w )
-						if  ActorManager.isPC(w.getDatabaseNode()) then
-							if CombatGroupsManager then
-								return CombatGroupsManager.onFilter(w.getDatabaseNode());
-							else
-								return true;
-							end
-						else
-							return false;
-						end
-					end
-				</script>
+				</anchored>
 			</RR_window_selector>
 
 			<scrollbar>
@@ -120,26 +105,12 @@
 
 			<!-- NPC list -->
 			<RR_window_selector name="rr_list_npc">
-				<datasource>combattracker.list</datasource>
 				<parameters>
-					<listType>npc</listType>
+					<npc/>
 				</parameters>
-				<script>
-					function onFilter( w )
-						if  not ActorManager.isPC(w.getDatabaseNode()) then
-							if CombatGroupsManager then
-								return CombatGroupsManager.onFilter(w.getDatabaseNode());
-							else
-								return true;
-							end
-						else
-							return false;
-						end
-					end
-				</script>			
 				<anchored>
-					<top parent="rr_list_pc" anchor="bottom" relation="relative" offset="35" />
-				</anchored>	
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
+				</anchored>
 			</RR_window_selector>
 			<scrollbar>
 				<anchored to="rr_list_npc" />

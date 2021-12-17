@@ -68,7 +68,8 @@
 	</template>
 
     <template name="RR_window_selector">
-        <windowlist name="list" >	
+        <windowlist name="list" >
+			<datasource>combattracker.list</datasource>
             <columns width="45" fillwidth="true"/>
             <frame name="groupbox" offset="13,5,10,5" />			
             <class>rr_entry</class>				
@@ -76,7 +77,23 @@
                 <top offset="5"/>
                 <left offset="17"/>
                 <right offset="-15"/>
-            </anchored>	
+            </anchored>
+			<script>
+				function onFilter( w )
+					local isPC = false;
+					if parameters[1].pc then isPC=true; end
+					
+					if  ActorManager.isPC(w.getDatabaseNode()) == isPC then
+						if CombatGroupsManager then
+							return CombatGroupsManager.onFilter(w.getDatabaseNode());
+						else
+							return true;
+						end
+					else
+						return false;
+					end
+				end
+			</script>
         </windowlist>
     </template>
 
