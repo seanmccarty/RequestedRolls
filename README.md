@@ -1,5 +1,5 @@
 # Requested Rolls
-This extension allows the GM to send a popup to players for specific specific throws to include the below. It uses the built in manual roll window, so you can either roll physcial dice or just hit roll to use the virtual dice. You can also use the console window to set a DC and force the rolls to be done in the dice tower. This extension respects modifiers , such as advantage, applied using the GM's desktop controls.
+This extension allows the GM to send a popup to players for specific specific throws to include the below. It uses the built in manual roll window, so you can either roll physical dice or just hit roll to use the virtual dice. You can also use the console window to set a DC and force the rolls to be done in the dice tower. This extension respects modifiers , such as advantage, applied using the GM's desktop controls.
 * Initiative
 * Ability checks
 * Saves
