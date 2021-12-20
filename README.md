@@ -11,7 +11,7 @@ Optionally, this extension can cause a dialog to popup for any saving throw requ
 The main picture shows a skill roll being sent by the GM to the selected characters.
 The second picture shows the configuration tab where you can enter custom skills, abbreviations,  and select which ones to display on the console. Selecting one star adds the entry to the combobox and two stars adds it to the combobox and the collapsible buttons windows.
 
-Check out the forum link to provide suggestions or contribute to this extension.
+Check out the forum link to provide suggestions or contribute to this extension. Version 2 is now live and has significant changes to both code and UI.
 
 # Compatible Extensions (non-exhaustive)
 * Better Menus https://forge.fantasygrounds.com/shop/items/69/view
