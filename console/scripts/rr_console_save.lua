@@ -1,0 +1,45 @@
+function onButtonPress()
+    if (table.getn(RR.getSelectedChars())>0) then
+        return action();
+    end
+end	
+
+function action(draginfo)
+
+	local aParty = {};
+	for _,v in pairs(RR.getSelectedChars()) do
+		local rActor = ActorManager.resolveActor(v);
+		if rActor then
+			table.insert(aParty, rActor);
+		end
+	end
+	if #aParty == 0 then
+		aParty = nil;
+	end
+	
+	local sAbilityStat = DB.getValue("requestsheet.saveselected", ""):lower();
+	
+	ModifierStack.lock();
+	for _,v in pairs(aParty) do
+		performSaveRoll(v, sAbilityStat);
+	end
+	ModifierStack.unlock(true);
+
+	return true;
+end
+
+function performSaveRoll(rActor, sSave)
+	local rRoll = ActionSave.getRoll(rActor, sSave);
+	rRoll.RR = true;
+	local nTargetDC = DB.getValue("requestsheet.savedc", 0);
+	if nTargetDC == 0 then
+		nTargetDC = nil;
+	end
+	rRoll.nTarget = nTargetDC;
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		rRoll.bSecret = true;
+		rRoll.bTower = true;
+	end
+
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+end

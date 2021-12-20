@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="RequestRolls">
+		<frame>partysheet</frame>
+		<placement>
+			<size width="620" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="575" height="370" />
+			<dynamic />
+		</sizelimits>
+		<softclose />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>RR_window_title</resource>
+			</windowtitlebar>
+			<button_text_sm name="manual_rolls">
+				<anchored position="insidetopleft" offset="15,15" width="50" />
+				<state textres="button_manualroll" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("manualrolls", "");
+					end
+				</script>
+			</button_text_sm>
+			<anchor_title_partysheet name="contentanchor" />
+			
+			<sub_ps name="main">
+				<class>rr_console</class>
+			</sub_ps>
+			<sub_ps name="options">
+				<class>rr_options</class>
+				<fastinit />
+			</sub_ps>
+			
+			<tabs_partysheet name="tabs">
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_other</icon>
+					<subwindow>options</subwindow>
+				</tab>
+			</tabs_partysheet>
+
+			<resize_partysheet />
+			<!-- <helper_ps /> -->
+			<close_partysheet />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_console">
+		<sheetdata>
+			<!-- header anchor -->
+			<genericcontrol name="headeranchor">
+				<anchored height="15">
+					<top  />
+					<left offset="10" />
+					<right offset="-15" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			
+			<!-- PC list -->
+			<RR_window_selector name="rr_list_pc" >	
+				<parameters>
+					<pc/>
+				</parameters>
+				<anchored>
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="5" />
+				</anchored>
+			</RR_window_selector>
+
+			<scrollbar>
+				<anchored to="rr_list_pc" />
+				<target>rr_list_pc</target>
+			</scrollbar>
+
+			<label_ps name="label_PC">
+				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
+				<static textres="RR_pc" />
+				<center />
+			</label_ps>
+
+			<button_select_all name="PC_all">
+				<anchored to="label_PC" position="right"/>
+				<target>rr_list_pc</target>
+			</button_select_all>
+			<button_select_random name="PC_random">
+				<anchored to="PC_all" position="right"/>
+				<target>rr_list_pc</target>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="PC_random" position="right"/>
+				<target>rr_list_pc</target>
+			</button_deselect_all>
+
+			<!-- NPC list -->
+			<RR_window_selector name="rr_list_npc">
+				<parameters>
+					<npc/>
+				</parameters>
+				<anchored>
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
+				</anchored>
+			</RR_window_selector>
+			<scrollbar>
+				<anchored to="rr_list_npc" />
+				<target>rr_list_npc</target>
+			</scrollbar>
+
+			<label_ps name="label_NPC">
+				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
+				<static textres="RR_npc" />
+				<center />
+			</label_ps>
+
+			<button_select_all name="NPC_all">
+				<anchored to="label_NPC" position="right"/>
+				<target>rr_list_npc</target>
+			</button_select_all>
+			<button_select_random name="NPC_random">
+				<anchored to="NPC_all" position="right"/>
+				<target>rr_list_npc</target>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="NPC_random" position="right"/>
+				<target>rr_list_npc</target>
+			</button_deselect_all>
+
+
+			<!-- Footer anchors -->
+			<genericcontrol name="footeranchor">
+				<anchored height="20">
+					<bottom offset="-95" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>
+				<gmvisibleonly />
+			</genericcontrol>
+			<genericcontrol name="leftanchor">
+				<anchored to="footeranchor" position="insidetopleft" width="0" height="20" />
+				<disabled />
+			</genericcontrol>
+			<!-- Roll selectors -->
+			<buttonfield name="hiderollresults">
+				<anchored to="leftanchor" height="20" width="20">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
+				</anchored>
+				<frame name="fielddark" offset="10,8,10,6" />
+				<state icon="visibilityon" tooltipres="ps_tooltip_showrollon" />
+				<state icon="visibilityoff" tooltipres="ps_tooltip_showrolloff" />
+				<gmvisibleonly />
+			</buttonfield>
+			<!-- checks -->
+			<genericcontrol name="checkframe">
+				<anchored to="hiderollresults" position="belowleft" offset="0,15" height="20" width="245" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>			
+			<button_roll name="checkroll">
+				<anchored to="checkframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_ability.lua" />
+				<gmvisibleonly />
+			</button_roll>
+			<label name="checklabel">
+				<anchored to="checkroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_check" />
+				<gmvisibleonly />
+			</label>
+			<combobox name="checkselected">
+				<anchored to="checklabel" position="righthigh" offset="10,0" width="100" height="20" />
+				<default textres="ps_default_groupability" />
+				<gmvisibleonly />
+				<script>
+					function onInit()
+						super.onInit();
+
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.checklist")) do
+							if DB.getValue(w,"show",0)>=1 then
+								add(DB.getValue(w,"name",""));
+							end
+						end
+					end
+				</script>
+			</combobox>
+			<label name="checkdclabel">
+				<anchored to="checkselected" position="righthigh" offset="10,0" />
+				<static textres="dc" />
+				<gmvisibleonly />
+			</label>
+			<basicnumber name="checkdc">
+				<anchored to="checkdclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<gmvisibleonly />
+			</basicnumber>			
+			<!-- saves -->
+			<genericcontrol name="saveframe">
+				<anchored to="checkframe" position="right" offset="15,0"  width="235" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>			
+			<button_roll name="saveroll">
+				<anchored to="saveframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_save.lua" />
+				<gmvisibleonly />
+			</button_roll>
+			<label name="savelabel">
+				<anchored to="saveroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_save" />
+				<gmvisibleonly />
+			</label>
+			<combobox name="saveselected">
+				<anchored to="savelabel" position="righthigh" offset="10,0" width="100" height="20" />
+				<default>Select save</default>
+				<gmvisibleonly />
+				<script>
+					function onInit()
+						super.onInit();
+
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.savelist")) do
+							if DB.getValue(w,"show",0)>=1 then
+								add(DB.getValue(w,"name",""));
+							end
+						end
+					end
+				</script>
+			</combobox>
+			<label name="savedclabel">
+				<anchored to="saveselected" position="righthigh" offset="10,0" />
+				<static textres="dc" />
+				<gmvisibleonly />
+			</label>
+			<basicnumber name="savedc">
+				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<gmvisibleonly />
+			</basicnumber>
+
+			<!-- skill -->
+			<genericcontrol name="skillframe">
+				<anchored to="checkframe" position="belowleft" offset="0,15" height="20" width="310" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>
+			<button_roll name="skillroll">
+				<anchored to="skillframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_skill.lua" />
+				<gmvisibleonly />
+			</button_roll>
+			<label name="skilllabel">
+				<anchored to="skillroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_skill" />
+				<gmvisibleonly />
+			</label>	
+			<combobox name="skillselected">
+				<anchored to="skilllabel" position="righthigh" offset="10,0" width="170" height="20" />
+				<gmvisibleonly />
+				<listmaxsize>12</listmaxsize>
+				<default>Select skill</default>
+				<script>
+					function onInit()
+						super.onInit();
+
+						local node = window.getDatabaseNode();
+						DB.addHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+
+						buildOptions();
+					end
+
+					function onClose()
+						local node = window.getDatabaseNode();
+						DB.removeHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+					end
+
+					function buildOptions()
+						clear();
+						for _,w in pairs(DB.getChildren("requestsheet.skilllist")) do
+							if DB.getValue(w,"show",0)>=1 then
+								add(DB.getValue(w,"name",""));
+							end
+						end
+					end
+				</script>
+			</combobox>
+			<label name="skilldclabel">
+				<anchored to="skillselected" position="righthigh" offset="10,0" />
+				<static textres="dc" />
+				<gmvisibleonly />
+			</label>
+			<basicnumber name="skilldc">
+				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<gmvisibleonly />
+			</basicnumber>			
+			<!-- Dice roll -->
+			<genericcontrol name="diceframe">
+				<anchored to="skillframe" position="right" offset="15,0"  width="100" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>							
+			<button_roll name="diceroll">
+				<anchored to="diceframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_dice.lua" />
+				<gmvisibleonly />
+			</button_roll>
+			<label name="dicelabel">
+				<anchored to="diceroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_dice" />
+				<gmvisibleonly />
+			</label>	
+			<combobox name="diceselected">
+				<anchored to="dicelabel" position="righthigh" offset="10,0" width="40" height="20" />
+				<gmvisibleonly />
+				<listmaxsize>12</listmaxsize>
+				<unsorted />
+				<default>d20</default>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems({"d4","d6","d8","d10","d12","d20","d100"});
+					end
+				</script>
+			</combobox>
+			<!-- Init -->
+			<genericcontrol name="initframe">
+				<anchored to="diceframe" position="right" offset="15,0" width="55" />
+				<frame name="groupbox" offset="10,10,10,10" />
+				<gmvisibleonly />
+			</genericcontrol>							
+			<button_roll name="initroll">
+				<anchored to="initframe" position="insidetopleft" offset="2,0" />
+				<script file="console/scripts/rr_console_init.lua"/>
+				<gmvisibleonly />
+			</button_roll>
+			<label name="initlabel">
+				<anchored to="initroll" position="righthigh" offset="3,0" />
+				<static textres="RR_label_init" />
+				<gmvisibleonly />
+			</label>
+
+			<!-- old person buttons come last because they are anchored in the middle-->
+			<subwindow name="buttonholderwindow">
+				<anchored>
+					<top parent="rr_list_npc" anchor="bottom" relation="relative" offset="5" />
+					<bottom parent="footeranchor" anchor="top" offset="-10"/>
+					<left offset="0" />
+					<right offset="0" />
+				</anchored>	
+				<class>classwindow_buttonselectors</class>
+				<activate />
+			</subwindow>
+
+		</sheetdata>
+	</windowclass>
+
+
+	<!-- the individual entries in the npc/pc list -->
+	<!-- the hidden number "RRselected" is what ties the selection button to the CT nodes -->
+	<windowclass name="rr_entry">
+		<sheetdata> 
+			<hn name="RRselected" />
+			<anchor_column name="columnanchor" />
+			<hsx name="name">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>	
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
+					end
+				</script>
+			</hsx>
+		
+			<tokenfield name="token">
+				<anchored width="40" height="40">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<readonly />
+				<nodrag />
+				<nodrop />
+				<empty>token_empty</empty>			
+			</tokenfield>		
+			
+			<buttonfield name="RRselected">
+				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
+				<state icon="RFI_PcUnselected"/>
+				<state icon="RFI_PcSelected"/>
+				<hover icon="RFI_PcHover"/>
+				<anchored  to="token" position="over"/>
+			</buttonfield>
+		</sheetdata>
+	</windowclass>	
+</root>

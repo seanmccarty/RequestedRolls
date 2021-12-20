@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="classwindow_buttonselectors">
+		<sheetdata>
+			<anchor_column name="columnanchor" />	
+			<subwindow name="check_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>				
+				<group_name2>Check</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.checklist</datasource>		
+				<activate/>
+			</subwindow>
+			<subwindow name="save_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>					
+				<group_name2>Save</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.savelist</datasource>		
+				<activate/>
+			</subwindow>
+			<subwindow name="skill_window">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>		
+				<noscroll />
+				<group_name2>Skill</group_name2>
+				<frame name="fielddark" offset="5,5,5,5" />
+				<class>expanding_button_selector</class>	
+				<datasource>requestsheet.skilllist</datasource>	
+				<activate/>
+			</subwindow>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="expanding_button_selector">
+		<margins control="0,0,10,10" />
+		<frame>groupbox</frame>
+		<script>
+			function onInit()
+				group_name.setValue(parentcontrol.group_name2[1]);
+				selection_window.setDatabaseNode(parentcontrol.datasource[1]);
+				if parentcontrol.datasource[1] ~= "requestsheet.skilllist" then
+					selection_window.setColumnWidth(65);
+				end
+			end
+		</script>
+		<sheetdata>
+			<button_expand_window name="button_expand_stuff">
+				<anchored position="insidetopleft" offset="10,10" />
+				<target>selection_window</target>
+                <target_label>label_noselection</target_label>
+			</button_expand_window>
+			<label name="group_name">
+				<anchored position="insidetopleft" offset="40,10" />
+				<readonly />
+			</label>
+			<label name="label_noselection">
+				<static textres="RR_label_nobuttonselected" />
+				<anchored position="insidetopleft" offset="80,10" />
+				<invisible/>
+				<readonly />
+			</label>
+			<windowlist name="selection_window">
+				<anchored position="insidetopleft" offset="5,35">
+					<right />
+				</anchored>		
+				<columns width="125" fillwidth="true" />
+				<skipempty/>
+				<noscroll/>
+				<sortby><control>name</control></sortby>
+				<class>rollselectorbutton</class>
+				<script>
+					function onFilter( w )
+						if  w.show.getValue() == 2 then
+							return true;
+						else
+							return false;
+						end
+					end
+
+					function onListRearranged (listchanged)	
+						if getWindowCount(true) == 0 then
+							window.label_noselection.setVisible(true);
+							else
+							window.label_noselection.setVisible(false);
+						end
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rollselectorbutton">
+		<margins control="0,0,0,10" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
+			</genericcontrol>
+			<RR_button_roll name="bname">
+				<anchored position="insidetopleft" offset="5,5" height="20">
+					<right offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						DB.setValue("requestsheet.".. window.windowlist.window.group_name.getValue():lower() .."selected", "string",window.name.getValue());
+					end
+				</script>
+			</RR_button_roll>
+
+			<hnx name="show">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+			</hnx>
+
+			<hsx name="name">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+				</script>
+			</hsx>
+
+			<hsx name="name_short">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="" offset="0" />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						if window.name_short.getValue()~="" then
+							window.bname.setText(window.name_short.getValue());
+						else
+							window.bname.setText(window.name.getValue());
+						end
+					end
+				</script>
+			</hsx>
+		</sheetdata>
+	</windowclass>	
+</root>

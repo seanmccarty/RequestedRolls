@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
+	
+	<icon name="RFI_PcSelected" file="graphics/icons/rfi_pc_selected.png" />
+	<icon name="RFI_PcUnselected" file="graphics/icons/rfi_pc_unselected.png" />
+	<icon name="RFI_PcHover" file="graphics/icons/rfi_pc_hover.png" />
+	
+	<icon name="RFIA_DefaultButtonUp" file="graphics/icons/rfia_default_button_up.png" />
+	<icon name="RFIA_DefaultButtonDown" file="graphics/icons/rfia_default_button_down.png" />
+
+	<icon name="RFIA_CoreSidebarButtonUp" file="graphics/icons/rfia_core_sidebar_button_up.png" />
+	<icon name="RFIA_CoreSidebarButtonDown" file="graphics/icons/rfia_core_sidebar_button_down.png" />
+	
+	<icon name="RFIA_5EThemeSidebarButtonUp" file="graphics/icons/rfia_5E_theme_button_up.png" />
+	<icon name="RFIA_5EThemeSidebarButtonDown" file="graphics/icons/rfia_5E_theme_button_down.png" />	
+	
+	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
+	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
+	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
+</root>

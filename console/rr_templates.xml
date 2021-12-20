@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+    <template name="button_select_all" >
+		<buttoncontrol>
+			<anchored width="20"/>
+			<icon normal="button_dialog_ok" pressed="button_dialog_ok_down" />
+			<tooltip textres="RR_tooltip_select_all" />
+            <!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
+			<script>
+				function onButtonPress()
+                    for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+                        vEntry.RRselected.setValue(1);
+                    end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_select_random" >
+		<buttoncontrol>
+			<anchored width="20"/>
+			<icon normal="button_ctnextround" pressed="button_ctnextround_down" />
+			<tooltip textres="RR_tooltip_select_random" />
+			<script>
+                function onInit()
+                    math.randomseed( os.time() );
+                end
+				function onButtonPress()
+                    
+                    math.random();
+
+                    numberOfWindows = window[self.target[1]].getWindowCount(true);
+                    
+                    if numberOfWindows > 1 then 
+                    
+                        randomIndex = math.random(numberOfWindows);
+                        windowList = window[self.target[1]].getWindows(true);
+                        randomEntry = windowList[randomIndex];
+
+                        for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+                        vEntry.RRselected.setValue(0);
+                        end
+                        
+                        randomEntry.RRselected.setValue(1);
+                    else
+                        for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+                            vEntry.RRselected.setValue(1);
+                        end
+                    end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_deselect_all" >
+		<buttoncontrol>
+			<anchored width="20" />
+			<icon normal="button_dialog_cancel" pressed="button_dialog_cancel_down" />
+			<tooltip textres="RR_tooltip_select_none" />
+			<script>
+				function onButtonPress()
+                    for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+                    vEntry.RRselected.setValue(0);
+                    end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+    <template name="RR_window_selector">
+        <windowlist name="list" >
+			<datasource>combattracker.list</datasource>
+            <columns width="45" fillwidth="true"/>
+            <frame name="groupbox" offset="13,5,10,5" />			
+            <class>rr_entry</class>				
+            <anchored height="50">
+                <top offset="5"/>
+                <left offset="17"/>
+                <right offset="-15"/>
+            </anchored>
+			<script>
+				function onFilter( w )
+					local isPC = false;
+					if parameters[1].pc then isPC=true; end
+					
+					if  ActorManager.isPC(w.getDatabaseNode()) == isPC then
+						if CombatGroupsManager then
+							return CombatGroupsManager.onFilter(w.getDatabaseNode());
+						else
+							return true;
+						end
+					else
+						return false;
+					end
+				end
+			</script>
+        </windowlist>
+    </template>
+
+    <!-- from  charwizard -->
+    <template name="button_expand_window">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
+			<state icon="button_expand" tooltipres="RR_tooltip_expand"/>
+			<script>
+				function onButtonPress()
+					if window[self.target[1]].isVisible() then
+						window[self.target[1]].setVisible(false);
+						window[self.target_label[1]].setVisible(false);
+					else
+						window[self.target[1]].setVisible(true);
+						window[self.target_label[1]].setVisible(window[self.target[1]].getWindowCount(true)==0);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	<template name="RR_button_roll">
+		<buttoncontrol>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<normal name="buttonup" offset="5,5,5,5" nobaseframe="true" />			
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<font>button-white</font>
+			<pressed offset="1,1" />			
+		</buttoncontrol>
+	</template>	
+
+	<template name="RR_button_selector_star">
+		<buttonfield>
+			<anchored width="12" height="12" />
+			<state icon="button_prof" tooltipres="RR_tooltip_show_off" />
+			<state icon="button_prof_down" tooltipres="RR_tooltip_show_on" />
+			<state icon="button_prof_double" tooltipres="RR_tooltip_show_both" />
+		</buttonfield>
+	</template>
+
+</root>

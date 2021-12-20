@@ -3,26 +3,42 @@
 <root version="3.0">
 	<properties>
 		<name>Requested Rolls</name>
-		<version>1.2</version>
-		<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
-		<loadorder>99</loadorder>
+		<version>2.0</version>
+		<author>srmccarty et al.-see ReadMe</author>
+		<loadorder>10</loadorder>
 		<ruleset>
 			<name>5E</name>
-			<minrelease>7</minrelease>
+			<minrelease>8.1</minrelease>
+		</ruleset>
+		<ruleset>
+			<name>CoreRPG</name>
+			<minrelease>4.1</minrelease>
 		</ruleset>
 		<ruleset>
 			<name>PFRPG</name>
-			<minrelease>1</minrelease>
+			<minrelease>1.1</minrelease>
+		</ruleset>
+
+		<ruleset>
+			<name>PFRPG2</name>
+			<minrelease>18</minrelease>
+		</ruleset>
+		<ruleset>
+			<name>3.5E</name>
+			<minrelease>17.1</minrelease>
+		</ruleset>
+		<ruleset>
+			<name>SFRPG</name>
+			<minrelease>22</minrelease>
 		</ruleset>
 		<description>
 			<text>Requested Rolls</text>
-			<author>srmccarty, Jacob Proffitt, et al.-see ReadMe</author>
+			<author>srmccarty et al.-see ReadMe</author>
 		</description>
 	</properties>
-	<announcement text="Requested Rolls version 1.2.2\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.0\rby srmccarty, 2021" font="emotefont" icon="Logo_Mccartysr"/>>
 	<announcement text="For slash commands type /RR" font="emotefont"/>
 	<base>		
-		<includefile source="xml/rfia_resources.xml" />
-		<includefile source="xml/rfia_scripts.xml" />
+		<includefile source="xml/rr_resources.xml" />
 	</base>    
 </root>
