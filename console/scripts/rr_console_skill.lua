@@ -33,9 +33,9 @@ function performSkillRoll(rActor, sSkill)
     local sNodeType, nodeActor = ActorManager.getTypeAndNode(rActor);
 	--TODO: look for consolidation opportunities with duplicated code
 	if User.getRulesetName()=="5E" then
-		rRoll = E5skill(rActor, sSkill, rRoll, sNodeType, nodeActor);
+		rRoll = E5skill(rActor, sSkill, sNodeType, nodeActor);
 	else
-		rRoll = E35skill(rActor, sSkill, rRoll, sNodeType, nodeActor);
+		rRoll = E35skill(rActor, sSkill, sNodeType, nodeActor);
 	end
 
 
@@ -89,48 +89,39 @@ function parseComponents(nodeActor)
 end
 
 function E35skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
+	rRoll = nil;
+	--if it is an NPC, parse for the particular skill. fall through if it is not fiound
 	if sNodeType ~= "pc" then
 		local aSkills = parseComponents(nodeActor);
 		if aSkills then
 			for k,node in pairs(aSkills) do
 				if string.lower(node.sLabel) ==  string.lower(sSkill) then
-					local rRoll = ActionSkill.getRoll(rActor, sSkill, node.nMod);
-					if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-						rRoll.bSecret = true;
-					end
-					return rRoll;
+					rRoll = ActionSkill.getRoll(rActor, sSkill, node.nMod);
 				end
 			end
 		end
-		if not rRoll then 
-			local sSubSkill = nil;
-			if sSkill:match("^Knowledge") then
-				sSubSkill = sSkill:sub(12, -2);
-				sSkillLookup = "Knowledge";
-			else
-				sSkillLookup = sSkill;
-			end
-			
-			local  nSkillMod = CharManager.getSkillValue(rActor, sSkillLookup, sSubSkill);
-			local rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
-			return rRoll;
-		end
-	else
+	end
+	-- look for the skill to have the pattern Skill (subskill) extract the part within and outside parentheses for the skill lookup
+	if not rRoll then
 		local sSubSkill = nil;
-		if sSkill:match("^Knowledge") then
-			sSubSkill = sSkill:sub(12, -2);
-			sSkillLookup = "Knowledge";
+		if sSkill:match("%(%w+%)") then	
+			sSubSkill = sSkill:match("%(%w+%)"):sub(2,-2);
+			sSkillLookup = sSkill:match("%w+");
 		else
 			sSkillLookup = sSkill;
 		end
 		local  nSkillMod = CharManager.getSkillValue(rActor, sSkillLookup, sSubSkill);
-		local rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
-		return rRoll;
+		rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
+	end
+
+	if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
+		rRoll.bSecret = true;
 	end
 	return rRoll;
 end
 
 function E5skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
+	rRoll = nil;
 	if sNodeType ~= "pc" then
 		local aSkills = parseComponents(nodeActor);
 		if aSkills then
