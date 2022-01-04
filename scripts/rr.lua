@@ -40,7 +40,9 @@ function registerOptions()
 	OptionsManager.registerOption2("RR_option_label_npcRolls", false, "RR_option_header", "RR_option_label_npcRolls", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
 	
-	
+	OptionsManager.registerOption2("RR_option_label_modAfterDisplay", false, "RR_option_header", "RR_option_label_modAfterDisplay", "option_entry_cycler", 
+		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+
 	--the button to show/hide the shortcut is only shown for the GM
 	if Session.IsHost then
 		OptionsManager.registerOption2("RR_option_label_sidebar", true, "RR_option_header", "RR_option_label_sidebar", "option_entry_cycler", 
