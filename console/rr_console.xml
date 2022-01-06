@@ -22,8 +22,8 @@
 				<resource>RR_window_title</resource>
 			</windowtitlebar>
 			<button_text_sm name="manual_rolls">
-				<anchored position="insidetopleft" offset="15,15" width="50" />
-				<state textres="button_manualroll" />
+				<anchored position="insidetopleft" offset="15,15" width="120" />
+				<state textres="RR_label_pendingRolls" />
 				<script>
 					function onButtonPress()
 						Interface.openWindow("manualrolls", "");
@@ -52,7 +52,9 @@
 			</tabs_partysheet>
 
 			<resize_partysheet />
-			<!-- <helper_ps /> -->
+			<help_partysheet>
+				<urlres>RR_url_help</urlres>
+			</help_partysheet>
 			<close_partysheet />
 		</sheetdata>
 	</windowclass>

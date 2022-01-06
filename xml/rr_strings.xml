@@ -19,6 +19,9 @@
     <string name="RR_option_val_show">Show</string>		
 
     <!-- CONSOLE -->
+    <string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
+    <string name="RR_label_pendingRolls">My Pending Rolls</string>
+
     <string name="RR_pc">PCs</string>
 	<string name="RR_npc">NPCs</string>
 
