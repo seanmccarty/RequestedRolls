@@ -30,22 +30,20 @@ end
 
 function performSkillRoll(rActor, sSkill)
 	local rRoll = nil;
-    local sNodeType, nodeActor = ActorManager.getTypeAndNode(rActor);
-	--TODO: look for consolidation opportunities with duplicated code
+    
 	if User.getRulesetName()=="5E" then
-		rRoll = E5skill(rActor, sSkill, sNodeType, nodeActor);
+		rRoll = E5skill(rActor, sSkill);
 	else
-		rRoll = E35skill(rActor, sSkill, sNodeType, nodeActor);
+		rRoll = E35skill(rActor, sSkill);
 	end
 
-
 	if not rRoll then
-		if User.getRulesetName()=="5E" then 
-			rRoll = ActionSkill.getUnlistedRoll(rActor, sSkill);
-		else
-			ChatManager.Message("This ruleset does not support unlisted rolls", false, rActor);
-			return;
-		end
+		ChatManager.Message("This ruleset does not support unlisted rolls", false, rActor);
+		return;
+	end
+
+	if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
+		rRoll.bSecret = true;
 	end
 
 	rRoll.RR = true;
@@ -63,6 +61,9 @@ function performSkillRoll(rActor, sSkill)
 
 end
 
+---comment
+---@param nodeActor any the database node of the actor in question
+---@return table aComponents a table of labels and modifiers found on the character
 function parseComponents(nodeActor)
 	skillsString = DB.getValue(nodeActor, "skills");
 	if skillsString == nil then
@@ -88,10 +89,15 @@ function parseComponents(nodeActor)
 	return aComponents;
 end
 
-function E35skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
+---This lookup is used by rulesets other than 5E
+---@param rActor any the actor to roll
+---@param sSkill any the skill to be rolled
+---@return table rRoll
+function E35skill(rActor, sSkill)
 	rRoll = nil;
-	--if it is an NPC, parse for the particular skill. fall through if it is not fiound
-	if sNodeType ~= "pc" then
+	local nodeActor = ActorManager.getCreatureNode(rActor);
+	--if it is an NPC, parse for the particular skill. fall through if it is not found or it is a PC
+	if not ActorManager.isPC(rActor) then
 		local aSkills = parseComponents(nodeActor);
 		if aSkills then
 			for k,node in pairs(aSkills) do
@@ -114,15 +120,24 @@ function E35skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
 		rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
 	end
 
-	if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-		rRoll.bSecret = true;
-	end
 	return rRoll;
 end
 
-function E5skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
+---5E specific skill lookup
+---@param rActor any the actor to roll
+---@param sSkill any the skill to be rolled
+---@return table rRoll
+function E5skill(rActor, sSkill)
 	rRoll = nil;
-	if sNodeType ~= "pc" then
+	local nodeActor = ActorManager.getCreatureNode(rActor);
+	if ActorManager.isPC(rActor) then
+		for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
+			if DB.getValue(nodeSkill, "name", "") == sSkill then
+				rRoll = ActionSkill.getRoll(rActor, nodeSkill);
+				break;
+			end
+		end
+	else
 		local aSkills = parseComponents(nodeActor);
 		if aSkills then
 			for k,node in pairs(aSkills) do
@@ -131,57 +146,16 @@ function E5skill(rActor, sSkill, rRoll, sNodeType, nodeActor)
 					rRoll = {};
 					rRoll.sType = "skill";
 					rRoll.aDice = { "d20" };
-					
 					rRoll.sDesc = "[SKILL] " .. sSkill;
 					rRoll.nMod = nMod;
-				
-					--TODO: this should be at the end
-					if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-						rRoll.bSecret = true;
-					end
 					break;
 				end
 			end	
 		end
-		if not rRoll then 
-			rRoll = {};
-			rRoll.sType = "skill";
-			rRoll.aDice = { "d20" };
-			
-			local nMod = 0;
-			local bADV = false;
-			local bDIS = false;
-			local sAddText = "";
-			
-			local sAbility = nil;
-			if DataCommon.skilldata[sSkill] then
-				sAbility = DataCommon.skilldata[sSkill].stat;
-			end
-			if sAbility then
-				nMod, bADV, bDIS, sAddText = ActorManager5E.getCheck(rActor, sAbility, sSkill);
-			end
-			
-			rRoll.nMod = nMod;
-				
-			rRoll.sDesc = "[SKILL] " .. sSkill;
-			if sAddText and sAddText ~= "" then
-				rRoll.sDesc = rRoll.sDesc .. " " .. sAddText;
-			end
-			if bADV then
-				rRoll.sDesc = rRoll.sDesc .. " [ADV]";
-			end
-			if bDIS then
-				rRoll.sDesc = rRoll.sDesc .. " [DIS]";
-			end
-		end
-	else
-		for _,v in pairs(DB.getChildren(nodeActor, "skilllist")) do
-			if DB.getValue(v, "name", "") == sSkill then
-				rRoll = ActionSkill.getRoll(rActor, v);
-				break;
-			end
-		end
-
 	end
+	if not rRoll then
+		rRoll = ActionSkill.getUnlistedRoll(rActor, sSkill);
+	end
+
 	return rRoll;
 end
