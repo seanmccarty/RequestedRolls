@@ -104,14 +104,37 @@
 			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
 			<state icon="button_expand" tooltipres="RR_tooltip_expand"/>
 			<script>
+				local node;
+
+				function onInit()					
+					node = window.parentcontrol.datasource[1] .. "collapsed";
+					local status = DB.getValue(node,0);
+					setValue(status);
+					if status == 0 then
+						setExpanded();
+					else
+						setCollapsed();
+					end
+				end
+
 				function onButtonPress()
 					if window[self.target[1]].isVisible() then
-						window[self.target[1]].setVisible(false);
-						window[self.target_label[1]].setVisible(false);
+						setCollapsed();
 					else
-						window[self.target[1]].setVisible(true);
-						window[self.target_label[1]].setVisible(window[self.target[1]].getWindowCount(true)==0);
+						setExpanded();
 					end
+				end
+
+				function setExpanded()
+					window[self.target[1]].setVisible(true);
+					window[self.target_label[1]].setVisible(window[self.target[1]].getWindowCount(true)==0);
+					DB.setValue(node,"number",0);
+				end
+
+				function setCollapsed()
+					window[self.target[1]].setVisible(false);
+					window[self.target_label[1]].setVisible(false);
+					DB.setValue(node,"number",1);
 				end
 			</script>
 		</buttoncontrol>

@@ -96,9 +96,9 @@
 					end
 
 					function onListRearranged (listchanged)	
-						if getWindowCount(true) == 0 then
+						if getWindowCount(true) == 0 and isVisible() then
 							window.label_noselection.setVisible(true);
-							else
+						else
 							window.label_noselection.setVisible(false);
 						end
 					end
