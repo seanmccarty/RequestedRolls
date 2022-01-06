@@ -17,7 +17,7 @@ Check out the forum link to provide suggestions or contribute to this extension.
 * Better Menus https://forge.fantasygrounds.com/shop/items/69/view
 * Combat Groups https://forge.fantasygrounds.com/shop/items/154/view
 # Attribution
-**Lead Maintainer**: srmccarty  
+**Lead Maintainer**: mccartysr  
 **PFRPG Developer**: Jacob Proffitt
 
 SmiteWorks owns rights to code sections copied from their rulesets by permission for Fantasy Grounds community development. 'Fantasy Grounds' is a trademark of SmiteWorks USA, LLC. 'Fantasy Grounds' is Copyright 2004-2021 SmiteWorks USA LLC.  
