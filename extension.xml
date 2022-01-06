@@ -3,9 +3,10 @@
 <root version="3.0">
 	<properties>
 		<name>Requested Rolls</name>
-		<version>2.1</version>
-		<author>srmccarty et al.-see ReadMe</author>
-		<loadorder>10</loadorder>
+		<version>2.2</version>
+		<author>mccartysr et al.-see ReadMe</author>
+		<description>Requested Rolls</description>
+		<loadorder>0</loadorder>
 		<ruleset>
 			<name>5E</name>
 			<minrelease>8.1</minrelease>
@@ -18,7 +19,6 @@
 			<name>PFRPG</name>
 			<minrelease>1.1</minrelease>
 		</ruleset>
-
 		<ruleset>
 			<name>PFRPG2</name>
 			<minrelease>18</minrelease>
@@ -31,12 +31,8 @@
 			<name>SFRPG</name>
 			<minrelease>22</minrelease>
 		</ruleset>
-		<description>
-			<text>Requested Rolls</text>
-			<author>srmccarty et al.-see ReadMe</author>
-		</description>
 	</properties>
-	<announcement text="Requested Rolls version 2.1 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.2 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
 	<base>		
 		<includefile source="xml/rr_resources.xml" />
 	</base>    
