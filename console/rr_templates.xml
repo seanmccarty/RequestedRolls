@@ -161,4 +161,14 @@
 		</buttonfield>
 	</template>
 
+	<template name="RR_button_expander_hider">
+		<buttonfield>
+			<anchored width="130" height="20"/>
+			<font>button-white</font>
+			<pressed offset="1,1" />
+			<state textres="RR_label_shownOnConsole" frame="buttonup" frameoffset="2,2,2,2"/>
+			<state textres="RR_label_hiddenOnConsole" frame="buttondown" frameoffset="2,2,2,2"/>
+		</buttonfield>
+	</template>
+
 </root>

@@ -57,7 +57,7 @@
 			</genericcontrol>
 
 
-            <label_ps name="name_short_label" width="200">
+            <label_ps name="label_name_short" width="200">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="190" />
@@ -65,7 +65,7 @@
 				</anchored>
 				<static textres="RR_label_shortname" />
 			</label_ps>
-			<label_ps name="name_label">
+			<label_ps name="label_name">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="80" />
@@ -74,7 +74,7 @@
 				<static textres="RR_label_name" />
 				<center />
 			</label_ps>
-			<label_ps name="name_label">
+			<label_ps name="label_show">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="10" />
@@ -84,17 +84,24 @@
 			</label_ps>
 <!-- check -->
 			<label_ps name="skillstitle">
-				<anchored height="20">
+				<anchored height="20" width="60">
 					<top parent="columnanchor" anchor="bottom" relation="relative"/>
 					<left offset="15" />
-					<right offset="-15" />
+					<!-- <right offset="-155" /> -->
 				</anchored>
 				<static textres="RR_label_check" />
 			</label_ps>
+			<RR_button_expander_hider name="checklistshow">
+				<anchored to="skillstitle" position="righthigh" relation="relative" offset="0,0" />
+			</RR_button_expander_hider>
 			<button_iadd name="skills_iadd">
-				<anchored to="skillstitle" position="insidetopright" offset="0,-3" />
+				<anchored> 
+					<bottom parent="checklistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
+				</anchored>
 				<target>skills</target>
 			</button_iadd>
+
 			<windowlist name="skills">
                 <frame name="groupbox" offset="5,5,5,5" />
 				<anchored>
@@ -115,15 +122,21 @@
 			</windowlist>
 <!-- save -->
 			<label_ps name="skillstitle3">
-				<anchored height="20">
+				<anchored height="20" width="60">
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
 					<left offset="15" />
-					<right offset="-15" />
+					<!-- <right offset="-15" /> -->
 				</anchored>
 				<static textres="RR_label_save" />
 			</label_ps>
+			<RR_button_expander_hider name="savelistshow">
+				<anchored to="skillstitle3" position="righthigh" relation="relative" offset="0,0" />
+			</RR_button_expander_hider>
 			<button_iadd name="skills_iadd">
-				<anchored to="skillstitle3" position="insidetopright" offset="0,-3" />
+				<anchored> 
+					<bottom parent="savelistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
+				</anchored>
 				<target>skills3</target>
 			</button_iadd>
 			<windowlist name="skills3">
@@ -144,15 +157,21 @@
 			</windowlist>
 <!-- skill  -->
 			<label_ps name="skillstitle2">
-				<anchored height="20">
+				<anchored height="20" width="60">
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
 					<left offset="15" />
-					<right offset="-15" />
+					<!-- <right offset="-15" /> -->
 				</anchored>
 				<static textres="RR_label_skill" />
 			</label_ps>
+			<RR_button_expander_hider name="skilllistshow">
+				<anchored to="skillstitle2" position="righthigh" relation="relative" offset="0,0" />
+			</RR_button_expander_hider>
 			<button_iadd name="skills_iadd2">
-				<anchored to="skillstitle2" position="insidetopright" offset="0,-3" />
+				<anchored> 
+					<bottom parent="skilllistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
+				</anchored>
 				<target>skills2</target>
 			</button_iadd>
 			<windowlist name="skills2">

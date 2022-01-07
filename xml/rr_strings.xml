@@ -48,6 +48,8 @@
     <string name="RR_label_name">Name</string>
     <string name="RR_label_shortname">Short Name</string>
     <string name="RR_label_show">Show?</string>
+    <string name="RR_label_shownOnConsole">Shown on Console</string>
+    <string name="RR_label_hiddenOnConsole">Hidden on Console</string>
 
 	
 </root>

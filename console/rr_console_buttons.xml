@@ -59,6 +59,16 @@
 				if parentcontrol.datasource[1] ~= "requestsheet.skilllist" then
 					selection_window.setColumnWidth(65);
 				end
+
+				local node = selection_window.getDatabaseNode();
+				w = parentcontrol;
+				DB.addHandler(parentcontrol.datasource[1].."show", "onUpdate", visibilityChanged);
+				visibilityChanged();
+			end
+
+			function visibilityChanged()
+				vis = DB.getValue(parentcontrol.datasource[1].."show")== 1;
+				w.setVisible(not vis);
 			end
 		</script>
 		<sheetdata>
