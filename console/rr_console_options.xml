@@ -96,11 +96,11 @@
 				<target>skills</target>
 			</button_iadd>
 			<windowlist name="skills">
-                <frame name="groupbox" offset="13,5,10,5" />
+                <frame name="groupbox" offset="5,5,5,5" />
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="15" />
-					<right offset="-15" />
+					<left offset="5" />
+					<right offset="-5" />
 				</anchored>
 				<child></child>
 				<child><backcolor>1A40301E</backcolor></child>
@@ -108,7 +108,7 @@
 				<datasource>.checklist</datasource>
 				<class>item_entry</class>
 				<sortby><control>name</control></sortby>
-				<columns><width>260</width></columns>
+				<columns><width>250</width></columns>
 				<script file="console/scripts/rr_console_options.lua" />
 				<activate/>
 				<fastinit/>
@@ -127,11 +127,11 @@
 				<target>skills3</target>
 			</button_iadd>
 			<windowlist name="skills3">
-                <frame name="groupbox" offset="13,5,10,5" />
+                <frame name="groupbox" offset="5,5,5,5" />
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="15" />
-					<right offset="-15" />
+					<left offset="5" />
+					<right offset="-5" />
 				</anchored>
 				<child></child>
 				<child><backcolor>1A40301E</backcolor></child>
@@ -139,7 +139,7 @@
 				<datasource>.savelist</datasource>
 				<class>item_entry</class>
 				<sortby><control>name</control></sortby>
-				<columns><width>260</width></columns>
+				<columns><width>250</width></columns>
 				<script file="console/scripts/rr_console_options.lua" />
 			</windowlist>
 <!-- skill  -->
@@ -156,11 +156,11 @@
 				<target>skills2</target>
 			</button_iadd>
 			<windowlist name="skills2">
-                <frame name="groupbox" offset="13,5,10,5" />
+                <frame name="groupbox" offset="5,5,5,5" />
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="15" />
-					<right offset="-15" />
+					<left offset="5" />
+					<right offset="-5" />
 				</anchored>
 				<child></child>
 				<child><backcolor>1A40301E</backcolor></child>
@@ -168,7 +168,7 @@
 				<datasource>.skilllist</datasource>
 				<class>item_entry</class>
 				<sortby><control>name</control></sortby>
-				<columns><width>260</width></columns>
+				<columns><width>250</width></columns>
 				<script file="console/scripts/rr_console_options.lua" />
 			</windowlist>
 		</sheetdata>
