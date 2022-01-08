@@ -11,6 +11,7 @@ function onInit()
     registerOptions();
 	registerSlashHandlers();
     registerExtensions();
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYDIRTY, handleApplyDirtyRR);
 end
 
 ---Depending on which ruleset and themes are enabled, changes the sidebar buttons.
@@ -69,18 +70,12 @@ function isManualSaveRollNpcOn()
 	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
 end
 
----Checks if the show DC option is on. Currently not used.
----@return boolean "true if option is on"
-function isShowDCOn()
-	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
-end
 --#endregion
 
 --#region Extensions
 
 ---Checks if certain extensions are loaded. Enables a central point to manage the names.
 function registerExtensions()
-	if RR.bDebug then debugExtensions(); end
 	bCharacterSheetTweaksEnabled = isThemeEnabled("Mad Nomad's Character Sheet Tweaks");
 end
 
@@ -173,7 +168,7 @@ end
 
 --#endregion
 
----comment Checks through all combatatants for the number field that the selector button is tied to
+---comment Checks through all combatants for the number field that the selector button is tied to
 ---@return table selectedCharacters a list of selected characters
 function getSelectedChars()
     list = {};
@@ -183,4 +178,23 @@ function getSelectedChars()
         end
     end
     return list;
+end
+
+OOB_MSGTYPE_APPLYDIRTY = "applydirtyRR";
+
+---Sets the RRdirty status for a given node
+---@param msgOOB table 
+function handleApplyDirtyRR(msgOOB)
+	DB.setValue(msgOOB.sCTNode .. ".RRdirty","number",tonumber(msgOOB.isDirty));
+end
+
+---Send the status of whether there are more rolls to the host so that it can be updated
+---@param sCTNode string the string representation of the CTnode to be set
+---@param isDirty number 0 means all rolls are done, 1 means they have rolls to do
+function notifyApplyDirty(sCTNode, isDirty)
+	local msgOOB = {};
+	msgOOB.type = OOB_MSGTYPE_APPLYDIRTY;
+	msgOOB.sCTNode = sCTNode;
+	msgOOB.isDirty = isDirty;
+	Comm.deliverOOBMessage(msgOOB, "");
 end

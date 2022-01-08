@@ -3,10 +3,6 @@
 <root>
 	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
 	
-	<icon name="RFI_PcSelected" file="graphics/icons/rfi_pc_selected.png" />
-	<icon name="RFI_PcUnselected" file="graphics/icons/rfi_pc_unselected.png" />
-	<icon name="RFI_PcHover" file="graphics/icons/rfi_pc_hover.png" />
-	
 	<icon name="RFIA_DefaultButtonUp" file="graphics/icons/rfia_default_button_up.png" />
 	<icon name="RFIA_DefaultButtonDown" file="graphics/icons/rfia_default_button_down.png" />
 
@@ -19,4 +15,7 @@
 	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
 	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
 	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
+
+	<icon name="RR_RollIndicator" file="graphics/icons/rr_roll_indicator.png"/>
+	<icon name="RR_SelectionIndicator" file="graphics/icons/rr_selection_indicator.png"/>
 </root>

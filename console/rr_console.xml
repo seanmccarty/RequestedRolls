@@ -406,6 +406,7 @@
 	<windowclass name="rr_entry">
 		<sheetdata> 
 			<hn name="RRselected" />
+			<hn name="RRdirty" />
 			<anchor_column name="columnanchor" />
 			<hsx name="name">
 				<anchored height="20">
@@ -439,12 +440,25 @@
 				<empty>token_empty</empty>			
 			</tokenfield>		
 			
+			<!-- The first state is empty so that it is invisible -->
 			<buttonfield name="RRselected">
 				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
-				<state icon="RFI_PcUnselected"/>
-				<state icon="RFI_PcSelected"/>
-				<hover icon="RFI_PcHover"/>
-				<anchored  to="token" position="over"/>
+				<state/>
+				<state color="00FF00" icon="RR_SelectionIndicator"/>
+				<hover color="F2D10D" icon="RR_SelectionIndicator"/>
+				<anchored  to="token" position="over" offset="3,3"/>
+			</buttonfield>
+
+			<!-- The first state is empty so that it is invisible -->
+			<buttonfield  name="RRdirty">
+				<anchored height="10">
+					<bottom parent="token" anchor="bottom" offset="5"/>
+					<left parent="token" anchor="left" offset="5"/>
+					<right/>
+				</anchored>
+				<disabled/>
+				<state />
+				<state color="FF0000" icon="RR_RollIndicator"/>
 			</buttonfield>
 		</sheetdata>
 	</windowclass>	

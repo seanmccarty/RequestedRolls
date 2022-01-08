@@ -2,17 +2,37 @@ local vRoll = nil;
 local vSource = nil;
 local vTargets = nil;
 
----Pass through function to get the local variables into this script. You cannot access local vars in a different layer
+---Pass through function to get the local variables into this script. You cannot access local vars in a different layer.
+---It also stores the CTNode in a hidden field and notifies the host that they have a manual roll to make
 function setData(rRoll, rSource, aTargets)
     vRoll = rRoll;
     vSource = rSource;
     vTargets = aTargets;
+    if rSource then
+        CTNodeID.setValue(rSource.sCTNode);
+        RR.notifyApplyDirty(vSource.sCTNode,1);
+    end
+
     super.setData(rRoll, rSource, aTargets);
 end
 
 ---Adds a check to the manual roll window that closes it if you are rolling the last roll in your queue.
 ---It closes on count=1 because this is called before the list item is actually deleted.
+---It also indexes through all open rolls to check if it is the last one for the given CT node.
+---If there is only 1, node with the same CTNodeID, it is referring to the one about to close. 
 function onClose()
+    if vSource then
+        local isClean = 0;
+        local currChar = CTNodeID.getValue();
+        for key, value in pairs(windowlist.getWindows()) do
+            if value.CTNodeID.getValue() == currChar then
+                isClean = isClean+1;
+            end
+        end
+        if isClean == 1 then
+            RR.notifyApplyDirty(vSource.sCTNode,0);
+        end
+    end
     if windowlist.getWindowCount()==1 then
         windowlist.window.close();
     end

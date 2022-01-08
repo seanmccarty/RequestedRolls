@@ -10,7 +10,27 @@
 	"settings": {
 		"Lua.diagnostics.globals": [
 			"bDebug",
-			"User"
+			"User",
+			"RR",
+			"Comm",
+			"Debug",
+			"Interface",
+			"ActionsManager",
+			"OptionsManager",
+			"ModifierManager",
+			"OOBManager",
+			"DB",
+			"CombatManager",
+			"ChatManager",
+			"StringManager",
+			"Session",
+			"Extension",
+			"Desktop",
+			"ActorManager",
+			"DiceTowerManager",
+			"ActionsManager2",
+			"RRTowerManager",
+			"ModifierStack"
 		]
 	}
 }
