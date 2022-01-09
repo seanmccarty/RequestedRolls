@@ -12,18 +12,32 @@ function onButtonPress(rollType)
         end
             
         ModifierStack.lock();
-        for _,v in pairs(aParty) do
+        for _,rActor in pairs(aParty) do
+            local rRoll;
             if rollType == "init" then
-                performInitRoll(v);
+                rRoll = getInitRoll(rActor);
             elseif rollType == "dice" then
-                performDiceRoll(v);
+                rRoll = getDiceRoll(rActor);
             elseif rollType == "check" then
-                performCheckRoll(v);
+                rRoll = getCheckRoll(rActor);
             elseif rollType == "save" then
-                performSaveRoll(v);
+                rRoll = getSaveRoll(rActor);
             elseif rollType == "skill" then
-                performSkillRoll(v);
+                rRoll = getSkillRoll(rActor);
             end
+
+            rRoll.RR = true;
+
+            if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
+                rRoll.bSecret = true;
+            end
+
+            if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+                rRoll.bSecret = true;
+                rRoll.bTower = true;
+            end
+        
+            ActionsManager.performAction(nil, rActor, rRoll);
         end
         ModifierStack.unlock(true);
     
@@ -31,18 +45,11 @@ function onButtonPress(rollType)
     end
 end	
 
-function performInitRoll(rActor)
-	local rRoll = ActionInit.getRoll(rActor, false);
-	rRoll.RR = true;
-	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-		rRoll.bSecret = true;
-		rRoll.bTower = true;
-	end
-
-	ActionsManager.performAction(draginfo, rActor, rRoll);
+function getInitRoll(rActor)
+	return ActionInit.getRoll(rActor, false);
 end
 
-function performDiceRoll(rActor)
+function getDiceRoll(rActor)
 	local sDice = DB.getValue("requestsheet.diceselected", ""):lower();
 
 	local rRoll = {};
@@ -50,22 +57,15 @@ function performDiceRoll(rActor)
 	rRoll.aDice = { sDice };
     rRoll.sDesc = "Roll a " .. sDice;
     rRoll.nMod = 0;
-	rRoll.RR = true;
-
-    if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-		rRoll.bSecret = true;
-		rRoll.bTower = true;
-	end
     
     if User.getRulesetName()=="5E" and sDice=="d20" then
 		ActionsManager2.encodeAdvantage(rRoll);
     end
 
-	ActionsManager.performAction(nil, rActor, rRoll);
+    return rRoll;
 end
 
-function performCheckRoll(rActor)
-
+function getCheckRoll(rActor)
 	local sCheck = DB.getValue("requestsheet.checkselected", ""):lower();
 	local rRoll;
 	if User.getRulesetName()=="5E" then
@@ -73,38 +73,30 @@ function performCheckRoll(rActor)
 	else
 		rRoll = ActionAbility.getRoll(rActor, sCheck);
 	end
-	rRoll.RR = true;
+	
 	local nTargetDC = DB.getValue("requestsheet.checkdc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
 	rRoll.nTarget = nTargetDC;
-	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-		rRoll.bSecret = true;
-		rRoll.bTower = true;
-	end
-
-	ActionsManager.performAction(draginfo, rActor, rRoll);
+	
+    return rRoll;
 end
 
-function performSaveRoll(rActor)
+function getSaveRoll(rActor)
 	local sSave = DB.getValue("requestsheet.saveselected", ""):lower();
 	local rRoll = ActionSave.getRoll(rActor, sSave);
-	rRoll.RR = true;
+	
 	local nTargetDC = DB.getValue("requestsheet.savedc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
 	rRoll.nTarget = nTargetDC;
-	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-		rRoll.bSecret = true;
-		rRoll.bTower = true;
-	end
-
-	ActionsManager.performAction(draginfo, rActor, rRoll);
+	
+    return rRoll;
 end
 
-function performSkillRoll(rActor)
+function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skillselected", "");
 	local rRoll = nil;
     
@@ -119,26 +111,16 @@ function performSkillRoll(rActor)
 		return;
 	end
 
-	if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-		rRoll.bSecret = true;
-	end
-
-	rRoll.RR = true;
 	local nTargetDC = DB.getValue("requestsheet.skilldc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
 	rRoll.nTarget = nTargetDC;
-	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-		rRoll.bSecret = true;
-		rRoll.bTower = true;
-	end
-
-	ActionsManager.performAction(draginfo, rActor, rRoll);
-
+	
+    return rRoll;
 end
 
----comment
+---Takes a NPC and gets the skills and modifiers from its record to check its specified modifier
 ---@param nodeActor any the database node of the actor in question
 ---@return table aComponents a table of labels and modifiers found on the character
 function parseComponents(nodeActor)
