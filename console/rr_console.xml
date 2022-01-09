@@ -171,8 +171,12 @@
 			</genericcontrol>			
 			<button_roll name="checkroll">
 				<anchored to="checkframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_ability.lua" />
 				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						RRRollManager.onButtonPress("check");
+					end
+				</script>
 			</button_roll>
 			<label name="checklabel">
 				<anchored to="checkroll" position="righthigh" offset="3,0" />
@@ -229,8 +233,12 @@
 			</genericcontrol>			
 			<button_roll name="saveroll">
 				<anchored to="saveframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_save.lua" />
 				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						RRRollManager.onButtonPress("save");
+					end
+				</script>
 			</button_roll>
 			<label name="savelabel">
 				<anchored to="saveroll" position="righthigh" offset="3,0" />
@@ -288,8 +296,12 @@
 			</genericcontrol>
 			<button_roll name="skillroll">
 				<anchored to="skillframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_skill.lua" />
 				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						RRRollManager.onButtonPress("skill");
+					end
+				</script>
 			</button_roll>
 			<label name="skilllabel">
 				<anchored to="skillroll" position="righthigh" offset="3,0" />
@@ -347,8 +359,12 @@
 			</genericcontrol>							
 			<button_roll name="diceroll">
 				<anchored to="diceframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_dice.lua" />
 				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						RRRollManager.onButtonPress("dice");
+					end
+				</script>
 			</button_roll>
 			<label name="dicelabel">
 				<anchored to="diceroll" position="righthigh" offset="3,0" />
@@ -376,7 +392,11 @@
 			</genericcontrol>							
 			<button_roll name="initroll">
 				<anchored to="initframe" position="insidetopleft" offset="2,0" />
-				<script file="console/scripts/rr_console_init.lua"/>
+				<script>
+					function onButtonPress()
+						RRRollManager.onButtonPress("init");
+					end
+				</script>
 				<gmvisibleonly />
 			</button_roll>
 			<label name="initlabel">

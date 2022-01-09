@@ -1,34 +1,111 @@
-function onButtonPress()
+function onButtonPress(rollType)
     if (table.getn(RR.getSelectedChars())>0) then
-        return action();
+        local aParty = {};
+        for _,v in pairs(RR.getSelectedChars()) do
+            local rActor = ActorManager.resolveActor(v);
+            if rActor then
+                table.insert(aParty, rActor);
+            end
+        end
+        if #aParty == 0 then
+            aParty = nil;
+        end
+            
+        ModifierStack.lock();
+        for _,v in pairs(aParty) do
+            if rollType == "init" then
+                performInitRoll(v);
+            elseif rollType == "dice" then
+                performDiceRoll(v);
+            elseif rollType == "check" then
+                performCheckRoll(v);
+            elseif rollType == "save" then
+                performSaveRoll(v);
+            elseif rollType == "skill" then
+                performSkillRoll(v);
+            end
+        end
+        ModifierStack.unlock(true);
+    
+        return true;
     end
 end	
 
-function action(draginfo)
+function performInitRoll(rActor)
+	local rRoll = ActionInit.getRoll(rActor, false);
+	rRoll.RR = true;
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		rRoll.bSecret = true;
+		rRoll.bTower = true;
+	end
 
-	local aParty = {};
-	for _,v in pairs(RR.getSelectedChars()) do
-		local rActor = ActorManager.resolveActor(v);
-		if rActor then
-			table.insert(aParty, rActor);
-		end
-	end
-	if #aParty == 0 then
-		aParty = nil;
-	end
-	
-	local sAbilityStat = DB.getValue("requestsheet.skillselected", "");
-	
-	ModifierStack.lock();
-	for _,v in pairs(aParty) do
-		performSkillRoll(v, sAbilityStat);
-	end
-	ModifierStack.unlock(true);
-
-	return true;
+	ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 
-function performSkillRoll(rActor, sSkill)
+function performDiceRoll(rActor)
+	local sDice = DB.getValue("requestsheet.diceselected", ""):lower();
+
+	local rRoll = {};
+    rRoll.sType = "dice"
+	rRoll.aDice = { sDice };
+    rRoll.sDesc = "Roll a " .. sDice;
+    rRoll.nMod = 0;
+	rRoll.RR = true;
+
+    if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		rRoll.bSecret = true;
+		rRoll.bTower = true;
+	end
+    
+    if User.getRulesetName()=="5E" and sDice=="d20" then
+		ActionsManager2.encodeAdvantage(rRoll);
+    end
+
+	ActionsManager.performAction(nil, rActor, rRoll);
+end
+
+function performCheckRoll(rActor)
+
+	local sCheck = DB.getValue("requestsheet.checkselected", ""):lower();
+	local rRoll;
+	if User.getRulesetName()=="5E" then
+		rRoll = ActionCheck.getRoll(rActor, sCheck);
+	else
+		rRoll = ActionAbility.getRoll(rActor, sCheck);
+	end
+	rRoll.RR = true;
+	local nTargetDC = DB.getValue("requestsheet.checkdc", 0);
+	if nTargetDC == 0 then
+		nTargetDC = nil;
+	end
+	rRoll.nTarget = nTargetDC;
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		rRoll.bSecret = true;
+		rRoll.bTower = true;
+	end
+
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performSaveRoll(rActor)
+	local sSave = DB.getValue("requestsheet.saveselected", ""):lower();
+	local rRoll = ActionSave.getRoll(rActor, sSave);
+	rRoll.RR = true;
+	local nTargetDC = DB.getValue("requestsheet.savedc", 0);
+	if nTargetDC == 0 then
+		nTargetDC = nil;
+	end
+	rRoll.nTarget = nTargetDC;
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		rRoll.bSecret = true;
+		rRoll.bTower = true;
+	end
+
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performSkillRoll(rActor)
+	local sSkill = DB.getValue("requestsheet.skillselected", "");
 	local rRoll = nil;
     
 	if User.getRulesetName()=="5E" then
