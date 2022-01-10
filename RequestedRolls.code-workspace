@@ -30,7 +30,8 @@
 			"DiceTowerManager",
 			"ActionsManager2",
 			"RRTowerManager",
-			"ModifierStack"
+			"ModifierStack",
+			"DataCommon"
 		]
 	}
 }
