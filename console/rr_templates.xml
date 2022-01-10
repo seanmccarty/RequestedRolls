@@ -171,4 +171,30 @@
 		</buttonfield>
 	</template>
 
+	<template name="RR_label_options_lists">
+		<label_ps>
+			<anchored height="20" width="60">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+				<left offset="15" />
+			</anchored>
+		</label_ps>
+	</template>
+
+	<template name="RR_options_lists">
+		<windowlist>
+			<frame name="groupbox" offset="5,5,5,5" />
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<noscroll />
+			<class>item_entry</class>
+			<sortby><control>name</control></sortby>
+			<columns><width>250</width></columns>
+			<script file="console/scripts/rr_console_options.lua" />
+		</windowlist>
+	</template>
 </root>

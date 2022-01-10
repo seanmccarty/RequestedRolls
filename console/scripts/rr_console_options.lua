@@ -33,7 +33,7 @@ function onListChanged()
 end
 
 function update()
-	local bEditMode = (window.parentcontrol.window.skills_iedit.getValue() == 1);
+	local bEditMode = (window.parentcontrol.window.options_iedit.getValue() == 1);
 	for _,w in ipairs(getWindows()) do
 		if w.isCustom() then
 			w.idelete.setVisibility(bEditMode);
@@ -89,7 +89,7 @@ function constructDefaultChecks()
 			end
 		end
 		
-		-- Update properties
+		-- Update properties, need to loop through so only the first instance is made readonly
 		local bCustom = false;
 		for _, match in pairs(matches) do
 			match.setCustom(bCustom);

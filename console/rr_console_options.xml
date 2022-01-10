@@ -9,29 +9,28 @@
     <windowclass name="rr_options">
 		<!-- <script file="console/scripts/rr_console.lua"/> -->
 		<sheetdata>
-			<button_iedit name="skills_iedit">
+			<button_iedit name="options_iedit">
 				<anchored position="insidebottomright" offset="10,10" />
 				<tooltip textres="char_skills_tooltip_edit" />
 				<script>
 					function onValueChanged()
 						local bEditMode = (getValue() == 1);
 						
+						window.contents.subwindow.checks.update();
+						window.contents.subwindow.saves.update();
 						window.contents.subwindow.skills.update();
-						window.contents.subwindow.skills2.update();
-						window.contents.subwindow.skills3.update();
 					end
 				</script>
 			</button_iedit>
 
 			<subwindow name="contents">
-                
 				<anchored>
 					<top offset="0" />
 					<bottom offset="-35" />
 					<left offset="0" />
 					<right offset="-15" />
 				</anchored>
-				<class>charsheet_skills_contents2</class>
+				<class>rr_options_contents</class>
 				<activate />
 				<fastinit />
 			</subwindow>
@@ -42,10 +41,8 @@
         </sheetdata>
     </windowclass>
 
- 	<windowclass name="charsheet_skills_contents2">
+ 	<windowclass name="rr_options_contents">
 		<margins control="0,0,0,2" />
-		<script>
-		</script>
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 			
@@ -55,7 +52,6 @@
 					<right offset="-15" />
 				</anchored>
 			</genericcontrol>
-
 
             <label_ps name="label_name_short" width="200">
 				<anchored>
@@ -83,113 +79,57 @@
 				<static textres="RR_label_show" />
 			</label_ps>
 <!-- check -->
-			<label_ps name="skillstitle">
-				<anchored height="20" width="60">
-					<top parent="columnanchor" anchor="bottom" relation="relative"/>
-					<left offset="15" />
-					<!-- <right offset="-155" /> -->
-				</anchored>
+			<RR_label_options_lists name="checkstitle">
 				<static textres="RR_label_check" />
-			</label_ps>
+			</RR_label_options_lists>
 			<RR_button_expander_hider name="checklistshow">
-				<anchored to="skillstitle" position="righthigh" relation="relative" offset="0,0" />
+				<anchored to="checkstitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
-			<button_iadd name="skills_iadd">
+			<button_iadd name="checks_iadd">
 				<anchored> 
 					<bottom parent="checklistshow" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
-				<target>skills</target>
+				<target>checks</target>
 			</button_iadd>
-
-			<windowlist name="skills">
-                <frame name="groupbox" offset="5,5,5,5" />
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>
-				<child></child>
-				<child><backcolor>1A40301E</backcolor></child>
-				<noscroll />
+			<RR_options_lists name="checks">
 				<datasource>.checklist</datasource>
-				<class>item_entry</class>
-				<sortby><control>name</control></sortby>
 				<columns><width>250</width></columns>
-				<script file="console/scripts/rr_console_options.lua" />
-				<activate/>
-				<fastinit/>
-			</windowlist>
+			</RR_options_lists>
 <!-- save -->
-			<label_ps name="skillstitle3">
-				<anchored height="20" width="60">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
-					<left offset="15" />
-					<!-- <right offset="-15" /> -->
-				</anchored>
+			<RR_label_options_lists name="savestitle">
 				<static textres="RR_label_save" />
-			</label_ps>
+			</RR_label_options_lists>
 			<RR_button_expander_hider name="savelistshow">
-				<anchored to="skillstitle3" position="righthigh" relation="relative" offset="0,0" />
+				<anchored to="savestitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
-			<button_iadd name="skills_iadd">
+			<button_iadd name="saves_iadd">
 				<anchored> 
 					<bottom parent="savelistshow" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
-				<target>skills3</target>
+				<target>saves</target>
 			</button_iadd>
-			<windowlist name="skills3">
-                <frame name="groupbox" offset="5,5,5,5" />
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>
-				<child></child>
-				<child><backcolor>1A40301E</backcolor></child>
-				<noscroll />
+			<RR_options_lists name="saves">
 				<datasource>.savelist</datasource>
-				<class>item_entry</class>
-				<sortby><control>name</control></sortby>
-				<columns><width>250</width></columns>
-				<script file="console/scripts/rr_console_options.lua" />
-			</windowlist>
+			</RR_options_lists>
 <!-- skill  -->
-			<label_ps name="skillstitle2">
-				<anchored height="20" width="60">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
-					<left offset="15" />
-					<!-- <right offset="-15" /> -->
-				</anchored>
+			<RR_label_options_lists name="skillstitle">
 				<static textres="RR_label_skill" />
-			</label_ps>
+			</RR_label_options_lists>
 			<RR_button_expander_hider name="skilllistshow">
-				<anchored to="skillstitle2" position="righthigh" relation="relative" offset="0,0" />
+				<anchored to="skillstitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
-			<button_iadd name="skills_iadd2">
+			<button_iadd name="skills_iadd">
 				<anchored> 
 					<bottom parent="skilllistshow" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
-				<target>skills2</target>
+				<target>skills</target>
 			</button_iadd>
-			<windowlist name="skills2">
-                <frame name="groupbox" offset="5,5,5,5" />
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>
-				<child></child>
-				<child><backcolor>1A40301E</backcolor></child>
-				<noscroll />
+			<RR_options_lists name="skills">
 				<datasource>.skilllist</datasource>
-				<class>item_entry</class>
-				<sortby><control>name</control></sortby>
-				<columns><width>250</width></columns>
-				<script file="console/scripts/rr_console_options.lua" />
-			</windowlist>
+			</RR_options_lists>
 		</sheetdata>
 	</windowclass>
 	
@@ -211,7 +151,6 @@
 			
 			<RR_button_selector_star name="show">
 				<anchored position="insidetopleft" offset="2,6" />
-				<tabtarget next="name" />
 			</RR_button_selector_star>
             <string_textlistitem name="name_short">
 				<anchored to="rightanchor" width="75">
@@ -219,7 +158,7 @@
 					<right anchor="left" relation="relative" offset="-7" />
 				</anchored>
 				<multilinespacing>20</multilinespacing>
-				<tabtarget next="stat" prev="show" />
+				<tabtarget prev="name"/>
 			</string_textlistitem>
 			<string_textlistitem name="name">
 				<anchored to="rightanchor">
@@ -228,7 +167,7 @@
 					<right anchor="left" relation="relative" offset="-7" />
 				</anchored>
 				<multilinespacing>20</multilinespacing>
-				<tabtarget next="stat" prev="show" />
+				<tabtarget next="name_short" />
 			</string_textlistitem>
 
 		</sheetdata>
