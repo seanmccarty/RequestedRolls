@@ -72,11 +72,11 @@
 			end
 		</script>
 		<sheetdata>
-			<button_expand_window name="button_expand_stuff">
+			<RR_button_expander_window name="button_expand_stuff">
 				<anchored position="insidetopleft" offset="10,10" />
 				<target>selection_window</target>
                 <target_label>label_noselection</target_label>
-			</button_expand_window>
+			</RR_button_expander_window>
 			<label name="group_name">
 				<anchored position="insidetopleft" offset="40,10" />
 				<readonly />
@@ -123,38 +123,30 @@
 			<genericcontrol name="rightanchor">
 				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
 			</genericcontrol>
-			<RR_button_roll name="bname">
+
+			<buttoncontrol name="bname">
 				<anchored position="insidetopleft" offset="5,5" height="20">
 					<right offset="-5" />
 				</anchored>
+				<frame name="buttonup" offset="5,5,5,5" />
+				<stateframe>
+					<normal name="buttonup" offset="5,5,5,5" nobaseframe="true" />
+					<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+				</stateframe>
+				<font>button-white</font>
+				<pressed offset="1,1" />
 				<script>
 					function onButtonPress()
 						DB.setValue("requestsheet.".. window.windowlist.window.group_name.getValue():lower() .."selected", "string",window.name.getValue());
 					end
 				</script>
-			</RR_button_roll>
+			</buttoncontrol>
 
-			<hnx name="show">
-				<anchored to="rightanchor">
-					<top />
-					<left parent="" offset="0" />
-					<right anchor="left" relation="relative" offset="-7" />
-				</anchored>
-				<readonly />
-				<invisible />
-			</hnx>
+			<hn name="show"/>
 
-			<hsx name="name">
-				<anchored to="rightanchor">
-					<top />
-					<left parent="" offset="0" />
-					<right anchor="left" relation="relative" offset="-7" />
-				</anchored>
-				<readonly />
-				<invisible />
+			<hs name="name">
 				<script>
 					function onInit()
-						super.onInit()
 						if window.name_short.getValue()~="" then
 							window.bname.setText(window.name_short.getValue());
 						else
@@ -170,19 +162,11 @@
 						end
 					end
 				</script>
-			</hsx>
+			</hs>
 
-			<hsx name="name_short">
-				<anchored to="rightanchor">
-					<top />
-					<left parent="" offset="0" />
-					<right anchor="left" relation="relative" offset="-7" />
-				</anchored>
-				<readonly />
-				<invisible />
+			<hs name="name_short">
 				<script>
 					function onInit()
-						super.onInit()
 						if window.name_short.getValue()~="" then
 							window.bname.setText(window.name_short.getValue());
 						else
@@ -198,7 +182,7 @@
 						end
 					end
 				</script>
-			</hsx>
+			</hs>
 		</sheetdata>
 	</windowclass>	
 </root>

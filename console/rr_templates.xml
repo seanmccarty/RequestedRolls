@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
+	<!-- Used on Main page -->
+
+	<!-- Requires parameter target -->
     <template name="button_select_all" >
 		<buttoncontrol>
 			<anchored width="20"/>
@@ -16,6 +19,7 @@
 		</buttoncontrol>
 	</template>
 
+	<!-- Requires parameter target -->
 	<template name="button_select_random" >
 		<buttoncontrol>
 			<anchored width="20"/>
@@ -52,6 +56,7 @@
 		</buttoncontrol>
 	</template>
 
+	<!-- Requires parameter target -->
 	<template name="button_deselect_all" >
 		<buttoncontrol>
 			<anchored width="20" />
@@ -59,19 +64,20 @@
 			<tooltip textres="RR_tooltip_select_none" />
 			<script>
 				function onButtonPress()
-                    for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                    vEntry.RRselected.setValue(0);
-                    end
+					for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+						vEntry.RRselected.setValue(0);
+					end
 				end
 			</script>
 		</buttoncontrol>
 	</template>
 
+	<!-- Requires <parameters><pc/></parameters> or <parameters><npc/></parameters>-->
     <template name="RR_window_selector">
         <windowlist name="list" >
 			<datasource>combattracker.list</datasource>
             <columns width="45" fillwidth="true"/>
-            <frame name="groupbox" offset="13,5,10,5" />			
+            <frame name="groupbox" offset="13,5,10,5" />
             <class>rr_entry</class>				
             <anchored height="50">
                 <top offset="5"/>
@@ -97,8 +103,9 @@
         </windowlist>
     </template>
 
-    <!-- from  charwizard -->
-    <template name="button_expand_window">
+    <!-- For the expander trays on the main page -->
+	<!-- TODO -->
+    <template name="RR_button_expander_window">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
 			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
@@ -139,19 +146,8 @@
 			</script>
 		</buttoncontrol>
 	</template>
-	
-	<template name="RR_button_roll">
-		<buttoncontrol>
-			<frame name="buttonup" offset="5,5,5,5" />
-			<stateframe>
-				<normal name="buttonup" offset="5,5,5,5" nobaseframe="true" />			
-				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
-			</stateframe>
-			<font>button-white</font>
-			<pressed offset="1,1" />			
-		</buttoncontrol>
-	</template>	
 
+	<!-- Used on Options page -->
 	<template name="RR_button_selector_star">
 		<buttonfield>
 			<anchored width="12" height="12" />
@@ -180,6 +176,7 @@
 		</label_ps>
 	</template>
 
+	<!-- Requires parameter datasource -->
 	<template name="RR_options_lists">
 		<windowlist>
 			<frame name="groupbox" offset="5,5,5,5" />

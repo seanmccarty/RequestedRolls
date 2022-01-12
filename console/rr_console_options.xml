@@ -94,7 +94,6 @@
 			</button_iadd>
 			<RR_options_lists name="checks">
 				<datasource>.checklist</datasource>
-				<columns><width>250</width></columns>
 			</RR_options_lists>
 <!-- save -->
 			<RR_label_options_lists name="savestitle">
