@@ -104,7 +104,6 @@
     </template>
 
     <!-- For the expander trays on the main page -->
-	<!-- TODO -->
     <template name="RR_button_expander_window">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
@@ -113,25 +112,24 @@
 			<script>
 				local node;
 
-				function onInit()					
-					node = window.parentcontrol.datasource[1] .. "collapsed";
-					local status = DB.getValue(node,0);
-					setValue(status);
-					if status == 0 then
-						setExpanded();
-					else
-						setCollapsed();
-					end
+				--Get the assigned node and the value. Set the value of the control so the correct icon shows.
+				--Call button press to get the correct visibility
+				function onInit()
+					node = DB.getPath(window.getDatabaseNode(),"collapsed");
+					setValue(DB.getValue(node,0));
+					onButtonPress();
 				end
 
+				--The control value has already changed when this fires
 				function onButtonPress()
-					if window[self.target[1]].isVisible() then
-						setCollapsed();
-					else
+					if getValue() == 0 then
 						setExpanded();
+					else
+						setCollapsed();
 					end
 				end
 
+				--when expanded, the target label is only shown if target is blank
 				function setExpanded()
 					window[self.target[1]].setVisible(true);
 					window[self.target_label[1]].setVisible(window[self.target[1]].getWindowCount(true)==0);
@@ -193,5 +191,24 @@
 			<columns><width>250</width></columns>
 			<script file="console/scripts/rr_console_options.lua" />
 		</windowlist>
+	</template>
+
+	<!-- Requires parameters datasource and group_name -->
+	<template name="RR_subwindow_expander">
+		<subwindow>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>		
+			<noscroll />
+			<frame name="fielddark" offset="5,5,5,5" />
+			<script>
+				function onInit()
+					setValue("expanding_button_selector",self.datasource[1]);
+				end
+			</script>
+			<activate/>
+		</subwindow>
 	</template>
 </root>

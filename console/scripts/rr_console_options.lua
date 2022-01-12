@@ -7,13 +7,13 @@ function onInit()
 	registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
 	
 	-- Construct default skills
-	if self.datasource[1] == ".skilllist" then
+	if self.datasource[1] == ".skill.list" then
 		constructDefaultSkills();
 	end
-	if self.datasource[1] == ".checklist" then
+	if self.datasource[1] == ".check.list" then
 		constructDefaultChecks();
 	end
-	if self.datasource[1] == ".savelist" then
+	if self.datasource[1] == ".save.list" then
 		constructDefaultSaves();
 	end
 end

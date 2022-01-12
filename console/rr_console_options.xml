@@ -82,52 +82,52 @@
 			<RR_label_options_lists name="checkstitle">
 				<static textres="RR_label_check" />
 			</RR_label_options_lists>
-			<RR_button_expander_hider name="checklistshow">
+			<RR_button_expander_hider name="check.show">
 				<anchored to="checkstitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
 			<button_iadd name="checks_iadd">
 				<anchored> 
-					<bottom parent="checklistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<bottom parent="check.show" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
 				<target>checks</target>
 			</button_iadd>
 			<RR_options_lists name="checks">
-				<datasource>.checklist</datasource>
+				<datasource>.check.list</datasource>
 			</RR_options_lists>
 <!-- save -->
 			<RR_label_options_lists name="savestitle">
 				<static textres="RR_label_save" />
 			</RR_label_options_lists>
-			<RR_button_expander_hider name="savelistshow">
+			<RR_button_expander_hider name="save.show">
 				<anchored to="savestitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
 			<button_iadd name="saves_iadd">
 				<anchored> 
-					<bottom parent="savelistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<bottom parent="save.show" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
 				<target>saves</target>
 			</button_iadd>
 			<RR_options_lists name="saves">
-				<datasource>.savelist</datasource>
+				<datasource>.save.list</datasource>
 			</RR_options_lists>
 <!-- skill  -->
 			<RR_label_options_lists name="skillstitle">
 				<static textres="RR_label_skill" />
 			</RR_label_options_lists>
-			<RR_button_expander_hider name="skilllistshow">
+			<RR_button_expander_hider name="skill.show">
 				<anchored to="skillstitle" position="righthigh" relation="relative" offset="0,0" />
 			</RR_button_expander_hider>
 			<button_iadd name="skills_iadd">
 				<anchored> 
-					<bottom parent="skilllistshow" relation="relative" anchor="bottom" offset="-3"/>
+					<bottom parent="skill.show" relation="relative" anchor="bottom" offset="-3"/>
 					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
 				</anchored>
 				<target>skills</target>
 			</button_iadd>
 			<RR_options_lists name="skills">
-				<datasource>.skilllist</datasource>
+				<datasource>.skill.list</datasource>
 			</RR_options_lists>
 		</sheetdata>
 	</windowclass>

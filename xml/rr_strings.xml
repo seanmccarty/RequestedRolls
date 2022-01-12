@@ -37,7 +37,7 @@
     <string name="RR_tooltip_select_random">Select random</string>	
 
     <!-- CONSOLE BUTTON EXPANDERS -->
-    <string name="RR_label_nobuttonselected">No options selected. Go to the Other tab and select two stars.</string>
+    <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
     <string name="RR_tooltip_expand">Expand</string>
     <string name="RR_tooltip_collapse">Collapse</string>
 

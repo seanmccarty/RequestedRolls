@@ -183,7 +183,7 @@
 				<static textres="RR_label_check" />
 				<gmvisibleonly />
 			</label>
-			<combobox name="checkselected">
+			<combobox name="check.selected">
 				<anchored to="checklabel" position="righthigh" offset="10,0" width="100" height="20" />
 				<default textres="ps_default_groupability" />
 				<gmvisibleonly />
@@ -192,23 +192,23 @@
 						super.onInit();
 
 						local node = window.getDatabaseNode();
-						DB.addHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+						DB.addHandler(DB.getPath(node, "check.list.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "check.list.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "check.list"), "onChildDeleted", buildOptions);
 
 						buildOptions();
 					end
 
 					function onClose()
 						local node = window.getDatabaseNode();
-						DB.removeHandler(DB.getPath(node, "checklist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "checklist.*.show"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "checklist"), "onChildDeleted", buildOptions);
+						DB.removeHandler(DB.getPath(node, "check.list.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "check.list.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "check.list"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
-						for _,w in pairs(DB.getChildren("requestsheet.checklist")) do
+						for _,w in pairs(DB.getChildren("requestsheet.check.list")) do
 							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
@@ -217,11 +217,11 @@
 				</script>
 			</combobox>
 			<label name="checkdclabel">
-				<anchored to="checkselected" position="righthigh" offset="10,0" />
+				<anchored to="check.selected" position="righthigh" offset="10,0" />
 				<static textres="dc" />
 				<gmvisibleonly />
 			</label>
-			<basicnumber name="checkdc">
+			<basicnumber name="check.dc">
 				<anchored to="checkdclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
 			</basicnumber>			
@@ -245,7 +245,7 @@
 				<static textres="RR_label_save" />
 				<gmvisibleonly />
 			</label>
-			<combobox name="saveselected">
+			<combobox name="save.selected">
 				<anchored to="savelabel" position="righthigh" offset="10,0" width="100" height="20" />
 				<default>Select save</default>
 				<gmvisibleonly />
@@ -254,23 +254,23 @@
 						super.onInit();
 
 						local node = window.getDatabaseNode();
-						DB.addHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+						DB.addHandler(DB.getPath(node, "save.list.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "save.list.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "save.list"), "onChildDeleted", buildOptions);
 
 						buildOptions();
 					end
 
 					function onClose()
 						local node = window.getDatabaseNode();
-						DB.removeHandler(DB.getPath(node, "savelist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "savelist.*.show"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "savelist"), "onChildDeleted", buildOptions);
+						DB.removeHandler(DB.getPath(node, "save.list.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "save.list.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "save.list"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
-						for _,w in pairs(DB.getChildren("requestsheet.savelist")) do
+						for _,w in pairs(DB.getChildren("requestsheet.save.list")) do
 							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
@@ -279,11 +279,11 @@
 				</script>
 			</combobox>
 			<label name="savedclabel">
-				<anchored to="saveselected" position="righthigh" offset="10,0" />
+				<anchored to="save.selected" position="righthigh" offset="10,0" />
 				<static textres="dc" />
 				<gmvisibleonly />
 			</label>
-			<basicnumber name="savedc">
+			<basicnumber name="save.dc">
 				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
 			</basicnumber>
@@ -308,7 +308,7 @@
 				<static textres="RR_label_skill" />
 				<gmvisibleonly />
 			</label>	
-			<combobox name="skillselected">
+			<combobox name="skill.selected">
 				<anchored to="skilllabel" position="righthigh" offset="10,0" width="170" height="20" />
 				<gmvisibleonly />
 				<listmaxsize>12</listmaxsize>
@@ -318,23 +318,23 @@
 						super.onInit();
 
 						local node = window.getDatabaseNode();
-						DB.addHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
-						DB.addHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+						DB.addHandler(DB.getPath(node, "skill.list.*.name"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skill.list.*.show"), "onUpdate", buildOptions);
+						DB.addHandler(DB.getPath(node, "skill.list"), "onChildDeleted", buildOptions);
 
 						buildOptions();
 					end
 
 					function onClose()
 						local node = window.getDatabaseNode();
-						DB.removeHandler(DB.getPath(node, "skilllist.*.name"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "skilllist.*.show"), "onUpdate", buildOptions);
-						DB.removeHandler(DB.getPath(node, "skilllist"), "onChildDeleted", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skill.list.*.name"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skill.list.*.show"), "onUpdate", buildOptions);
+						DB.removeHandler(DB.getPath(node, "skill.list"), "onChildDeleted", buildOptions);
 					end
 
 					function buildOptions()
 						clear();
-						for _,w in pairs(DB.getChildren("requestsheet.skilllist")) do
+						for _,w in pairs(DB.getChildren("requestsheet.skill.list")) do
 							if DB.getValue(w,"show",0)>=1 then
 								add(DB.getValue(w,"name",""));
 							end
@@ -343,11 +343,11 @@
 				</script>
 			</combobox>
 			<label name="skilldclabel">
-				<anchored to="skillselected" position="righthigh" offset="10,0" />
+				<anchored to="skill.selected" position="righthigh" offset="10,0" />
 				<static textres="dc" />
 				<gmvisibleonly />
 			</label>
-			<basicnumber name="skilldc">
+			<basicnumber name="skill.dc">
 				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
 			</basicnumber>			

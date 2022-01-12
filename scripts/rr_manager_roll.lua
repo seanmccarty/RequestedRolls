@@ -66,7 +66,7 @@ function getDiceRoll(rActor)
 end
 
 function getCheckRoll(rActor)
-	local sCheck = DB.getValue("requestsheet.checkselected", ""):lower();
+	local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
 	local rRoll;
 	if User.getRulesetName()=="5E" then
 		rRoll = ActionCheck.getRoll(rActor, sCheck);
@@ -74,7 +74,7 @@ function getCheckRoll(rActor)
 		rRoll = ActionAbility.getRoll(rActor, sCheck);
 	end
 	
-	local nTargetDC = DB.getValue("requestsheet.checkdc", 0);
+	local nTargetDC = DB.getValue("requestsheet.check.dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
@@ -84,10 +84,10 @@ function getCheckRoll(rActor)
 end
 
 function getSaveRoll(rActor)
-	local sSave = DB.getValue("requestsheet.saveselected", ""):lower();
+	local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
 	local rRoll = ActionSave.getRoll(rActor, sSave);
 	
-	local nTargetDC = DB.getValue("requestsheet.savedc", 0);
+	local nTargetDC = DB.getValue("requestsheet.save.dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end
@@ -97,7 +97,7 @@ function getSaveRoll(rActor)
 end
 
 function getSkillRoll(rActor)
-	local sSkill = DB.getValue("requestsheet.skillselected", "");
+	local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local rRoll = nil;
     
 	if User.getRulesetName()=="5E" then
@@ -111,7 +111,7 @@ function getSkillRoll(rActor)
 		return;
 	end
 
-	local nTargetDC = DB.getValue("requestsheet.skilldc", 0);
+	local nTargetDC = DB.getValue("requestsheet.skill.dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end

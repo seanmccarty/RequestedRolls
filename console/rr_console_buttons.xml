@@ -9,43 +9,18 @@
 	<windowclass name="classwindow_buttonselectors">
 		<sheetdata>
 			<anchor_column name="columnanchor" />	
-			<subwindow name="check_window">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>				
-				<group_name2>Check</group_name2>
-				<frame name="fielddark" offset="5,5,5,5" />
-				<class>expanding_button_selector</class>	
-				<datasource>requestsheet.checklist</datasource>		
-				<activate/>
-			</subwindow>
-			<subwindow name="save_window">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>					
-				<group_name2>Save</group_name2>
-				<frame name="fielddark" offset="5,5,5,5" />
-				<class>expanding_button_selector</class>	
-				<datasource>requestsheet.savelist</datasource>		
-				<activate/>
-			</subwindow>
-			<subwindow name="skill_window">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
-					<left offset="5" />
-					<right offset="-5" />
-				</anchored>		
-				<noscroll />
-				<group_name2>Skill</group_name2>
-				<frame name="fielddark" offset="5,5,5,5" />
-				<class>expanding_button_selector</class>	
-				<datasource>requestsheet.skilllist</datasource>	
-				<activate/>
-			</subwindow>
+			<RR_subwindow_expander name="check_window">
+				<group_name>Check</group_name>
+				<datasource>requestsheet.check</datasource>
+			</RR_subwindow_expander>
+			<RR_subwindow_expander name="save_window">
+				<group_name>Save</group_name>
+				<datasource>requestsheet.save</datasource>
+			</RR_subwindow_expander>
+			<RR_subwindow_expander name="skill_window">
+				<group_name>Skill</group_name>
+				<datasource>requestsheet.skill</datasource>
+			</RR_subwindow_expander >
 		</sheetdata>
 	</windowclass>
 
@@ -54,20 +29,18 @@
 		<frame>groupbox</frame>
 		<script>
 			function onInit()
-				group_name.setValue(parentcontrol.group_name2[1]);
-				selection_window.setDatabaseNode(parentcontrol.datasource[1]);
-				if parentcontrol.datasource[1] ~= "requestsheet.skilllist" then
+				group_name.setValue(parentcontrol.group_name[1]);
+				if DB.getPath(getDatabaseNode()) ~= "requestsheet.skill" then
 					selection_window.setColumnWidth(65);
 				end
 
-				local node = selection_window.getDatabaseNode();
 				w = parentcontrol;
-				DB.addHandler(parentcontrol.datasource[1].."show", "onUpdate", visibilityChanged);
+				DB.addHandler(DB.getPath(getDatabaseNode(),"show"), "onUpdate", visibilityChanged);
 				visibilityChanged();
 			end
 
 			function visibilityChanged()
-				vis = DB.getValue(parentcontrol.datasource[1].."show")== 1;
+				vis = DB.getValue(DB.getPath(getDatabaseNode(),"show"))== 1;
 				w.setVisible(not vis);
 			end
 		</script>
@@ -79,13 +52,20 @@
 			</RR_button_expander_window>
 			<label name="group_name">
 				<anchored position="insidetopleft" offset="40,10" />
-				<readonly />
 			</label>
+			<label name="skilldclabel">
+				<anchored position="insidetopleft" offset="90,10" />
+				<static textres="dc" />
+				<gmvisibleonly />
+			</label>
+			<basicnumber name="dc">
+				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<gmvisibleonly />
+			</basicnumber>
 			<label name="label_noselection">
 				<static textres="RR_label_nobuttonselected" />
-				<anchored position="insidetopleft" offset="80,10" />
+				<anchored to="dc" position="righthigh" offset="10,0" />
 				<invisible/>
-				<readonly />
 			</label>
 			<windowlist name="selection_window">
 				<anchored position="insidetopleft" offset="5,35">
@@ -96,6 +76,7 @@
 				<noscroll/>
 				<sortby><control>name</control></sortby>
 				<class>rollselectorbutton</class>
+				<datasource>.list</datasource>
 				<script>
 					function onFilter( w )
 						if  w.show.getValue() == 2 then
@@ -137,7 +118,7 @@
 				<pressed offset="1,1" />
 				<script>
 					function onButtonPress()
-						DB.setValue("requestsheet.".. window.windowlist.window.group_name.getValue():lower() .."selected", "string",window.name.getValue());
+						DB.setValue(window.windowlist.window.getDatabaseNode(),"selected", "string",window.name.getValue());
 					end
 				</script>
 			</buttoncontrol>
