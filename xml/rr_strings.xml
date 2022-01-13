@@ -39,6 +39,9 @@
     <string name="RR_tooltip_clickToRoll_off">Click expander tray button to select</string>
     <string name="RR_tooltip_clickToRoll_on">Click expander tray button to roll</string>
 
+    <string name="RR_tooltip_linkDC_off">Individual DC Fields</string>
+    <string name="RR_tooltip_linkDC_on">Linked DC Fields</string>
+
     <!-- CONSOLE BUTTON EXPANDERS -->
     <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
     <string name="RR_tooltip_expand">Expand</string>

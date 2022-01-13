@@ -16,6 +16,8 @@
 	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
 	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
 
+	<icon name="RR_field_linked_mono" file="graphics/buttons/rr_field_linked_mono.png" />
+
 	<icon name="RR_RollIndicator" file="graphics/icons/rr_roll_indicator.png"/>
 	<icon name="RR_SelectionIndicator" file="graphics/icons/rr_selection_indicator.png"/>
 </root>

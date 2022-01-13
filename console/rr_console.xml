@@ -169,9 +169,41 @@
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
 				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="sidebar_icon_default" color="110600" tooltipres="RR_tooltip_clickToRoll_off" />
-				<state icon="sidebar_icon_default" color="005314" tooltipres="RR_tooltip_clickToRoll_on" />
+				<state icon="sidebar_icon_default" color="6C6C6C" tooltipres="RR_tooltip_clickToRoll_off" />
+				<state icon="sidebar_icon_default" color="000000" tooltipres="RR_tooltip_clickToRoll_on" />
 				<gmvisibleonly />
+			</buttonfield>
+			<buttonfield name="DClink">
+				<anchored to="leftanchor" height="20" width="20">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<frame name="fielddark" offset="10,8,10,6" />
+				<state icon="RR_field_linked_mono" color="6C6C6C" tooltipres="RR_tooltip_linkDC_off" />
+				<state icon="RR_field_linked_mono" color="000000" tooltipres="RR_tooltip_linkDC_on" />
+				<gmvisibleonly />
+				<script>
+					function onInit()
+						DB.addHandler("requestsheet.check.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.save.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.skill.dc", "onUpdate", linker);
+					end
+					
+					--use var run to prevent recursion. set other DC nodes to same value
+					run = true;
+					function linker(nodeUpdated)
+						if run and self.getValue() == 1 then
+							run=false;
+							node = DB.getPath(nodeUpdated);
+							val = DB.getValue(DB.getPath(nodeUpdated),0);
+							if node ~= "requestsheet.check.dc" then DB.setValue("requestsheet.check.dc","number", val); end
+							if node ~= "requestsheet.save.dc" then DB.setValue("requestsheet.save.dc","number", val); end
+							if node ~= "requestsheet.skill.dc" then DB.setValue("requestsheet.skill.dc","number", val); end
+							run=true;
+						end
+						
+					end
+				</script>
 			</buttonfield>
 
 			<!-- Roll selectors -->
