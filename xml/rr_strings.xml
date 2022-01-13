@@ -12,7 +12,7 @@
 	
 	<string name="RR_option_label_npcRolls">NPC: Prompt owner to roll saves</string>
 
-    <string name="RR_option_label_modAfterDisplay">Experimental: Allow modifiers after roll window is displayed</string>
+    <string name="RR_option_label_modAfterDisplay">Use desktop modifiers after popup</string>
 	
 	<string name="RR_option_label_sidebar">View: Sidebar button (requires reload)</string>
     <string name="RR_option_val_hide">Hide</string>
@@ -34,7 +34,10 @@
 
     <string name="RR_tooltip_select_all">Select all</string>
     <string name="RR_tooltip_select_none">Deselect all</string>
-    <string name="RR_tooltip_select_random">Select random</string>	
+    <string name="RR_tooltip_select_random">Select random</string>
+
+    <string name="RR_tooltip_clickToRoll_off">Click expander tray button to select</string>
+    <string name="RR_tooltip_clickToRoll_on">Click expander tray button to roll</string>
 
     <!-- CONSOLE BUTTON EXPANDERS -->
     <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
