@@ -32,12 +32,12 @@
     <string name="RR_label_skill">Skill</string>
     <string name="RR_label_attack">Attack</string>
 
-    <string name="RR_tooltip_select_all">Select all</string>
-    <string name="RR_tooltip_select_none">Deselect all</string>
-    <string name="RR_tooltip_select_random">Select random</string>
+    <string name="RR_tooltip_select_all">Select All</string>
+    <string name="RR_tooltip_select_none">Deselect All</string>
+    <string name="RR_tooltip_select_random">Select Random</string>
 
-    <string name="RR_tooltip_clickToRoll_off">Click expander tray button to select</string>
-    <string name="RR_tooltip_clickToRoll_on">Click expander tray button to roll</string>
+    <string name="RR_tooltip_clickToRoll_off">Click Expander Tray Button to Select</string>
+    <string name="RR_tooltip_clickToRoll_on">Click Expander Tray Button to Roll</string>
 
     <string name="RR_tooltip_linkDC_off">Individual DC Fields</string>
     <string name="RR_tooltip_linkDC_on">Linked DC Fields</string>
