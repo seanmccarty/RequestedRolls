@@ -12,7 +12,7 @@ function onInit()
 	registerSlashHandlers();
     registerExtensions();
 	initializeDirtyState();
-	
+	runMigration();
 end
 
 ---Depending on which ruleset and themes are enabled, changes the sidebar buttons.
@@ -206,4 +206,32 @@ function notifyApplyDirty(sCTNode, isDirty)
 	msgOOB.sCTNode = sCTNode;
 	msgOOB.isDirty = isDirty;
 	Comm.deliverOOBMessage(msgOOB, "");
+end
+
+---Migrates the nodes to data structure v2.3
+function runMigration()
+	migrateNode("requestsheet.checklist","requestsheet.check.list" );
+	migrateNode("requestsheet.savelist","requestsheet.save.list" );
+	migrateNode("requestsheet.skilllist","requestsheet.skill.list" );
+
+	migrateNode("requestsheet.checkdc","requestsheet.check.dc");
+	migrateNode("requestsheet.checkselected","requestsheet.check.selected");
+	migrateNode("requestsheet.checklistcollapsed","requestsheet.check.collapsed");
+	migrateNode("requestsheet.savedc","requestsheet.save.dc");
+	migrateNode("requestsheet.saveselected","requestsheet.save.selected");
+	migrateNode("requestsheet.savelistcollapsed","requestsheet.save.collapsed");
+	migrateNode("requestsheet.skilldc","requestsheet.skill.dc");
+	migrateNode("requestsheet.skillselected","requestsheet.skill.selected");
+	migrateNode("requestsheet.skilllistcollapsed","requestsheet.skill.collapsed");
+
+end
+
+---Copies a source node to the destination and deletes the source node
+---@param source string the node to be moved
+---@param destination string the node to which you want the data copied
+function migrateNode(source, destination)
+	if DB.findNode(source) and DB.findNode(destination) == nil then
+		DB.copyNode(source,destination);
+		DB.deleteNode(source);
+	end
 end
