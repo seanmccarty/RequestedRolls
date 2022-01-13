@@ -11,7 +11,8 @@ function onInit()
     registerOptions();
 	registerSlashHandlers();
     registerExtensions();
-	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYDIRTY, handleApplyDirtyRR);
+	initializeDirtyState();
+	
 end
 
 ---Depending on which ruleset and themes are enabled, changes the sidebar buttons.
@@ -178,6 +179,14 @@ function getSelectedChars()
         end
     end
     return list;
+end
+
+---Initialize the OOB handler and go through all combat tracker nodes and set them that they have no pending rolls
+function initializeDirtyState()
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYDIRTY, handleApplyDirtyRR);
+	for _, value in pairs(DB.getChildren("combattracker.list")) do
+		DB.setValue(DB.getPath(value,"RRdirty"),"number",0);
+	end
 end
 
 OOB_MSGTYPE_APPLYDIRTY = "applydirtyRR";
