@@ -100,6 +100,21 @@
 
 	<windowclass name="rollselectorbutton">
 		<margins control="0,0,0,10" />
+		<script>
+			function onInit()
+				DB.addHandler(DB.getPath(getDatabaseNode(),"name"), "onUpdate", nameChanged);
+				DB.addHandler(DB.getPath(getDatabaseNode(),"name_short"), "onUpdate", nameChanged);
+				nameChanged()
+			end
+
+			function nameChanged()
+				if name_short.getValue()~="" then
+					bname.setText(name_short.getValue());
+				else
+					bname.setText(name.getValue());
+				end
+			end
+		</script>
 		<sheetdata>
 			<genericcontrol name="rightanchor">
 				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
@@ -128,46 +143,8 @@
 			</buttoncontrol>
 
 			<hn name="show"/>
-
-			<hs name="name">
-				<script>
-					function onInit()
-						if window.name_short.getValue()~="" then
-							window.bname.setText(window.name_short.getValue());
-						else
-							window.bname.setText(window.name.getValue());
-						end
-					end
-					function onValueChanged()
-						super.onValueChanged()
-						if window.name_short.getValue()~="" then
-							window.bname.setText(window.name_short.getValue());
-						else
-							window.bname.setText(window.name.getValue());
-						end
-					end
-				</script>
-			</hs>
-
-			<hs name="name_short">
-				<script>
-					function onInit()
-						if window.name_short.getValue()~="" then
-							window.bname.setText(window.name_short.getValue());
-						else
-							window.bname.setText(window.name.getValue());
-						end
-					end
-					function onValueChanged()
-						super.onValueChanged()
-						if window.name_short.getValue()~="" then
-							window.bname.setText(window.name_short.getValue());
-						else
-							window.bname.setText(window.name.getValue());
-						end
-					end
-				</script>
-			</hs>
+			<hs name="name"/>
+			<hs name="name_short"/>
 		</sheetdata>
 	</windowclass>	
 </root>
