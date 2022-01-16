@@ -9,9 +9,11 @@
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 	<script name="RRTowerManager" file="scripts/rr_manager_tower.lua"/>
 	<script name="RRRollManager" file="scripts/rr_manager_roll.lua"/>
+	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
 
 	<includefile source="console/rr_console.xml"/>
 	<includefile source="console/rr_console_buttons.xml"/>
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
+	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 </root>

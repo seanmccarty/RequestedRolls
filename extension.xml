@@ -8,6 +8,14 @@
 		<description>Requested Rolls</description>
 		<loadorder>0</loadorder>
 		<ruleset>
+			<name>3.5E</name>
+			<minrelease>17.1</minrelease>
+		</ruleset>
+		<ruleset>
+			<name>4E</name>
+			<minrelease>28</minrelease>
+		</ruleset>
+		<ruleset>
 			<name>5E</name>
 			<minrelease>8.1</minrelease>
 		</ruleset>
@@ -22,10 +30,6 @@
 		<ruleset>
 			<name>PFRPG2</name>
 			<minrelease>18</minrelease>
-		</ruleset>
-		<ruleset>
-			<name>3.5E</name>
-			<minrelease>17.1</minrelease>
 		</ruleset>
 		<ruleset>
 			<name>SFRPG</name>

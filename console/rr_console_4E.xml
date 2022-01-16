@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<!-- Remove save combobx and DC, resize window for roll button only entry -->
+	<windowclass name="rr_console" merge="join">
+		<sheetdata>
+			<genericcontrol name="saveframe">
+				<anchored width="55" />
+			</genericcontrol>
+			<combobox name="save.selected" merge="delete"/>
+			<label name="savedclabel" merge="delete"/>
+			<basicnumber name="save.dc" merge="delete"/>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Remove the save expanders -->
+	<windowclass name="classwindow_buttonselectors" merge="join">
+		<sheetdata>
+			<RR_subwindow_expander name="save_window" merge="delete">
+			</RR_subwindow_expander>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Hide the save options subwindow. Would have to rewrite additional functions if it was deleted. -->
+	<windowclass name="rr_options_contents" merge="join">
+		<sheetdata>
+			<RR_label_options_lists name="savestitle">
+				<invisible/>
+			</RR_label_options_lists>
+			<RR_button_expander_hider name="save.show">
+				<invisible/>
+			</RR_button_expander_hider>
+			<button_iadd name="saves_iadd">
+				<invisible/>
+			</button_iadd>
+			<RR_options_lists name="saves">
+				<invisible/>
+			</RR_options_lists>
+		</sheetdata>
+	</windowclass>
+</root>
