@@ -508,7 +508,7 @@
 			<buttonfield name="RRselected">
 				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
 				<state/>
-				<state color="00FF00" icon="RR_SelectionIndicator"/>
+				<state color="32FF32" icon="RR_SelectionIndicator"/>
 				<hover color="F2D10D" icon="RR_SelectionIndicator"/>
 				<anchored  to="token" position="over" offset="3,3"/>
 			</buttonfield>
@@ -522,7 +522,7 @@
 				</anchored>
 				<disabled/>
 				<state />
-				<state color="FF0000" icon="RR_RollIndicator"/>
+				<state color="E80000" icon="RR_RollIndicator"/>
 			</buttonfield>
 		</sheetdata>
 	</windowclass>	
