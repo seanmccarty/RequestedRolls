@@ -1,6 +1,9 @@
 --Overrides the function ActionsManger.roll so that the popup roll page can be managed just like manual rolls
+--Added original function to fall through if not overridden
+local fRollOriginal = nil;
 
 function onInit()
+	fRollOriginal = ActionsManager.roll;
     ActionsManager.roll = rollOverride;
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRollRR);
 end
@@ -48,22 +51,9 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 			return;
 		end
 		--end of new code insertion
-
-		if not rRoll.bTower and OptionsManager.isOption("MANUALROLL", "on") then
-			local wManualRoll = Interface.openWindow("manualrolls", "");
-			wManualRoll.addRoll(rRoll, rSource, vTargets);
-		else
-			local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, bMultiTarget);
-			Comm.throwDice(rThrow);
-		end
-		
-	else
-		if bMultiTarget then
-			ActionsManager.handleResolution(rRoll, rSource, vTargets);
-		else
-			ActionsManager.handleResolution(rRoll, rSource, { vTargets });
-		end
 	end
+	--pass through if it wasn't caught to be displayed to user
+	fRollOriginal(rSource, vTargets, rRoll, bMultiTarget);
 end
 
 --helper variable to make bools into numbers
