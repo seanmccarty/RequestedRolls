@@ -6,7 +6,7 @@
 		<version>2.3.1</version>
 		<author>mccartysr et al.-see ReadMe</author>
 		<description>Requested Rolls</description>
-		<loadorder>0</loadorder>
+		<loadorder>5</loadorder>
 		<ruleset>
 			<name>3.5E</name>
 			<minrelease>17.1</minrelease>
