@@ -7,25 +7,11 @@ bDebug = false;
 
 function onInit()
 	if Session.IsHost then DB.createNode(dbRootName); end
-	updateButtons();
     registerOptions();
 	registerSlashHandlers();
     registerExtensions();
 	initializeDirtyState();
 	runMigration();
-end
-
----Depending on which ruleset and themes are enabled, changes the sidebar buttons.
----The default buttons are for 5E without any themes.
-function updateButtons()
-	-- if the ruleset is not 5E or it is one of the two other themes listed, change to the core sidebar buttons
-	if User.getRulesetName()~="5E" or isThemeEnabled("Colored Sidebar") or isThemeEnabled("Core Sidebar for 5e") then
-		buttonUpImage = "RFIA_CoreSidebarButtonUp";
-		buttonDownImage = "RFIA_CoreSidebarButtonDown";	
-	elseif isThemeEnabled("5E Theme - Wizards") then
-		buttonUpImage = "RFIA_5EThemeSidebarButtonUp";
-		buttonDownImage = "RFIA_5EThemeSidebarButtonDown";			
-    end
 end
 
 --#region options manager
@@ -52,7 +38,10 @@ function registerOptions()
 		
 		--Now that options have been registered we can 	add the shortcut
 		if 	OptionsManager.isOption("RR_option_label_sidebar", "show") then
-			table.insert(Desktop.aCoreDesktopStack["host"],{icon=buttonUpImage, icon_down=buttonDownImage, tooltipres="RR_window_title", class=createRequestWindowName, path=dbRootName});
+			local tButton = { sIcon = "RR_sidebar", tooltipres = "RR_window_title", class = createRequestWindowName, path = dbRootName };
+			DesktopManager.registerSidebarToolButton(tButton, 8);
+
+			--table.insert(Desktop.aCoreDesktopStack["host"],{icon=buttonUpImage, icon_down=buttonDownImage, tooltipres="RR_window_title", class=createRequestWindowName, path=dbRootName});
 		end
 	end
 end
@@ -77,7 +66,7 @@ end
 
 ---Checks if certain extensions are loaded. Enables a central point to manage the names.
 function registerExtensions()
-	bCharacterSheetTweaksEnabled = isThemeEnabled("Mad Nomad's Character Sheet Tweaks");
+	--currently empty
 end
 
 ---Lists loaded extension names to the console
@@ -88,11 +77,11 @@ function listExtensions()
 end
 
 ---Loops through the extension list checking extension names
----@param themeName string the name of the extension to be checked
+---@param extensionName string the name of the extension to be checked
 ---@return boolean bool is the extension enabled
-function isThemeEnabled(themeName)
+function isExtensionEnabled(extensionName)
     for _, extension in ipairs(Extension.getExtensions()) do
-    	if Extension.getExtensionInfo(extension).name == themeName then
+    	if Extension.getExtensionInfo(extension).name == extensionName then
 			return true;
 		end
     end

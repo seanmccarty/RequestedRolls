@@ -3,19 +3,11 @@
 <root>
 	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
 	
-	<icon name="RFIA_DefaultButtonUp" file="graphics/icons/rfia_default_button_up.png" />
-	<icon name="RFIA_DefaultButtonDown" file="graphics/icons/rfia_default_button_down.png" />
-
-	<icon name="RFIA_CoreSidebarButtonUp" file="graphics/icons/rfia_core_sidebar_button_up.png" />
-	<icon name="RFIA_CoreSidebarButtonDown" file="graphics/icons/rfia_core_sidebar_button_down.png" />
-	
-	<icon name="RFIA_5EThemeSidebarButtonUp" file="graphics/icons/rfia_5E_theme_button_up.png" />
-	<icon name="RFIA_5EThemeSidebarButtonDown" file="graphics/icons/rfia_5E_theme_button_down.png" />	
-	
 	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
 	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
 	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
 
+	<icon name="RR_sidebar" file="graphics/buttons/rr_sidebar.png" />
 	<icon name="RR_field_linked_mono" file="graphics/buttons/rr_field_linked_mono.png" />
 
 	<icon name="RR_RollIndicator" file="graphics/icons/rr_roll_indicator.png"/>
