@@ -64,38 +64,56 @@ local boolNum={ [true]=1, [false]=0};
 ---@param msgOOB table the OOB message for adding the roll to manualRolls
 function handleApplyRollRR(msgOOB)
 	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
-
-	local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
-
-	local rRoll = {};
-	rRoll.sSource = msgOOB.sSource;
-	rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
-	rRoll.sType = msgOOB.sType;
-	rRoll.sDesc = msgOOB.sDesc;
-	-- if bSecret and bTower are present, even if false it will cause the action manager results to display as secret if DC is not 0
-	if (tonumber(msgOOB.bSecret) == 1) then
-		rRoll.bSecret = (tonumber(msgOOB.bSecret) == 1);
-	end
-	if (tonumber(msgOOB.bTower) == 1) then
-		rRoll.bTower = (tonumber(msgOOB.bTower) == 1);
-	end
-	rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
-	--rRoll.RR = msgOOB.RR;
-	if (tonumber(msgOOB.bPopup) == 1) then
-		rRoll.bPopup = (tonumber(msgOOB.bPopup) == 1)
-	end
 	
-	if RR.bDebug then Debug.chat("postsendroll", rRoll); end
-
-	--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
-	--Otherwise add it to the popup menu
-	if rRoll.bPopup and (not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rActor)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rActor))) then
-		local rThrow = ActionsManager.buildThrow(rActor, nil, rRoll, true);
-		Comm.throwDice(rThrow);
+	if OptionsManager.isOption("RR_option_label_rollJSON", "off") then
+		local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
+		local rRoll = {};
+		rRoll.sSource = msgOOB.sSource;
+		rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
+		rRoll.sType = msgOOB.sType;
+		rRoll.sDesc = msgOOB.sDesc;
+		-- if bSecret and bTower are present, even if false it will cause the action manager results to display as secret if DC is not 0
+		if (tonumber(msgOOB.bSecret) == 1) then
+			rRoll.bSecret = (tonumber(msgOOB.bSecret) == 1);
+		end
+		if (tonumber(msgOOB.bTower) == 1) then
+			rRoll.bTower = (tonumber(msgOOB.bTower) == 1);
+		end
+		rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
+		--rRoll.RR = msgOOB.RR;
+		if (tonumber(msgOOB.bPopup) == 1) then
+			rRoll.bPopup = (tonumber(msgOOB.bPopup) == 1)
+		end
+		
+		if RR.bDebug then Debug.chat("postsendroll", rRoll); end
+		--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
+		--Otherwise add it to the popup menu
+		if rRoll.bPopup and (not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rActor)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rActor))) then
+			local rThrow = ActionsManager.buildThrow(rActor, nil, rRoll, true);
+			Comm.throwDice(rThrow);
+		else
+			local wManualRoll = Interface.openWindow("manualrolls", "");
+			wManualRoll.addRoll(rRoll, rActor, nil);
+		end
 	else
-		local wManualRoll = Interface.openWindow("manualrolls", "");
-		wManualRoll.addRoll(rRoll, rActor, nil);
+		-- Experimental code to use the new JSON features to transmit the rolls, increases compatibility
+		local rRoll = Utility.decodeJSON(msgOOB.rRoll);
+		local rSource = Utility.decodeJSON(msgOOB.rSource);
+		local vTargets = Utility.decodeJSON(msgOOB.vTargets);
+		if vTargets and #vTargets==0 then
+			vTargets=nil;
+		end
+		--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
+		--Otherwise add it to the popup menu
+		if rRoll.bPopup and (not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource))) then
+			local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
+			Comm.throwDice(rThrow);
+		else
+			local wManualRoll = Interface.openWindow("manualrolls", "");
+			wManualRoll.addRoll(rRoll, rSource, vTargets);
+		end
 	end
+
 
 end
 
@@ -105,23 +123,29 @@ end
 ---@param vTargets table the same info to be passed to the manualRolls
 function notifyApplyRoll(rRoll, rSource, vTargets)
 	local msgOOB = {};
-	if RR.bDebug then Debug.chat("vRoll", rRoll); end
-	if RR.bDebug then Debug.chat("vSource", rSource); end
+	if RR.bDebug then Debug.chat("rRoll", rRoll); end
+	if RR.bDebug then Debug.chat("rSource", rSource); end
 	if RR.bDebug then Debug.chat("vTargets", vTargets); end
 	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
 
-	if rSource then msgOOB.sSourceNode = rSource.sCTNode; end
-	msgOOB.sSource = rRoll.sSource;
-	msgOOB.sType = rRoll.sType;
-	msgOOB.sDesc = rRoll.sDesc;
-	msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
-	msgOOB.bSecret = boolNum[rRoll.bSecret];
-	msgOOB.bTower = boolNum[rRoll.bTower];
-	msgOOB.RR = boolNum[rRoll.RR];
-	msgOOB.bPopup = boolNum[rRoll.bPopup];
-	msgOOB.nTarget = rRoll.nTarget;
-	if RR.bDebug then Debug.chat("preMsgOOB",msgOOB);end
-
+	if OptionsManager.isOption("RR_option_label_rollJSON", "off") then
+		if rSource then msgOOB.sSourceNode = rSource.sCTNode; end
+		msgOOB.sSource = rRoll.sSource;
+		msgOOB.sType = rRoll.sType;
+		msgOOB.sDesc = rRoll.sDesc;
+		msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
+		msgOOB.bSecret = boolNum[rRoll.bSecret];
+		msgOOB.bTower = boolNum[rRoll.bTower];
+		msgOOB.RR = boolNum[rRoll.RR];
+		msgOOB.bPopup = boolNum[rRoll.bPopup];
+		msgOOB.nTarget = rRoll.nTarget;
+		if RR.bDebug then Debug.chat("preMsgOOB",msgOOB);end
+	else
+		-- Experimental code to use the new JSON features to transmit the rolls, increases compatibility
+		msgOOB.rRoll = Utility.encodeJSON(rRoll);
+		if rSource then msgOOB.rSource = Utility.encodeJSON(rSource); end
+		if vTargets then msgOOB.vTargets = Utility.encodeJSON(vTargets); end
+	end
 	needsBroadcast(rSource, msgOOB);
 --TODO:maybe make a loop through the roll object with object constructors and then loop through on the other end?
 end
