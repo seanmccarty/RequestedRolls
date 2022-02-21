@@ -141,7 +141,7 @@ function parseComponents(nodeActor)
 			if nStarts > 1 then
 				sLabel = StringManager.trim(aClauses[i]:sub(1, nStarts - 1));
 			end
-			local aDice, nMod = StringManager.convertStringToDice(sMod);
+			local aDice, nMod = DiceManager.convertStringToDice(sMod);
 			table.insert(aComponents, {sLabel = sLabel, nMod = nMod, });
 		end
 	end

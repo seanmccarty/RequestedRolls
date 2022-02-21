@@ -69,7 +69,7 @@ function handleApplyRollRR(msgOOB)
 		local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 		local rRoll = {};
 		rRoll.sSource = msgOOB.sSource;
-		rRoll.aDice, rRoll.nMod = StringManager.convertStringToDice(msgOOB.sDice);
+		rRoll.aDice, rRoll.nMod = DiceManager.convertStringToDice(msgOOB.sDice);
 		rRoll.sType = msgOOB.sType;
 		rRoll.sDesc = msgOOB.sDesc;
 		-- if bSecret and bTower are present, even if false it will cause the action manager results to display as secret if DC is not 0
@@ -133,7 +133,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 		msgOOB.sSource = rRoll.sSource;
 		msgOOB.sType = rRoll.sType;
 		msgOOB.sDesc = rRoll.sDesc;
-		msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
+		msgOOB.sDice = DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod, true);
 		msgOOB.bSecret = boolNum[rRoll.bSecret];
 		msgOOB.bTower = boolNum[rRoll.bTower];
 		msgOOB.RR = boolNum[rRoll.RR];

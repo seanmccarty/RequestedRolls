@@ -47,7 +47,7 @@ function sendTower(rRoll, rSource, aTargets)
 	msgOOB.sender = ActorManager.getCreatureNodeName(rSource);
 	msgOOB.sUser = User.getUsername();
     
-	msgOOB.sDice = StringManager.convertDiceToString(rRoll.aDice, rRoll.nMod);
+	msgOOB.sDice = DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod);
 	msgOOB.aDice = nil;
 	msgOOB.nMod = nil;
     msgOOB.nTarget = rRoll.nTarget;
