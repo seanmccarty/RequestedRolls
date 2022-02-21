@@ -18,7 +18,6 @@ Check out the forum link to provide suggestions or contribute to this extension.
 * Combat Groups https://forge.fantasygrounds.com/shop/items/154/view
 # Attribution
 **Lead Maintainer**: mccartysr  
-**PFRPG Developer**: Jacob Proffitt
 
 SmiteWorks owns rights to code sections copied from their rulesets by permission for Fantasy Grounds community development. 'Fantasy Grounds' is a trademark of SmiteWorks USA, LLC. 'Fantasy Grounds' is Copyright 2004-2021 SmiteWorks USA LLC.  
 This project is based on the work of Houndy for Roll For Initiative Addon, which is in turn based on the work of Gerark for Roll For Initiative.
