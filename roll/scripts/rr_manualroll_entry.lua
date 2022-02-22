@@ -45,7 +45,7 @@ function processRoll()
 
     if OptionsManager.isOption("RR_option_label_modAfterDisplay", "on") then 
         applyClientModifiers();
-        if User.getRulesetName()=="5E" then
+        if Interface.getRuleset()=="5E" then
 
             local bButtonADV = ModifierManager.getKey("ADV");
             local bButtonDIS = ModifierManager.getKey("DIS");
@@ -140,5 +140,5 @@ function applyClientModifiers()
     end
     vRoll.nMod = vRoll.nMod + nStackMod;
 
-    if User.getRulesetName()=="5E" then ActionsManager2.encodeDesktopMods(vRoll); end
+    if Interface.getRuleset()=="5E" then ActionsManager2.encodeDesktopMods(vRoll); end
 end

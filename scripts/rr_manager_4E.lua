@@ -1,6 +1,6 @@
 ---When ruleset is 4E, overrides the standard RR getSaveRoll and creates the getRoll function in ActionInit
 function onInit()
-	if User.getRulesetName()=="4E" then
+	if Interface.getRuleset()=="4E" then
 		RRRollManager.getSaveRoll = getSaveRoll;
 		oE35skill = RRRollManager.E35skill
 		RRRollManager.E35skill = E35skill;

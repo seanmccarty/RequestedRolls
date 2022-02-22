@@ -25,13 +25,13 @@ OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 ---@param bMultiTarget boolean mirrors original function
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
     if ActionsManager.doesRollHaveDice(rRoll) then
+		DiceManager.onPreEncodeRoll(rRoll);
 		--start where the new code is inserted
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
 		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
 			--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
 			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
-				local wManualRoll = Interface.openWindow("manualrolls", "");
-				wManualRoll.addRoll(rRoll, rSource, vTargets);
+				ManualRollManager.addRoll(rRoll, rSource, vTargets);
 				return;
 			end
 
@@ -92,8 +92,7 @@ function handleApplyRollRR(msgOOB)
 			local rThrow = ActionsManager.buildThrow(rActor, nil, rRoll, true);
 			Comm.throwDice(rThrow);
 		else
-			local wManualRoll = Interface.openWindow("manualrolls", "");
-			wManualRoll.addRoll(rRoll, rActor, nil);
+			ManualRollManager.addRoll(rRoll, rActor, nil);
 		end
 	else
 		-- Experimental code to use the new JSON features to transmit the rolls, increases compatibility
@@ -109,8 +108,7 @@ function handleApplyRollRR(msgOOB)
 			local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
 			Comm.throwDice(rThrow);
 		else
-			local wManualRoll = Interface.openWindow("manualrolls", "");
-			wManualRoll.addRoll(rRoll, rSource, vTargets);
+			ManualRollManager.addRoll(rRoll, rSource, vTargets);
 		end
 	end
 

@@ -58,7 +58,7 @@ function getDiceRoll(rActor)
     rRoll.sDesc = "Roll a " .. sDice;
     rRoll.nMod = 0;
     
-    if User.getRulesetName()=="5E" and sDice=="d20" then
+    if Interface.getRuleset()=="5E" and sDice=="d20" then
 		ActionsManager2.encodeAdvantage(rRoll);
     end
 
@@ -68,7 +68,7 @@ end
 function getCheckRoll(rActor)
 	local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
 	local rRoll;
-	if User.getRulesetName()=="5E" then
+	if Interface.getRuleset()=="5E" then
 		rRoll = ActionCheck.getRoll(rActor, sCheck);
 	else
 		rRoll = ActionAbility.getRoll(rActor, sCheck);
@@ -100,7 +100,7 @@ function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local rRoll = nil;
     
-	if User.getRulesetName()=="5E" then
+	if Interface.getRuleset()=="5E" then
 		rRoll = E5skill(rActor, sSkill);
 	else
 		rRoll = E35skill(rActor, sSkill);
