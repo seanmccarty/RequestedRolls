@@ -41,6 +41,11 @@ function onButtonPress(rollType)
         end
         ModifierStack.unlock(true);
     
+		if DB.getValue("requestsheet.deselectonroll",0)==1 then
+			for _,entry in pairs(CombatManager.getCombatantNodes()) do
+				DB.setValue(entry,"RRselected", "number", 0);
+			end
+		end
         return true;
     end
 end	
