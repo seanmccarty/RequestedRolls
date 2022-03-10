@@ -44,6 +44,9 @@
     <string name="RR_tooltip_linkDC_off">Individual DC Fields</string>
     <string name="RR_tooltip_linkDC_on">Linked DC Fields</string>
 
+    <string name="RR_tooltip_autoRoll_off">Do Not Automatically Roll for GM</string>
+    <string name="RR_tooltip_autoRoll_on">Automatically Roll for GM</string>
+
     <!-- CONSOLE BUTTON EXPANDERS -->
     <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
     <string name="RR_tooltip_expand">Expand</string>
