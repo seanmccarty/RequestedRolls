@@ -24,7 +24,19 @@ OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 ---@param rRoll table mirrors original function
 ---@param bMultiTarget boolean mirrors original function
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
-    if ActionsManager.doesRollHaveDice(rRoll) then
+	--determine if the rSource has an active identity. If no identity, it is GM controlled
+	local bBypass = false;
+	if DB.getValue("requestsheet.autoroll", 0) == 1 then
+		bBypass = true;
+		local sNode = rSource.sCreatureNode;
+		for _, value in pairs(User.getAllActiveIdentities()) do
+			if "charsheet." .. value == sNode then
+				bBypass = false;
+			end
+		end
+	end
+
+	if ActionsManager.doesRollHaveDice(rRoll) and not bBypass then
 		DiceManager.onPreEncodeRoll(rRoll);
 		--start where the new code is inserted
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
