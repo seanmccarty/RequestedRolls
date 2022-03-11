@@ -34,7 +34,10 @@ function registerOptions()
 	OptionsManager.registerOption2("RR_option_label_rollJSON", false, "RR_option_header", "RR_option_label_rollJSON", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
 
-	--the button to show/hide the shortcut is only shown for the GM
+	OptionsManager.registerOption2("RR_option_label_broadcastCancellation", false, "RR_option_header", "RR_option_label_broadcastCancellation", "option_entry_cycler", 
+		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
+	
+		--the button to show/hide the shortcut is only shown for the GM
 	if Session.IsHost then
 		OptionsManager.registerOption2("RR_option_label_sidebar", true, "RR_option_header", "RR_option_label_sidebar", "option_entry_cycler", 
 			{ labels = "RR_option_val_hide", values = "hide", baselabel = "RR_option_val_show", baseval = "show", default = "show" });	

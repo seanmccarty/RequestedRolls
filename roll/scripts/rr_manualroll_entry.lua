@@ -39,6 +39,15 @@ function onClose()
     super.onClose();
 end
 
+---Override processCancel to send a message that the roll was cancelled.
+---The message is only triggered if running on a client and the GM has turned the notifications on.
+function processCancel()
+    if (not Session.IsHost) and OptionsManager.isOption("RR_option_label_broadcastCancellation", "on") then 
+        RRTowerManager.notifyApplyCancel(vRoll, vSource);
+    end
+	close();
+end
+
 ---Override function if roll is for tower, otherwise it passes it through
 function processRoll()
     if RR.bDebug then Debug.chat("vRoll",vRoll); end
