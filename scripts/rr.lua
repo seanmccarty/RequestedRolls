@@ -176,6 +176,16 @@ function getSelectedChars()
     return list;
 end
 
+---Clear selected characters and then select the same as the currently active node in the CT
+function mirrorTargeting()
+	for _,entry in pairs(CombatManager.getCombatantNodes()) do
+		DB.setValue(entry,"RRselected", "number", 0);
+	end
+	for _,entry in pairs(TargetingManager.getFullTargets(CombatManager.getActiveCT())) do
+		DB.setValue(entry.sCTNode .. ".RRselected", "number", 1);
+	end
+end
+
 ---Initialize the OOB handler and go through all combat tracker nodes and set them that they have no pending rolls
 function initializeDirtyState()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYDIRTY, handleApplyDirtyRR);
