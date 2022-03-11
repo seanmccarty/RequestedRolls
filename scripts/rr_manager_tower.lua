@@ -1,9 +1,59 @@
 function onInit()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_DICETOWER, handleRRDiceTower);
+    OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_CANCEL, handleRRCancel);
 end
 
-
+OOB_MSGTYPE_CANCEL = "RRcancel";
 OOB_MSGTYPE_DICETOWER = "RRdicetower";
+
+
+---Receive the roll from the client and output the details for the GM to see
+---@param msgOOB table the data from notifyApplyCancel
+function handleRRCancel(msgOOB)
+	local rRoll = Utility.decodeJSON(msgOOB.rRoll);
+	local rSource = Utility.decodeJSON(msgOOB.rSource);
+	local msg = {font = "chatfont", icon = "dicetower_icon", text = "Cancelled a roll."};
+	if rSource then
+		msg.sender = ActorManager.getDisplayName(rSource);
+	end
+	if rRoll.sSaveDesc then
+		msg.text = msg.text .. " " .. rRoll.sSaveDesc;
+	else
+		if rRoll.sDesc ~= "" then
+			msg.text = msg.text .. " " .. rRoll.sDesc;
+		end
+	end
+	if rRoll.sSource then
+		msg.text = msg.text .. " [VS " .. ActorManager.getDisplayName(rRoll.sSource) .. "]";
+	end
+	local sDice = DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod);
+	msg.text = msg.text .. " [" .. sDice .. "]";
+
+	Comm.addChatMessage(msg);
+end
+
+---Send the cancelled roll back to host and output a simple message as a tower entry on the client
+---@param rRoll table parameter from the manual roll entry
+---@param rSource table parameter from the manual roll entry
+function notifyApplyCancel(rRoll, rSource)
+	local msgOOB = {};
+	msgOOB.type = OOB_MSGTYPE_CANCEL;
+	msgOOB.rRoll = Utility.encodeJSON(rRoll);
+	if rSource then msgOOB.rSource = Utility.encodeJSON(rSource); end
+	Comm.deliverOOBMessage(msgOOB, "");
+
+	local msg = {font = "chatfont", icon = "dicetower_icon", text = "Cancelled a roll."};
+	if rSource then
+		msg.sender = ActorManager.getDisplayName(rSource);
+	end
+	if rRoll.sDesc ~= "" then
+		msg.text = msg.text .. " " .. rRoll.sDesc;
+	end
+	local sDice = DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod);
+	msg.text = msg.text .. " [" .. sDice .. "]";
+
+	Comm.addChatMessage(msg);
+end
 
 ---Processes the hidden rolls that were sent from the console to the player.
 ---It needs to come back becuase only the host can make the hidden rolls.

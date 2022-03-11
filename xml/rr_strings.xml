@@ -18,7 +18,9 @@
 	
 	<string name="RR_option_label_sidebar">View: Sidebar button (requires reload)</string>
     <string name="RR_option_val_hide">Hide</string>
-    <string name="RR_option_val_show">Show</string>		
+    <string name="RR_option_val_show">Show</string>
+
+    <string name="RR_option_label_broadcastCancellation">Broadcast message when user cancels a roll</string>
 
     <!-- CONSOLE -->
     <string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
