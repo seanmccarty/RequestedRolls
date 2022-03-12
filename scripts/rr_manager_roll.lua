@@ -60,7 +60,7 @@ function getDiceRoll(rActor)
 	local rRoll = {};
     rRoll.sType = "dice"
 	rRoll.aDice = { sDice };
-    rRoll.sDesc = "Roll a " .. sDice;
+    rRoll.sDesc = "[DICE] Roll a " .. sDice;
     rRoll.nMod = 0;
     
     if Interface.getRuleset()=="5E" and sDice=="d20" then
