@@ -22,8 +22,11 @@ function registerOptions()
 	--OptionsManager.registerOption2("RR_option_label_showDC", false, "RR_option_header", "RR_option_label_showDC", "option_entry_cycler", 
 	--		{ labels = "option_val_off", values = "off", baselabel = "option_val_on", baseval = "on", default = "on" });
 			
-	OptionsManager.registerOption2("RR_option_label_pcRolls", true, "RR_option_header", "RR_option_label_pcRolls", "option_entry_cycler", 
-			{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+	OptionsManager.registerOption2("RR_option_label_pcRolls", true, "option_header_client", "RR_option_label_pcRolls", "option_entry_cycler", 
+		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+
+	OptionsManager.registerOption2("RR_option_label_alwaysShowManualDice", true, "option_header_client", "RR_option_label_alwaysShowManualDice", "option_entry_cycler", 
+		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
 			
 	OptionsManager.registerOption2("RR_option_label_npcRolls", false, "RR_option_header", "RR_option_label_npcRolls", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	

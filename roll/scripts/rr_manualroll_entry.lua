@@ -4,6 +4,7 @@ local vTargets = nil;
 
 ---Pass through function to get the local variables into this script. You cannot access local vars in a different layer.
 ---It also stores the CTNode in a hidden field and notifies the host that they have a manual roll to make
+---If manual rolls is off and we are just using this to display requested rolls, hide irrelevant fields
 function setData(rRoll, rSource, aTargets)
     vRoll = rRoll;
     vSource = rSource;
@@ -14,6 +15,13 @@ function setData(rRoll, rSource, aTargets)
     end
 
     super.setData(rRoll, rSource, aTargets);
+	if OptionsManager.isOption("MANUALROLL", "off") and OptionsManager.isOption("RR_option_label_alwaysShowManualDice", "off") then
+		list.setVisible(false);
+		button_ok.setVisible(false);
+		button_fauxroll.setVisible(false);
+		button_roll.resetAnchor("left");
+		button_roll.setAnchor("right","","right","relative",-5);
+	end
 end
 
 ---Adds a check to the manual roll window that closes it if you are rolling the last roll in your queue.
