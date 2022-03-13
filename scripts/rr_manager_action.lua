@@ -50,14 +50,15 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		end
 
 		--death auto and concentration rolls originate on host. They need to be sent to the players to check for the popup setting
+		--stabilization is for 3.5E and PFRPG1 and 2
 		if Session.IsHost == true then
-			if rRoll.sType and (rRoll.sType == "death_auto" or rRoll.sType == "concentration") then 
+			if rRoll.sType and (rRoll.sType == "death_auto" or rRoll.sType == "concentration" or rRoll.sType == "stabilization") then 
 				rRoll.RR = true; 
 				rRoll.bPopup = true;
 			end
 		end
 
-		--rRoll.RR is only set when generated from the console so we can guarantee it needs to be displayed to user
+		--rRoll.RR is only set when generated from the console or caught by an override so we can guarantee it needs to be displayed to user
 		if rRoll.RR then
 			notifyApplyRoll(rRoll, rSource, vTargets);
 			return;
