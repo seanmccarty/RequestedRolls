@@ -80,6 +80,7 @@ function handleRRDiceTower(msgOOB)
     rRoll.nTarget = tonumber(msgOOB.nTarget) or nil;
     -- if rRoll.aDice[1].result exists this was a manual roll
     if rRoll.aDice[1].result then
+		DiceManager.handleManualRoll(rRoll.aDice);
         ActionsManager.handleResolution(rRoll, rActor, nil);
     else
         ActionsManager.roll(rActor, nil, rRoll);
