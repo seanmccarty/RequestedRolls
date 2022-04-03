@@ -24,15 +24,13 @@ OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 ---@param rRoll table mirrors original function
 ---@param bMultiTarget boolean mirrors original function
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
-	--determine if the rSource has an active identity. If no identity, it is GM controlled
+	--check to see if there is a player connected this should roll to if the host is set to auto-roll
 	local bBypass = false;
-	if DB.getValue("requestsheet.autoroll", 0) == 1 then
-		bBypass = true;
-		local sNode = ActorManager.getCreatureNodeName(rSource);
-		for _, value in pairs(User.getAllActiveIdentities()) do
-			if "charsheet." .. value == sNode then
-				bBypass = false;
-			end
+	if Session.IsHost == true and DB.getValue("requestsheet.autoroll", 0) == 1 then
+		if getControllingClient(rSource) then
+			bBypass = false;
+		else
+			bBypass = true;
 		end
 	end
 
@@ -40,6 +38,8 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		DiceManager.onPreEncodeRoll(rRoll);
 		--start where the new code is inserted
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
+		--For VS rolls, it is assumed they are already executing on the intended client
+		--TODO: Add support for VS throws for NPCs on the host that are for the client
 		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
 			--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
 			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
@@ -167,29 +167,40 @@ end
 ---@param rSource table	passed through from notifyApplyRoll, determines who the message gets sent to
 ---@param msgOOB string the message from notifyApplyRoll
 function needsBroadcast(rSource, msgOOB)
-    local sTargetNodeType, nodeTarget = ActorManager.getTypeAndNode(rSource);
-	if nodeTarget and (sTargetNodeType == "pc") then
-		if Session.IsHost then
-			local sOwner = DB.getOwner(nodeTarget);
-			if sOwner ~= "" then
-				for _,vUser in ipairs(User.getActiveUsers()) do
-					if vUser == sOwner then
-						for _,vIdentity in ipairs(User.getActiveIdentities(vUser)) do
-							if nodeTarget.getName() == vIdentity then
-								Comm.deliverOOBMessage(msgOOB, sOwner);
-								return;
-							end
-						end
-					end
-				end
-			end
-		else
-			if DB.isOwner(nodeTarget) then
-				handleApplyRollRR(msgOOB);
-				Debug.chat("uh oh this should have been unreachable in needsBroadcast");
-				return;
-			end
-		end
+	
+	local sOwner = getControllingClient(rSource);
+	if sOwner then
+		Comm.deliverOOBMessage(msgOOB, sOwner);
+		return;
 	end
     handleApplyRollRR(msgOOB);
+end
+
+---For a given actor, determines who the owning client is and if they are connected. Returns nil for inactive identities and those owned by the GM
+---@param rActor table the actor who the owner needs to be determined for
+---@return string|nil sOwner the controlling client if they are connected. otherwise returns nil
+function getControllingClient(rActor)
+	local isControlled = false;
+	local sNode = nil;
+	if ActorManager.isPC(rActor) then
+		sNode = ActorManager.getCreatureNodeName(rActor);
+	else
+		--TODO:add support for other rulesets
+		if Interface.getRuleset()=="5E" and FriendZone and FriendZone.isCohort(rActor) then
+			sNode = ActorManager.getCreatureNodeName(FriendZone.getCommanderNode(rActor));
+		end
+	end
+
+	--There will be an active identity if the client is connected. If sNode is still nil, nothing will be found
+	for _, value in pairs(User.getAllActiveIdentities()) do
+		if "charsheet." .. value == sNode then
+			isControlled = true;
+		end
+	end
+	
+	if isControlled then
+		return DB.getOwner(sNode);
+	else
+		return nil;
+	end	
 end
