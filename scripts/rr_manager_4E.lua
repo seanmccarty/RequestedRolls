@@ -1,3 +1,5 @@
+local oE35skill;
+
 ---When ruleset is 4E, overrides the standard RR getSaveRoll and creates the getRoll function in ActionInit
 function onInit()
 	if Interface.getRuleset()=="4E" then
@@ -25,9 +27,9 @@ function addInitRoll(rActor, bSecretRoll)
 	rRoll.bSecret = bSecretRoll;
 
 	-- Determine the modifier and ability to use for this roll
-	local sNodeType, nodeActor = ActorManager.getTypeAndNode(rActor);
+	local nodeActor = ActorManager.getCreatureNode(rActor);
 	if nodeActor then
-		if sNodeType == "pc" then
+		if ActorManager.isPC(rActor) then
 			rRoll.nMod = DB.getValue(nodeActor, "initiative.total", 0);
 		else
 			rRoll.nMod = DB.getValue(nodeActor, "init", 0);

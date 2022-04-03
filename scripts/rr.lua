@@ -185,7 +185,7 @@ function mirrorTargeting()
 		DB.setValue(entry,"RRselected", "number", 0);
 	end
 	for _,entry in pairs(TargetingManager.getFullTargets(CombatManager.getActiveCT())) do
-		DB.setValue(entry.sCTNode .. ".RRselected", "number", 1);
+		DB.setValue(ActorManager.getCTNodeName(entry) .. ".RRselected", "number", 1);
 	end
 end
 

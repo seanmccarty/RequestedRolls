@@ -10,8 +10,8 @@ function setData(rRoll, rSource, aTargets)
     vSource = rSource;
     vTargets = aTargets;
     if rSource then
-        CTNodeID.setValue(rSource.sCTNode);
-        RR.notifyApplyDirty(vSource.sCTNode,1);
+        CTNodeID.setValue(ActorManager.getCTNodeName(rSource));
+        RR.notifyApplyDirty(ActorManager.getCTNodeName(rSource),1);
     end
 
     super.setData(rRoll, rSource, aTargets);
@@ -38,7 +38,7 @@ function onClose()
             end
         end
         if isClean == 1 then
-            RR.notifyApplyDirty(vSource.sCTNode,0);
+            RR.notifyApplyDirty(ActorManager.getCTNodeName(vSource),0);
         end
     end
     if windowlist.getWindowCount()==1 then

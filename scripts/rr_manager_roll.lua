@@ -129,11 +129,11 @@ end
 ---@param nodeActor any the database node of the actor in question
 ---@return table aComponents a table of labels and modifiers found on the character
 function parseComponents(nodeActor)
-	skillsString = DB.getValue(nodeActor, "skills");
+	local skillsString = DB.getValue(nodeActor, "skills");
 	if skillsString == nil then
 		return;
 	end
-	aComponents = {};
+	local aComponents = {};
 
 	-- Get the comma-separated strings
 	local aClauses, aClauseStats = StringManager.split(skillsString, ",;\r", true);
@@ -158,7 +158,7 @@ end
 ---@param sSkill any the skill to be rolled
 ---@return table rRoll
 function E35skill(rActor, sSkill)
-	rRoll = nil;
+	local rRoll = nil;
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	--if it is an NPC, parse for the particular skill. fall through if it is not found or it is a PC
 	if not ActorManager.isPC(rActor) then
@@ -174,6 +174,7 @@ function E35skill(rActor, sSkill)
 	-- look for the skill to have the pattern Skill (subskill) extract the part within and outside parentheses for the skill lookup
 	if not rRoll then
 		local sSubSkill = nil;
+		local sSkillLookup = nil;
 		if sSkill:match("%(%w+%)") then	
 			sSubSkill = sSkill:match("%(%w+%)"):sub(2,-2);
 			sSkillLookup = sSkill:match("%w+");
@@ -192,7 +193,7 @@ end
 ---@param sSkill any the skill to be rolled
 ---@return table rRoll
 function E5skill(rActor, sSkill)
-	rRoll = nil;
+	local rRoll = nil;
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	if ActorManager.isPC(rActor) then
 		for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
@@ -206,12 +207,11 @@ function E5skill(rActor, sSkill)
 		if aSkills then
 			for k,node in pairs(aSkills) do
 				if string.lower(node.sLabel) ==  string.lower(sSkill) then
-					local nMod = node.nMod;
 					rRoll = {};
 					rRoll.sType = "skill";
 					rRoll.aDice = { "d20" };
 					rRoll.sDesc = "[SKILL] " .. sSkill;
-					rRoll.nMod = nMod;
+					rRoll.nMod = node.nMod;
 					break;
 				end
 			end	

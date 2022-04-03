@@ -11,7 +11,7 @@ OOB_MSGTYPE_DICETOWER = "RRdicetower";
 ---@param msgOOB table the data from notifyApplyCancel
 function handleRRCancel(msgOOB)
 	local rRoll = Utility.decodeJSON(msgOOB.rRoll);
-	local rSource
+	local rSource;
 	if msgOOB.rSource then rSource = Utility.decodeJSON(msgOOB.rSource); end
 	local msg = {font = "chatfont", icon = "dicetower_icon", text = "Cancelled a roll."};
 	if rSource then

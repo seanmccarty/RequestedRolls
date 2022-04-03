@@ -79,6 +79,7 @@ function handleApplyRollRR(msgOOB)
 	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	
 	if OptionsManager.isOption("RR_option_label_rollJSON", "off") then
+		ChatManager.SystemMessage("Non-JSON roll format - DEPRECATED - 2022-04-03 - Report conflicts requiring this option via the forum for Requested Rolls.");
 		local rActor = ActorManager.resolveActor(msgOOB.sSourceNode);
 		local rRoll = {};
 		rRoll.sSource = msgOOB.sSource;
@@ -140,7 +141,7 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
 
 	if OptionsManager.isOption("RR_option_label_rollJSON", "off") then
-		if rSource then msgOOB.sSourceNode = rSource.sCTNode; end
+		if rSource then msgOOB.sSourceNode = ActorManager.getCTNodeName(rSource); end
 		msgOOB.sSource = rRoll.sSource;
 		msgOOB.sType = rRoll.sType;
 		msgOOB.sDesc = rRoll.sDesc;
