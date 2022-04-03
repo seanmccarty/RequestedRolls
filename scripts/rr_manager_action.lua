@@ -28,7 +28,7 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	local bBypass = false;
 	if DB.getValue("requestsheet.autoroll", 0) == 1 then
 		bBypass = true;
-		local sNode = rSource.sCreatureNode;
+		local sNode = ActorManager.getCreatureNodeName(rSource);
 		for _, value in pairs(User.getAllActiveIdentities()) do
 			if "charsheet." .. value == sNode then
 				bBypass = false;
