@@ -185,9 +185,8 @@ function getControllingClient(rActor)
 	if ActorManager.isPC(rActor) then
 		sNode = ActorManager.getCreatureNodeName(rActor);
 	else
-		--TODO:add support for other rulesets
-		if Interface.getRuleset()=="5E" and FriendZone and FriendZone.isCohort(rActor) then
-			sNode = ActorManager.getCreatureNodeName(FriendZone.getCommanderNode(rActor));
+		if FriendZone and FriendZone.isCohort(rActor) then
+			sNode = getRootCommander(rActor);
 		end
 	end
 
@@ -203,4 +202,17 @@ function getControllingClient(rActor)
 	else
 		return nil;
 	end	
+end
+
+---For a given cohort actor, determine the root character node that owns it
+---@param rActor table the actor we need the root commander for
+---@return string|nil nodePath the root character node of the chain
+function getRootCommander(rActor)
+	local sRecord = ActorManager.getCreatureNodeName(rActor);
+	local sRecordSansModule = StringManager.split(sRecord, "@")[1];
+	local aRecordPathSansModule = StringManager.split(sRecordSansModule, ".");
+	if aRecordPathSansModule[1] and aRecordPathSansModule[2] then
+		return aRecordPathSansModule[1] .. "." .. aRecordPathSansModule[2];
+	end
+	return nil;
 end
