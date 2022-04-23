@@ -33,6 +33,9 @@ function registerOptions()
 	
 	OptionsManager.registerOption2("RR_option_label_modAfterDisplay", true, "option_header_client", "RR_option_label_modAfterDisplay", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
+	if OptionsManager.isOption("RR_option_label_modAfterDisplay", "off") then
+		ChatManager.SystemMessage("Use modifiers after popup display - DEPRECATED - 2022-04-24 - Report conflicts requiring this option to be off via the forum for Requested Rolls. The only behavior will be to always use the modifiers.");
+	end
 
 	OptionsManager.registerOption2("RR_option_label_rollJSON", false, "RR_option_header", "RR_option_label_rollJSON", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
