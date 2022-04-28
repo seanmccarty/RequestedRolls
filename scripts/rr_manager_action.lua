@@ -25,9 +25,10 @@ OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 ---@param bMultiTarget boolean mirrors original function
 function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	--check to see if there is a player connected this should roll to if the host is set to auto-roll
+	local sOwner = getControllingClient(rSource);
 	local bBypass = false;
 	if Session.IsHost == true and DB.getValue("requestsheet.autoroll", 0) == 1 then
-		if getControllingClient(rSource) then
+		if sOwner then
 			bBypass = false;
 		else
 			bBypass = true;
@@ -38,15 +39,25 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		DiceManager.onPreEncodeRoll(rRoll);
 		--start where the new code is inserted
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
-		--For VS rolls, it is assumed they are already executing on the intended client
-		--TODO: Add support for VS throws for NPCs on the host that are for the client
-		if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
-			--Then checks if the roll is a VS roll, these are already sent to the specific player by built in ruleset code
-			if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
-				ManualRollManager.addRoll(rRoll, rSource, vTargets);
-				return;
+		--For VS rolls, it is assumed they are already executing on the intended client for PC rolls
+		--For NPC VS rolls, we have to send these as popups to the relevant client
+		if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
+			if Session.IsHost == true and sOwner then
+				rRoll.RR = true;
+				rRoll.bPopup = true;
+			else
+				if Session.IsHost == true then
+					if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
+						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						return;
+					end
+				else
+					if RR.isManualSaveRollPcOn() then
+						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						return;
+					end
+				end
 			end
-
 		end
 
 		--death auto and concentration rolls originate on host. They need to be sent to the players to check for the popup setting
@@ -116,14 +127,23 @@ function handleApplyRollRR(msgOOB)
 		if vTargets and #vTargets==0 then
 			vTargets=nil;
 		end
-		--if the roll is being passed because of popup status and the user is not set to get the popup rolls, then roll directly.
-		--Otherwise add it to the popup menu
-		if rRoll.bPopup and (not (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource))) then
-			local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
-			Comm.throwDice(rThrow);
+		--If the roll is being passed because of popup status and the user is set to get the popup rolls, add it to the manual rolls.
+		--On clients, NPCs and PCs share the PC setting so only one check is needed
+		--Otherwise roll directly
+		if Session.IsHost == true then
+			if rRoll.bPopup and ((RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource))) then
+				ManualRollManager.addRoll(rRoll, rSource, vTargets);
+				return;
+			end
 		else
-			ManualRollManager.addRoll(rRoll, rSource, vTargets);
+			if rRoll.bPopup and RR.isManualSaveRollPcOn() then
+				ManualRollManager.addRoll(rRoll, rSource, vTargets);
+				return;
+			end
 		end
+
+		local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
+		Comm.throwDice(rThrow);
 	end
 
 
