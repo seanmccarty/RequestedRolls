@@ -131,19 +131,20 @@ function handleApplyRollRR(msgOOB)
 		--On clients, NPCs and PCs share the PC setting so only one check is needed
 		--Otherwise roll directly
 		if Session.IsHost == true then
-			if rRoll.bPopup and ((RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource))) then
-				ManualRollManager.addRoll(rRoll, rSource, vTargets);
+			if rRoll.bPopup and not ((RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource))) then
+				local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
+				Comm.throwDice(rThrow);
 				return;
 			end
 		else
-			if rRoll.bPopup and RR.isManualSaveRollPcOn() then
-				ManualRollManager.addRoll(rRoll, rSource, vTargets);
+			if rRoll.bPopup and not RR.isManualSaveRollPcOn() then
+				local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
+				Comm.throwDice(rThrow);
 				return;
 			end
 		end
-
-		local rThrow = ActionsManager.buildThrow(rSource, vTargets, rRoll, true);
-		Comm.throwDice(rThrow);
+		
+		ManualRollManager.addRoll(rRoll, rSource, vTargets);
 	end
 
 
