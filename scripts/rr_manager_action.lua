@@ -41,7 +41,8 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
 		--For VS rolls, it is assumed they are already executing on the intended client for PC rolls
 		--For NPC VS rolls, we have to send these as popups to the relevant client
-		if rRoll.sSaveDesc and starts(rRoll.sSaveDesc, "[SAVE VS") then
+		--[ONGOING SAVE is for Better Combat Effects
+		if rRoll.sSaveDesc and (starts(rRoll.sSaveDesc, "[SAVE VS") or starts(rRoll.sSaveDesc, "[ONGOING SAVE")) then
 			if Session.IsHost == true and sOwner then
 				rRoll.RR = true;
 				rRoll.bPopup = true;
