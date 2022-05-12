@@ -37,9 +37,6 @@ function registerOptions()
 		ChatManager.SystemMessage("Use modifiers after popup display - DEPRECATED - 2022-04-24 - Report conflicts requiring this option to be off via the forum for Requested Rolls. The only behavior will be to always use the modifiers.");
 	end
 
-	OptionsManager.registerOption2("RR_option_label_rollJSON", false, "RR_option_header", "RR_option_label_rollJSON", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
-
 	OptionsManager.registerOption2("RR_option_label_broadcastCancellation", false, "RR_option_header", "RR_option_label_broadcastCancellation", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
 	
