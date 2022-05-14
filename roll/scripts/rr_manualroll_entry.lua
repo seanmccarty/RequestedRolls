@@ -72,11 +72,11 @@ function processRoll()
 
             --if ADV and DIS are both already applied, skip this code
             --if ADV and DIS are both not applied, encode advantage as normal. We have to pass the button values 
-            --  becuase we already consumed them to make sure they reset every roll. Only encode advantage on a single die if it is a d20.
+            --  becuase we already consumed them to make sure they reset every roll. Only encode advantage if the first die is a d20.
             --if the buttons introduce a modifier that would cancel what is already applied, add the appropriate text and remove the extra die that was added
             if not (bADV and bDIS) then
                 if not bADV and not bDIS then
-                    if #(vRoll.aDice) == 1 and vRoll.aDice[1] == "d20" then
+                    if vRoll.aDice[1] == "d20" then
                         ActionsManager2.encodeAdvantage(vRoll,bButtonADV,bButtonDIS);
                     end
                 else
