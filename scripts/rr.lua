@@ -1,5 +1,3 @@
-local buttonUpImage = "RFIA_DefaultButtonUp";
-local buttonDownImage = "RFIA_DefaultButtonDown";
 local dbRootName = "requestsheet";
 local createRequestWindowName = "RequestRolls";
 
@@ -118,7 +116,7 @@ function processRRCommandList(sCommand, sParams)
 	ChatManager.SystemMessage(Interface.getString("message_slashcommands"));
 	ChatManager.SystemMessage("----------------");
 
-	ChatManager.SystemMessage("/RR \t list of available rfia commands");
+	ChatManager.SystemMessage("/RR \t list of available RR commands");
 
 	if Session.IsHost  then	
 		ChatManager.SystemMessage("/RRconsole \t DM only - open the create request window");
