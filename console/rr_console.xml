@@ -566,6 +566,18 @@
 				<state />
 				<state color="E80000" icon="RR_RollIndicator"/>
 			</buttonfield>
+
+			<!-- show currently active character, first state is invisible -->
+			<buttonfield  name="active">
+				<anchored height="14">
+					<bottom parent="token" anchor="top" offset="9"/>
+					<left parent="token" anchor="left" offset="6"/>
+					<right/>
+				</anchored>
+				<disabled/>
+				<state />
+				<state color="FFFF00" icon="RR_RollIndicator"/>
+			</buttonfield>
 		</sheetdata>
 	</windowclass>	
 </root>
