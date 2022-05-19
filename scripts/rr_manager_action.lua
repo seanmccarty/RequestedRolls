@@ -18,6 +18,62 @@ end
 
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 
+--the default roll types that originate on host
+local sTypes = {
+	["concentration"] = { },
+	["death_auto"] = { },
+	["stabilization"] = { }
+};
+
+--a list of the start of sSaveDesc that should trigger a popup
+--[ONGOING SAVE is for Better Combat Effects
+local saveDescs = {
+	"[SAVE VS","[ONGOING SAVE"
+};
+
+---Registers rolls that are created on the host side that need to be sent to the client for popup
+---@param newType string the new roll type to be registered
+function registerRollType(newType)
+	sTypes[newType] = {};
+end
+
+---Unregisters rolls added via registerRollType
+---@param sType string the roll type to be unregistered
+function unregisterRollType(sType)
+	if sTypes then
+		sTypes[sType] = nil;
+	end
+end
+
+---Registers rolls that have a sSaveDesc that starts with a specific string as needing to be shown as popup. These can originate on host or client.
+---@param newDesc string the new sSaveDesc to be unregistered
+function registerSaveDescription(newDesc)
+	table.insert(saveDescs, newDesc);
+end
+
+---Unregisters rolls added via registerRollDescription
+---@param sDesc string the sSaveDesc to be unregistered
+function unregisterSaveDescription(sDesc)
+	for i,s in ipairs(saveDescs) do
+		if s==sDesc then
+			table.remove(saveDescs,i);
+			return;
+		end
+	end
+end
+
+---Determines whether a given rolls save description is registered as a popup
+---@param sDesc string the string to be checked
+---@return boolean bool is this is a popup type save
+function isPopupSaveDesc(sDesc)
+	for i,s in ipairs(saveDescs) do
+		if starts(sDesc,s) then
+			return true;
+		end
+	end
+	return false;
+end
+
 ---Overrides the roll function in ActionManager so that we can add RR rolls after all normal processing has happened
 ---@param rSource table mirrors original function
 ---@param vTargets table|nil mirrors original function
@@ -41,8 +97,7 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		--Checks if this save could be a roll that needs to be added but wasn't generated from console
 		--For VS rolls, it is assumed they are already executing on the intended client for PC rolls
 		--For NPC VS rolls, we have to send these as popups to the relevant client
-		--[ONGOING SAVE is for Better Combat Effects
-		if rRoll.sSaveDesc and (starts(rRoll.sSaveDesc, "[SAVE VS") or starts(rRoll.sSaveDesc, "[ONGOING SAVE")) then
+		if rRoll.sSaveDesc and isPopupSaveDesc(rRoll.sSaveDesc) then
 			if Session.IsHost == true and sOwner then
 				rRoll.RR = true;
 				rRoll.bPopup = true;
@@ -64,7 +119,7 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		--death auto and concentration rolls originate on host. They need to be sent to the players to check for the popup setting
 		--stabilization is for 3.5E and PFRPG1 and 2
 		if Session.IsHost == true then
-			if rRoll.sType and (rRoll.sType == "death_auto" or rRoll.sType == "concentration" or rRoll.sType == "stabilization") then 
+			if rRoll.sType and sTypes[rRoll.sType] then 
 				rRoll.RR = true; 
 				rRoll.bPopup = true;
 			end
@@ -122,7 +177,7 @@ function OOBifyAction(rRoll, rSource, vTargets, sType)
 
 	msgOOB.rRoll = Utility.encodeJSON(rRoll);
 	if rSource then 
-		--ongoing save effects codes the actor as a string, this is to catch if other people do that as well
+		--ongoing save effects codes the actor as a string, this is to catch if other people do that as wellfa
 		if type(rSource) ~= "table" then rSource = ActorManager.resolveActor(rSource); end
 		msgOOB.rSource = Utility.encodeJSON(rSource);
 	 end
