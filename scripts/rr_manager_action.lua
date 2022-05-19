@@ -81,20 +81,10 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	fRollOriginal(rSource, vTargets, rRoll, bMultiTarget);
 end
 
---helper variable to make bools into numbers
---TODO: check if this is needed
-local boolNum={ [true]=1, [false]=0};
-
 ---Processes console rolls received
 ---@param msgOOB table the OOB message for adding the roll to manualRolls
 function handleApplyRollRR(msgOOB)
-	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
-	local rRoll = Utility.decodeJSON(msgOOB.rRoll);
-	local rSource = Utility.decodeJSON(msgOOB.rSource);
-	local vTargets = Utility.decodeJSON(msgOOB.vTargets);
-	if vTargets and #vTargets==0 then
-		vTargets=nil;
-	end
+	local rRoll, rSource, vTargets = deOOBifyAction(msgOOB);
 	--If the roll is being passed because of popup status and the user is set to get the popup rolls, add it to the manual rolls.
 	--On clients, NPCs and PCs share the PC setting so only one check is needed
 	--Otherwise roll directly
@@ -117,22 +107,51 @@ function handleApplyRollRR(msgOOB)
 
 end
 
+---Takes an action with the three parameters and turns it into an OOB msg
+---@param rRoll table the same info to be passed to the manualRolls
+---@param rSource table the same info to be passed to the manualRolls
+---@param vTargets table the same info to be passed to the manualRolls
+---@param sType string the OOB_MSGTYPE to be assigned
+---@return table msgOOB
+function OOBifyAction(rRoll, rSource, vTargets, sType)
+	local msgOOB = {};
+	if RR.bDebug then Debug.chat("rRoll", rRoll); end
+	if RR.bDebug then Debug.chat("rSource", rSource); end
+	if RR.bDebug then Debug.chat("vTargets", vTargets); end
+	msgOOB.type = sType;
+
+	msgOOB.rRoll = Utility.encodeJSON(rRoll);
+	if rSource then msgOOB.rSource = Utility.encodeJSON(rSource); end
+	if vTargets then msgOOB.vTargets = Utility.encodeJSON(vTargets); end
+	return msgOOB;
+end
+
+---Takes an OOB msg of an action and turns it back into tables
+---@param msgOOB table the received OOB msg
+---@return table rRoll 
+---@return table|nil rSource
+---@return table|nil vTargets
+function deOOBifyAction(msgOOB)
+	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
+	local rRoll = Utility.decodeJSON(msgOOB.rRoll);
+	local rSource = Utility.decodeJSON(msgOOB.rSource);
+	local vTargets = nil;
+	if msgOOB.vTargets then vTargets = Utility.decodeJSON(msgOOB.vTargets); end;
+	if vTargets and #vTargets==0 then
+		vTargets=nil;
+	end
+	return rRoll, rSource, vTargets;
+end
+
+
 ---Creates the outgoing roll for the user, passes the completed message to needsBroadcast for distribution
 ---@param rRoll table the same info to be passed to the manualRolls
 ---@param rSource table the same info to be passed to the manualRolls
 ---@param vTargets table the same info to be passed to the manualRolls
 function notifyApplyRoll(rRoll, rSource, vTargets)
-	local msgOOB = {};
-	if RR.bDebug then Debug.chat("rRoll", rRoll); end
-	if RR.bDebug then Debug.chat("rSource", rSource); end
-	if RR.bDebug then Debug.chat("vTargets", vTargets); end
-	msgOOB.type = OOB_MSGTYPE_APPLYROLL;
+	local msgOOB = OOBifyAction(rRoll, rSource, vTargets, OOB_MSGTYPE_APPLYROLL);
 
-	msgOOB.rRoll = Utility.encodeJSON(rRoll);
-	if rSource then msgOOB.rSource = Utility.encodeJSON(rSource); end
-	if vTargets then msgOOB.vTargets = Utility.encodeJSON(vTargets); end
 	needsBroadcast(rSource, msgOOB);
---TODO:maybe make a loop through the roll object with object constructors and then loop through on the other end?
 end
 
 ---This determines whether to broadcast or handle the oobmsg locally.
