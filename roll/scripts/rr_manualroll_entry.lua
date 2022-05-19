@@ -60,38 +60,36 @@ end
 function processRoll()
     if RR.bDebug then Debug.chat("vRoll",vRoll); end
 
-    if OptionsManager.isOption("RR_option_label_modAfterDisplay", "on") then 
-        applyClientModifiers();
-        if Interface.getRuleset()=="5E" then
+	applyClientModifiers();
+	if Interface.getRuleset()=="5E" then
 
-            local bButtonADV = ModifierManager.getKey("ADV");
-            local bButtonDIS = ModifierManager.getKey("DIS");
-            local bADV = string.match(vRoll.sDesc, "%[ADV%]");
-            local bDIS = string.match(vRoll.sDesc, "%[DIS%]");
-            if RR.bDebug then Debug.chat(bADV, bDIS,bButtonADV, bButtonDIS); end
+		local bButtonADV = ModifierManager.getKey("ADV");
+		local bButtonDIS = ModifierManager.getKey("DIS");
+		local bADV = string.match(vRoll.sDesc, "%[ADV%]");
+		local bDIS = string.match(vRoll.sDesc, "%[DIS%]");
+		if RR.bDebug then Debug.chat(bADV, bDIS,bButtonADV, bButtonDIS); end
 
-            --if ADV and DIS are both already applied, skip this code
-            --if ADV and DIS are both not applied, encode advantage as normal. We have to pass the button values 
-            --  becuase we already consumed them to make sure they reset every roll. Only encode advantage if the first die is a d20.
-            --if the buttons introduce a modifier that would cancel what is already applied, add the appropriate text and remove the extra die that was added
-            if not (bADV and bDIS) then
-                if not bADV and not bDIS then
-                    if vRoll.aDice[1] == "d20" then
-                        ActionsManager2.encodeAdvantage(vRoll,bButtonADV,bButtonDIS);
-                    end
-                else
-                    if (bADV and bButtonDIS) or (bDIS and bButtonADV) then
-                        if bADV then
-                            vRoll.sDesc = vRoll.sDesc .. " [DIS]";
-                        else
-                            vRoll.sDesc = vRoll.sDesc .. " [ADV]";
-                        end
-                        table.remove(vRoll.aDice,2);
-                    end
-                end
-            end
-        end
-    end
+		--if ADV and DIS are both already applied, skip this code
+		--if ADV and DIS are both not applied, encode advantage as normal. We have to pass the button values 
+		--  becuase we already consumed them to make sure they reset every roll. Only encode advantage if the first die is a d20.
+		--if the buttons introduce a modifier that would cancel what is already applied, add the appropriate text and remove the extra die that was added
+		if not (bADV and bDIS) then
+			if not bADV and not bDIS then
+				if vRoll.aDice[1] == "d20" then
+					ActionsManager2.encodeAdvantage(vRoll,bButtonADV,bButtonDIS);
+				end
+			else
+				if (bADV and bButtonDIS) or (bDIS and bButtonADV) then
+					if bADV then
+						vRoll.sDesc = vRoll.sDesc .. " [DIS]";
+					else
+						vRoll.sDesc = vRoll.sDesc .. " [ADV]";
+					end
+					table.remove(vRoll.aDice,2);
+				end
+			end
+		end
+	end
 
     if vRoll.bTower == true then
         RRTowerManager.sendTower(vRoll, vSource, vTargets);
@@ -104,9 +102,7 @@ end
 ---The tower roll function for this is basically a copy of the super.processOK but the final call is to sendTower
 ---instead of handleResolution
 function processOK()
-    if OptionsManager.isOption("RR_option_label_modAfterDisplay", "on") then 
-        applyClientModifiers();
-    end
+    applyClientModifiers();
 
     if vRoll.bTower == true then
         for _,w in ipairs(list.getWindows()) do
