@@ -121,7 +121,11 @@ function OOBifyAction(rRoll, rSource, vTargets, sType)
 	msgOOB.type = sType;
 
 	msgOOB.rRoll = Utility.encodeJSON(rRoll);
-	if rSource then msgOOB.rSource = Utility.encodeJSON(rSource); end
+	if rSource then 
+		--ongoing save effects codes the actor as a string, this is to catch if other people do that as well
+		if type(rSource) ~= "table" then rSource = ActorManager.resolveActor(rSource); end
+		msgOOB.rSource = Utility.encodeJSON(rSource);
+	 end
 	if vTargets then msgOOB.vTargets = Utility.encodeJSON(vTargets); end
 	return msgOOB;
 end
@@ -134,7 +138,8 @@ end
 function deOOBifyAction(msgOOB)
 	if RR.bDebug then Debug.chat("postMsgOOB",msgOOB); end
 	local rRoll = Utility.decodeJSON(msgOOB.rRoll);
-	local rSource = Utility.decodeJSON(msgOOB.rSource);
+	local rSource = nil;
+	if msgOOB.rSource then rSource = Utility.decodeJSON(msgOOB.rSource); end
 	local vTargets = nil;
 	if msgOOB.vTargets then vTargets = Utility.decodeJSON(msgOOB.vTargets); end;
 	if vTargets and #vTargets==0 then
