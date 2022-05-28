@@ -60,6 +60,7 @@
     <string name="RR_tooltip_collapse">Collapse</string>
 
     <!-- CONSOLE OPTIONS -->
+    <string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>
     <string name="RR_tooltip_show_on">Show in combobox</string>
     <string name="RR_tooltip_show_off">Do not show on console</string>
     <string name="RR_tooltip_show_both">Show in combobox and button</string>
@@ -68,6 +69,4 @@
     <string name="RR_label_show">Show?</string>
     <string name="RR_label_shownOnConsole">Shown on Console</string>
     <string name="RR_label_hiddenOnConsole">Hidden on Console</string>
-
-	
 </root>

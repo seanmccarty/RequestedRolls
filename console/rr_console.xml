@@ -510,6 +510,16 @@
 	<!-- the individual entries in the npc/pc list -->
 	<!-- the hidden number "RRselected" is what ties the selection button to the CT nodes -->
 	<windowclass name="rr_entry">
+		<script>
+			function onInit()
+				registerMenuItem(Interface.getString("RR_tooltip_forceRolls"), "sidebar_icon_recordtype_table", 7);
+			end
+			function onMenuSelection(selection, subselection, subsubselection)
+				if selection == 7 then
+					RRActionManager.notifyMakeAllRolls(getDatabaseNode());
+				end
+			end
+		</script>
 		<sheetdata> 
 			<hn name="RRselected" />
 			<hn name="RRdirty" />

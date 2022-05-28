@@ -6,6 +6,7 @@ function onInit()
 	fRollOriginal = ActionsManager.roll;
     ActionsManager.roll = rollOverride;
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRollRR);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_MAKEALLROLLS, handleMakeAllRollsRR);
 end
 
 ---Helper function for if strings start with a certain sequence
@@ -17,6 +18,7 @@ function starts(String,Start)
 end
 
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
+OOB_MSGTYPE_MAKEALLROLLS = "makerollsRR";
 
 --the default roll types that originate on host
 local sTypes = {
@@ -212,6 +214,32 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	local msgOOB = OOBifyAction(rRoll, rSource, vTargets, OOB_MSGTYPE_APPLYROLL);
 
 	needsBroadcast(rSource, msgOOB);
+end
+
+---Checks if the rSource is connected. If so they player is sent an OOBmsg that makes all the rolls
+---@param rSource table the database node for the CTNODE
+function notifyMakeAllRolls(rSource)
+	local sOwner = getControllingClient(rSource);
+	if sOwner then
+		local msgOOB = {};
+		msgOOB.type = OOB_MSGTYPE_MAKEALLROLLS;
+		msgOOB.sCTNodeID = ActorManager.getCTNodeName(rSource);
+		Comm.deliverOOBMessage(msgOOB, sOwner);
+	else
+		ChatManager.SystemMessage("Requested Rolls: Player not connected. Roll is available on host.");
+	end
+end
+
+---Opens the manual roll window and makes all the rolls for the given CTNode using the custom control I added
+---@param msgOOB table the message from notifyMakeAllRolls
+function handleMakeAllRollsRR(msgOOB)
+	local sCTNodeID = msgOOB.sCTNodeID;
+	local wMain = Interface.openWindow("manualrolls", "");
+	for _,vEntry in pairs(wMain.list.getWindows()) do
+		if vEntry.CTNodeID.getValue() == sCTNodeID then
+			vEntry.processRoll();
+		end
+	end
 end
 
 ---This determines whether to broadcast or handle the oobmsg locally.
