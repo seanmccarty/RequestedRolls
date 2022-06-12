@@ -3,7 +3,7 @@
 <root version="3.0">
 	<properties>
 		<name>Requested Rolls</name>
-		<version>2.6</version>
+		<version>2.7</version>
 		<author>mccartysr</author>
 		<description>Requested Rolls</description>
 		<loadorder>5</loadorder>
@@ -40,7 +40,7 @@
 			<minrelease>22</minrelease>
 		</ruleset>
 	</properties>
-	<announcement text="Requested Rolls version 2.6 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.7 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
 	<base>		
 		<includefile source="xml/rr_resources.xml" />
 	</base>    
