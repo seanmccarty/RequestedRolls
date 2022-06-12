@@ -16,7 +16,10 @@ Check out the forum link to provide suggestions or contribute to this extension.
 Instructions can be found at https://github.com/seanmccarty/RequestedRolls/wiki
 
 Full support for player controlled NPCs is provided in conjunction with the *Friend Zone* or *Cohorts and Companions* extension depending on your ruleset.
-
+# Compatible Rulesets
+DnD: 2E, 3.5E, 4E, 5E
+PFRPG: 1E, 2E
+SFRPG
 # Compatible Extensions (non-exhaustive)
 * Better Menus https://forge.fantasygrounds.com/shop/items/69/view
 * Combat Groups https://forge.fantasygrounds.com/shop/items/154/view

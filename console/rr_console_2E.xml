@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<!-- Remove DC related controls, resize comboboxes to fill the rest of the space -->
+	<windowclass name="rr_console" merge="join">
+		<sheetdata>
+			<basicnumber name="check.dc" merge="delete"/>
+			<basicnumber name="save.dc" merge="delete"/>
+			<basicnumber name="skill.dc" merge="delete"/>
+			<label name="checkdclabel" merge="delete"/>
+			<label name="savedclabel" merge="delete"/>
+			<label name="skilldclabel" merge="delete"/>
+			<combobox name="check.selected" merge="join">
+				<anchored width="170"/>
+			</combobox>
+			<combobox name="save.selected" merge="join">
+				<anchored width="170"/>
+			</combobox>
+			<combobox name="skill.selected" merge="join">
+				<anchored width="240"/>
+			</combobox>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="expanding_button_selector" merge="join">
+		<sheetdata>
+			<label name="skilldclabel">
+				<invisible/>
+			</label>
+			<basicnumber name="dc">
+				<invisible/>
+			</basicnumber>
+		</sheetdata>
+	</windowclass>
+</root>

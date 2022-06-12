@@ -8,6 +8,10 @@
 		<description>Requested Rolls</description>
 		<loadorder>5</loadorder>
 		<ruleset>
+			<name>2E</name>
+			<minrelease>35</minrelease>
+		</ruleset>
+		<ruleset>
 			<name>3.5E</name>
 			<minrelease>17.1</minrelease>
 		</ruleset>
