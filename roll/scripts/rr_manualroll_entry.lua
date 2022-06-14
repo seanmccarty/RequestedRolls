@@ -120,7 +120,7 @@ function processOK()
                 else
                     vRoll.aDice[nSort].result = nValue;
                 end
-                vRoll.aDice[nSort].value = nil;
+                vRoll.aDice[nSort].value = vRoll.aDice[nSort].result;
             end
         end
         
