@@ -19,6 +19,7 @@
 						window.contents.subwindow.checks.update();
 						window.contents.subwindow.saves.update();
 						window.contents.subwindow.skills.update();
+						window.contents.subwindow.dice.update();
 					end
 				</script>
 			</button_iedit>
@@ -128,6 +129,23 @@
 			</button_iadd>
 			<RR_options_lists name="skills">
 				<datasource>.skill.list</datasource>
+			</RR_options_lists>
+<!-- dice  -->
+			<RR_label_options_lists name="dicetitle">
+				<static textres="RR_label_dice" />
+			</RR_label_options_lists>
+			<RR_button_expander_hider name="dice.show">
+				<anchored to="dicetitle" position="righthigh" relation="relative" offset="0,0" />
+			</RR_button_expander_hider>
+			<button_iadd name="dice_iadd">
+				<anchored> 
+					<bottom parent="dice.show" relation="relative" anchor="bottom" offset="-3"/>
+					<right parent="rightanchor" anchor="right" relation="relative" offset="-2" />
+				</anchored>
+				<target>dice</target>
+			</button_iadd>
+			<RR_options_lists name="dice">
+				<datasource>.dice.list</datasource>
 			</RR_options_lists>
 		</sheetdata>
 	</windowclass>

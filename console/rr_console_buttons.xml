@@ -21,6 +21,10 @@
 				<group_name>Skill</group_name>
 				<datasource>requestsheet.skill</datasource>
 			</RR_subwindow_expander >
+			<RR_subwindow_expander name="dice_window">
+				<group_name>Dice</group_name>
+				<datasource>requestsheet.dice</datasource>
+			</RR_subwindow_expander >
 		</sheetdata>
 	</windowclass>
 
@@ -30,8 +34,14 @@
 		<script>
 			function onInit()
 				group_name.setValue(parentcontrol.group_name[1]);
-				if DB.getPath(getDatabaseNode()) ~= "requestsheet.skill" then
+				local sDataPath = DB.getPath(getDatabaseNode());
+				if sDataPath == "requestsheet.check" or sDataPath == "requestsheet.save" then
 					selection_window.setColumnWidth(65);
+				end
+				if sDataPath == "requestsheet.dice" then
+					selection_window.setColumnWidth(100);
+					skilldclabel.setVisible(false);
+					dc.setVisible(false);
 				end
 
 				w = parentcontrol;

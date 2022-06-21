@@ -16,12 +16,21 @@ function setData(rRoll, rSource, aTargets)
 
     super.setData(rRoll, rSource, aTargets);
 	if OptionsManager.isOption("MANUALROLL", "off") and OptionsManager.isOption("RR_option_label_alwaysShowManualDice", "off") then
-		list.setVisible(false);
-		button_ok.setVisible(false);
-		button_fauxroll.setVisible(false);
-		button_roll.resetAnchor("left");
-		button_roll.setAnchor("right","","right","relative",-5);
+		hideDiceList();
 	end
+	--if this is a complex dice string, the aDice is blank and expr will be set, so just set expr to the expression
+	if rRoll.aDice and rRoll.aDice.expr then 
+		rollexpr.setValue(rRoll.aDice.expr)
+		hideDiceList();
+	end
+end
+
+function hideDiceList()
+	list.setVisible(false);
+	button_ok.setVisible(false);
+	button_fauxroll.setVisible(false);
+	button_roll.resetAnchor("left");
+	button_roll.setAnchor("right","","right","relative",-5);
 end
 
 ---Adds a check to the manual roll window that closes it if you are rolling the last roll in your queue.
