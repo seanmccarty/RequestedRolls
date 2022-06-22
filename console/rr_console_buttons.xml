@@ -103,6 +103,13 @@
 							window.label_noselection.setVisible(false);
 						end
 					end
+
+					function onSortCompare(w1,w2)
+						local a = w1.display_name.getValue()
+						local b = w2.display_name.getValue();
+						--Lua defaults to true if less than, windowlist is the opposite
+						return not RR.naturalSort(a,b);
+					end
 				</script>
 			</windowlist>
 		</sheetdata>
@@ -119,10 +126,11 @@
 
 			function nameChanged()
 				if name_short.getValue()~="" then
-					bname.setText(name_short.getValue());
+					display_name.setValue(name_short.getValue());
 				else
-					bname.setText(name.getValue());
+					display_name.setValue(name.getValue());
 				end
+				bname.setText(display_name.getValue());
 			end
 		</script>
 		<sheetdata>
@@ -155,6 +163,7 @@
 			<hn name="show"/>
 			<hs name="name"/>
 			<hs name="name_short"/>
+			<hs name="display_name"/>
 		</sheetdata>
 	</windowclass>	
 </root>

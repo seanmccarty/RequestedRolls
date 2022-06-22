@@ -233,3 +233,24 @@ function migrateNode(source, destination)
 		DB.deleteNode(source);
 	end
 end
+
+---Comparator function to allow for natual sort. Particularly useful for dice strings
+function naturalSort(a,b)
+	local function conv(s)
+		local res, dot = "", ""
+		for n, m, c in tostring(s):gmatch"(0*(%d*))(.?)" do
+			if n == "" then
+				dot, c = "", dot..c
+			else
+				res = res..(dot == "" and ("%03d%s"):format(#m, m) or "."..n)
+				dot, c = c:match"(%.?)(.*)"
+			end
+			res = res..c:gsub(".", "\0%0")
+		end
+		return res
+	end
+	local ca, cb = conv(a), conv(b)
+	return ca < cb or ca == cb and a < b
+end
+
+

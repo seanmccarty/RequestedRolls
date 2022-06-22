@@ -16,6 +16,9 @@ function onInit()
 	if self.datasource[1] == ".save.list" then
 		constructDefaultSaves();
 	end
+	if self.datasource[1] == ".dice.list" then
+		constructDefaultDice();
+	end
 end
 
 function onAbilityChanged()
@@ -118,6 +121,22 @@ function constructDefaultSkills()
 				bCustom = true;
 			end
 		end
+end
+
+---Uses the same build list process as checks and saves
+function constructDefaultDice()
+	local ltos = {
+		["d4"] = "",
+		["d6"] = "",
+		["d8"] = "",
+		["d10"] = "",
+		["d20"] = "",
+	};
+
+	local strings = {
+		"d4","d6","d8","d10","d20"
+	};
+	buildList(ltos,strings);
 end
 
 ---Builds the default check or save list based on the provided tables, sets standard rolls to not deletable

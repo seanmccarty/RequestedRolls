@@ -64,7 +64,7 @@ function handleRRDiceTower(msgOOB)
 	rRoll.sDesc = "[" .. Interface.getString("dicetower_tag") .. "] " .. (rRoll.sDesc or "");
 	--remove the RR parameter so it does not popup again
 	rRoll.RR = nil;
-    if rRoll.aDice[1].result then
+    if rRoll.aDice[1] and rRoll.aDice[1].result then
 		DiceManager.handleManualRoll(rRoll.aDice);
         ActionsManager.handleResolution(rRoll, rActor, vTargets);
     else

@@ -462,6 +462,7 @@
 				<gmvisibleonly />
 				<listmaxsize>12</listmaxsize>
 				<default>d20</default>
+				<unsorted/>
 				<script>
 					function onInit()
 						super.onInit();
@@ -483,11 +484,14 @@
 
 					function buildOptions()
 						clear();
+						local listStore = {};
 						for _,w in pairs(DB.getChildren("requestsheet.dice.list")) do
 							if DB.getValue(w,"show",0)>=1 then
-								add(DB.getValue(w,"name",""));
+								table.insert(listStore,DB.getValue(w,"name",""));
 							end
 						end
+						table.sort(listStore,RR.naturalSort)
+						addItems(listStore);
 					end
 				</script>
 			</combobox>
