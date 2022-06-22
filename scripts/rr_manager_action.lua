@@ -6,7 +6,7 @@ function onInit()
 	fRollOriginal = ActionsManager.roll;
     ActionsManager.roll = rollOverride;
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLL, handleApplyRollRR);
-	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_MAKEALLROLLS, handleMakeAllRollsRR);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_ALLROLLS, handleAllRollsRR);
 end
 
 ---Helper function for if strings start with a certain sequence
@@ -18,7 +18,7 @@ function starts(String,Start)
 end
 
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
-OOB_MSGTYPE_MAKEALLROLLS = "makerollsRR";
+OOB_MSGTYPE_ALLROLLS = "allrollsRR";
 
 --the default roll types that originate on host
 local sTypes = {
@@ -216,29 +216,60 @@ function notifyApplyRoll(rRoll, rSource, vTargets)
 	needsBroadcast(rSource, msgOOB);
 end
 
----Checks if the rSource is connected. If so they player is sent an OOBmsg that makes all the rolls
+---Checks if the rSource is connected. If so they player is sent an OOBmsg that processes all the rolls. 
 ---@param rSource table the database node for the CTNODE
-function notifyMakeAllRolls(rSource)
+---@param bMakeRoll boolean true to make rolls, false to delete
+function notifyAllRolls(rSource, bMakeRoll)
 	local sOwner = getControllingClient(rSource);
 	if sOwner then
 		local msgOOB = {};
-		msgOOB.type = OOB_MSGTYPE_MAKEALLROLLS;
+		msgOOB.type = OOB_MSGTYPE_ALLROLLS;
 		msgOOB.sCTNodeID = ActorManager.getCTNodeName(rSource);
+		if bMakeRoll then
+			msgOOB.bMakeRoll = "true";
+		else
+			msgOOB.bMakeRoll = "false";
+		end
 		Comm.deliverOOBMessage(msgOOB, sOwner);
+
+		local msg = {font = "systemfont", icon = "portrait_gm_token"};
+		if bMakeRoll then
+			msg.text = Interface.getString("RR_msg_rollAll_GM")..ActorManager.getDisplayName(rSource);
+		else
+			msg.text = Interface.getString("RR_msg_rollCancel_GM")..ActorManager.getDisplayName(rSource);
+		end
+		Comm.addChatMessage(msg);
 	else
-		ChatManager.SystemMessage("Requested Rolls: Player not connected. Roll is available on host.");
+		ChatManager.SystemMessage(Interface.getString("RR_msg_rollNotConnected"));
 	end
 end
 
 ---Opens the manual roll window and makes all the rolls for the given CTNode using the custom control I added
+---Also, posts a message so the player knows what happened
 ---@param msgOOB table the message from notifyMakeAllRolls
-function handleMakeAllRollsRR(msgOOB)
+function handleAllRollsRR(msgOOB)
 	local sCTNodeID = msgOOB.sCTNodeID;
+	local bMakeRoll = msgOOB.bMakeRoll == "true";
 	local wMain = Interface.openWindow("manualrolls", "");
+	local bActioned = false;
 	for _,vEntry in pairs(wMain.list.getWindows()) do
 		if vEntry.CTNodeID.getValue() == sCTNodeID then
-			vEntry.processRoll();
+			bActioned = true;
+			if bMakeRoll then
+				vEntry.processRoll();
+			else
+				vEntry.processCancel();
+			end
 		end
+	end
+	if bActioned then
+		local msg = {font = "systemfont", icon = "portrait_gm_token"};
+		if bMakeRoll then
+			msg.text = Interface.getString("RR_msg_rollAll_player")
+		else
+			msg.text = Interface.getString("RR_msg_rollCancel_player")
+		end
+		Comm.addChatMessage(msg);
 	end
 end
 

@@ -537,11 +537,14 @@
 	<windowclass name="rr_entry">
 		<script>
 			function onInit()
+				registerMenuItem(Interface.getString("RR_tooltip_deleteRolls"), "sidebar_icon_recordtype_hindrance", 6);
 				registerMenuItem(Interface.getString("RR_tooltip_forceRolls"), "sidebar_icon_recordtype_table", 7);
 			end
 			function onMenuSelection(selection, subselection, subsubselection)
-				if selection == 7 then
-					RRActionManager.notifyMakeAllRolls(getDatabaseNode());
+				if selection == 6 then
+					RRActionManager.notifyAllRolls(getDatabaseNode(), false);
+				elseif selection == 7 then
+					RRActionManager.notifyAllRolls(getDatabaseNode(), true);
 				end
 			end
 		</script>

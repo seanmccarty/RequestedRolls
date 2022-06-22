@@ -61,6 +61,7 @@
 
     <!-- CONSOLE OPTIONS -->
     <string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>
+    <string name="RR_tooltip_deleteRolls">Delete All Rolls for Player</string>
     <string name="RR_tooltip_show_on">Show in combobox</string>
     <string name="RR_tooltip_show_off">Do not show on console</string>
     <string name="RR_tooltip_show_both">Show in combobox and button</string>
@@ -69,4 +70,11 @@
     <string name="RR_label_show">Show?</string>
     <string name="RR_label_shownOnConsole">Shown on Console</string>
     <string name="RR_label_hiddenOnConsole">Hidden on Console</string>
+
+	<!-- MESSAGES -->
+	<string name="RR_msg_rollNotConnected" >Requested Rolls: Player not connected. Roll is available on host.</string>
+	<string name="RR_msg_rollAll_GM">Requested Rolls: Making all rolls for </string>
+	<string name="RR_msg_rollCancel_GM">Requested Rolls: Cancelling all rolls for </string>
+	<string name="RR_msg_rollAll_player">Requested Rolls: The GM made your rolls for you.</string>
+	<string name="RR_msg_rollCancel_player">Requested Rolls: The GM cancelled your rolls.</string>
 </root>

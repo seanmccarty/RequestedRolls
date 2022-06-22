@@ -12,4 +12,6 @@
 
 	<icon name="RR_RollIndicator" file="graphics/icons/rr_roll_indicator.png"/>
 	<icon name="RR_SelectionIndicator" file="graphics/icons/rr_selection_indicator.png"/>
+
+	<icon name="sidebar_icon_recordtype_hindrance" file="graphics/sidebar/sidebar_icon_hindrance.png" />
 </root>
