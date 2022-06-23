@@ -1,7 +1,12 @@
----Add the new dice handlers needed for arbitrary dice
+local DICE = "dice";
+
+---Add the new dice handlers needed for arbitrary dice, this is only used for rulesets that already have a handler for dice
 function onInit()
-	ActionsManager.registerModHandler("sDice",modSDiceRoll);
-	ActionsManager.registerResultHandler("sDice", ActionGeneral.onRoll);
+	if ActionsManager2 then
+		ActionsManager.registerModHandler("sDice",modSDiceRoll);
+		DICE = "sDice";
+	end
+	
 end
 
 ---Advantage doesn't apply to the advanced dice commands, and this need to return true
@@ -80,7 +85,7 @@ function getDiceRoll(rActor)
 		rRoll.aDice = aDice;
 		rRoll.nMod = nMod;
 	else
-		rRoll.sType = "sDice";
+		rRoll.sType = DICE;
 		rRoll.aDice = {};
 		rRoll.aDice.expr = sDice;
 		rRoll.nMod = 0;
