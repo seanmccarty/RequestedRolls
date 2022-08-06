@@ -106,12 +106,20 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 			else
 				if Session.IsHost == true then
 					if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
-						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						if bMultiTarget then
+							ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						else
+							ManualRollManager.addRoll(rRoll, rSource, { vTargets });
+						end
 						return;
 					end
 				else
 					if RR.isManualSaveRollPcOn() then
-						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						if bMultiTarget then
+							ManualRollManager.addRoll(rRoll, rSource, vTargets);
+						else
+							ManualRollManager.addRoll(rRoll, rSource, { vTargets });
+						end
 						return;
 					end
 				end
