@@ -15,56 +15,72 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 	return true;
 end
 
-function onButtonPress(rollType)
-    if (table.getn(RR.getSelectedChars())>0) then
-        local aParty = {};
-        for _,v in pairs(RR.getSelectedChars()) do
-            local rActor = ActorManager.resolveActor(v);
-            if rActor then
-                table.insert(aParty, rActor);
-            end
-        end
-        if #aParty == 0 then
-            aParty = nil;
-        end
-            
-        ModifierStack.lock();
-        for _,rActor in pairs(aParty) do
-            local rRoll;
-            if rollType == "init" then
-                rRoll = getInitRoll(rActor);
-            elseif rollType == "dice" then
-                rRoll = getDiceRoll(rActor);
-            elseif rollType == "check" then
-                rRoll = getCheckRoll(rActor);
-            elseif rollType == "save" then
-                rRoll = getSaveRoll(rActor);
-            elseif rollType == "skill" then
-                rRoll = getSkillRoll(rActor);
-            end
-
-            rRoll.RR = true;
-
-            if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-                rRoll.bSecret = true;
-            end
-
-            if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-                rRoll.bSecret = true;
-                rRoll.bTower = true;
-            end
-        
-            ActionsManager.performAction(nil, rActor, rRoll);
-        end
-        ModifierStack.unlock(true);
-    
-		if DB.getValue("requestsheet.deselectonroll",0)==1 then
-			for _,entry in pairs(CombatManager.getCombatantNodes()) do
-				DB.setValue(entry,"RRselected", "number", 0);
-			end
+---Main entry point for kicking off rolls from the console
+---@param rollType string the roll type to be made
+---@param nodeCT table optional - the database node of a single target for drop targeting. 
+---                    If not given, it uses the selected characters from the console
+---@return boolean end not used
+function onButtonPress(rollType,nodeCT)
+	local aParty = {};
+	if nodeCT ~= nil then
+		local rActor = ActorManager.resolveActor(nodeCT);
+		if rActor then
+			table.insert(aParty, rActor);
 		end
-        return true;
-    end
+	else
+		if (table.getn(RR.getSelectedChars())>0) then
+			for _,v in pairs(RR.getSelectedChars()) do
+				local rActor = ActorManager.resolveActor(v);
+				if rActor then
+					table.insert(aParty, rActor);
+				end
+			end
+		else
+			return;
+		end
+	end
+
+	if #aParty == 0 then
+		aParty = nil;
+		return;
+	end
+		
+	ModifierStack.lock();
+	for _,rActor in pairs(aParty) do
+		local rRoll;
+		if rollType == "init" then
+			rRoll = getInitRoll(rActor);
+		elseif rollType == "dice" then
+			rRoll = getDiceRoll(rActor);
+		elseif rollType == "check" then
+			rRoll = getCheckRoll(rActor);
+		elseif rollType == "save" then
+			rRoll = getSaveRoll(rActor);
+		elseif rollType == "skill" then
+			rRoll = getSkillRoll(rActor);
+		end
+
+		rRoll.RR = true;
+
+		if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
+			rRoll.bSecret = true;
+		end
+
+		if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+			rRoll.bSecret = true;
+			rRoll.bTower = true;
+		end
+	
+		ActionsManager.performAction(nil, rActor, rRoll);
+	end
+	ModifierStack.unlock(true);
+
+	if DB.getValue("requestsheet.deselectonroll",0)==1 then
+		for _,entry in pairs(CombatManager.getCombatantNodes()) do
+			DB.setValue(entry,"RRselected", "number", 0);
+		end
+	end
+	return true;
 end	
 
 function getInitRoll(rActor)

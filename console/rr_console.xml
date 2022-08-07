@@ -262,6 +262,12 @@
 					function onButtonPress()
 						RRRollManager.onButtonPress("check");
 					end
+					function onDragStart(button, x, y, draginfo)
+						draginfo.setType("RR");
+						draginfo.setIcon("action_roll");
+						draginfo.setDescription("check");
+						return true;
+					end
 				</script>
 			</button_roll>
 			<label name="checklabel">
@@ -323,6 +329,12 @@
 				<script>
 					function onButtonPress()
 						RRRollManager.onButtonPress("save");
+					end
+					function onDragStart(button, x, y, draginfo)
+						draginfo.setType("RR");
+						draginfo.setIcon("action_roll");
+						draginfo.setDescription("save");
+						return true;
 					end
 				</script>
 			</button_roll>
@@ -387,6 +399,12 @@
 					function onButtonPress()
 						RRRollManager.onButtonPress("skill");
 					end
+					function onDragStart(button, x, y, draginfo)
+						draginfo.setType("RR");
+						draginfo.setIcon("action_roll");
+						draginfo.setDescription("skill");
+						return true;
+					end
 				</script>
 			</button_roll>
 			<label name="skilllabel">
@@ -450,6 +468,12 @@
 					function onButtonPress()
 						RRRollManager.onButtonPress("dice");
 					end
+					function onDragStart(button, x, y, draginfo)
+						draginfo.setType("RR");
+						draginfo.setIcon("action_roll");
+						draginfo.setDescription("dice");
+						return true;
+					end
 				</script>
 			</button_roll>
 			<label name="dicelabel">
@@ -507,6 +531,12 @@
 					function onButtonPress()
 						RRRollManager.onButtonPress("init");
 					end
+					function onDragStart(button, x, y, draginfo)
+						draginfo.setType("RR");
+						draginfo.setIcon("action_roll");
+						draginfo.setDescription("init");
+						return true;
+					end
 				</script>
 				<gmvisibleonly />
 			</button_roll>
@@ -551,8 +581,14 @@
 				end
 			end
 			function onDrop(x, y, draginfo)
-				local sCTNode = getDatabaseNode().getPath();
-				return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
+				local nodeCT = getDatabaseNode();
+				if draginfo.getType() == "RR" then
+					local sType = draginfo.getDescription();
+					RRRollManager.onButtonPress(sType,nodeCT);
+				else
+					local sCTNode = nodeCT.getPath();
+					return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
+				end
 			end
 		</script>
 		<sheetdata> 
@@ -624,5 +660,5 @@
 				<state color="FFFF00" icon="RR_RollIndicator"/>
 			</buttonfield>
 		</sheetdata>
-	</windowclass>	
+	</windowclass>
 </root>
