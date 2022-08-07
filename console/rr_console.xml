@@ -550,6 +550,10 @@
 					RRActionManager.notifyAllRolls(getDatabaseNode(), true);
 				end
 			end
+			function onDrop(x, y, draginfo)
+				local sCTNode = getDatabaseNode().getPath();
+				return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
+			end
 		</script>
 		<sheetdata> 
 			<hn name="RRselected" />
