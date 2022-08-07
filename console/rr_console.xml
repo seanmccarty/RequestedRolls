@@ -537,11 +537,14 @@
 	<windowclass name="rr_entry">
 		<script>
 			function onInit()
+				registerMenuItem(Interface.getString("RR_tooltip_mirrorTargeting_specific"), "sidebar_icon_recordtype_battle", 4);
 				registerMenuItem(Interface.getString("RR_tooltip_deleteRolls"), "sidebar_icon_recordtype_hindrance", 6);
 				registerMenuItem(Interface.getString("RR_tooltip_forceRolls"), "sidebar_icon_recordtype_table", 7);
 			end
 			function onMenuSelection(selection, subselection, subsubselection)
-				if selection == 6 then
+				if selection == 4 then
+					RR.mirrorTargeting(getDatabaseNode());
+				elseif selection == 6 then
 					RRActionManager.notifyAllRolls(getDatabaseNode(), false);
 				elseif selection == 7 then
 					RRActionManager.notifyAllRolls(getDatabaseNode(), true);

@@ -169,12 +169,18 @@ function getSelectedChars()
     return list;
 end
 
----Clear selected characters and then select the same as the currently active node in the CT
-function mirrorTargeting()
+---Clear selected characters and then select the same targets as the specificied actor
+---If rActor is nil, it uses the currently active node in the CT
+function mirrorTargeting(rActor)
 	for _,entry in pairs(CombatManager.getCombatantNodes()) do
 		DB.setValue(entry,"RRselected", "number", 0);
 	end
-	for _,entry in pairs(TargetingManager.getFullTargets(CombatManager.getActiveCT())) do
+
+	if rActor == nil then
+		rActor = CombatManager.getActiveCT();
+	end
+
+	for _,entry in pairs(TargetingManager.getFullTargets(rActor)) do
 		DB.setValue(ActorManager.getCTNodeName(entry) .. ".RRselected", "number", 1);
 	end
 end

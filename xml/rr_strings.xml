@@ -52,7 +52,8 @@
     <string name="RR_tooltip_deselectOnRoll_off">Maintain Selection When Roll Is Sent</string>
     <string name="RR_tooltip_deselectOnRoll_on">Clear Selection When Roll Is Sent</string>
 
-	<string name="RR_tooltip_mirrorTargeting">Select Same Targets as Active CT</string>
+    <string name="RR_tooltip_mirrorTargeting">Select Same Targets as Active CT</string>
+	<string name="RR_tooltip_mirrorTargeting_specific">Select Same Targets as Selected Character</string>
 
     <!-- CONSOLE BUTTON EXPANDERS -->
     <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
