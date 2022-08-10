@@ -239,11 +239,11 @@
 					<normal>sidebar_icon_recordtype_battle</normal>
 				</icon>
 				<color>000000</color>
-				<frame name="fielddark" offset="10,8,10,6" />
+				<frame name="buttonup" offset="10,8,10,6" />
 				<tooltip><textres>RR_tooltip_mirrorTargeting</textres></tooltip>
 				<!-- <state icon="sidebar_icon_recordtype_battle" color="1C1C1C" tooltipres="RR_tooltip_deselectOnRoll_off" /> -->
 				<stateframe>
-					<pressed name="fielddark" offset="12,10,12,8" nobaseframe="true" />
+					<pressed name="buttondown" offset="10,8,10,6" nobaseframe="true" />
 				</stateframe>
 			</buttoncontrol>
 
