@@ -52,6 +52,9 @@
     <string name="RR_tooltip_deselectOnRoll_off">Maintain Selection When Roll Is Sent</string>
     <string name="RR_tooltip_deselectOnRoll_on">Clear Selection When Roll Is Sent</string>
 
+	<string name="RR_tooltip_onlyRollIfProficient_off">Send Rolls to All Selected Characters</string>
+    <string name="RR_tooltip_onlyRollIfProficient_on">Send Rolls Only to Proficient Characters</string>
+
     <string name="RR_tooltip_mirrorTargeting">Select Same Targets as Active CT</string>
 	<string name="RR_tooltip_mirrorTargeting_specific">Select Same Targets as Selected Character</string>
 
