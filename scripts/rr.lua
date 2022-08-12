@@ -191,48 +191,32 @@ function targetSkillProficency()
 	end
 
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
-
 	for _,rActor in pairs(CombatManager.getCombatantNodes()) do
 		local nodeActor = ActorManager.getCreatureNode(rActor);
-		if Interface.getRuleset()=="5E" then
-			if ActorManager.isPC(rActor) then
-				for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
-					if DB.getValue(nodeSkill, "name", "") == sSkill then
-						if DB.getValue(nodeSkill, "prof", 0) > 0 then
+
+		--if it is an NPC, parse for the particular skill. fall through if it is not found or it is a PC
+		if not ActorManager.isPC(rActor) then
+			local aSkills = RRRollManager.parseComponents(nodeActor);
+			if aSkills then
+				for k,node in pairs(aSkills) do
+					if string.lower(node.sLabel) ==  string.lower(sSkill) then
 						DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
-						end
-						break;
 					end
-				end
-			else
-				local aSkills = RRRollManager.parseComponents(nodeActor);
-				if aSkills then
-					for k,node in pairs(aSkills) do
-						if string.lower(node.sLabel) ==  string.lower(sSkill) then
-							DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
-							break;
-						end
-					end	
 				end
 			end
 		else
-			--if it is an NPC, parse for the particular skill. fall through if it is not found or it is a PC
-			if not ActorManager.isPC(rActor) then
-				local aSkills = RRRollManager.parseComponents(nodeActor);
-				if aSkills then
-					for k,node in pairs(aSkills) do
-						if string.lower(node.sLabel) ==  string.lower(sSkill) then
+			for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
+				if Interface.getRuleset()=="5E" then 
+					if DB.getValue(nodeSkill, "name", "") == sSkill then
+						if DB.getValue(nodeSkill, "prof", 0) > 0 then
 							DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
 						end
 					end
-				end
-			else		-- look for the skill to have the pattern Skill (subskill) extract the part within and outside parentheses for the skill lookup
-				for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
+				else
 					if DB.getValue(nodeSkill, "label", "") == sSkill then
 						if DB.getValue(nodeSkill, "prof", 0) > 0 then
-						DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
+							DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
 						end
-						break;
 					end
 				end
 			end

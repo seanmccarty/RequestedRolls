@@ -256,13 +256,11 @@
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-
 				<icon>
 					<normal>button_prof</normal>
 				</icon>
-				<color>000000</color>
 				<frame name="buttonup" offset="10,8,10,6" />
-				<tooltip><textres>RR_tooltip_mirrorTargeting</textres></tooltip>
+				<tooltip><textres>RR_tooltip_proficiencyTargeting</textres></tooltip>
 				<stateframe>
 					<pressed name="buttondown" offset="10,8,10,6" nobaseframe="true" />
 				</stateframe>
