@@ -91,13 +91,17 @@ end
 
 --#region slash handler
 
+local OOB_MSGTYPE_APPLYCLIENTSAVE = "applyClientSaveRR";
+
 ---Registers the slash handlers that RR uses. This groups the calls together to make onInit easier to read
 function registerSlashHandlers()
 	Comm.registerSlashHandler("RR", processRRCommandList);
 	Comm.registerSlashHandler("RRrolls", processRRRolls);
 	if Session.IsHost  then
 		Comm.registerSlashHandler("RRconsole", processRRConsole);
+		Comm.registerSlashHandler("RRclientsaves", processRRClientSaves);
 	end
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYCLIENTSAVE, handleApplyClientSaveRR);
 	Comm.registerSlashHandler("RRdebug",processRRdebug);
 end
 
@@ -112,6 +116,7 @@ function processRRCommandList(sCommand, sParams)
 
 	if Session.IsHost  then	
 		ChatManager.SystemMessage("/RRconsole \t DM only - open the create request window");
+		ChatManager.SystemMessage("/RRclientsaves \t DM only - sets clients to show popups for saves");
 	end	
 
 	ChatManager.SystemMessage("/RRrolls \t open the rolls window");
@@ -132,6 +137,21 @@ function processRRConsole(sCommand, sParams)
 	if Session.IsHost  then		
 		Interface.openWindow(createRequestWindowName, dbRootName);
 	end	
+end
+
+
+function processRRClientSaves(sCommand, sParams)
+	if Session.IsHost then
+		local msgOOB = {};
+		msgOOB.type = OOB_MSGTYPE_APPLYCLIENTSAVE;
+		Comm.deliverOOBMessage(msgOOB);
+		ChatManager.SystemMessage("Clients set to show popup saves.");
+	end
+end
+
+function handleApplyClientSaveRR()
+	ChatManager.SystemMessage("The GM has set your client to show popups for saving throws via Requested Rolls.");
+	OptionsManager.setOption("RR_option_label_pcRolls","on");
 end
 
 ---Sets debug status. Flips status if on/off parameter is not passed.
