@@ -57,6 +57,8 @@
 
 	<string name="RR_tooltip_proficiencyTargeting">Target All Character Proficient in Selected Skill</string>
 
+	<string name="RR_tooltip_openCharacterSheet">Open character sheet</string>
+
     <!-- CONSOLE BUTTON EXPANDERS -->
     <string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
     <string name="RR_tooltip_expand">Expand</string>
