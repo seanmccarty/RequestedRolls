@@ -5,9 +5,9 @@ bDebug = false;
 
 function onInit()
 	if Session.IsHost then DB.createNode(dbRootName); end
-    registerOptions();
+	registerOptions();
 	registerSlashHandlers();
-    registerExtensions();
+	registerExtensions();
 	initializeDirtyState();
 	runMigration();
 end
@@ -70,20 +70,20 @@ end
 
 ---Lists loaded extension names to the console
 function listExtensions()
-    for _, extension in ipairs(Extension.getExtensions()) do
-    	Debug.console("listExtension", Extension.getExtensionInfo(extension).name);
-    end
+	for _, extension in ipairs(Extension.getExtensions()) do
+		Debug.console("listExtension", Extension.getExtensionInfo(extension).name);
+	end
 end
 
 ---Loops through the extension list checking extension names
 ---@param extensionName string the name of the extension to be checked
 ---@return boolean bool is the extension enabled
 function isExtensionEnabled(extensionName)
-    for _, extension in ipairs(Extension.getExtensions()) do
-    	if Extension.getExtensionInfo(extension).name == extensionName then
+	for _, extension in ipairs(Extension.getExtensions()) do
+		if Extension.getExtensionInfo(extension).name == extensionName then
 			return true;
 		end
-    end
+	end
 	return false;
 end
 
@@ -139,7 +139,9 @@ function processRRConsole(sCommand, sParams)
 	end	
 end
 
-
+---Sends message to set all clients and the host to show popup rolls for saves
+---@param sCommand string not used
+---@param sParams string not used
 function processRRClientSaves(sCommand, sParams)
 	if Session.IsHost then
 		local msgOOB = {};
@@ -149,6 +151,7 @@ function processRRClientSaves(sCommand, sParams)
 	end
 end
 
+---handler for OOB_MSGTYPE_APPLYCLIENTSAVE
 function handleApplyClientSaveRR()
 	ChatManager.SystemMessage("The GM has set your client to show popups for saving throws via Requested Rolls.");
 	OptionsManager.setOption("RR_option_label_pcRolls","on");
@@ -180,13 +183,13 @@ end
 ---comment Checks through all combatants for the number field that the selector button is tied to
 ---@return table selectedCharacters a list of selected characters
 function getSelectedChars()
-    list = {};
-    for _,entry in pairs(CombatManager.getCombatantNodes()) do
-        if DB.getValue(entry,"RRselected")==1 then
-            table.insert(list, entry);
-        end
-    end
-    return list;
+	list = {};
+	for _,entry in pairs(CombatManager.getCombatantNodes()) do
+		if DB.getValue(entry,"RRselected")==1 then
+			table.insert(list, entry);
+		end
+	end
+	return list;
 end
 
 ---Clear selected characters and then select the same targets as the specificied actor

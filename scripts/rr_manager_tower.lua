@@ -1,6 +1,6 @@
 function onInit()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_DICETOWER, handleRRDiceTower);
-    OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_CANCEL, handleRRCancel);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_CANCEL, handleRRCancel);
 end
 
 OOB_MSGTYPE_CANCEL = "RRcancel";
@@ -64,12 +64,12 @@ function handleRRDiceTower(msgOOB)
 	rRoll.sDesc = "[" .. Interface.getString("dicetower_tag") .. "] " .. (rRoll.sDesc or "");
 	--remove the RR parameter so it does not popup again
 	rRoll.RR = nil;
-    if rRoll.aDice[1] and rRoll.aDice[1].result then
+	if rRoll.aDice[1] and rRoll.aDice[1].result then
 		DiceManager.handleManualRoll(rRoll.aDice);
-        ActionsManager.handleResolution(rRoll, rActor, vTargets);
-    else
-        ActionsManager.roll(rActor, vTargets, rRoll);
-    end
+		ActionsManager.handleResolution(rRoll, rActor, vTargets);
+	else
+		ActionsManager.roll(rActor, vTargets, rRoll);
+	end
 end
 
 ---Creates the outgoing roll and sends it to the hsot for execution
@@ -77,19 +77,19 @@ end
 ---@param rSource table the same info to be passed to the manualRolls
 ---@param aTargets table the same info to be passed to the manualRolls
 function sendTower(rRoll, rSource, aTargets)
-    local msgOOB = RRActionManager.OOBifyAction(rRoll, rSource, aTargets, OOB_MSGTYPE_DICETOWER);
+	local msgOOB = RRActionManager.OOBifyAction(rRoll, rSource, aTargets, OOB_MSGTYPE_DICETOWER);
 
-    Comm.deliverOOBMessage(msgOOB, "");
-    if not Session.IsHost then
-        local msg = {font = "chatfont", icon = "dicetower_icon", text = ""};
-        if rSource then
-            msg.sender = ActorManager.getDisplayName(rSource);
-        end
-        if rRoll.sDesc ~= "" then
-            msg.text = rRoll.sDesc .. " ";
-        end
-        msg.text = msg.text .. "[" .. DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod) .. "]";
-        
-        Comm.addChatMessage(msg);
-    end
+	Comm.deliverOOBMessage(msgOOB, "");
+	if not Session.IsHost then
+		local msg = {font = "chatfont", icon = "dicetower_icon", text = ""};
+		if rSource then
+			msg.sender = ActorManager.getDisplayName(rSource);
+		end
+		if rRoll.sDesc ~= "" then
+			msg.text = rRoll.sDesc .. " ";
+		end
+		msg.text = msg.text .. "[" .. DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod) .. "]";
+		
+		Comm.addChatMessage(msg);
+	end
 end

@@ -104,24 +104,23 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 				rRoll.RR = true;
 				rRoll.bPopup = true;
 			else
+				local bShowPopup = false;
 				if Session.IsHost == true then
 					if (RR.isManualSaveRollPcOn() and ActorManager.isPC(rSource)) or (RR.isManualSaveRollNpcOn() and not ActorManager.isPC(rSource)) then
-						if bMultiTarget then
-							ManualRollManager.addRoll(rRoll, rSource, vTargets);
-						else
-							ManualRollManager.addRoll(rRoll, rSource, { vTargets });
-						end
-						return;
+						bShowPopup = true;
 					end
 				else
 					if RR.isManualSaveRollPcOn() then
-						if bMultiTarget then
-							ManualRollManager.addRoll(rRoll, rSource, vTargets);
-						else
-							ManualRollManager.addRoll(rRoll, rSource, { vTargets });
-						end
-						return;
+						bShowPopup = true;
 					end
+				end
+				if bShowPopup == true then
+					if bMultiTarget then
+						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+					else
+						ManualRollManager.addRoll(rRoll, rSource, { vTargets });
+					end
+					return;
 				end
 			end
 		end
@@ -166,10 +165,7 @@ function handleApplyRollRR(msgOOB)
 			return;
 		end
 	end
-	
 	ManualRollManager.addRoll(rRoll, rSource, vTargets);
-
-
 end
 
 ---Takes an action with the three parameters and turns it into an OOB msg
@@ -184,7 +180,6 @@ function OOBifyAction(rRoll, rSource, vTargets, sType)
 	if RR.bDebug then Debug.chat("rSource", rSource); end
 	if RR.bDebug then Debug.chat("vTargets", vTargets); end
 	msgOOB.type = sType;
-
 	msgOOB.rRoll = Utility.encodeJSON(rRoll);
 	if rSource then 
 		--ongoing save effects codes the actor as a string, this is to catch if other people do that as wellfa
@@ -286,7 +281,6 @@ end
 ---@param rSource table	passed through from notifyApplyRoll, determines who the message gets sent to
 ---@param msgOOB string the message from notifyApplyRoll
 function needsBroadcast(rSource, msgOOB)
-	
 	local sOwner = getControllingClient(rSource);
 	if sOwner then
 		Comm.deliverOOBMessage(msgOOB, sOwner);

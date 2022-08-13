@@ -3,17 +3,17 @@
 	<!-- Used on Main page -->
 
 	<!-- Requires parameter target -->
-    <template name="button_select_all" >
+	<template name="button_select_all" >
 		<buttoncontrol>
 			<anchored width="20"/>
 			<icon normal="button_dialog_ok" pressed="button_dialog_ok_down" />
 			<tooltip textres="RR_tooltip_select_all" />
-            <!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
+			<!-- window[self.target[1]] uses the target parameter used during control creation to get the control this is assigned to -->
 			<script>
 				function onButtonPress()
-                    for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.RRselected.setValue(1);
-                    end
+					for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+						vEntry.RRselected.setValue(1);
+					end
 				end
 			</script>
 		</buttoncontrol>
@@ -26,31 +26,31 @@
 			<icon normal="button_ctnextround" pressed="button_ctnextround_down" />
 			<tooltip textres="RR_tooltip_select_random" />
 			<script>
-                function onInit()
-                    math.randomseed( os.time() );
-                end
+				function onInit()
+					math.randomseed( os.time() );
+				end
 				function onButtonPress()
-                    
-                    math.random();
+					
+					math.random();
 
-                    numberOfWindows = window[self.target[1]].getWindowCount(true);
-                    
-                    if numberOfWindows > 1 then 
-                    
-                        randomIndex = math.random(numberOfWindows);
-                        windowList = window[self.target[1]].getWindows(true);
-                        randomEntry = windowList[randomIndex];
+					numberOfWindows = window[self.target[1]].getWindowCount(true);
+					
+					if numberOfWindows > 1 then 
+					
+						randomIndex = math.random(numberOfWindows);
+						windowList = window[self.target[1]].getWindows(true);
+						randomEntry = windowList[randomIndex];
 
-                        for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                        vEntry.RRselected.setValue(0);
-                        end
-                        
-                        randomEntry.RRselected.setValue(1);
-                    else
-                        for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
-                            vEntry.RRselected.setValue(1);
-                        end
-                    end
+						for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+						vEntry.RRselected.setValue(0);
+						end
+						
+						randomEntry.RRselected.setValue(1);
+					else
+						for _,vEntry in pairs(window[self.target[1]].getWindows(true)) do 
+							vEntry.RRselected.setValue(1);
+						end
+					end
 				end
 			</script>
 		</buttoncontrol>
@@ -73,17 +73,17 @@
 	</template>
 
 	<!-- Requires <parameters><pc/></parameters> or <parameters><npc/></parameters>-->
-    <template name="RR_window_selector">
-        <windowlist name="list" >
+	<template name="RR_window_selector">
+		<windowlist name="list" >
 			<datasource>combattracker.list</datasource>
-            <columns width="45" fillwidth="true"/>
-            <frame name="groupbox" offset="13,5,10,5" />
-            <class>rr_entry</class>				
-            <anchored height="50">
-                <top offset="5"/>
-                <left offset="17"/>
-                <right offset="-15"/>
-            </anchored>
+			<columns width="45" fillwidth="true"/>
+			<frame name="groupbox" offset="13,5,10,5" />
+			<class>rr_entry</class>				
+			<anchored height="50">
+				<top offset="5"/>
+				<left offset="17"/>
+				<right offset="-15"/>
+			</anchored>
 			<script>
 				function onFilter( w )
 					local isPC = false;
@@ -100,11 +100,11 @@
 					end
 				end
 			</script>
-        </windowlist>
-    </template>
+		</windowlist>
+	</template>
 
-    <!-- For the expander trays on the main page -->
-    <template name="RR_button_expander_window">
+	<!-- For the expander trays on the main page -->
+	<template name="RR_button_expander_window">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
 			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>

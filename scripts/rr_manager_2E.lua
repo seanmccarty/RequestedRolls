@@ -75,7 +75,7 @@ function getSkillRoll(rActor)
 
 	if not rRoll then
 		ChatManager.Message("This ruleset does not support unlisted rolls", false, rActor);
-		return;
+		return false;
 	end
 
 	return rRoll;

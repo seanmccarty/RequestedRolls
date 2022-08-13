@@ -6,15 +6,15 @@ local vTargets = nil;
 ---It also stores the CTNode in a hidden field and notifies the host that they have a manual roll to make
 ---If manual rolls is off and we are just using this to display requested rolls, hide irrelevant fields
 function setData(rRoll, rSource, aTargets)
-    vRoll = rRoll;
-    vSource = rSource;
-    vTargets = aTargets;
-    if rSource then
-        CTNodeID.setValue(ActorManager.getCTNodeName(rSource));
-        RR.notifyApplyDirty(ActorManager.getCTNodeName(rSource),1);
-    end
+	vRoll = rRoll;
+	vSource = rSource;
+	vTargets = aTargets;
+	if rSource then
+		CTNodeID.setValue(ActorManager.getCTNodeName(rSource));
+		RR.notifyApplyDirty(ActorManager.getCTNodeName(rSource),1);
+	end
 
-    super.setData(rRoll, rSource, aTargets);
+	super.setData(rRoll, rSource, aTargets);
 	if OptionsManager.isOption("MANUALROLL", "off") and OptionsManager.isOption("RR_option_label_alwaysShowManualDice", "off") then
 		hideDiceList();
 	end
@@ -38,36 +38,36 @@ end
 ---It also indexes through all open rolls to check if it is the last one for the given CT node.
 ---If there is only 1, node with the same CTNodeID, it is referring to the one about to close. 
 function onClose()
-    if vSource then
-        local isClean = 0;
-        local currChar = CTNodeID.getValue();
-        for key, value in pairs(windowlist.getWindows()) do
-            if value.CTNodeID.getValue() == currChar then
-                isClean = isClean+1;
-            end
-        end
-        if isClean == 1 then
-            RR.notifyApplyDirty(ActorManager.getCTNodeName(vSource),0);
-        end
-    end
-    if windowlist.getWindowCount()==1 then
-        windowlist.window.close();
-    end
-    super.onClose();
+	if vSource then
+		local isClean = 0;
+		local currChar = CTNodeID.getValue();
+		for key, value in pairs(windowlist.getWindows()) do
+			if value.CTNodeID.getValue() == currChar then
+				isClean = isClean+1;
+			end
+		end
+		if isClean == 1 then
+			RR.notifyApplyDirty(ActorManager.getCTNodeName(vSource),0);
+		end
+	end
+	if windowlist.getWindowCount()==1 then
+		windowlist.window.close();
+	end
+	super.onClose();
 end
 
 ---Override processCancel to send a message that the roll was cancelled.
 ---The message is only triggered if running on a client and the GM has turned the notifications on.
 function processCancel()
-    if (not Session.IsHost) and OptionsManager.isOption("RR_option_label_broadcastCancellation", "on") then 
-        RRTowerManager.notifyApplyCancel(vRoll, vSource);
-    end
+	if (not Session.IsHost) and OptionsManager.isOption("RR_option_label_broadcastCancellation", "on") then 
+		RRTowerManager.notifyApplyCancel(vRoll, vSource);
+	end
 	close();
 end
 
 ---Override function if roll is for tower, otherwise it passes it through
 function processRoll()
-    if RR.bDebug then Debug.chat("vRoll",vRoll); end
+	if RR.bDebug then Debug.chat("vRoll",vRoll); end
 
 	applyClientModifiers();
 	if Interface.getRuleset()=="5E" then
@@ -100,67 +100,67 @@ function processRoll()
 		end
 	end
 
-    if vRoll.bTower == true then
-        RRTowerManager.sendTower(vRoll, vSource, vTargets);
-        close();
-    else
-        super.processRoll();
-    end
+	if vRoll.bTower == true then
+		RRTowerManager.sendTower(vRoll, vSource, vTargets);
+		close();
+	else
+		super.processRoll();
+	end
 end
 
 ---The tower roll function for this is basically a copy of the super.processOK but the final call is to sendTower
 ---instead of handleResolution
 function processOK()
-    applyClientModifiers();
+	applyClientModifiers();
 
-    if vRoll.bTower == true then
-        for _,w in ipairs(list.getWindows()) do
-            local nSort = w.sort.getValue();
-            local nValue = w.value.getValue();
-            
-            if vRoll.aDice[nSort] then
-                if type(vRoll.aDice[nSort]) ~= "table" then
-                    local rDieTable = {};
-                    rDieTable.type = vRoll.aDice[nSort];
-                    vRoll.aDice[nSort] = rDieTable;
-                end
-                if vRoll.aDice[nSort].type:sub(1,1) == "-" then
-                    vRoll.aDice[nSort].result = -nValue;
-                else
-                    vRoll.aDice[nSort].result = nValue;
-                end
-                vRoll.aDice[nSort].value = vRoll.aDice[nSort].result;
-            end
-        end
-        
-        if not Session.IsHost then
-            if vRoll.sDesc ~= "" then
-                vRoll.sDesc = vRoll.sDesc .. " ";
-            end
-            vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("message_manualroll") .. "]";
-        end
-        
-        RRTowerManager.sendTower(vRoll, vSource, vTargets);
-        close();
-    else
-	    super.processOK();
-    end
+	if vRoll.bTower == true then
+		for _,w in ipairs(list.getWindows()) do
+			local nSort = w.sort.getValue();
+			local nValue = w.value.getValue();
+			
+			if vRoll.aDice[nSort] then
+				if type(vRoll.aDice[nSort]) ~= "table" then
+					local rDieTable = {};
+					rDieTable.type = vRoll.aDice[nSort];
+					vRoll.aDice[nSort] = rDieTable;
+				end
+				if vRoll.aDice[nSort].type:sub(1,1) == "-" then
+					vRoll.aDice[nSort].result = -nValue;
+				else
+					vRoll.aDice[nSort].result = nValue;
+				end
+				vRoll.aDice[nSort].value = vRoll.aDice[nSort].result;
+			end
+		end
+		
+		if not Session.IsHost then
+			if vRoll.sDesc ~= "" then
+				vRoll.sDesc = vRoll.sDesc .. " ";
+			end
+			vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("message_manualroll") .. "]";
+		end
+		
+		RRTowerManager.sendTower(vRoll, vSource, vTargets);
+		close();
+	else
+		super.processOK();
+	end
 end
 
 ---Uses the stack as done in ActionsManager.
 ---Then calls the presets if this is 5E
 function applyClientModifiers()
-    local bDescNotEmpty = (vRoll.sDesc ~= "");
-    local sStackDesc, nStackMod = ModifierStack.getStack(bDescNotEmpty);
-    
-    if sStackDesc ~= "" then
-        if bDescNotEmpty then
-            vRoll.sDesc = vRoll.sDesc .. " [" .. sStackDesc .. "]";
-        else
-            vRoll.sDesc = sStackDesc;
-        end
-    end
-    vRoll.nMod = vRoll.nMod + nStackMod;
+	local bDescNotEmpty = (vRoll.sDesc ~= "");
+	local sStackDesc, nStackMod = ModifierStack.getStack(bDescNotEmpty);
+	
+	if sStackDesc ~= "" then
+		if bDescNotEmpty then
+			vRoll.sDesc = vRoll.sDesc .. " [" .. sStackDesc .. "]";
+		else
+			vRoll.sDesc = sStackDesc;
+		end
+	end
+	vRoll.nMod = vRoll.nMod + nStackMod;
 
-    if Interface.getRuleset()=="5E" then ActionsManager2.encodeDesktopMods(vRoll); end
+	if Interface.getRuleset()=="5E" then ActionsManager2.encodeDesktopMods(vRoll); end
 end
