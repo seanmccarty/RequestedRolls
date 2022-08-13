@@ -32,6 +32,10 @@
 			"RRTowerManager",
 			"ModifierStack",
 			"DataCommon"
-		]
+		],
+		"Lua.workspace.ignoreDir": [
+			".vscode",
+		],
+		"Lua.diagnostics.ignoredFiles": "Disable"
 	}
 }

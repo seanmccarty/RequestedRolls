@@ -16,10 +16,6 @@ end
 
 ---Loads the options onto the settings page. Also, adds the shortcut item to the bar if enabled.
 function registerOptions()
-	-- This option is not currently used
-	--OptionsManager.registerOption2("RR_option_label_showDC", false, "RR_option_header", "RR_option_label_showDC", "option_entry_cycler", 
-	--		{ labels = "option_val_off", values = "off", baselabel = "option_val_on", baseval = "on", default = "on" });
-			
 	OptionsManager.registerOption2("RR_option_label_pcRolls", true, "option_header_client", "RR_option_label_pcRolls", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
 
@@ -229,17 +225,14 @@ function targetSkillProficency()
 			end
 		else
 			for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
-				if Interface.getRuleset()=="5E" then 
-					if DB.getValue(nodeSkill, "name", "") == sSkill then
-						if DB.getValue(nodeSkill, "prof", 0) > 0 then
-							DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
-						end
-					end
-				else
-					if DB.getValue(nodeSkill, "label", "") == sSkill then
-						if DB.getValue(nodeSkill, "prof", 0) > 0 then
-							DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
-						end
+				local sNodeName =  "label";
+				--5E has a different node name
+				if Interface.getRuleset()=="5E" then
+					sNodeName = "name";
+				end
+				if DB.getValue(nodeSkill, sNodeName, "") == sSkill then
+					if DB.getValue(nodeSkill, "prof", 0) > 0 then
+						DB.setValue(ActorManager.getCTNodeName(rActor) .. ".RRselected", "number", 1);
 					end
 				end
 			end
