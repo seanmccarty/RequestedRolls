@@ -47,7 +47,7 @@ function onButtonPress(rollType,nodeCT)
 		
 	ModifierStack.lock();
 	for _,rActor in pairs(aParty) do
-		local rRoll;
+		local rRoll = {};
 		if rollType == "init" then
 			rRoll = getInitRoll(rActor);
 		elseif rollType == "dice" then
@@ -118,7 +118,7 @@ end
 
 function getCheckRoll(rActor)
 	local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
-	local rRoll;
+	local rRoll = {};
 	if Interface.getRuleset()=="5E" then
 		rRoll = ActionCheck.getRoll(rActor, sCheck);
 	else
@@ -150,7 +150,7 @@ end
 function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local rRoll = {};
-	
+
 	if Interface.getRuleset()=="5E" then
 		rRoll = E5skill(rActor, sSkill);
 	else
