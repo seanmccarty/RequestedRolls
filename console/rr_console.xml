@@ -609,13 +609,8 @@
 			end
 			function onDrop(x, y, draginfo)
 				local nodeCT = getDatabaseNode();
-				if draginfo.getType() == "RR" then
-					local sType = draginfo.getDescription();
-					RRRollManager.onButtonPress(sType,nodeCT);
-				else
-					local sCTNode = nodeCT.getPath();
-					return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
-				end
+				local sCTNode = nodeCT.getPath();
+				return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
 			end
 		</script>
 		<sheetdata> 
