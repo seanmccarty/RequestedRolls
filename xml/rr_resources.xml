@@ -9,7 +9,7 @@
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 	<script name="RRTowerManager" file="scripts/rr_manager_tower.lua"/>
 	<script name="RRRollManager" file="scripts/rr_manager_roll.lua"/>
-	<script name="RRCombatDropManager" file="scripts/rr_manager_combat_drop.lua"/>
+	<script name="RRDropManager" file="scripts/rr_manager_drop.lua"/>
 	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
 	<script name="RRManager2E" file="scripts/rr_manager_2E.lua"/>
 

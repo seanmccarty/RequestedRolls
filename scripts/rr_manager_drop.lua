@@ -1,5 +1,5 @@
 function onInit()
-	CombatDropManager.setDragTypeDropCallback("RR", RRCombatDropManager.onRRDragTypeDrop);
+	CombatDropManager.setDragTypeDropCallback("RR", RRDropManager.onRRDragTypeDrop);
 end
 
 ---This allows RR roll triggers to be dragged onto the actual combat tracker as valid drag and drops
