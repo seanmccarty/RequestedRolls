@@ -56,7 +56,7 @@ end
 
 ---2E has the skills for NPCs defined the same way as PCs unlike 5E or the other rulesets. The target DC is pulled the same way as the charsheet.
 ---@param rActor table the actor to roll
----@return table|nil rRoll the roll to be done
+---@return table rRoll the roll to be done
 function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local rRoll = nil;
@@ -71,11 +71,6 @@ function getSkillRoll(rActor)
 
 	if not rRoll then
 		rRoll = ActionSkill.getUnlistedRoll(rActor, sSkill);
-	end
-
-	if not rRoll then
-		ChatManager.Message("This ruleset does not support unlisted rolls", false, rActor);
-		return nil;
 	end
 
 	return rRoll;

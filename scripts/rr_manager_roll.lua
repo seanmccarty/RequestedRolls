@@ -149,17 +149,12 @@ end
 
 function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
-	local rRoll = nil;
-    
+	local rRoll = {};
+	
 	if Interface.getRuleset()=="5E" then
 		rRoll = E5skill(rActor, sSkill);
 	else
 		rRoll = E35skill(rActor, sSkill);
-	end
-
-	if not rRoll then
-		ChatManager.Message("This ruleset does not support unlisted rolls", false, rActor);
-		return;
 	end
 
 	local nTargetDC = DB.getValue("requestsheet.skill.dc", 0);
