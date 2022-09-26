@@ -93,6 +93,11 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 		end
 	end
 
+	--if if it starts with the dicetower_tag then it is a roll that was dropped on the tower and should be bypassed
+	if rRoll.sDesc and starts(rRoll.sDesc,"[" .. Interface.getString("dicetower_tag") .. "]") then
+		bBypass = true;
+	end
+
 	if ActionsManager.doesRollHaveDice(rRoll) and not bBypass then
 		DiceManager.onPreEncodeRoll(rRoll);
 		--start where the new code is inserted

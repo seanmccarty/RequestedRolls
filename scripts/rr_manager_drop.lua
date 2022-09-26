@@ -1,8 +1,12 @@
 RRPROCESSROLL = "RRProcessRoll";
+RRTOWERDROP = "RRTowerDrop";
+local fDiceTowerOnDrop;
 
 function onInit()
 	CombatDropManager.setDragTypeDropCallback("RR", RRDropManager.onRRDragTypeDrop);
 	ChatManager.registerDropCallback(RRPROCESSROLL,onChatDrop);
+	fDiceTowerOnDrop = DiceTowerManager.onDrop;
+	DiceTowerManager.onDrop = onDiceTowerDrop;
 end
 
 ---This allows RR roll triggers to be dragged onto the actual combat tracker as valid drag and drops
@@ -24,4 +28,11 @@ end
 function onChatDrop(draginfo)
 	draginfo.window.processRoll();
 	return true;
+end
+
+function onDiceTowerDrop(draginfo)
+	if draginfo.getType() == RRDropManager.RRPROCESSROLL then
+		draginfo.setDescription(RRTOWERDROP);
+	end
+	return fDiceTowerOnDrop(draginfo);
 end

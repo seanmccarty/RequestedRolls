@@ -16,6 +16,12 @@
 						draginfo.window = window;
 						return true;
 					end
+
+					function onDragEnd(draginfo)
+						if draginfo.getDescription() == RRDropManager.RRTOWERDROP then
+							window.processRoll(true);
+						end
+					end
 				</script>
 			</button_dialog_roll>
         </sheetdata>

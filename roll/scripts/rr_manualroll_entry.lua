@@ -66,8 +66,13 @@ function processCancel()
 end
 
 ---Override function if roll is for tower, otherwise it passes it through
-function processRoll()
+---@param forceTower boolean true forces the roll to processed through the tower. Used after button is dropped on dice tower
+function processRoll(forceTower)
 	if RR.bDebug then Debug.chat("vRoll",vRoll); end
+	if forceTower then
+		vRoll.bSecret = true;
+		vRoll.bTower = true;
+	end
 
 	applyClientModifiers();
 	if Interface.getRuleset()=="5E" then
