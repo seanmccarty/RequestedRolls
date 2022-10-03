@@ -28,6 +28,14 @@
 				<font>sheetlabel</font>
 				<static />
 			</stringcontrol>
+			<button_roll name="initroll">
+				<anchored to="value" position="below" offset="0,2" />
+				<script>
+					function onButtonPress()
+						RRManagerStaged.reRoll(window.label.getValue(), window.value.getValue());
+					end
+				</script>
+			</button_roll>
 		</sheetdata>
 	</windowclass>
 	
@@ -86,13 +94,6 @@
 			<button_dialog_ok name="button_ok">
 				<anchored to="list" position="rightlow" offset="35,-5" />
 			</button_dialog_ok>
-			<button_dialog_roll name="button_roll">
-				<anchored to="button_ok" position="aboveleft" offset="0,-5" />
-			</button_dialog_roll>
-			<button_dialog_fauxroll name="button_fauxroll">
-				<anchored to="button_roll" position="lefthigh" offset="-5,0" />
-				<gmvisibleonly />
-			</button_dialog_fauxroll>
 			<button_dialog_cancel name="button_cancel">
 				<anchored position="insidetopright" offset="5,4" />
 			</button_dialog_cancel>

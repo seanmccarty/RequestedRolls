@@ -108,37 +108,7 @@ function isLastDie(nSort)
 	return false;
 end
 
-function processRoll()
-	local rThrow = ActionsManager.buildThrow(vSource, vTargets, vRoll, true);
-	Comm.throwDice(rThrow);
-	close();
-end
 
-function processFauxRoll()
-	if not Session.IsHost then return; end
-	
-	local aReplaceDieResult = {};
-	for _,w in ipairs(list.getWindows()) do
-		local nSort = w.sort.getValue();
-		local nValue = w.value.getValue();
-		
-		if vRoll.aDice[nSort] then
-			local sType;
-			if type(vRoll.aDice[nSort]) == "table" then
-				sType = vRoll.aDice[nSort].type;
-			else
-				sType = vRoll.aDice[nSort];
-			end
-			if sType:sub(1,1) == "-" then nValue = -nValue; end
-			aReplaceDieResult[nSort] = nValue;
-		end
-	end
-	vRoll.sReplaceDieResult = table.concat(aReplaceDieResult, "|");
-	
-	local rThrow = ActionsManager.buildThrow(vSource, vTargets, vRoll, true);
-	Comm.throwDice(rThrow);
-	close();
-end
 
 function processOK()
 	for _,w in ipairs(list.getWindows()) do
@@ -168,7 +138,8 @@ function processOK()
 	end
 	
 	DiceManager.handleManualRoll(vRoll.aDice);
-	ActionsManager.handleResolution(vRoll, vSource, vTargets);
+	--ActionsManager.handleResolution(vRoll, vSource, vTargets);
+	RRManagerStaged.fORA(vSource, vTargets, vRoll);
 	close();
 end
 

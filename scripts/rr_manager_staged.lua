@@ -1,4 +1,4 @@
-local fORA;
+fORA = nil;
 
 local stageArray = {
 	check = {{category="feat", name="lucky"},{category="feature",name="portent"}, {category="trait",name="elven accuracy"},{category="effect",name="Bardic Inspiration"}},
@@ -73,10 +73,38 @@ end
 function addStagedRoll(rSource, rTarget, rRoll)
 	addRoll(rRoll, rSource, rTarget);
 	Debug.chat("staged",rRoll);
+
+	local rRollTemp = rRoll;
+	rRollTemp.sDesc = "[STAGING]\n" .. rRollTemp.sDesc
+	if Interface.getRuleset()=="5E" then
+		ActionsManager2.decodeAdvantage(rRollTemp);
+	end
+	local rMessage = ActionsManager.createActionMessage(rSource, rRollTemp);
+	Comm.deliverChatMessage(rMessage);
+
+
 end
 
 function addRoll(rRoll, rSource, vTargets)
 	local wMain = Interface.openWindow("stagedrolls", "");
 	local wRoll = wMain.list.createWindow();
 	wRoll.setData(rRoll, rSource, vTargets);
+end
+
+function reRoll(sDie, oldValue)
+	local rRoll = {};
+	if DiceManager.isDiceString(sDie) then
+		rRoll.sType = "dice"
+		local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
+		rRoll.aDice = aDice;
+		rRoll.nMod = nMod;
+	else
+		rRoll.sType = "sDice";
+		rRoll.aDice = {};
+		rRoll.aDice.expr = sDie;
+		rRoll.nMod = 0;
+
+	end
+	rRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
+	ActionsManager.performAction(nil, nil, rRoll);
 end
