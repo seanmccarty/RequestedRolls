@@ -10,8 +10,12 @@
 	<script name="RRTowerManager" file="scripts/rr_manager_tower.lua"/>
 	<script name="RRRollManager" file="scripts/rr_manager_roll.lua"/>
 	<script name="RRDropManager" file="scripts/rr_manager_drop.lua"/>
+
+	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
+
 	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
 	<script name="RRManager2E" file="scripts/rr_manager_2E.lua"/>
+
 
 	<includefile source="console/rr_console.xml"/>
 	<includefile source="console/rr_console_buttons.xml"/>
