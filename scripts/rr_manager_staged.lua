@@ -14,7 +14,9 @@ end
 function resolveAction(rSource, rTarget, rRoll)
 	Debug.chat("resolve",rSource, rTarget, rRoll);
 
-	if not shouldStage(rSource, rTarget, rRoll) then
+	if shouldStage(rSource, rTarget, rRoll) then
+		addStagedRoll(rSource, rTarget, rRoll);
+	else
 		fORA(rSource, rTarget, rRoll);
 	end
 	--fORA(rSource, rTarget, rRoll);
@@ -66,4 +68,15 @@ function shouldStage(rSource, rTarget, rRoll)
 		end
 	end
 	return false;
+end
+
+function addStagedRoll(rSource, rTarget, rRoll)
+	addRoll(rRoll, rSource, rTarget);
+	Debug.chat("staged",rRoll);
+end
+
+function addRoll(rRoll, rSource, vTargets)
+	local wMain = Interface.openWindow("stagedrolls", "");
+	local wRoll = wMain.list.createWindow();
+	wRoll.setData(rRoll, rSource, vTargets);
 end

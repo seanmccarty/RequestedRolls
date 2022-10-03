@@ -23,4 +23,6 @@
 	<includefile source="console/rr_console_options.xml"/>
 	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
+
+	<includefile source="stage/rr_stagedrolls.xml"/>
 </root>
