@@ -91,7 +91,7 @@ function addRoll(rRoll, rSource, vTargets)
 	wRoll.setData(rRoll, rSource, vTargets);
 end
 
-function reRoll(sDie, oldValue)
+function reRoll(sDie, oldValue, fauxRollValue)
 	local rRoll = {};
 	if DiceManager.isDiceString(sDie) then
 		rRoll.sType = "dice"
@@ -105,6 +105,10 @@ function reRoll(sDie, oldValue)
 		rRoll.nMod = 0;
 
 	end
+	if fauxRollValue then
+		rRoll.sReplaceDieResult = tostring(fauxRollValue);
+	end
+	
 	if oldValue == 0 then
 		rRoll.sDesc = "[DICE] Rolling an additional die";
 	else

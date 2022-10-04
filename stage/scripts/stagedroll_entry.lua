@@ -155,13 +155,19 @@ function onDrop(x, y, draginfo)
 			local w = list.createWindow();
 			local count = list.getWindowCount();
 			w.sort.setValue(count);
+			local result = 0;
 			if type(vDie) == "table" then
 				w.label.setValue(vDie.type);
+				local nDieType = string.match(vDie.type, "%d+")
+				result = math.random(nDieType);
 				table.insert(vRoll.aDice,{value=0,type=vDie.type,result=0});
 			else
 				w.label.setValue(vDie);
 			end
-			RRManagerStaged.reRoll(w.label.getValue(), w.value.getValue());
+
+
+			RRManagerStaged.reRoll(w.label.getValue(), w.value.getValue(), result);
+			w.value.setValue(result);
 			local sDice = DiceManager.convertDiceToString(vRoll.aDice, vRoll.nMod);
 			vRoll.aDice.expr = sDice;
 		end
