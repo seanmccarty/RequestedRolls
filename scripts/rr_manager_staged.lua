@@ -105,6 +105,11 @@ function reRoll(sDie, oldValue)
 		rRoll.nMod = 0;
 
 	end
-	rRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
+	if oldValue == 0 then
+		rRoll.sDesc = "[DICE] Rolling an additional die";
+	else
+		rRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
+	end
+	
 	ActionsManager.performAction(nil, nil, rRoll);
 end

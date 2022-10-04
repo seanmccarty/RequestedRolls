@@ -147,3 +147,24 @@ function processCancel()
 	close();
 end
 
+function onDrop(x, y, draginfo)
+	local sDragType = draginfo.getType();
+
+	if sDragType == "dice" then
+		for _, vDie in ipairs(draginfo.getDiceData()) do
+			local w = list.createWindow();
+			local count = list.getWindowCount();
+			w.sort.setValue(count);
+			if type(vDie) == "table" then
+				w.label.setValue(vDie.type);
+				table.insert(vRoll.aDice,{value=0,type=vDie.type,result=0});
+			else
+				w.label.setValue(vDie);
+			end
+			RRManagerStaged.reRoll(w.label.getValue(), w.value.getValue());
+			local sDice = DiceManager.convertDiceToString(vRoll.aDice, vRoll.nMod);
+			vRoll.aDice.expr = sDice;
+		end
+		return true;
+	end
+end
