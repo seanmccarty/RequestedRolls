@@ -91,29 +91,3 @@ function addRoll(rRoll, rSource, vTargets)
 	wRoll.setData(rRoll, rSource, vTargets);
 end
 
-function reRoll(sDie, oldValue, fauxRollValue)
-	local rRoll = {};
-	if DiceManager.isDiceString(sDie) then
-		rRoll.sType = "dice"
-		local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
-		rRoll.aDice = aDice;
-		rRoll.nMod = nMod;
-	else
-		rRoll.sType = "sDice";
-		rRoll.aDice = {};
-		rRoll.aDice.expr = sDie;
-		rRoll.nMod = 0;
-
-	end
-	if fauxRollValue then
-		rRoll.sReplaceDieResult = tostring(fauxRollValue);
-	end
-	
-	if oldValue == 0 then
-		rRoll.sDesc = "[DICE] Rolling an additional die";
-	else
-		rRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
-	end
-	
-	ActionsManager.performAction(nil, nil, rRoll);
-end

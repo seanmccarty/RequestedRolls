@@ -166,11 +166,47 @@ function onDrop(x, y, draginfo)
 			end
 
 
-			RRManagerStaged.reRoll(w.label.getValue(), w.value.getValue(), result);
+			reRoll(w.label.getValue(), w.value.getValue(), result);
+
 			w.value.setValue(result);
 			local sDice = DiceManager.convertDiceToString(vRoll.aDice, vRoll.nMod);
 			vRoll.aDice.expr = sDice;
 		end
 		return true;
 	end
+end
+
+function reRoll(sDie, oldValue, fauxRollValue)
+	local rReRoll = {};
+	if DiceManager.isDiceString(sDie) then
+		rReRoll.sType = "dice"
+		local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
+		rReRoll.aDice = aDice;
+		rReRoll.nMod = nMod;
+	else
+		rReRoll.sType = "sDice";
+		rReRoll.aDice = {};
+		rReRoll.aDice.expr = sDie;
+		rReRoll.nMod = 0;
+
+	end
+	
+	if fauxRollValue and fauxRollValue > 0 then
+		rReRoll.sReplaceDieResult = tostring(fauxRollValue);
+	end
+
+	if vRoll.bSecret then
+		rReRoll.bSecret = vRoll.bSecret;
+	end 
+	
+	if vRoll.bTower then
+		rReRoll.bTower = vRoll.bTower;
+	end
+	if oldValue == 0 then
+		rReRoll.sDesc = "[DICE] Rolling an additional die";
+	else
+		rReRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
+	end
+	
+	ActionsManager.performAction(nil, nil, rReRoll);
 end
