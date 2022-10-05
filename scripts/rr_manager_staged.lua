@@ -74,7 +74,7 @@ function addStagedRoll(rSource, rTarget, rRoll)
 	addRoll(rRoll, rSource, rTarget);
 	Debug.chat("staged",rRoll);
 
-	local rRollTemp = rRoll;
+	local rRollTemp = UtilityManager.copyDeep(rRoll);
 	rRollTemp.sDesc = "[STAGING]\n" .. rRollTemp.sDesc
 	if Interface.getRuleset()=="5E" then
 		ActionsManager2.decodeAdvantage(rRollTemp);
