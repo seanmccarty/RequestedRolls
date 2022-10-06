@@ -6,6 +6,7 @@
 local vRoll = nil;
 local vSource = nil;
 local vTargets = nil;
+local originalTotal=0;
 
 function onClose()
 	if vTargets then
@@ -43,6 +44,10 @@ function onCTEntryDeleted(nodeEntry)
 end
 
 function setData(rRoll, rSource, aTargets)
+	if rRoll.aDice and rRoll.aDice.total then
+		originalTotal = rRoll.aDice.total;
+	end
+
 	rolltype.setValue(StringManager.capitalize(rRoll.sType));
 	
 	local sDice = DiceManager.convertDiceToString(rRoll.aDice, rRoll.nMod);
@@ -130,16 +135,25 @@ function processOK()
 		end
 	end
 	
-	if not Session.IsHost then
+	local newSum=0;
+	for index, die in ipairs(vRoll.aDice) do
+		if die.result then
+			newSum = newSum + die.result;
+		end
+	end
+	if originalTotal ~= newSum then
 		if vRoll.sDesc ~= "" then
 			vRoll.sDesc = vRoll.sDesc .. " ";
 		end
-		vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("message_manualroll") .. "]";
+		vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("RR_msg_rollModified") .. " " .. originalTotal .. "]";
 	end
 	
+
+
 	DiceManager.handleManualRoll(vRoll.aDice);
 	--ActionsManager.handleResolution(vRoll, vSource, vTargets);
 	RRManagerStaged.fORA(vSource, vTargets, vRoll);
+	Debug.chat(vRoll);
 	close();
 end
 
@@ -169,7 +183,8 @@ function onDrop(x, y, draginfo)
 			reRoll(w.label.getValue(), w.value.getValue(), result);
 
 			w.value.setValue(result);
-			local sDice = DiceManager.convertDiceToString(vRoll.aDice, vRoll.nMod);
+			--vRoll.aDice.expr should only include the dice, not the plus or minus becuase those get handled in action message
+			local sDice = DiceManager.convertDiceToString(vRoll.aDice, 0);
 			vRoll.aDice.expr = sDice;
 		end
 		return true;

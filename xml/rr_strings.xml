@@ -85,4 +85,5 @@
 
 	<!-- STAGED ROLLS -->
 	<string name="RR_window_title_staged">Staged Rolls</string>
+	<string name="RR_msg_rollModified">Original Roll Was a</string>
 </root>
