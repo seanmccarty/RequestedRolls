@@ -24,7 +24,7 @@ function buildArray()
 			end
 		end
 	end
-	Debug.chat(stageArray);
+	if RR.bDebug then Debug.chat("stageArray",stageArray); end
 end
 
 function onInit()
