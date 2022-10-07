@@ -3,21 +3,6 @@
 	<windowclass name="rr_staged">
 		<!-- <script file="console/scripts/rr_console.lua"/> -->
 		<sheetdata>
-			<button_iedit name="staged_iedit">
-				<anchored position="insidebottomright" offset="10,10" />
-				<tooltip textres="char_skills_tooltip_edit" />
-				<script>
-					function onValueChanged()
-						local bEditMode = (getValue() == 1);
-						
-						--window.contents.subwindow.checks.update();
-						--window.contents.subwindow.saves.update();
-						--window.contents.subwindow.skills.update();
-						--window.contents.subwindow.dice.update();
-					end
-				</script>
-			</button_iedit>
-
 			<subwindow name="contents">
 				<anchored>
 					<top offset="0" />
@@ -47,20 +32,31 @@
 					<right offset="-15" />
 				</anchored>
 			</genericcontrol>
+			<header_column name="header_damage">
+				<static textres="weapon_header_damage" />
+				<center />
+			</header_column>
+			<button_iedit name="list_iedit">
+				<anchored to="" position="insidetopright" offset="-5,0" />
+				<target>list</target>
+			</button_iedit>
+			<button_iadd name="list_iadd">
+				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
+				<target>list</target>
+			</button_iadd>
 
-			<windowlist name="list" >
+			<list_editor name="list" >
 				<datasource>.staged</datasource>
 				<columns fillwidth="true"/>
 				<frame name="groupbox" offset="13,5,10,5" />
 				<class>rr_staged_entry</class>
-				<allowcreate/>
 				<anchored>
-					<top offset="5"/>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5"/>
 					<left offset="17"/>
 					<right offset="-15"/>
 					<bottom offset="-5"/>
 				</anchored>
-			</windowlist>
+			</list_editor>
 		</sheetdata>
 	</windowclass>
 
@@ -80,6 +76,8 @@
 			function onClose()
 				DB.removeHandler(DB.getPath(currentNode, "rollTypes"),"onChildUpdate",rebuildSummary);
 			end
+
+
 
 			function rebuildSummary()
 				local sSummaryString = "";
@@ -130,6 +128,12 @@
 				<anchored to="type" position="righthigh" offset="10,0" width="200" height="20" />
 				<readonly/>
 			</stringcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
 
 			<!-- <windowlist name="rollTypeList" >
 				<datasource>.rollTypes</datasource>
@@ -240,15 +244,14 @@
 			<list_editor name="list">
 				<datasource>.rollTypes</datasource>
 				<class>rr_staged_entry_editor_rollType</class>
+				
 				<script>
 					function addEntry(bFocus)
 						local n = getWindowCount();
 
 						local w = createWindow();
 						if w then
-							if n == 0 then
-								w.selected.setValue(1);
-							end
+							w.selected.setValue(1);
 						
 							if bFocus then
 								w.type.setFocus();
