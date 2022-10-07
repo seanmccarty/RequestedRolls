@@ -21,6 +21,7 @@
 	<includefile source="console/rr_console_buttons.xml"/>
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
+	<includefile source="console/rr_console_staged.xml"/>
 	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
 

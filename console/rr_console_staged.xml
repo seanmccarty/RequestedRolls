@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="rr_staged">
+		<!-- <script file="console/scripts/rr_console.lua"/> -->
+		<sheetdata>
+			<button_iedit name="staged_iedit">
+				<anchored position="insidebottomright" offset="10,10" />
+				<tooltip textres="char_skills_tooltip_edit" />
+				<script>
+					function onValueChanged()
+						local bEditMode = (getValue() == 1);
+						
+						--window.contents.subwindow.checks.update();
+						--window.contents.subwindow.saves.update();
+						--window.contents.subwindow.skills.update();
+						--window.contents.subwindow.dice.update();
+					end
+				</script>
+			</button_iedit>
+
+			<subwindow name="contents">
+				<anchored>
+					<top offset="0" />
+					<bottom offset="-35" />
+					<left offset="0" />
+					<right offset="-15" />
+				</anchored>
+				<class>rr_staged_contents</class>
+				<activate />
+				<fastinit />
+			</subwindow>
+			<scrollbar>
+				<anchored to="contents" offset="-5,-10"/>
+				<target>contents</target>
+			</scrollbar>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_staged_contents">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
+					<right offset="-15" />
+				</anchored>
+			</genericcontrol>
+
+			<windowlist name="list" >
+				<datasource>.staged</datasource>
+				<columns fillwidth="true"/>
+				<frame name="groupbox" offset="13,5,10,5" />
+				<class>rr_staged_entry</class>
+				<allowcreate/>
+				<anchored>
+					<top offset="5"/>
+					<left offset="17"/>
+					<right offset="-15"/>
+					<bottom offset="-5"/>
+				</anchored>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_staged_entry">
+		<margins control="0,0,0,2" />
+		<frame name="groupbox" offset="13,5,10,5" />
+		<script>
+			local currentNode ;
+			local w;
+			function onInit()
+				currentNode = getDatabaseNode();
+				w = self;
+				rebuildSummary();
+				DB.addHandler(DB.getPath(currentNode, "rollTypes"),"onChildUpdate",rebuildSummary);
+			end
+
+			function onClose()
+				DB.removeHandler(DB.getPath(currentNode, "rollTypes"),"onChildUpdate",rebuildSummary);
+			end
+
+			function rebuildSummary()
+				local sSummaryString = "";
+				local nodes = DB.getChildren(currentNode,"rollTypes");
+				for index, node in pairs(nodes) do
+					if DB.getValue(node, "selected",0) == 1 then
+						sSummaryString = sSummaryString .. DB.getValue(node, "type", "error") .. ";";
+					end
+				end
+				if sSummaryString == "" then
+					sSummaryString = "(none selected)";
+				end
+				w.rolls.setValue(sSummaryString);
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<anchored height="40"/>
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
+					<right offset="-15" />
+				</anchored>
+			</genericcontrol>
+
+			<stringfield name="name">
+				<anchored width="100" height="40">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<readonly/>
+			</stringfield>
+			<button_details name="details">
+				<anchored to="name" position="right" offset="10,1" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("rr_staged_entry_editor", window.getDatabaseNode());
+					end
+				</script>
+			</button_details>
+			<stringfield name="type">
+				<anchored to="details" position="right" offset="10,0" width="60" height="20" />
+				<readonly/>
+			</stringfield>
+			<stringcontrol name="rolls">
+				<anchored to="type" position="right" offset="10,0" width="200" height="20" />
+				<readonly/>
+			</stringcontrol>
+
+			<!-- <windowlist name="rollTypeList" >
+				<datasource>.rollTypes</datasource>
+				<columns width="20" fillwidth="true"/>
+				<allowcreate/>
+				<class>rr_staged_rollType_entry</class>				
+				<anchored to="type" position="righthigh" offset="10,0" width="300" height="20" />
+			</windowlist> -->
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_staged_entry_editor">
+		<frame>charsheethelper</frame>
+		<placement>
+			<size width="380" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="380" height="350" />
+			<dynamic />
+		</sizelimits>
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>weapon_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+			
+			<genericcontrol name="contentframe">
+				<anchored to="contentanchor">
+					<top anchor="bottom" offset="0" />
+					<left />
+					<right />
+					<bottom parent="" offset="-30" />
+				</anchored>
+			</genericcontrol>
+
+			<subwindow_record name="main">
+				<class>rr_staged_entry_editor_main</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_charsheethelper />
+			<close_charsheethelper />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_staged_entry_editor_main">
+		<script>
+			function onDrop(x, y, draginfo)
+				local sDragType = draginfo.getType();
+				
+				if sDragType == "dice" then
+					local w = list.addEntry(true);
+					for _, vDie in ipairs(draginfo.getDiceData()) do
+						w.dice.addDie(vDie.type);
+					end
+					return true;
+				elseif sDragType == "number" then
+					local w = list.addEntry(true);
+					w.bonus.setValue(draginfo.getNumberData());
+					return true;
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<label_column name="name_label">
+				<static textres="weapon_label_name" />
+			</label_column>
+			<string_column name="name" />
+			
+			<label_column name="properties_label">
+				<static textres="weapon_label_properties" />
+			</label_column>
+			<combobox name="type">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="97" />
+					<right offset="-5" />
+				</anchored>
+				<default textres="RR_default_stagedType" />
+				<script>
+					function onInit()
+						super.onInit();
+						addItems({"Effect","Feat","Feature","Trait"});
+					end
+				</script>
+				<listdirection>down</listdirection>
+			</combobox>
+
+			<header_column name="header_damage">
+				<static textres="weapon_header_damage" />
+				<center />
+			</header_column>
+			<button_iedit name="list_iedit">
+				<anchored to="header_damage" position="insidetopright" offset="-5,0" />
+				<target>list</target>
+			</button_iedit>
+			<button_iadd name="list_iadd">
+				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
+				<target>list</target>
+			</button_iadd>
+
+			<list_editor name="list">
+				<datasource>.rollTypes</datasource>
+				<class>rr_staged_entry_editor_rollType</class>
+				<script>
+					function addEntry(bFocus)
+						local n = getWindowCount();
+
+						local w = createWindow();
+						if w then
+							if n == 0 then
+								w.selected.setValue(1);
+							end
+						
+							if bFocus then
+								w.type.setFocus();
+							end
+						end
+						
+						return w;
+					end
+				</script>
+			</list_editor>
+			
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="5,1" width="60" />
+				<static textres="weapon_label_dmgdice" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="82,1" width="67" />
+				<static textres="weapon_label_dmgstat" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="166,1" width="35" />
+				<static textres="weapon_label_dmgbonus" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveright" offset="5,1">
+					<left offset="211" />
+				</anchored>
+				<static textres="weapon_label_dmgtype" />
+			</label_fieldtop>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_staged_entry_editor_rollType">
+		<margins control="0,0,0,5" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top offset="2" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<button_checkbox name="selected">
+				<anchored position="insidetopleft" offset="5,2" width="20" height="20" />
+			</button_checkbox>
+			<basicdice name="dice">
+				<anchored to="selected" position="righthigh" offset="5,0" width="60" height="20" />
+			</basicdice>
+			<label name="label_plus">
+				<anchored to="dice" position="righthigh" offset="5,0" width="10" />
+				<static>+</static>
+			</label>
+			<basicnumber name="statmult">
+				<anchored to="label_plus" position="righthigh" offset="3,0" width="20" height="20" />
+				<default>1</default>
+				<min>0</min>
+				<hideonvalue>1</hideonvalue>
+				<tooltip textres="power_tooltip_statmult" />
+			</basicnumber>
+			<label name="label_statmultx">
+				<anchored to="statmult" position="righthigh" offset="4,0" width="10" />
+				<static>x</static>
+				<center />
+			</label>
+			<cycler_power name="stat">
+				<anchored to="label_statmultx" position="righthigh" offset="3,0" width="30" height="20" />
+			</cycler_power>
+			<label name="label_plus2">
+				<anchored to="stat" position="righthigh" offset="5,0" width="10" />
+				<static>+</static>
+			</label>
+			<basicnumber name="bonus">
+				<anchored to="label_plus2" position="righthigh" offset="2,0" width="35" height="20" />
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<stringu name="type">
+				<anchored to="bonus" position="righthigh" offset="10,0" height="20">
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<delaykeyupdate />
+			</stringu>
+		</sheetdata>
+	</windowclass>
+</root>

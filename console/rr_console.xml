@@ -39,6 +39,9 @@
 				<class>rr_options</class>
 				<fastinit />
 			</sub_ps>
+			<sub_ps name="staged">
+				<class>rr_staged</class>
+			</sub_ps>
 			
 			<tabs_partysheet name="tabs">
 				<tab>
@@ -48,6 +51,10 @@
 				<tab>
 					<icon>tab_other</icon>
 					<subwindow>options</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_other</icon>
+					<subwindow>staged</subwindow>
 				</tab>
 			</tabs_partysheet>
 
