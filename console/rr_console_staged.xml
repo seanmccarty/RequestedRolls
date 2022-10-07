@@ -93,12 +93,13 @@
 					sSummaryString = "(none selected)";
 				end
 				w.rolls.setValue(sSummaryString);
+				RRManagerStaged.buildArray();
 			end
 		</script>
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 			
-			<anchored height="40"/>
+			<!-- <anchored height="40"/> -->
 			<genericcontrol name="rightanchor">
 				<anchored width="0" height="20">
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
@@ -114,7 +115,7 @@
 				<readonly/>
 			</stringfield>
 			<button_details name="details">
-				<anchored to="name" position="right" offset="10,1" />
+				<anchored to="name" position="righthigh" offset="10,1" />
 				<script>
 					function onButtonPress()
 						Interface.openWindow("rr_staged_entry_editor", window.getDatabaseNode());
@@ -122,11 +123,11 @@
 				</script>
 			</button_details>
 			<stringfield name="type">
-				<anchored to="details" position="right" offset="10,0" width="60" height="20" />
+				<anchored to="details" position="righthigh" offset="10,0" width="60" height="20" />
 				<readonly/>
 			</stringfield>
 			<stringcontrol name="rolls">
-				<anchored to="type" position="right" offset="10,0" width="200" height="20" />
+				<anchored to="type" position="righthigh" offset="10,0" width="200" height="20" />
 				<readonly/>
 			</stringcontrol>
 
