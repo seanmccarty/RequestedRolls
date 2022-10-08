@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
 	<windowclass name="rr_staged">
-		<!-- <script file="console/scripts/rr_console.lua"/> -->
 		<sheetdata>
 			<subwindow name="contents">
 				<anchored>
@@ -23,6 +22,7 @@
 
 	<windowclass name="rr_staged_contents">
 		<margins control="0,0,0,2" />
+		<frame name="groupbox" offset="5,5,5,5" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 			
@@ -37,7 +37,7 @@
 				<center />
 			</header_column>
 			<button_iedit name="list_iedit">
-				<anchored to="" position="insidetopright" offset="-5,0" />
+				<anchored to="rightanchor" position="insidetopright" offset="-5,0" />
 				<target>list</target>
 			</button_iedit>
 			<button_iadd name="list_iadd">
@@ -50,13 +50,27 @@
 				<columns fillwidth="true"/>
 				<frame name="groupbox" offset="13,5,10,5" />
 				<class>rr_staged_entry</class>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5"/>
-					<left offset="17"/>
-					<right offset="-15"/>
-					<bottom offset="-5"/>
-				</anchored>
+
 			</list_editor>
+
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="5,1" width="60" />
+				<static textres="weapon_label_dmgdice" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="82,1" width="67" />
+				<static textres="weapon_label_dmgstat" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveleft" offset="166,1" width="35" />
+				<static textres="weapon_label_dmgbonus" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="list" position="aboveright" offset="5,1">
+					<left offset="211" />
+				</anchored>
+				<static textres="weapon_label_dmgtype" />
+			</label_fieldtop>
 		</sheetdata>
 	</windowclass>
 
@@ -104,24 +118,23 @@
 					<right offset="-15" />
 				</anchored>
 			</genericcontrol>
-
-			<stringfield name="name">
-				<anchored width="100" height="40">
+			<button_details name="details">
+				<anchored>
 					<top parent="columnanchor" anchor="bottom" offset="10"/>
 					<left offset="10"/>
 				</anchored>
-				<readonly/>
-			</stringfield>
-			<button_details name="details">
-				<anchored to="name" position="righthigh" offset="10,1" />
 				<script>
 					function onButtonPress()
-						Interface.openWindow("rr_staged_entry_editor", window.getDatabaseNode());
+						Interface.openWindow("rr_staged_details_window", window.getDatabaseNode());
 					end
 				</script>
 			</button_details>
+			<stringfield name="name">
+				<anchored width="100" to="details" position="righthigh" offset="10,0" />
+				<readonly/>
+			</stringfield>
 			<stringfield name="type">
-				<anchored to="details" position="righthigh" offset="10,0" width="60" height="20" />
+				<anchored to="name" position="righthigh" offset="10,0" width="60" height="20" />
 				<readonly/>
 			</stringfield>
 			<stringcontrol name="rolls">
@@ -134,18 +147,10 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 			</button_idelete>
-
-			<!-- <windowlist name="rollTypeList" >
-				<datasource>.rollTypes</datasource>
-				<columns width="20" fillwidth="true"/>
-				<allowcreate/>
-				<class>rr_staged_rollType_entry</class>				
-				<anchored to="type" position="righthigh" offset="10,0" width="300" height="20" />
-			</windowlist> -->
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="rr_staged_entry_editor">
+	<windowclass name="rr_staged_details_window">
 		<frame>charsheethelper</frame>
 		<placement>
 			<size width="380" height="350" />
@@ -170,7 +175,7 @@
 			</genericcontrol>
 
 			<subwindow_record name="main">
-				<class>rr_staged_entry_editor_main</class>
+				<class>rr_staged_details_content</class>
 				<activate />
 			</subwindow_record>
 
@@ -183,7 +188,7 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="rr_staged_entry_editor_main">
+	<windowclass name="rr_staged_details_content">
 		<script>
 			function onDrop(x, y, draginfo)
 				local sDragType = draginfo.getType();
@@ -243,7 +248,7 @@
 
 			<list_editor name="list">
 				<datasource>.rollTypes</datasource>
-				<class>rr_staged_entry_editor_rollType</class>
+				<class>rr_staged_details_entry_rollType</class>
 				
 				<script>
 					function addEntry(bFocus)
@@ -284,7 +289,7 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="rr_staged_entry_editor_rollType">
+	<windowclass name="rr_staged_details_entry_rollType">
 		<margins control="0,0,0,5" />
 		<sheetdata>
 			<genericcontrol name="rightanchor">
