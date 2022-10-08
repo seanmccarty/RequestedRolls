@@ -161,7 +161,7 @@
 		</sizelimits>
 		<sheetdata>
 			<windowtitlebar_char name="title">
-				<prefix>weapon_title</prefix>
+				<prefix>RR_window_prefix_stagedDetail</prefix>
 			</windowtitlebar_char>
 			<anchor_title_charsheethelper name="contentanchor" />
 			
@@ -193,17 +193,7 @@
 			function onDrop(x, y, draginfo)
 				local sDragType = draginfo.getType();
 				
-				if sDragType == "dice" then
-					local w = list.addEntry(true);
-					for _, vDie in ipairs(draginfo.getDiceData()) do
-						w.dice.addDie(vDie.type);
-					end
-					return true;
-				elseif sDragType == "number" then
-					local w = list.addEntry(true);
-					w.bonus.setValue(draginfo.getNumberData());
-					return true;
-				end
+				--TO DO: use drag type to add the roll
 			end
 		</script>
 		<sheetdata>
@@ -214,8 +204,8 @@
 			</label_column>
 			<string_column name="name" />
 			
-			<label_column name="properties_label">
-				<static textres="weapon_label_properties" />
+			<label_column name="type_label">
+				<static textres="RR_label_type" />
 			</label_column>
 			<combobox name="type">
 				<anchored>
@@ -233,12 +223,12 @@
 				<listdirection>down</listdirection>
 			</combobox>
 
-			<header_column name="header_damage">
-				<static textres="weapon_header_damage" />
+			<header_column name="header_rollType">
+				<static textres="RR_label_rollType" />
 				<center />
 			</header_column>
 			<button_iedit name="list_iedit">
-				<anchored to="header_damage" position="insidetopright" offset="-5,0" />
+				<anchored to="header_rollType" position="insidetopright" offset="-5,0" />
 				<target>list</target>
 			</button_iedit>
 			<button_iadd name="list_iadd">
@@ -269,22 +259,14 @@
 			</list_editor>
 			
 			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="5,1" width="60" />
-				<static textres="weapon_label_dmgdice" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="82,1" width="67" />
-				<static textres="weapon_label_dmgstat" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="166,1" width="35" />
-				<static textres="weapon_label_dmgbonus" />
+				<anchored to="list" position="aboveleft" offset="-2,1" width="60" />
+				<static textres="RR_label_stage" />
 			</label_fieldtop>
 			<label_fieldtop>
 				<anchored to="list" position="aboveright" offset="5,1">
-					<left offset="211" />
+					<left offset="40" />
 				</anchored>
-				<static textres="weapon_label_dmgtype" />
+				<static textres="RR_label_rollType" />
 			</label_fieldtop>
 		</sheetdata>
 	</windowclass>
@@ -306,40 +288,10 @@
 				</anchored>
 			</button_idelete>
 			<button_checkbox name="selected">
-				<anchored position="insidetopleft" offset="5,2" width="20" height="20" />
+				<anchored position="insidetopleft" offset="15,2" width="20" height="20" />
 			</button_checkbox>
-			<basicdice name="dice">
-				<anchored to="selected" position="righthigh" offset="5,0" width="60" height="20" />
-			</basicdice>
-			<label name="label_plus">
-				<anchored to="dice" position="righthigh" offset="5,0" width="10" />
-				<static>+</static>
-			</label>
-			<basicnumber name="statmult">
-				<anchored to="label_plus" position="righthigh" offset="3,0" width="20" height="20" />
-				<default>1</default>
-				<min>0</min>
-				<hideonvalue>1</hideonvalue>
-				<tooltip textres="power_tooltip_statmult" />
-			</basicnumber>
-			<label name="label_statmultx">
-				<anchored to="statmult" position="righthigh" offset="4,0" width="10" />
-				<static>x</static>
-				<center />
-			</label>
-			<cycler_power name="stat">
-				<anchored to="label_statmultx" position="righthigh" offset="3,0" width="30" height="20" />
-			</cycler_power>
-			<label name="label_plus2">
-				<anchored to="stat" position="righthigh" offset="5,0" width="10" />
-				<static>+</static>
-			</label>
-			<basicnumber name="bonus">
-				<anchored to="label_plus2" position="righthigh" offset="2,0" width="35" height="20" />
-				<hideonvalue>0</hideonvalue>
-			</basicnumber>
 			<stringu name="type">
-				<anchored to="bonus" position="righthigh" offset="10,0" height="20">
+				<anchored to="selected" position="righthigh" offset="10,0" height="20">
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<delaykeyupdate />

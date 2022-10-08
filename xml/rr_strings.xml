@@ -87,4 +87,8 @@
 	<string name="RR_window_title_staged">Staged Rolls</string>
 	<string name="RR_msg_rollModified">Original Roll Was a</string>
 	<string name="RR_default_stagedType">Feature</string>
+	<string name="RR_window_prefix_stagedDetail">Staged</string>
+	<string name="RR_label_type">Type</string>
+	<string name="RR_label_rollType">Roll Type</string>
+	<string name="RR_label_stage">Stage</string>
 </root>
