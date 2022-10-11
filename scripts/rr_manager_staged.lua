@@ -1,4 +1,5 @@
 fORA = nil;
+bStageArrayBuilt = false;
 
 -- local stageArray = {
 -- 	check = {{category="Feat", name="lucky"},{category="Feature",name="portent"}, {category="Trait",name="elven accuracy"},{category="Effect",name="Bardic Inspiration"}},
@@ -30,14 +31,17 @@ end
 function onInit()
 	fORA = ActionsManager.resolveAction;
 	ActionsManager.resolveAction = resolveAction;
+	DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
 	if Session.IsHost then
-		DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
 		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls)
 	end
 	buildArray();
 end
 
 function resolveAction(rSource, rTarget, rRoll)
+	if not bStageArrayBuilt then
+		buildArray();
+	end
 	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
 	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and shouldStage(rSource, rTarget, rRoll) then
 		addStagedRoll(rSource, rTarget, rRoll);
