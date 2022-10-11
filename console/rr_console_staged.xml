@@ -5,7 +5,7 @@
 			<subwindow name="contents">
 				<anchored>
 					<top offset="0" />
-					<bottom offset="-35" />
+					<bottom offset="-15" />
 					<left offset="0" />
 					<right offset="-15" />
 				</anchored>
@@ -25,19 +25,12 @@
 		<frame name="groupbox" offset="5,5,5,5" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
-			
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
-					<right offset="-15" />
-				</anchored>
-			</genericcontrol>
-			<header_column name="header_damage">
-				<static textres="weapon_header_damage" />
+			<header_column name="header_tab_title">
+				<static textres="RR_tab_title_staged" />
 				<center />
 			</header_column>
 			<button_iedit name="list_iedit">
-				<anchored to="rightanchor" position="insidetopright" offset="-5,0" />
+				<anchored to="header_tab_title" position="insidetopright" offset="-5,0" />
 				<target>list</target>
 			</button_iedit>
 			<button_iadd name="list_iadd">
@@ -48,35 +41,29 @@
 			<list_editor name="list" >
 				<datasource>.staged</datasource>
 				<columns fillwidth="true"/>
-				<frame name="groupbox" offset="13,5,10,5" />
-				<class>rr_staged_entry</class>
 
+				<class>rr_staged_entry</class>
 			</list_editor>
 
 			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="5,1" width="60" />
-				<static textres="weapon_label_dmgdice" />
+				<anchored to="list" position="aboveleft" offset="35,1" width="60" />
+				<static textres="RR_label_identifier" />
 			</label_fieldtop>
 			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="82,1" width="67" />
-				<static textres="weapon_label_dmgstat" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="166,1" width="35" />
-				<static textres="weapon_label_dmgbonus" />
+				<anchored to="list" position="aboveleft" offset="157,1" width="67" />
+				<static textres="RR_label_type" />
 			</label_fieldtop>
 			<label_fieldtop>
 				<anchored to="list" position="aboveright" offset="5,1">
 					<left offset="211" />
 				</anchored>
-				<static textres="weapon_label_dmgtype" />
+				<static textres="RR_label_rollType" />
 			</label_fieldtop>
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="rr_staged_entry">
 		<margins control="0,0,0,2" />
-		<frame name="groupbox" offset="13,5,10,5" />
 		<script>
 			local currentNode ;
 			local w;
@@ -130,7 +117,7 @@
 				</script>
 			</button_details>
 			<stringfield name="name">
-				<anchored width="100" to="details" position="righthigh" offset="10,0" />
+				<anchored width="130" to="details" position="righthigh" offset="10,0" />
 				<readonly/>
 			</stringfield>
 			<stringfield name="type">
