@@ -30,8 +30,10 @@ end
 function onInit()
 	fORA = ActionsManager.resolveAction;
 	ActionsManager.resolveAction = resolveAction;
-	DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
-	DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls)
+	if Session.IsHost then
+		DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
+		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls)
+	end
 	buildArray();
 end
 
@@ -91,6 +93,8 @@ end
 function addDefaultRolls(nodeParent, nodeChildAdded)
 	if Interface.getRuleset() == "5E" then
 		local node = DB.createChild(nodeChildAdded,"rollTypes");
+		local node5 = DB.createChild(node);
+		DB.setValue(node5, "type","string","Attack");
 		local node2 = DB.createChild(node);
 		DB.setValue(node2, "type","string","Check");
 		local node3 = DB.createChild(node);
