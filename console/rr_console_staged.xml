@@ -29,6 +29,15 @@
 				<static textres="RR_tab_title_staged" />
 				<center />
 			</header_column>
+			<button_text_sm name="staged_rolls">
+				<anchored position="insidetopleft" offset="8,5" width="120" />
+				<state textres="RR_label_pendingStagedRolls" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("stagedrolls", "");
+					end
+				</script>
+			</button_text_sm>
 			<button_iedit name="list_iedit">
 				<anchored to="header_tab_title" position="insidetopright" offset="-5,0" />
 				<target>list</target>
