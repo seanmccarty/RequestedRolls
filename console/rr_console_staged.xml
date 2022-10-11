@@ -83,10 +83,15 @@
 			function rebuildSummary()
 				local sSummaryString = "";
 				local nodes = DB.getChildren(currentNode,"rollTypes");
+				local summaryItems = {};
 				for index, node in pairs(nodes) do
 					if DB.getValue(node, "selected",0) == 1 then
-						sSummaryString = sSummaryString .. DB.getValue(node, "type", "error") .. ";";
+						table.insert(summaryItems,DB.getValue(node, "type", "error") .. ";");
 					end
+				end
+				table.sort(summaryItems);
+				for n, entry in pairs(summaryItems) do
+					sSummaryString = sSummaryString .. entry;
 				end
 				if sSummaryString == "" then
 					sSummaryString = "(none selected)";
@@ -229,8 +234,6 @@
 				
 				<script>
 					function addEntry(bFocus)
-						local n = getWindowCount();
-
 						local w = createWindow();
 						if w then
 							w.selected.setValue(1);
