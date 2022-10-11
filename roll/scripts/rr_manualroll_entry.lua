@@ -13,7 +13,7 @@ function setData(rRoll, rSource, aTargets)
 		CTNodeID.setValue(ActorManager.getCTNodeName(rSource));
 		RR.notifyApplyDirty(ActorManager.getCTNodeName(rSource),1);
 	end
-
+	Debug.chat(45,rRoll, rSource, aTargets);
 	super.setData(rRoll, rSource, aTargets);
 	if OptionsManager.isOption("MANUALROLL", "off") and OptionsManager.isOption("RR_option_label_alwaysShowManualDice", "off") then
 		hideDiceList();

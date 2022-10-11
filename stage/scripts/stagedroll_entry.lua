@@ -84,7 +84,8 @@ function setData(rRoll, rSource, aTargets)
 		source.setVisible(false);
 	end
 	
-	if aTargets and #aTargets > 0 then
+	-- remove #aTargets>0 becuase the targets array is no longer numerical index
+	if aTargets then
 		vTargets = aTargets;
 	end
 	if vTargets then
@@ -94,7 +95,8 @@ function setData(rRoll, rSource, aTargets)
 end
 
 function updateTargetDisplay()
-	if vTargets and #vTargets > 0 then
+	-- remove #vTargets>0 becuase the targets array is no longer numerical index
+	if vTargets then
 		local aTargetStrings = {};
 		for _,v in ipairs(vTargets) do
 			table.insert(aTargetStrings, ActorManager.getDisplayName(v));
