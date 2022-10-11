@@ -36,8 +36,7 @@ end
 
 function resolveAction(rSource, rTarget, rRoll)
 	Debug.chat("resolve",rSource, rTarget, rRoll);
-
-	if shouldStage(rSource, rTarget, rRoll) then
+	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and shouldStage(rSource, rTarget, rRoll) then
 		addStagedRoll(rSource, rTarget, rRoll);
 	else
 		fORA(rSource, rTarget, rRoll);
