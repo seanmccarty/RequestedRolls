@@ -153,7 +153,6 @@ function processOK()
 	DiceManager.handleManualRoll(vRoll.aDice);
 	--ActionsManager.handleResolution(vRoll, vSource, vTargets);
 	RRManagerStaged.fORA(vSource, vTargets, vRoll);
-	Debug.chat(vRoll);
 	close();
 end
 

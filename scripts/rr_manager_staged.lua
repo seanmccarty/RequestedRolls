@@ -36,7 +36,7 @@ function onInit()
 end
 
 function resolveAction(rSource, rTarget, rRoll)
-	Debug.chat("resolve",rSource, rTarget, rRoll);
+	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
 	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and shouldStage(rSource, rTarget, rRoll) then
 		addStagedRoll(rSource, rTarget, rRoll);
 	else
@@ -64,27 +64,22 @@ function shouldStage(rSource, rTarget, rRoll)
 	end
 
 	if rRoll and rRoll.sType and stageArray[rRoll.sType:lower()] then
-		Debug.chat("1",stageArray[rRoll.sType]);
+		if RR.bDebug then Debug.chat("1",stageArray[rRoll.sType]); end
 		for index, value in ipairs(stageArray[rRoll.sType:lower()]) do
-			Debug.chat("2",value)
 			if value["category"] == "Feat" then
 				if CharManager.hasFeat(ActorManager.getCreatureNode(rSource),value["name"]) then
-					Debug.chat(3,"stage roll feat")
 					return true;
 				end
 			elseif value["category"] == "Feature" then
 				if CharManager.hasFeature(ActorManager.getCreatureNode(rSource),value["name"]) then
-					Debug.chat(3,"stage roll feature")
 					return true;
 				end
 			elseif value["category"] == "Trait" then
 				if CharManager.hasTrait(ActorManager.getCreatureNode(rSource),value["name"]) then
-					Debug.chat(3,"stage roll trait")
 					return true;
 				end
 			elseif value["category"] == "Effect" then
 				if EffectManager.hasEffect(rSource,value["name"]) then
-					Debug.chat(3,"stage roll effect")
 					return true;
 				end
 			end
@@ -107,7 +102,7 @@ end
 
 function addStagedRoll(rSource, rTarget, rRoll)
 	addRoll(rRoll, rSource, rTarget);
-	Debug.chat("staged",rRoll);
+	if RR.bDebug then Debug.chat("staged",rRoll); end
 
 	local rRollTemp = UtilityManager.copyDeep(rRoll);
 	rRollTemp.sDesc = "[STAGING]\n" .. rRollTemp.sDesc
