@@ -31,6 +31,7 @@ function onInit()
 	fORA = ActionsManager.resolveAction;
 	ActionsManager.resolveAction = resolveAction;
 	DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
+	DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls)
 	buildArray();
 end
 
@@ -90,6 +91,18 @@ function shouldStage(rSource, rTarget, rRoll)
 		end
 	end
 	return false;
+end
+
+function addDefaultRolls(nodeParent, nodeChildAdded)
+	if Interface.getRuleset() == "5E" then
+		local node = DB.createChild(nodeChildAdded,"rollTypes");
+		local node2 = DB.createChild(node);
+		DB.setValue(node2, "type","string","Check");
+		local node3 = DB.createChild(node);
+		DB.setValue(node3, "type","string","Save");
+		local node4 = DB.createChild(node);
+		DB.setValue(node4, "type","string","Skill");
+	end
 end
 
 function addStagedRoll(rSource, rTarget, rRoll)
