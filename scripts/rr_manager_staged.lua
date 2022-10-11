@@ -33,7 +33,9 @@ function onInit()
 	ActionsManager.resolveAction = resolveAction;
 	DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
 	if Session.IsHost then
-		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls)
+		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls);
+		--All players need to be able to build stageArray
+		DB.setPublic("requestsheet.staged",true);
 	end
 	buildArray();
 end
