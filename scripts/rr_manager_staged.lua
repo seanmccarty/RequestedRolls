@@ -45,8 +45,9 @@ function resolveAction(rSource, rTarget, rRoll)
 		buildArray();
 	end
 	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
-	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and shouldStage(rSource, rTarget, rRoll) then
-		addStagedRoll(rSource, rTarget, rRoll);
+	local rApplicableIdentifier = shouldStage(rSource, rTarget, rRoll);
+	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and #rApplicableIdentifier>0 then
+		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fORA(rSource, rTarget, rRoll);
 	end
@@ -70,30 +71,30 @@ function shouldStage(rSource, rTarget, rRoll)
 		--rRoll.nTarget = nil;
 		--rRoll.sDesc = rRoll.sDesc .. "\n[Staged]"
 	end
-
+	local results = {};
 	if rRoll and rRoll.sType and stageArray[rRoll.sType:lower()] then
 		if RR.bDebug then Debug.chat("1",stageArray[rRoll.sType]); end
 		for index, value in ipairs(stageArray[rRoll.sType:lower()]) do
 			if value["category"] == "Feat" then
 				if CharManager.hasFeat(ActorManager.getCreatureNode(rSource),value["name"]) then
-					return true;
+					table.insert(results,value["name"]);
 				end
 			elseif value["category"] == "Feature" then
 				if CharManager.hasFeature(ActorManager.getCreatureNode(rSource),value["name"]) then
-					return true;
+					table.insert(results,value["name"]);
 				end
 			elseif value["category"] == "Trait" then
 				if CharManager.hasTrait(ActorManager.getCreatureNode(rSource),value["name"]) then
-					return true;
+					table.insert(results,value["name"]);
 				end
 			elseif value["category"] == "Effect" then
 				if EffectManager.hasEffect(rSource,value["name"]) then
-					return true;
+					table.insert(results,value["name"]);
 				end
 			end
 		end
 	end
-	return false;
+	return results;
 end
 
 function addDefaultRolls(nodeParent, nodeChildAdded)
@@ -110,8 +111,8 @@ function addDefaultRolls(nodeParent, nodeChildAdded)
 	end
 end
 
-function addStagedRoll(rSource, rTarget, rRoll)
-	addRoll(rRoll, rSource, rTarget);
+function addStagedRoll(rSource, rTarget, rRoll,rApplicableIdentifier)
+	addRoll(rRoll, rSource, rTarget,rApplicableIdentifier);
 	if RR.bDebug then Debug.chat("staged",rRoll); end
 
 	local rRollTemp = UtilityManager.copyDeep(rRoll);
@@ -125,9 +126,9 @@ function addStagedRoll(rSource, rTarget, rRoll)
 
 end
 
-function addRoll(rRoll, rSource, vTargets)
+function addRoll(rRoll, rSource, vTargets,rApplicableIdentifier)
 	local wMain = Interface.openWindow("stagedrolls", "");
 	local wRoll = wMain.list.createWindow();
-	wRoll.setData(rRoll, rSource, vTargets);
+	wRoll.setData(rRoll, rSource, vTargets,rApplicableIdentifier);
 end
 

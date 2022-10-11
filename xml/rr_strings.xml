@@ -94,4 +94,5 @@
 	<string name="RR_label_stage">Stage</string>
 	<string name="RR_label_identifier">Identifier</string>
 	<string name="RR_label_pendingStagedRolls">My Staged Rolls</string>
+	<string name="RR_label_reason">Reasons:</string>
 </root>

@@ -7,6 +7,7 @@ local vRoll = nil;
 local vSource = nil;
 local vTargets = nil;
 local originalTotal=0;
+local vApplicableIdentifier = nil;
 
 function onClose()
 	if vTargets then
@@ -43,10 +44,13 @@ function onCTEntryDeleted(nodeEntry)
 	end
 end
 
-function setData(rRoll, rSource, aTargets)
+function setData(rRoll, rSource, aTargets,rApplicableIdentifier)
 	if rRoll.aDice and rRoll.aDice.total then
 		originalTotal = rRoll.aDice.total;
 	end
+
+	vApplicableIdentifier = rApplicableIdentifier;
+	reasons.setValue(table.concat(vApplicableIdentifier,"; "));
 
 	rolltype.setValue(StringManager.capitalize(rRoll.sType));
 	

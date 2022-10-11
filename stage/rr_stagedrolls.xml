@@ -75,6 +75,11 @@
 			</label_manualroll>
 			<stringc_manualroll name="targets" />
 
+			<label_manualroll name="reasons_label">
+				<static textres="RR_label_reason" />
+			</label_manualroll>
+			<stringc_manualroll name="reasons" />
+
 			<windowlist name="list">
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" />
