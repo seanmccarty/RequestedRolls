@@ -35,6 +35,7 @@ function onInit()
 	if Session.IsHost then
 		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls);
 		--All players need to be able to build stageArray
+		DB.createChild("requestsheet.staged");
 		DB.setPublic("requestsheet.staged",true);
 	end
 	buildArray();
