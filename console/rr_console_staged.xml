@@ -192,8 +192,10 @@
 		<script>
 			function onDrop(x, y, draginfo)
 				local sDragType = draginfo.getType();
-				
-				--TO DO: use drag type to add the roll
+				if sDragType~="" then
+					list.addEntry(true, sDragType);
+					return true;
+				end
 			end
 		</script>
 		<sheetdata>
@@ -241,13 +243,17 @@
 				<class>rr_staged_details_entry_rollType</class>
 				
 				<script>
-					function addEntry(bFocus)
+					function addEntry(bFocus, sName)
 						local w = createWindow();
 						if w then
 							w.selected.setValue(1);
 						
 							if bFocus then
 								w.type.setFocus();
+							end
+
+							if sName then
+								w.type.setValue(sName);
 							end
 						end
 						
