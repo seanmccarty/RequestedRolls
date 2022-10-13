@@ -90,9 +90,15 @@ function shouldStage(rSource, rTarget, rRoll)
 					table.insert(results,value["name"]);
 				end
 			elseif value["category"] == "Effect" then
-				if EffectManager.hasEffect(rSource,value["name"]) then
-					table.insert(results,value["name"]);
+				local aEffectsByType = EffectManager.getEffectsByType(rSource, value["name"]);
+				if #aEffectsByType>0 then
+					table.insert(results,aEffectsByType[1].original);
+				else
+					if EffectManager.hasEffect(rSource,value["name"]) then
+						table.insert(results,value["name"]);
+					end
 				end
+
 			end
 		end
 	end
