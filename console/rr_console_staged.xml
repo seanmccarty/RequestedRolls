@@ -106,7 +106,6 @@
 					sSummaryString = "(none selected)";
 				end
 				w.rolls.setValue(sSummaryString);
-				RRManagerStaged.buildArray();
 			end
 		</script>
 		<sheetdata>
@@ -115,7 +114,7 @@
 			<!-- <anchored height="40"/> -->
 			<genericcontrol name="rightanchor">
 				<anchored width="0" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="4" />
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
 					<right offset="-15" />
 				</anchored>
 			</genericcontrol>
