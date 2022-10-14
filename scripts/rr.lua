@@ -120,6 +120,7 @@ function processRRCommandList(sCommand, sParams)
 	end	
 
 	ChatManager.SystemMessage("/RRrolls \t open the rolls window");
+	ChatManager.SystemMessage("/RRstaged \t open the staged rolls window");
 	ChatManager.SystemMessage("/RRdebug <on/off> \t sets the debug status");
 end
 
