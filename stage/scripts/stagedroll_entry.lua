@@ -13,6 +13,9 @@ function onClose()
 	if vTargets then
 		CombatManager.removeCustomDeleteCombatantHandler(onCTEntryDeleted);
 	end
+	if windowlist.getWindowCount()==1 then
+		windowlist.window.close();
+	end
 end
 
 function onCTEntryDeleted(nodeEntry)
