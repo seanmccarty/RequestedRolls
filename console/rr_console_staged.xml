@@ -219,7 +219,17 @@
 				<script>
 					function onInit()
 						super.onInit();
-						addItems({"Effect","Feat","Feature","Trait"});
+						local allowableTypes = {"Effect"};
+						if CharManager.hasFeat then
+							table.insert(allowableTypes,"Feat");
+						end
+						if CharManager.hasFeature then
+							table.insert(allowableTypes,"Feature");
+						end
+						if CharManager.hasTrait then
+							table.insert(allowableTypes,"Trait");
+						end
+						addItems(allowableTypes);
 					end
 				</script>
 				<listdirection>down</listdirection>
