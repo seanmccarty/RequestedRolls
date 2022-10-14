@@ -202,7 +202,7 @@
 			<anchor_column name="columnanchor" />
 			
 			<label_column name="name_label">
-				<static textres="weapon_label_name" />
+				<static textres="RR_label_identifier" />
 			</label_column>
 			<string_column name="name" />
 			

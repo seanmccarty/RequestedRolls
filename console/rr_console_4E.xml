@@ -37,4 +37,82 @@
 			</RR_options_lists>
 		</sheetdata>
 	</windowclass>
+
+	<windowclass name="rr_staged_details_window">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="380" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="380" height="350" />
+			<dynamic />
+		</sizelimits>
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>RR_window_prefix_stagedDetail</resource>
+			</windowtitlebar>
+			<anchor_title_partysheet name="contentanchor" />
+			
+			<genericcontrol name="contentframe">
+				<anchored to="contentanchor">
+					<top anchor="bottom" offset="0" />
+					<left />
+					<right />
+					<bottom parent="" offset="-30" />
+				</anchored>
+			</genericcontrol>
+
+			<subwindow_record name="main">
+				<class>rr_staged_details_content</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+
+	<template name="list_editor">
+		<windowlist name="list">
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+				<left />
+				<right />
+			</anchored>
+			<allowdelete />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<noscroll />
+			<script>
+				function onInit()
+					registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 5 then
+						self.addEntry(true);
+					end
+				end
+				
+				function onListChanged()
+					update();
+				end
+
+				function update()
+					local bEditMode = (window.list_iedit.getValue() == 1);
+					for _,w in pairs(getWindows()) do
+						w.idelete.setVisibility(bEditMode);
+					end
+				end
+				
+				function addEntry(bFocus)
+					return createWindow();
+				end
+			</script>
+		</windowlist>
+	</template>
 </root>
