@@ -4,16 +4,14 @@
 <!-- Adds the hidden string control for the CT node ID so that all controls
     can be indexed through to see if the player has no more rolls.-->
 <root>
-    <windowclass name="manualroll_entry" merge="join">
-	    <script file="roll/scripts/rr_manualroll_entry.lua" />
-        <sheetdata>
-            <hs name="CTNodeID"/>
+	<windowclass name="manualroll_entry" merge="join">
+		<script file="roll/scripts/rr_manualroll_entry.lua" />
+		<sheetdata>
+			<hs name="CTNodeID"/>
 			<button_dialog_roll name="button_roll">
 				<script>
 					function onDragStart(button, x, y, draginfo)
-						draginfo.setType(RRDropManager.RRPROCESSROLL);
-						draginfo.setIcon("action_roll");
-						draginfo.window = window;
+						window.setDragData(draginfo)
 						return true;
 					end
 
@@ -24,6 +22,6 @@
 					end
 				</script>
 			</button_dialog_roll>
-        </sheetdata>
-    </windowclass>
+		</sheetdata>
+	</windowclass>
 </root>

@@ -168,3 +168,12 @@ function applyClientModifiers()
 
 	if Interface.getRuleset()=="5E" then ActionsManager2.encodeDesktopMods(vRoll); end
 end
+
+---This sets the drag data when the process roll button is dragged so that dice are shown
+---@param draginfo table the draginfo object from the requisite drag action
+function setDragData(draginfo)
+	draginfo.setType(RRDropManager.RRPROCESSROLL);
+	draginfo.setIcon("action_roll");
+	draginfo.window = self;
+	ActionsManager.encodeRollForDrag(draginfo, 1, vRoll);
+end
