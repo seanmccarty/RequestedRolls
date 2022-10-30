@@ -26,4 +26,5 @@
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
 
 	<includefile source="stage/rr_stagedrolls.xml"/>
+	<includefile source="desktop/rr_desktop_panels.xml"/>
 </root>

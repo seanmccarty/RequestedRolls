@@ -30,7 +30,10 @@ function registerOptions()
 
 	OptionsManager.registerOption2("RR_option_label_allowRollStaging", false, "RR_option_header", "RR_option_label_allowRollStaging", "option_entry_cycler", 
 		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
-	
+
+	OptionsManager.registerOption2("RR_option_label_suppressDiceAnimations", true, "RR_option_header", "RR_option_label_suppressDiceAnimations", "option_entry_cycler", 
+		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
+		
 		--the button to show/hide the shortcut is only shown for the GM
 	if Session.IsHost then
 		OptionsManager.registerOption2("RR_option_label_sidebar", true, "RR_option_header", "RR_option_label_sidebar", "option_entry_cycler", 

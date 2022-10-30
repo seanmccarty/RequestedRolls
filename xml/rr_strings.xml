@@ -22,6 +22,8 @@
 
 	<string name="RR_option_label_allowRollStaging">Experimental: Allow rolls to be staged</string>
 
+	<string name="RR_option_label_suppressDiceAnimations">Experimental: Suppress Dice Animations</string>
+
 	<!-- CONSOLE -->
 	<string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
 	<string name="RR_label_pendingRolls">My Pending Rolls</string>
