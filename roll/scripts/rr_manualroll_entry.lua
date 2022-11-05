@@ -108,7 +108,13 @@ function processRoll(forceTower)
 		RRTowerManager.sendTower(vRoll, vSource, vTargets);
 		close();
 	else
-		super.processRoll();
+		if RRActionManager.shouldStopAnimationRoll(vRoll) then
+			RRActionManager.evalRoll(vRoll);
+			ActionsManager.handleResolution(vRoll, vSource, vTargets);
+			close();
+		else
+			super.processRoll();
+		end
 	end
 end
 

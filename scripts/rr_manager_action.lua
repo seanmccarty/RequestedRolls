@@ -148,37 +148,66 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	end
 
 	--if this is a complex dice string, the aDice is blank and expr will be set, and I dont want to deal with dice expressions
-	if ActionsManager.doesRollHaveDice(rRoll) and OptionsManager.isOption("RR_option_label_suppressDiceAnimations","on") and (not(rRoll.aDice and rRoll.aDice.expr) ) and OptionsManager.isOption("MANUALROLL","off") then
-		DiceManager.onPreEncodeRoll(rRoll);
-		local nTotal = 0;
-
-		for index,w in ipairs(rRoll.aDice) do
-			if rRoll.aDice[index] then
-				if type(rRoll.aDice[index]) ~= "table" then
-					local rDieTable = {};
-					rDieTable.type = rRoll.aDice[index];
-					rRoll.aDice[index] = rDieTable;
-				end
-
-				local nDieSides = string.match(rRoll.aDice[index].type,"%d+");
-				local nValue = math.random(nDieSides);
-				nTotal = nTotal + nValue;
-
-				if rRoll.aDice[index].type:sub(1,1) == "-" then
-					rRoll.aDice[index].result = -nValue;
-				else
-					rRoll.aDice[index].result = nValue;
-				end
-				rRoll.aDice[index].value = rRoll.aDice[index].result;
-			end
-		end
-		rRoll.aDice.total = nTotal;
-		DiceManager.handleManualRoll(rRoll.aDice);
+	if shouldStopAnimationRoll(rRoll) then
+		evalRoll(rRoll);
 		ActionsManager.handleResolution(rRoll, rSource, vTargets);
 	else
 		--pass through if it wasn't caught to be displayed to user
 		fRollOriginal(rSource, vTargets, rRoll, bMultiTarget);
 	end
+end
+
+---Checks if the expression has dice before checking if it should be stopped. The onDrop function for chat does not have rRoll, so it just has the dice.
+---@return boolean stopAnimation 
+function shouldStopAnimationRoll(rRoll)
+	if ActionsManager.doesRollHaveDice(rRoll) then
+		return shouldStopAnimationDice(rRoll.aDice);
+	else
+		return false;
+	end
+end
+
+---Checks if the dice qualify for being stopped because the expression isn't a dice math, that suppression is enabled, and that manual rolls are not turned on
+---@param aDice table the aDice table
+---@return boolean stopAnimation 
+function shouldStopAnimationDice(aDice)
+	if ((not aDice.expr) or DiceManager.isDiceString(aDice.expr))
+	and OptionsManager.isOption("RR_option_label_suppressDiceAnimations","on")
+	and OptionsManager.isOption("MANUALROLL","off") then
+		return true;
+	else
+		return false;
+	end
+end
+
+---Assigns random numerical results to each die in the roll
+---@param rRoll table the rRoll that will be processed without animation
+function evalRoll(rRoll)
+	DiceManager.onPreEncodeRoll(rRoll);
+	local nTotal = 0;
+
+	for index,w in ipairs(rRoll.aDice) do
+		if rRoll.aDice[index] then
+			if type(rRoll.aDice[index]) ~= "table" then
+				local rDieTable = {};
+				rDieTable.type = rRoll.aDice[index];
+				rRoll.aDice[index] = rDieTable;
+			end
+
+			local nDieSides = string.match(rRoll.aDice[index].type,"%d+");
+			local nValue = math.random(nDieSides);
+			nTotal = nTotal + nValue;
+
+			if rRoll.aDice[index].type:sub(1,1) == "-" then
+				rRoll.aDice[index].result = -nValue;
+			else
+				rRoll.aDice[index].result = nValue;
+			end
+			rRoll.aDice[index].value = rRoll.aDice[index].result;
+		end
+	end
+	rRoll.aDice.total = nTotal;
+	DiceManager.handleManualRoll(rRoll.aDice);
 end
 
 ---Processes console rolls received
