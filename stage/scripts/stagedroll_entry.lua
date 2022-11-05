@@ -201,22 +201,6 @@ end
 
 function reRoll(sDie, oldValue, fauxRollValue)
 	local rReRoll = {};
-	if DiceManager.isDiceString(sDie) then
-		rReRoll.sType = "dice"
-		local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
-		rReRoll.aDice = aDice;
-		rReRoll.nMod = nMod;
-	else
-		rReRoll.sType = "sDice";
-		rReRoll.aDice = {};
-		rReRoll.aDice.expr = sDie;
-		rReRoll.nMod = 0;
-
-	end
-	
-	if fauxRollValue and fauxRollValue > 0 then
-		rReRoll.sReplaceDieResult = tostring(fauxRollValue);
-	end
 
 	if vRoll.bSecret then
 		rReRoll.bSecret = vRoll.bSecret;
@@ -230,6 +214,26 @@ function reRoll(sDie, oldValue, fauxRollValue)
 	else
 		rReRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
 	end
-	
-	ActionsManager.performAction(nil, nil, rReRoll);
+	if DiceManager.isDiceString(sDie) then
+		rReRoll.sType = "dice"
+		if fauxRollValue and fauxRollValue > 0 then
+			local num = tostring(fauxRollValue);
+			rReRoll.aDice =  {};
+			table.insert(rReRoll.aDice, {value=num,type=sDie,result=num});
+			
+			RRManagerStaged.fORA(nil, nil, rReRoll);
+		else
+			local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
+			rReRoll.aDice = aDice;
+			rReRoll.nMod = nMod;
+			ActionsManager.performAction(nil, nil, rReRoll);
+		end
+
+	else
+		rReRoll.sType = "sDice";
+		rReRoll.aDice = {};
+		rReRoll.aDice.expr = sDie;
+		rReRoll.nMod = 0;
+		ActionsManager.performAction(nil, nil, rReRoll);
+	end
 end
