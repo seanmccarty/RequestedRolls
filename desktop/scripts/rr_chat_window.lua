@@ -8,7 +8,7 @@ function onDrop(x, y, draginfo)
 	if bReturn then
 		local aDice = draginfo.getDiceData();
 		--add supression handler to this line
-		if aDice and #aDice > 0 and not RRActionManager.shouldStopAnimationDice(aDice) then
+		if aDice and #aDice > 0 and not (RRActionManager.shouldStopAnimationDice(aDice) or OptionsManager.isOption("MANUALROLL", "on")) then
 			return;
 		end
 		return true;
