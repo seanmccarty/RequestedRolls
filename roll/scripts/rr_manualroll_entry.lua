@@ -9,6 +9,10 @@ function setData(rRoll, rSource, aTargets)
 	vRoll = rRoll;
 	vSource = rSource;
 	vTargets = aTargets;
+
+	if OptionsManager.isOption("RING", "on") then
+		User.ringBell(); 
+	end
 	if rSource then
 		CTNodeID.setValue(ActorManager.getCTNodeName(rSource));
 		RR.notifyApplyDirty(ActorManager.getCTNodeName(rSource),1);
