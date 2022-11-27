@@ -95,6 +95,7 @@ function action(draginfo)
 		end
 		resultText = resultText .. string.sub(fullText,endIndex)
 		setValue(resultText)
+		bParsed = false;
 	end
 end
 
