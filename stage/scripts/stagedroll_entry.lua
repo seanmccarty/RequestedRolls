@@ -236,7 +236,6 @@ function reRoll(sDie, oldValue, fauxRollValue, sReason)
 			rReRoll.nMod = nMod;
 			ActionsManager.performAction(nil, nil, rReRoll);
 		end
-
 	else
 		rReRoll.sType = "sDice";
 		rReRoll.aDice = {};
@@ -244,4 +243,8 @@ function reRoll(sDie, oldValue, fauxRollValue, sReason)
 		rReRoll.nMod = 0;
 		ActionsManager.performAction(nil, nil, rReRoll);
 	end
+end
+
+function expireUsedEffect(sEffect)
+	EffectManager.notifyRemove(ActorManager.getCTNodeName(vSource),sEffect);
 end

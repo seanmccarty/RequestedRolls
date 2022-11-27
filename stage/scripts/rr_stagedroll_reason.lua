@@ -85,6 +85,16 @@ function action(draginfo)
 	if sDragLabel then
 		local aDice, nMod = DiceManager.convertStringToDice(nDragMod, true)
 		window.addDice(aDice, sDragLabel);
+		window.expireUsedEffect(sDragLabel)
+		local fullText = getValue();
+		local startIndex = getCursorPosition();
+		local endIndex = getSelectionPosition();
+		local resultText = "";
+		if startIndex>1 then
+			resultText = string.sub(fullText,1,startIndex)
+		end
+		resultText = resultText .. string.sub(fullText,endIndex)
+		setValue(resultText)
 	end
 end
 
