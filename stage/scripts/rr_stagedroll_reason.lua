@@ -103,20 +103,6 @@ function onDoubleClick(x, y)
 	action();
 	return true;
 end
-
-function onDragStart(button, x, y, draginfo)
-	action(draginfo);
-
-	bDragging = true;
-	setCursorPosition(0);
-	
-	return true;
-end
-
-function onDragEnd(draginfo)
-	bDragging = false;
-end
-
 -- Suppress default processing to support dragging
 function onClickDown(button, x, y)
 	return true;
