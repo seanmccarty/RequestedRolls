@@ -173,33 +173,37 @@ function onDrop(x, y, draginfo)
 	local sDragType = draginfo.getType();
 
 	if sDragType == "dice" then
-		for _, vDie in ipairs(draginfo.getDiceData()) do
-			local w = list.createWindow();
-			local count = list.getWindowCount();
-			w.sort.setValue(count);
-			local result = 0;
-			if type(vDie) == "table" then
-				w.label.setValue(vDie.type);
-				local nDieType = string.match(vDie.type, "%d+")
-				result = math.random(nDieType);
-				table.insert(vRoll.aDice,{value=0,type=vDie.type,result=0});
-			else
-				w.label.setValue(vDie);
-			end
-
-
-			reRoll(w.label.getValue(), w.value.getValue(), result);
-
-			w.value.setValue(result);
-			--vRoll.aDice.expr should only include the dice, not the plus or minus becuase those get handled in action message
-			local sDice = DiceManager.convertDiceToString(vRoll.aDice, 0);
-			vRoll.aDice.expr = sDice;
-		end
+		addDice(draginfo.getDiceData())
 		return true;
 	end
 end
 
-function reRoll(sDie, oldValue, fauxRollValue)
+function addDice(diceData, sReason)
+		for _, vDie in ipairs(diceData) do
+		local w = list.createWindow();
+		local count = list.getWindowCount();
+		w.sort.setValue(count);
+		local result = 0;
+		if type(vDie) == "table" then
+			w.label.setValue(vDie.type);
+		else
+			w.label.setValue(vDie);
+		end
+		local sDieType = w.label.getValue();
+		local nDieType = string.match(sDieType, "%d+")
+		result = math.random(nDieType);
+		table.insert(vRoll.aDice,{value=0,type=sDieType,result=0});
+
+		reRoll(w.label.getValue(), w.value.getValue(), result, sReason);
+
+		w.value.setValue(result);
+		--vRoll.aDice.expr should only include the dice, not the plus or minus becuase those get handled in action message
+		local sDice = DiceManager.convertDiceToString(vRoll.aDice, 0);
+		vRoll.aDice.expr = sDice;
+	end
+end
+
+function reRoll(sDie, oldValue, fauxRollValue, sReason)
 	local rReRoll = {};
 
 	if vRoll.bSecret then
@@ -209,10 +213,14 @@ function reRoll(sDie, oldValue, fauxRollValue)
 	if vRoll.bTower then
 		rReRoll.bTower = vRoll.bTower;
 	end
-	if oldValue == 0 then
+	if not oldValue or oldValue == 0  then
 		rReRoll.sDesc = "[DICE] Rolling an additional die";
 	else
 		rReRoll.sDesc = "[DICE] Rolling to replace a " .. oldValue;
+	end
+
+	if sReason then
+		rReRoll.sDesc = rReRoll.sDesc .. " using " .. sReason;
 	end
 	if DiceManager.isDiceString(sDie) then
 		rReRoll.sType = "dice"

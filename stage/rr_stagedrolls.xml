@@ -78,7 +78,9 @@
 			<label_manualroll name="reasons_label">
 				<static textres="RR_label_reason" />
 			</label_manualroll>
-			<stringc_manualroll name="reasons" />
+			<stringc_manualroll name="reasons" >
+				<script file="stage/scripts/rr_stagedroll_reason.lua" />
+			</stringc_manualroll>
 
 			<windowlist name="list">
 				<anchored>
