@@ -40,7 +40,7 @@
 			<minrelease>22</minrelease>
 		</ruleset>
 	</properties>
-	<announcement text="Requested Rolls version 2.10-beta.2 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
+	<announcement text="Requested Rolls version 2.10-beta.3 by mccartysr, 2022\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>>
 	<base>		
 		<includefile source="xml/rr_resources.xml" />
 	</base>    
