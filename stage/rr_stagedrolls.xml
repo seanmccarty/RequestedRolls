@@ -29,7 +29,10 @@
 				<static />
 			</stringcontrol>
 			<button_roll name="initroll">
-				<anchored to="value" position="below" offset="0,2" />
+				<anchored to="value">
+					<top anchor="bottom" offset="2" />
+					<left anchor="center" offset="-10"/>
+				</anchored>
 				<script>
 					function onButtonPress()
 						window.windowlist.window.reRoll(window.label.getValue(), window.value.getValue());
