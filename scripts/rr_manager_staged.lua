@@ -133,8 +133,12 @@ end
 ---@param rRoll any
 ---@param rApplicableIdentifier any
 function addStagedRoll(rSource, vTargets, rRoll,rApplicableIdentifier)
-	local wMain = Interface.openWindow("stagedrolls", "");
-	local wRoll = wMain.list.createWindow();
+	--local wMain = Interface.openWindow("stagedrolls", "");
+	--local wRoll = wMain.list.createWindow();
+	--wRoll.setData(rRoll, rSource, vTargets,rApplicableIdentifier);
+
+	local wMain = Interface.openWindow("manualrolls", "");
+	local wRoll = wMain.list.createWindowWithClass("stagedroll_entry");
 	wRoll.setData(rRoll, rSource, vTargets,rApplicableIdentifier);
 	if RR.bDebug then Debug.chat("staged",rRoll); end
 

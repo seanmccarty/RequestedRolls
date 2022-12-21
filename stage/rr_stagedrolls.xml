@@ -45,7 +45,7 @@
 		<script file="stage/scripts/stagedroll_entry.lua" />
 		<sheetdata>
 			<hnc name="sort" />
-			
+			<hs name="CTNodeID"/>
 			<anchor_column name="columnanchor">
 				<anchored><top offset="10" /></anchored>
 			</anchor_column>
