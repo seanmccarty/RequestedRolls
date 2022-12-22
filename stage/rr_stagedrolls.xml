@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<windowclass name="manualroll_die">
+	<windowclass name="stagedroll_die">
 		<margins control="0,0,7,5" />
 		<sheetdata>
 			<hnc name="sort" />
@@ -109,7 +109,7 @@
 					<right offset="-75" />
 					<sizelimits><minimum height="45" /></sizelimits>
 				</anchored>
-				<class>manualroll_die</class>
+				<class>stagedroll_die</class>
 				<columns width="50" fillwidth="true" />
 				<script>
 					function onSortCompare(w1, w2)
