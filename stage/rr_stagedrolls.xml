@@ -126,43 +126,4 @@
 			</button_dialog_cancel>
 		</sheetdata>
 	</windowclass>
-	
-	<windowclass name="stagedrolls">
-		<frame>utilitybox</frame>
-		<placement>
-			<size width="480" height="480" />
-			<nosave />
-		</placement>
-		<sizelimits>
-			<minimum width="480" height="480" />
-			<dynamic />
-		</sizelimits>
-		<softclose />
-		<sheetdata>
-			<windowtitlebar name="title">
-				<resource>RR_window_title_staged</resource>
-			</windowtitlebar>
-			<anchor_title_utilitybox name="contentanchor" />
-
-			<anchor_bottom_utilitybox name="bottomanchor" />
-
-			<windowlist name="list">
-				<anchored to="contentanchor">
-					<top anchor="bottom" relation="relative" offset="20" />
-					<left offset="5" />
-					<right offset="-10" />
-					<bottom parent="bottomanchor" anchor="top" offset="-20" />
-				</anchored>
-				<frame name="groupbox" offset="15,15,20,15" />
-				<class>stagedroll_entry</class>
-				<sortby>
-					<control>sort</control>
-				</sortby>
-			</windowlist>
-			<scrollbar_list />
-			
-			<resize_utilitybox />
-			<close_utilitybox />
-		</sheetdata>
-	</windowclass>
 </root>

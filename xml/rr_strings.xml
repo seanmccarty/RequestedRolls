@@ -20,9 +20,9 @@
 
 	<string name="RR_option_label_alwaysShowManualDice">RR: Always show manual dice entry fields</string>
 
-	<string name="RR_option_label_allowRollStaging">Experimental: Allow rolls to be staged</string>
+	<string name="RR_option_label_allowRollStaging">Allow rolls to be staged</string>
 
-	<string name="RR_option_label_suppressDiceAnimations">Experimental: Suppress Dice Animations</string>
+	<string name="RR_option_label_suppressDiceAnimations">Suppress Dice Animations</string>
 
 	<!-- CONSOLE -->
 	<string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
@@ -86,8 +86,7 @@
 	<string name="RR_msg_rollCancel_player">Requested Rolls: The GM cancelled your rolls.</string>
 
 	<!-- STAGED ROLLS -->
-	<string name="RR_window_title_staged">Staged Rolls</string>
-	<string name="RR_tab_title_staged">Experimental: Staged Rolls</string>
+	<string name="RR_tab_title_staged">Staged Rolls</string>
 	<string name="RR_msg_rollModified">Original Roll Was a</string>
 	<string name="RR_default_stagedType">Feature</string>
 	<string name="RR_window_prefix_stagedDetail">Staged</string>
