@@ -42,9 +42,26 @@
 		</sheetdata>
 	</windowclass>
 	
+
+	<framedef name="stagedRollFrame">
+		<bitmap file="graphics/frames/ctentrybox_friend_active.png" />
+		<topleft rect="25,0,10,10" />
+		<top rect="35,0,500,10" />
+		<topright rect="535,0,10,10" />
+
+		<left rect="25,10,10,116" />
+		<middle rect="35,10,500,116" />
+		<right rect="535,10,10,116" />
+
+
+		<bottomleft rect="25,126,10,10" />
+		<bottom rect="35,126,500,10" />
+		<bottomright rect="535,126,10,10" /> 
+	</framedef>
+
 	<windowclass name="stagedroll_entry">
 		<margins control="0,0,0,5" />
-		<frame name="manualroll_entry" />
+		<frame name="stagedRollFrame"/>
 		<script file="stage/scripts/stagedroll_entry.lua" />
 		<sheetdata>
 			<hnc name="sort" />
