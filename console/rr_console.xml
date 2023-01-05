@@ -603,7 +603,7 @@
 					local node = getDatabaseNode();
 					local type, record = DB.getValue(getDatabaseNode(),"link");
 					if record == "" then
-						record = node.getPath();
+						record = DB.getPath(node);
 					end
 					Interface.openWindow(type, record);
 				elseif selection == 4 then
@@ -616,7 +616,7 @@
 			end
 			function onDrop(x, y, draginfo)
 				local nodeCT = getDatabaseNode();
-				local sCTNode = nodeCT.getPath();
+				local sCTNode = DB.getPath(nodeCT);
 				return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
 			end
 		</script>
