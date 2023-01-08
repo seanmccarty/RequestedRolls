@@ -8,11 +8,14 @@ local vSource = nil;
 local vTargets = nil;
 local originalTotal=0;
 local vApplicableIdentifier = nil;
+local sRollID;
 
 function onClose()
 	if vTargets then
 		CombatManager.removeCustomDeleteCombatantHandler(onCTEntryDeleted);
 	end
+
+	ActionsManager.unregisterResultHandler(sRollID);
 	if windowlist.getWindowCount()==1 then
 		windowlist.window.close();
 	end
@@ -99,6 +102,26 @@ function setData(rRoll, rSource, aTargets,rApplicableIdentifier)
 		CombatManager.setCustomDeleteCombatantHandler(onCTEntryDeleted);
 	end
 	updateTargetDisplay();
+
+	local sTemp = tostring(windowlist.getWindowCount());
+	local sRandom = tostring(math.random(1000000000));
+	sRollID = sTemp .. sRandom;
+	ActionsManager.registerResultHandler(sRollID, onRoll);
+end
+
+function onRoll(rSource, rTarget, rRoll)
+	if rRoll.nStageSort then
+		local nSort = tonumber(rRoll.nStageSort);
+		for _,w in ipairs(list.getWindows()) do
+			if nSort == w.sort.getValue() then
+				w.value.setValue(rRoll.aDice[1].value);
+				break;
+			end
+		end
+	end
+
+	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
+	Comm.deliverChatMessage(rMessage);
 end
 
 function updateTargetDisplay()
@@ -179,7 +202,7 @@ function onDrop(x, y, draginfo)
 end
 
 function addDice(diceData, sReason)
-		for _, vDie in ipairs(diceData) do
+	for _, vDie in ipairs(diceData) do
 		local w = list.createWindow();
 		local count = list.getWindowCount();
 		w.sort.setValue(count);
@@ -190,20 +213,21 @@ function addDice(diceData, sReason)
 			w.label.setValue(vDie);
 		end
 		local sDieType = w.label.getValue();
-		local nDieType = string.match(sDieType, "%d+")
-		result = math.random(nDieType);
+		--local nDieType = string.match(sDieType, "%d+")
+		--result = math.random(nDieType);
 		table.insert(vRoll.aDice,{value=0,type=sDieType,result=0});
 
-		reRoll(w.label.getValue(), w.value.getValue(), result, sReason);
+		reRoll(w.label.getValue(), w.value.getValue(), nil, sReason,w.sort.getValue());
 
-		w.value.setValue(result);
+		--w.value.setValue(result);
 		--vRoll.aDice.expr should only include the dice, not the plus or minus becuase those get handled in action message
-		local sDice = DiceManager.convertDiceToString(vRoll.aDice, 0);
-		vRoll.aDice.expr = sDice;
+
 	end
+	local sDice = DiceManager.convertDiceToString(vRoll.aDice, 0);
+	vRoll.aDice.expr = sDice;
 end
 
-function reRoll(sDie, oldValue, fauxRollValue, sReason)
+function reRoll(sDie, oldValue, fauxRollValue, sReason, nSort)
 	local rReRoll = {};
 
 	if vRoll.bSecret then
@@ -223,7 +247,9 @@ function reRoll(sDie, oldValue, fauxRollValue, sReason)
 		rReRoll.sDesc = rReRoll.sDesc .. " using " .. sReason;
 	end
 	if DiceManager.isDiceString(sDie) then
-		rReRoll.sType = "dice"
+		rReRoll.sType = sRollID;
+
+		rReRoll.nStageSort = nSort;
 		if fauxRollValue and fauxRollValue > 0 then
 			local num = tostring(fauxRollValue);
 			rReRoll.aDice =  {};

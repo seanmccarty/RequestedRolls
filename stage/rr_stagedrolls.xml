@@ -35,7 +35,12 @@
 				</anchored>
 				<script>
 					function onButtonPress()
-						window.windowlist.window.reRoll(window.label.getValue(), window.value.getValue());
+						--if control is pressed, automatically set the rolled dice to the current field
+						if Input.isControlPressed() then
+							window.windowlist.window.reRoll(window.label.getValue(), window.value.getValue(), nil, nil, window.sort.getValue());
+						else
+							window.windowlist.window.reRoll(window.label.getValue(), window.value.getValue());
+						end
 					end
 				</script>
 			</button_roll>
