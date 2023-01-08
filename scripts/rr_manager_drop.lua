@@ -1,10 +1,12 @@
 RRPROCESSROLL = "RRProcessRoll";
 RRTOWERDROP = "RRTowerDrop";
+RRSTAGEDREASON = "RRStagedReason";
 local fDiceTowerOnDrop;
 
 function onInit()
 	CombatDropManager.setDragTypeDropCallback("RR", RRDropManager.onRRDragTypeDrop);
-	ChatManager.registerDropCallback(RRPROCESSROLL,onChatDrop);
+	ChatManager.registerDropCallback(RRPROCESSROLL, onChatDrop);
+	ChatManager.registerDropCallback(RRSTAGEDREASON, onChatDropStagedReason)
 	fDiceTowerOnDrop = DiceTowerManager.onDrop;
 	DiceTowerManager.onDrop = onDiceTowerDrop;
 end
@@ -27,6 +29,14 @@ end
 ---@return boolean true to show the drop was handled
 function onChatDrop(draginfo)
 	draginfo.window.processRoll();
+	return true;
+end
+
+---Handler for when the reasons string from the staged roll entry is dragged into the chat box
+---@param draginfo any
+---@return boolean true to show the drop was handled
+function onChatDropStagedReason(draginfo)
+	draginfo.window.action();
 	return true;
 end
 

@@ -118,3 +118,29 @@ function onClickRelease(button, x, y)
 	
 	return true;
 end
+
+---This sets the drag data when the reason string is dragged so that dice are shown
+---@param draginfo table the draginfo object from the requisite drag action
+function setDragData(draginfo)
+	draginfo.setType(RRDropManager.RRSTAGEDREASON);
+	draginfo.setIcon("action_roll");
+	draginfo.window = self;
+	
+	local aDice, nMod = DiceManager.convertStringToDice(nDragMod, true)
+	local tRoll = {};
+	tRoll.aDice = aDice;
+	ActionsManager.encodeRollForDrag(draginfo, 1, tRoll);
+end
+
+--Add the window to the drag data and set the drag status so that selection does not change when the cursor moves.
+function onDragStart(button, x, y, draginfo)
+	setDragData(draginfo)
+	bDragging = true;
+	return true;
+end
+
+--Clear the selection when the drag ends, if it is done early, we would not know what was selectd
+function onDragEnd(dragdata)
+	setCursorPosition(0);
+	bDragging = false;
+end
