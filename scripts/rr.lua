@@ -99,7 +99,6 @@ local OOB_MSGTYPE_APPLYCLIENTSAVE = "applyClientSaveRR";
 function registerSlashHandlers()
 	Comm.registerSlashHandler("RR", processRRCommandList);
 	Comm.registerSlashHandler("RRrolls", processRRRolls);
-	Comm.registerSlashHandler("RRstaged", processRRStagedRolls);
 	if Session.IsHost  then
 		Comm.registerSlashHandler("RRconsole", processRRConsole);
 		Comm.registerSlashHandler("RRclientsaves", processRRClientSaves);
@@ -123,7 +122,6 @@ function processRRCommandList(sCommand, sParams)
 	end	
 
 	ChatManager.SystemMessage("/RRrolls \t open the rolls window");
-	ChatManager.SystemMessage("/RRstaged \t open the staged rolls window");
 	ChatManager.SystemMessage("/RRdebug <on/off> \t sets the debug status");
 end
 
@@ -132,13 +130,6 @@ end
 ---@param sParams string not used
 function processRRRolls(sCommand, sParams)
 	Interface.openWindow("manualrolls", "");
-end
-
----Opens the staged rolls window to make the actual rolls
----@param sCommand string not used
----@param sParams string not used
-function processRRStagedRolls(sCommand, sParams)
-	Interface.openWindow("stagedrolls", "");
 end
 
 ---Opens the console window, if host, to send rolls to users
