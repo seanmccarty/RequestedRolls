@@ -25,7 +25,7 @@ function onCTEntryDeleted(nodeEntry)
 	if not vTargets then
 		return;
 	end
-	local sDeletedPath = nodeEntry.getPath();
+	local sDeletedPath = DB.getPath(nodeEntry);
 	
 	local bAnyDelete = false;
 	local nTarget = 1;
