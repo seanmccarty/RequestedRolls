@@ -177,7 +177,7 @@ function processOK()
 		if vRoll.sDesc ~= "" then
 			vRoll.sDesc = vRoll.sDesc .. " ";
 		end
-		vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("RR_msg_rollModified") .. " " .. originalTotal .. "]";
+		vRoll.sDesc = string.format("%s [%s %s]", vRoll.sDesc, Interface.getString("RR_msg_rollModified"), originalTotal);
 	end
 	
 

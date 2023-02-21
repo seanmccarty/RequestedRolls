@@ -151,7 +151,7 @@ function processOK()
 			if vRoll.sDesc ~= "" then
 				vRoll.sDesc = vRoll.sDesc .. " ";
 			end
-			vRoll.sDesc = vRoll.sDesc .. "[" .. Interface.getString("message_manualroll") .. "]";
+			vRoll.sDesc = string.format("%s [%s]", vRoll.sDesc, Interface.getString("message_manualroll"));
 		end
 		
 		RRTowerManager.sendTower(vRoll, vSource, vTargets);
