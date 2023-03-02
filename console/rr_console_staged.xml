@@ -31,7 +31,7 @@
 			</header_column>
 			<button_iedit name="list_iedit">
 				<anchored to="header_tab_title" position="insidetopright" offset="-5,0" />
-				<target>list</target>
+				<edittarget>list</edittarget>
 			</button_iedit>
 			<button_iadd name="list_iadd">
 				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
@@ -137,6 +137,7 @@
 					<top />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
+				<editmode>list_iedit</editmode>
 			</button_idelete>
 		</sheetdata>
 	</windowclass>
@@ -232,7 +233,7 @@
 			</header_column>
 			<button_iedit name="list_iedit">
 				<anchored to="header_rollType" position="insidetopright" offset="-5,0" />
-				<target>list</target>
+				<edittarget>list</edittarget>
 			</button_iedit>
 			<button_iadd name="list_iadd">
 				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
@@ -291,6 +292,7 @@
 					<top />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
+				<editmode>list_iedit</editmode>
 			</button_idelete>
 			<button_checkbox name="selected">
 				<anchored position="insidetopleft" offset="15,2" width="20" height="20" />
