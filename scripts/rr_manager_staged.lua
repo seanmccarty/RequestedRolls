@@ -103,6 +103,10 @@ function shouldStage(rSource, rTarget, rRoll)
 						table.insert(results,value["name"]);
 					end
 				end
+			elseif value["category"] == "Ability" then
+				if RRManagerCore.hasFeature(ActorManager.getCreatureNode(rSource),value["name"]) then
+					table.insert(results,value["name"]);
+				end
 			end
 		end
 	end
@@ -125,6 +129,8 @@ function addDefaultRolls(nodeParent, nodeChildAdded)
 		local node4 = DB.createChild(node);
 		DB.setValue(node4, "type","string","Skill");
 	end
+	local node6 = DB.createChild(node);
+	DB.setValue(node6, "type","string","Dice");
 end
 
 ---Adds the roll to stage roll dialog and then posts a message saying what the roll number was

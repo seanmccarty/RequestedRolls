@@ -13,6 +13,7 @@
 
 	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
 
+	<script name="RRManagerCore" file="scripts/rr_manager_Core.lua" ruleset="CoreRPG"/>
 	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
 	<script name="RRManager2E" file="scripts/rr_manager_2E.lua"/>
 

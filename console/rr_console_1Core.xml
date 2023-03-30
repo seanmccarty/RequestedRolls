@@ -153,6 +153,7 @@
 		</windowlist>
 	</template>
 
+	<!-- Add the code to get actor so that rActor is present when going through the roll chain. Otherwise, it would need to look up the active users current identity. -->
 	<windowclass name="char_attribute" merge="join">
 		<margins control="0,0,0,3" />
 		<script>
