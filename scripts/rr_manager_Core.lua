@@ -1,8 +1,8 @@
 -- copied from 5E
-function hasFeature(nodeChar, s)
-	return (RRManagerCore.getFeatureRecord(nodeChar, s) ~= nil);
+function hasAbility(nodeChar, s)
+	return (RRManagerCore.getAbilityRecord(nodeChar, s) ~= nil);
 end
-function getFeatureRecord(nodeChar, s)
+function getAbilityRecord(nodeChar, s)
 	if (s or "") == "" then
 		return nil;
 	end
