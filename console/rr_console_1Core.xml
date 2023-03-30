@@ -152,4 +152,50 @@
 			</script>
 		</windowlist>
 	</template>
+
+	<windowclass name="char_attribute" merge="join">
+		<margins control="0,0,0,3" />
+		<script>
+			function onDragStart(button, x, y, draginfo)
+				if label.isEmpty() and dice.isEmpty() and bonus.getValue() == 0 then
+					return nil;
+				end
+
+				if dice.isEmpty() then
+					draginfo.setType("number");
+					draginfo.setDescription(label.getValue());
+					draginfo.setStringData(label.getValue());
+					draginfo.setNumberData(bonus.getValue());
+				else
+					local rRoll = { sType = "dice", sDesc = label.getValue(), aDice = dice.getDice(), nMod = bonus.getValue() };
+					local rActor = ActorManager.resolveActor(self.windowlist.window.windowlist.window.getDatabaseNode())
+					ActionsManager.performAction(draginfo, rActor, rRoll);
+				end
+				return true;
+			end
+			
+			function onDoubleClick(x, y)
+				if dice.isEmpty() then
+					ModifierStack.addSlot(label.getValue(), bonus.getValue());
+				else
+					local rRoll = { sType = "dice", sDesc = label.getValue(), aDice = dice.getDice(), nMod = bonus.getValue() };
+					local rActor = ActorManager.resolveActor(self.windowlist.window.windowlist.window.getDatabaseNode())
+					ActionsManager.performAction(nil, rActor, rRoll);
+				end
+				return true;
+			end
+
+			function onDrop(x, y, draginfo)
+				local sDragType = draginfo.getType();
+				if sDragType == "dice" then
+					local aDropDice = draginfo.getDiceData();
+					for _,vDie in ipairs(aDropDice) do
+						dice.addDie(vDie.type);
+					end
+					return true;
+				end
+			end
+		</script>
+	</windowclass>
+	
 </root>
