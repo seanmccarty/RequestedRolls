@@ -6,15 +6,17 @@
 function onInit()
 	registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
 	
-	-- Construct default skills
-	if self.datasource[1] == ".skill.list" then
-		constructDefaultSkills();
-	end
-	if self.datasource[1] == ".check.list" then
-		constructDefaultChecks();
-	end
-	if self.datasource[1] == ".save.list" then
-		constructDefaultSaves();
+	-- Construct default skills, if DataCommon does not exist, no way to build default list for special rolls
+	if DataCommon then
+		if self.datasource[1] == ".skill.list" then
+			constructDefaultSkills();
+		end
+		if self.datasource[1] == ".check.list" then
+			constructDefaultChecks();
+		end
+		if self.datasource[1] == ".save.list" then
+			constructDefaultSaves();
+		end
 	end
 	if self.datasource[1] == ".dice.list" then
 		constructDefaultDice();
