@@ -24,6 +24,7 @@
 	<includefile source="console/rr_console_staged.xml"/>
 	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
+	<includefile source="console/rr_console_1Core.xml" ruleset="CoreRPG"/>
 
 	<includefile source="stage/rr_stagedrolls.xml"/>
 	<includefile source="stage/rr_staged_SFRPG.xml" ruleset="SFRPG"/>
