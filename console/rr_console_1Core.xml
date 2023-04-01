@@ -45,7 +45,7 @@
 		</sheetdata>
 	</windowclass>
 
-	<!-- Remove the save expanders -->
+	<!-- Remove the save and check expanders -->
 	<windowclass name="classwindow_buttonselectors" merge="join">
 		<sheetdata>
 			<RR_subwindow_expander name="save_window" merge="delete">
@@ -55,7 +55,7 @@
 		</sheetdata>
 	</windowclass>
 
-	<!-- Hide the save options subwindow. Would have to rewrite additional functions if it was deleted. -->
+	<!-- Hide the save and checks options subwindow. Would have to rewrite additional functions if it was deleted. -->
 	<windowclass name="rr_options_contents" merge="join">
 		<sheetdata>
 			<RR_label_options_lists name="savestitle">
@@ -86,6 +86,7 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- redefines compoents not available in CoreRPG -->
 	<windowclass name="rr_staged_details_window">
 		<frame>referencelist</frame>
 		<placement>
@@ -124,6 +125,7 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- not defined in CoreRPG -->
 	<template name="list_editor">
 		<windowlist name="list">
 			<anchored>

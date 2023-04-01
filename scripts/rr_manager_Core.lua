@@ -2,10 +2,18 @@ function onInit()
 	RRRollManager.getSkillRoll = getSkillRoll;
 end
 
--- copied from 5E
+---This was copied from 5E and the function updated. Checks if an ability is present.
+---@param nodeChar table
+---@param s string
+---@return boolean
 function hasAbility(nodeChar, s)
 	return (RRManagerCore.getAbilityRecord(nodeChar, s) ~= nil);
 end
+
+---This was copied from 5E and the relevant DB path updated. Returns the node if an ability is present.
+---@param nodeChar table
+---@param s string
+---@return nil|table
 function getAbilityRecord(nodeChar, s)
 	if (s or "") == "" then
 		return nil;
@@ -21,22 +29,10 @@ function getAbilityRecord(nodeChar, s)
 	return nil;
 end
 
-function getMainSkillRecord(nodeChar, s)
-	if (s or "") == "" then
-		return nil;
-	end
-	
-	local sLower = StringManager.trim(s):lower();
-	for _,v in ipairs(DB.getChildList(nodeChar, "maincategorylist")) do
-		local sMatch = StringManager.trim(DB.getValue(v, "label", "")):lower();
-		if sMatch == sLower then
-			return v;
-		end
-	end
-	return nil;
-end
-
-
+---Splits the selected skill three string. The first two parts are mandatory and the third is an optional specifier of what the default 
+---roll should be if it is not explicitly defined on the character.
+---@param rActor table
+---@return table
 function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local sSplit = StringManager.split(sSkill, "~");
@@ -60,9 +56,12 @@ function getSkillRoll(rActor)
 	end
 end
 
-
-
-
+---Checks for a PC skill (NPC not implemented). First it looks for a matching main category and if found checks for the
+---specific attribute. Search is case insensitive.
+---@param nodeChar table
+---@param sMain string
+---@param sChild string
+---@return table|nil
 function getSkillRecord(nodeChar, sMain, sChild)
 	if ((sMain or "") == "") or ((sChild or "") == "") then
 		return nil;
