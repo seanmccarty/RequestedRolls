@@ -49,7 +49,8 @@ function getSkillRoll(rActor)
 			local aDice, nMod = DiceManager.convertStringToDice(sDice, true)
 			rRoll = { sType = "dice", sDesc = "Using Default Roll for ".. sSkill, aDice = aDice, nMod = nMod };
 		else
-			rRoll = { sType = "dice", sDesc = "Roll Not Defined for Selected Character", aDice = "", nMod = 0 };
+			-- have to put sType to "none" or the staged roll can intercept it and throw an error
+			rRoll = { sType = "none", sDesc = "Roll Not Defined for Selected Character"};
 		end
 		
 		return rRoll;
