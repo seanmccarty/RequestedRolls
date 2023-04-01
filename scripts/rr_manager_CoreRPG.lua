@@ -7,7 +7,7 @@ end
 ---@param s string
 ---@return boolean
 function hasAbility(nodeChar, s)
-	return (RRManagerCore.getAbilityRecord(nodeChar, s) ~= nil);
+	return (RRManagerCoreRPG.getAbilityRecord(nodeChar, s) ~= nil);
 end
 
 ---This was copied from 5E and the relevant DB path updated. Returns the node if an ability is present.
@@ -39,7 +39,7 @@ function getSkillRoll(rActor)
 	local sFirst = sSplit[1];
 	local sSecond = sSplit[2];
 	local sDice = sSplit[3];
-	local node = RRManagerCore.getSkillRecord(ActorManager.getCreatureNode(rActor),sFirst,sSecond);
+	local node = RRManagerCoreRPG.getSkillRecord(ActorManager.getCreatureNode(rActor),sFirst,sSecond);
 	local rRoll = {};
 	if node then
 		rRoll = { sType = "dice", sDesc = DB.getValue(node, "label", ""), aDice = DB.getValue(node, "dice", ""), nMod = DB.getValue(node, "bonus", 0) };

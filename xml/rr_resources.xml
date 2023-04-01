@@ -13,7 +13,7 @@
 
 	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
 
-	<script name="RRManagerCore" file="scripts/rr_manager_Core.lua" ruleset="CoreRPG"/>
+	<script name="RRManagerCoreRPG" file="scripts/rr_manager_CoreRPG.lua" ruleset="CoreRPG"/>
 	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
 	<script name="RRManager2E" file="scripts/rr_manager_2E.lua"/>
 
@@ -25,7 +25,7 @@
 	<includefile source="console/rr_console_staged.xml"/>
 	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
-	<includefile source="console/rr_console_1Core.xml" ruleset="CoreRPG"/>
+	<includefile source="console/rr_console_CoreRPG.xml" ruleset="CoreRPG"/>
 
 	<includefile source="stage/rr_stagedrolls.xml"/>
 	<includefile source="stage/rr_staged_SFRPG.xml" ruleset="SFRPG"/>
