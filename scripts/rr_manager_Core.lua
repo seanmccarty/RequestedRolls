@@ -2,7 +2,6 @@ function onInit()
 	RRRollManager.getSkillRoll = getSkillRoll;
 end
 
-
 -- copied from 5E
 function hasAbility(nodeChar, s)
 	return (RRManagerCore.getAbilityRecord(nodeChar, s) ~= nil);
@@ -37,18 +36,26 @@ function getMainSkillRecord(nodeChar, s)
 	return nil;
 end
 
---to do: add default dice, NPC behavior, and no default dice behavior for PC
+
 function getSkillRoll(rActor)
 	local sSkill = DB.getValue("requestsheet.skill.selected", "");
-	local sFirst = StringManager.split(sSkill, "~")[1];
-	local sSecond = StringManager.split(sSkill, "~")[2];
+	local sSplit = StringManager.split(sSkill, "~");
+	local sFirst = sSplit[1];
+	local sSecond = sSplit[2];
+	local sDice = sSplit[3];
 	local node = RRManagerCore.getSkillRecord(ActorManager.getCreatureNode(rActor),sFirst,sSecond);
 	local rRoll = {};
 	if node then
 		rRoll = { sType = "dice", sDesc = DB.getValue(node, "label", ""), aDice = DB.getValue(node, "dice", ""), nMod = DB.getValue(node, "bonus", 0) };
 		return rRoll;
 	else
-		rRoll = { sType = "dice", sDesc = "Roll Not Defined for Selected Character", aDice = "", nMod = 0 };
+		if sDice then
+			local aDice, nMod = DiceManager.convertStringToDice(sDice, true)
+			rRoll = { sType = "dice", sDesc = "Using Default Roll for ".. sSkill, aDice = aDice, nMod = nMod };
+		else
+			rRoll = { sType = "dice", sDesc = "Roll Not Defined for Selected Character", aDice = "", nMod = 0 };
+		end
+		
 		return rRoll;
 	end
 end
