@@ -9,6 +9,8 @@ function onInit()
 		if not ActionInit.getRoll then
 			ActionInit.getRoll = addInitRoll;
 		end
+		-- This is for things like death saving throws since 4E does not use sSaveDesc
+		RRActionManager.registerRollType("autosave")
 	end
 end
 
