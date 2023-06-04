@@ -152,9 +152,9 @@
 			<dynamic />
 		</sizelimits>
 		<sheetdata>
-			<windowtitlebar_char name="title">
+			<windowtitlebar_charsheethelper name="title">
 				<prefix>RR_window_prefix_stagedDetail</prefix>
-			</windowtitlebar_char>
+			</windowtitlebar_charsheethelper>
 			<anchor_title_charsheethelper name="contentanchor" />
 			
 			<genericcontrol name="contentframe">
