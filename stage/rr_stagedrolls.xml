@@ -6,29 +6,9 @@
 -->
 
 <root>
-	<windowclass name="stagedroll_die">
-		<margins control="0,0,7,5" />
+	<windowclass name="stagedroll_die" copy="manualroll_die">
 		<sheetdata>
-			<hnc name="sort" />
-			
-			<basicnumberc name="value">
-				<anchored position="insidetopleft" offset="7,20" height="20" width="30" />
-				<script>
-					function onEnter()
-						if window.windowlist.window.isLastDie(window.sort.getValue()) then
-							window.windowlist.window.processOK();
-							return true;
-						end
-					end
-				</script>
-			</basicnumberc>
-			<stringcontrol name="label">
-				<anchored to="value" position="above" offset="0,0" height="20" />
-				<center />
-				<font>sheetlabel</font>
-				<static />
-			</stringcontrol>
-			<button_roll name="initroll">
+			<button_roll name="rollButton">
 				<anchored to="value">
 					<top anchor="bottom" offset="2" />
 					<left anchor="center" offset="-10"/>
@@ -45,90 +25,28 @@
 				</script>
 			</button_roll>
 		</sheetdata>
-	</windowclass>
-	
-
-	<framedef name="stagedRollFrame">
-		<bitmap file="graphics/frames/ctentrybox_friend_active.png" />
-		<topleft rect="25,0,10,10" />
-		<top rect="35,0,500,10" />
-		<topright rect="535,0,10,10" />
-
-		<left rect="25,10,10,116" />
-		<middle rect="35,10,500,116" />
-		<right rect="535,10,10,116" />
+	</windowclass>	
 
 
-		<bottomleft rect="25,126,10,10" />
-		<bottom rect="35,126,500,10" />
-		<bottomright rect="535,126,10,10" /> 
-	</framedef>
 
-	<windowclass name="stagedroll_entry">
-		<margins control="0,0,0,5" />
+	<windowclass name="stagedroll_entry" copy="manualroll_entry">
 		<frame name="stagedRollFrame"/>
 		<script file="stage/scripts/stagedroll_entry.lua" />
 		<sheetdata>
-			<hnc name="sort" />
-			<hs name="CTNodeID"/>
-			<anchor_column name="columnanchor">
-				<anchored><top offset="10" /></anchored>
-			</anchor_column>
-
-			<label_manualroll name="rolltype_label">
-				<static textres="manualroll_label_rolltype" />
-			</label_manualroll>
-			<stringc_manualroll name="rolltype" />
-
-			<label_manualroll name="rollexpr_label">
-				<static textres="manualroll_label_rollexpr" />
-			</label_manualroll>
-			<stringc_manualroll name="rollexpr" />
-
-			<label_manualroll name="desc_label">
-				<static textres="manualroll_label_desc" />
-			</label_manualroll>
-			<stringc_manualroll name="desc" />
-
-			<label_manualroll name="source_label">
-				<static textres="manualroll_label_source" />
-			</label_manualroll>
-			<stringc_manualroll name="source" />
-
-			<label_manualroll name="targets_label">
-				<static textres="manualroll_label_targets" />
-			</label_manualroll>
-			<stringc_manualroll name="targets" />
-
-			<label_manualroll name="reasons_label">
+			<label_content_column_static name="reasons_label" insertbefore="list">
 				<static textres="RR_label_reason" />
-			</label_manualroll>
-			<stringc_manualroll name="reasons" >
+			</label_content_column_static>
+			<stringc_manualroll name="reasons" insertbefore="list">
 				<script file="stage/scripts/rr_stagedroll_reason.lua" />
 			</stringc_manualroll>
 
-			<windowlist name="list">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" />
-					<left offset="20" />
-					<right offset="-75" />
-					<sizelimits><minimum height="45" /></sizelimits>
-				</anchored>
+			<list_content_top name="list" merge="join">
 				<class>stagedroll_die</class>
-				<columns width="50" fillwidth="true" />
-				<script>
-					function onSortCompare(w1, w2)
-						return w1.sort.getValue() &gt; w2.sort.getValue();
-					end
-				</script>
-			</windowlist>
-			
-			<button_dialog_ok name="button_ok">
-				<anchored to="list" position="rightlow" offset="35,-5" />
-			</button_dialog_ok>
-			<button_dialog_cancel name="button_cancel">
-				<anchored position="insidetopright" offset="5,4" />
-			</button_dialog_cancel>
+			</list_content_top>
+
+			<button_dialog_roll name="button_roll" merge="delete"/>
+				
+			<button_dialog_fauxroll name="button_fauxroll" merge="delete"/>
 		</sheetdata>
 	</windowclass>
 </root>

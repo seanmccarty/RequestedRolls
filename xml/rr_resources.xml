@@ -3,6 +3,7 @@
 <root>
 	<includefile source="xml/rr_images.xml" />
 	<includefile source="xml/rr_strings.xml" />
+	<includefile source="xml/rr_frames.xml"/>
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	
 	<script name="RR" file="scripts/rr.lua"/>
@@ -28,6 +29,5 @@
 	<includefile source="console/rr_console_CoreRPG.xml" ruleset="CoreRPG"/>
 
 	<includefile source="stage/rr_stagedrolls.xml"/>
-	<includefile source="stage/rr_staged_SFRPG.xml" ruleset="SFRPG"/>
 	<includefile source="desktop/rr_desktop_panels.xml"/>
 </root>
