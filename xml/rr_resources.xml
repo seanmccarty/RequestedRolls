@@ -5,6 +5,7 @@
 	<includefile source="xml/rr_strings.xml" />
 	<includefile source="xml/rr_frames.xml"/>
 	<includefile source="roll/rr_manualroll_entry.xml" />
+	<includefile source="stage/rr_stagedroll_entry.xml"/>
 	
 	<script name="RR" file="scripts/rr.lua"/>
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
@@ -28,6 +29,6 @@
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
 	<includefile source="console/rr_console_CoreRPG.xml" ruleset="CoreRPG"/>
 
-	<includefile source="stage/rr_stagedrolls.xml"/>
+
 	<includefile source="desktop/rr_desktop_panels.xml"/>
 </root>
