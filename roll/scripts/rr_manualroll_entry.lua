@@ -33,7 +33,9 @@ function hideDiceList()
 	button_ok.setVisible(false);
 	button_fauxroll.setVisible(false);
 	button_roll.resetAnchor("left");
-	button_roll.setAnchor("right","","right","relative",-5);
+	button_roll.setAnchor("right","","right","relative",-10);
+	button_roll.resetAnchor("bottom");
+	button_roll.setAnchor("bottom","spacer_bottom","bottom","",0);
 end
 
 ---Adds a check to the manual roll window that closes it if you are rolling the last roll in your queue.
