@@ -11,17 +11,25 @@ Optionally, this extension can cause a dialog to popup for any saving throw requ
 The main picture shows a skill roll being sent by the GM to the selected characters.
 The second picture shows the configuration tab where you can enter custom skills, abbreviations,  and select which ones to display on the console. Selecting one star adds the entry to the combobox and two stars adds it to the combobox and the collapsible buttons windows.
 
+Advanced dice strings support all options available in the FG dice engine.
+
+Staged Rolls - Each user can now select whether they want their rolls to be done with the dice models or if they wish for them to resolve instantly using a random number. This does not work for dice strings such as 4d6d1.
+
+Instant Dice - Each user can now select whether they want their rolls to be done with the dice models or if they wish for them to resolve instantly using a random number. This does not work for dice strings such as 4d6d1.
+
 Check out the forum link to provide suggestions or contribute to this extension. Version 2 made significant changes to both code and UI.
 
 Instructions can be found at https://github.com/seanmccarty/RequestedRolls/wiki
 
 Full support for player controlled NPCs is provided in conjunction with the *Friend Zone* or *Cohorts and Companions* extension depending on your ruleset.
+Compatible with Hearth Theme.
 # Compatible Rulesets
 DnD: 2E, 3.5E, 4E, 5E
 PFRPG: 1E, 2E
 SFRPG
-# Compatible Extensions (non-exhaustive)
-* Better Menus https://forge.fantasygrounds.com/shop/items/69/view
+CoreRPG (very important to view the instructions)
+
+# Extensions with Specific Compatibility
 * Combat Groups https://forge.fantasygrounds.com/shop/items/154/view
 * Friend Zone https://forge.fantasygrounds.com/shop/items/170/view
 * Cohorts and Companions https://forge.fantasygrounds.com/shop/items/518/view
