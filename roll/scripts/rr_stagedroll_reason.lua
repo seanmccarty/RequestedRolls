@@ -19,9 +19,9 @@ function parseComponents()
 	-- Check each comma-separated string for a potential skill roll or auto-complete opportunity
 	for i = 1, #aClauses do
 		-- sea = "([%w%s\(\)]*[%w\(\)]+):%s*([%+%-�]?)(%d*)";
-		sea = "([%w%s\(\)]*[%w\(\)]+):%s*([%+%-�]?)(%w*)";
-		--Debug.chat(string.find(aClauses[i], sea))
-		local nStarts, nEnds, sLabel, sSign, sMod = string.find(aClauses[i], sea);
+		local search = "([%w%s%(%)]*[%w%(%)]+):%s*([%+%-�]?)(%w*)";
+		--Debug.chat(string.find(aClauses[i], search))
+		local nStarts, nEnds, sLabel, sSign, sMod = string.find(aClauses[i], search);
 		if nStarts then
 			-- Calculate modifier based on mod value and sign value, if any
 			local nAllowRoll = 0;
