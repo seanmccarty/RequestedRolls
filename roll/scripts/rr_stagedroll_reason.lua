@@ -20,7 +20,7 @@ function parseComponents()
 	for i = 1, #aClauses do
 		-- sea = "([%w%s\(\)]*[%w\(\)]+):%s*([%+%-�]?)(%d*)";
 		local search = "([%w%s%(%)]*[%w%(%)]+):%s*([%+%-�]?)(%w*)";
-		--Debug.chat(string.find(aClauses[i], search))
+		-- Debug.chat(string.find(aClauses[i], search));
 		local nStarts, nEnds, sLabel, sSign, sMod = string.find(aClauses[i], search);
 		if nStarts then
 			-- Calculate modifier based on mod value and sign value, if any
@@ -90,8 +90,9 @@ function action(draginfo)
 		local startIndex = getCursorPosition();
 		local endIndex = getSelectionPosition();
 		local resultText = "";
+		-- if it is not the first entry, keep the first entry through the character before the string (hence minus 1)
 		if startIndex>1 then
-			resultText = string.sub(fullText,1,startIndex)
+			resultText = string.sub(fullText,1,startIndex-1)
 		end
 		resultText = resultText .. string.sub(fullText,endIndex)
 		setValue(resultText)
