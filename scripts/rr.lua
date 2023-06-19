@@ -1,13 +1,13 @@
 local dbRootName = "requestsheet";
 local createRequestWindowName = "RequestRolls";
 
+-- Extension wide control of when extension specific debug is enabled
 bDebug = false;
 
 function onInit()
 	if Session.IsHost then DB.createNode(dbRootName); end
 	registerOptions();
 	registerSlashHandlers();
-	registerExtensions();
 	initializeDirtyState();
 	runMigration();
 end
@@ -59,34 +59,6 @@ end
 ---@return boolean "true if option is on"
 function isManualSaveRollNpcOn()
 	return OptionsManager.isOption("RR_option_label_npcRolls", "on");
-end
-
---#endregion
-
---#region Extensions
-
----Checks if certain extensions are loaded. Enables a central point to manage the names.
-function registerExtensions()
-	--currently empty
-end
-
----Lists loaded extension names to the console
-function listExtensions()
-	for _, extension in ipairs(Extension.getExtensions()) do
-		Debug.console("listExtension", Extension.getExtensionInfo(extension).name);
-	end
-end
-
----Loops through the extension list checking extension names
----@param extensionName string the name of the extension to be checked
----@return boolean bool is the extension enabled
-function isExtensionEnabled(extensionName)
-	for _, extension in ipairs(Extension.getExtensions()) do
-		if Extension.getExtensionInfo(extension).name == extensionName then
-			return true;
-		end
-	end
-	return false;
 end
 
 --#endregion
@@ -175,9 +147,6 @@ function processRRdebug(sCommand, sParams)
 		end
 	end
 	ChatManager.SystemMessage("RR debug mode is ".. tostring(RR.bDebug));
-	if RR.bDebug then
-		listExtensions();
-	end
 end
 
 --#endregion
