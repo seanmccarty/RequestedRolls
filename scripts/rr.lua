@@ -132,7 +132,6 @@ function handleApplyClientSaveRR()
 end
 
 ---Sets debug status. Flips status if on/off parameter is not passed.
----Also lists current extensions to the log.
 ---@param sCommand string not used
 ---@param sParams string|nil on or off
 function processRRdebug(sCommand, sParams)
@@ -151,10 +150,10 @@ end
 
 --#endregion
 
----comment Checks through all combatants for the number field that the selector button is tied to
+---Checks through all combatants in the combat tracker for the number field that the selector button is tied to
 ---@return table selectedCharacters a list of selected characters
 function getSelectedChars()
-	list = {};
+	local list = {};
 	for _,entry in pairs(CombatManager.getCombatantNodes()) do
 		if DB.getValue(entry,"RRselected")==1 then
 			table.insert(list, entry);
@@ -165,6 +164,7 @@ end
 
 ---Clear selected characters and then select the same targets as the specificied actor
 ---If rActor is nil, it uses the currently active node in the CT
+---@param rActor table the actor of interest
 function mirrorTargeting(rActor)
 	for _,entry in pairs(CombatManager.getCombatantNodes()) do
 		DB.setValue(entry,"RRselected", "number", 0);
@@ -179,6 +179,8 @@ function mirrorTargeting(rActor)
 	end
 end
 
+---Zeroes out the current selection and reuses other skill check code to select whoever has the skill proficiency 
+---The button that uses this should be disabled  in rulesets where it is not applicable.
 function targetSkillProficency()
 	for _,entry in pairs(CombatManager.getCombatantNodes()) do
 		DB.setValue(entry,"RRselected", "number", 0);

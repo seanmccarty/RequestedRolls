@@ -1,14 +1,14 @@
-fORA = nil;
+fOriginalResolveAction = nil;
 local bStageArrayBuilt = false;
 
 local stageArray = {};
 
 function onInit()
-	fORA = ActionsManager.resolveAction;
+	fOriginalResolveAction = ActionsManager.resolveAction;
 	ActionsManager.resolveAction = resolveAction;
 	DB.addHandler("requestsheet.staged","onChildUpdate",buildArray);
 	if Session.IsHost then
-		--All players need to be able to build stageArray
+		--All players need to be able to build stageArray from the database
 		DB.createNode("requestsheet.staged");
 		DB.setPublic("requestsheet.staged",true);
 		DB.addHandler("requestsheet.staged","onChildAdded",addDefaultRolls);
@@ -16,6 +16,7 @@ function onInit()
 	buildArray();
 end
 
+-- Example what the array looks like
 -- local stageArray = {
 -- 	check = {{category="Feat", name="lucky"},{category="Feature",name="portent"}, {category="Trait",name="elven accuracy"},{category="Effect",name="Bardic Inspiration"}},
 -- 	save = {{category="Feat", name="lucky"}},
@@ -62,7 +63,7 @@ function resolveAction(rSource, rTarget, rRoll)
 	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and #rApplicableIdentifier>0 then
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
-		fORA(rSource, rTarget, rRoll);
+		fOriginalResolveAction(rSource, rTarget, rRoll);
 	end
 end
 

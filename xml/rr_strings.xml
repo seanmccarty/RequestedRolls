@@ -3,7 +3,7 @@
 <root>
 	<string name="RR_window_title">Requested Rolls</string>
 
-	<!-- OPTIONS -->
+	<!-- FG Options Menu-->
 	<string name="RR_option_header">Requested Rolls</string>
 	
 	<string name="RR_option_label_showDC">Player: Show DC</string>
@@ -24,7 +24,7 @@
 
 	<string name="RR_option_label_suppressDiceAnimations">View: Suppress dice animations</string>
 
-	<!-- CONSOLE -->
+	<!-- Console Main Page -->
 	<string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
 	<string name="RR_label_pendingRolls">My Pending Rolls</string>
 
@@ -61,12 +61,12 @@
 
 	<string name="RR_tooltip_openCharacterSheet">Open character sheet</string>
 
-	<!-- CONSOLE BUTTON EXPANDERS -->
+	<!-- Console Main Page Expander Windows -->
 	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Other tab and select two stars.</string>
 	<string name="RR_tooltip_expand">Expand</string>
 	<string name="RR_tooltip_collapse">Collapse</string>
 
-	<!-- CONSOLE OPTIONS -->
+	<!-- Console Options Page -->
 	<string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>
 	<string name="RR_tooltip_deleteRolls">Delete All Rolls for Player</string>
 	<string name="RR_tooltip_show_on">Show in combobox</string>
@@ -78,14 +78,14 @@
 	<string name="RR_label_shownOnConsole">Shown on Console</string>
 	<string name="RR_label_hiddenOnConsole">Hidden on Console</string>
 
-	<!-- MESSAGES -->
+	<!-- Chat Messages -->
 	<string name="RR_msg_rollNotConnected" >Requested Rolls: Player not connected. Roll is available on host.</string>
 	<string name="RR_msg_rollAll_GM">Requested Rolls: Making all rolls for </string>
 	<string name="RR_msg_rollCancel_GM">Requested Rolls: Cancelling all rolls for </string>
 	<string name="RR_msg_rollAll_player">Requested Rolls: The GM made your rolls for you.</string>
 	<string name="RR_msg_rollCancel_player">Requested Rolls: The GM cancelled your rolls.</string>
 
-	<!-- STAGED ROLLS -->
+	<!-- Staged Rolls Windows -->
 	<string name="RR_tab_title_staged">Staged Rolls</string>
 	<string name="RR_msg_rollModified">Original Roll Was a</string>
 	<string name="RR_default_stagedType">Feature</string>

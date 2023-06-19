@@ -2,16 +2,22 @@
 
 <root>
 	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
-	
+
+	<!-- Not all rulesets have the stars, so they have to be included -->
 	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
 	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
 	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
 
+	<!-- Sidebar icon -->
 	<icon name="RR_sidebar" file="graphics/buttons/rr_sidebar.png" />
+
+	<!-- Based on a transparency adjusted version of the linked field from FG -->
 	<icon name="RR_field_linked_mono" file="graphics/buttons/rr_field_linked_mono.png" />
 
+	<!-- The border and dot for the RR console portraits-->
 	<icon name="RR_RollIndicator" file="graphics/icons/rr_roll_indicator.png"/>
 	<icon name="RR_SelectionIndicator" file="graphics/icons/rr_selection_indicator.png"/>
 
+	<!-- From CoreRPG, used for clearing all rolls for a player -->
 	<icon name="sidebar_icon_recordtype_hindrance" file="graphics/sidebar/sidebar_icon_hindrance.png" />
 </root>

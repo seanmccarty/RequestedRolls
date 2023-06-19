@@ -2,16 +2,14 @@ local oE35skill;
 
 ---When ruleset is 4E, overrides the standard RR getSaveRoll and creates the getRoll function in ActionInit
 function onInit()
-	if Interface.getRuleset()=="4E" then
-		RRRollManager.getSaveRoll = getSaveRoll;
-		oE35skill = RRRollManager.E35skill
-		RRRollManager.E35skill = E35skill;
-		if not ActionInit.getRoll then
-			ActionInit.getRoll = addInitRoll;
-		end
-		-- This is for things like death saving throws since 4E does not use sSaveDesc
-		RRActionManager.registerRollType("autosave")
+	RRRollManager.getSaveRoll = getSaveRoll;
+	oE35skill = RRRollManager.E35skill
+	RRRollManager.E35skill = E35skill;
+	if not ActionInit.getRoll then
+		ActionInit.getRoll = addInitRoll;
 	end
+	-- This is for things like death saving throws since 4E does not use sSaveDesc
+	RRActionManager.registerRollType("autosave")
 end
 
 ---ActionInit for 4E does not define getRoll, this makes the code available

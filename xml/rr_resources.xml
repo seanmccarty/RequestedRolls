@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
+	<!-- Assets and Windows  -->
 	<includefile source="xml/rr_images.xml" />
 	<includefile source="xml/rr_strings.xml" />
 	<includefile source="xml/rr_frames.xml"/>
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	<includefile source="roll/rr_stagedroll_entry.xml"/>
-	
+
+	<!-- Manager Code -->
 	<script name="RR" file="scripts/rr.lua"/>
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
 	<script name="RRTowerManager" file="scripts/rr_manager_tower.lua"/>
 	<script name="RRRollManager" file="scripts/rr_manager_roll.lua"/>
 	<script name="RRDropManager" file="scripts/rr_manager_drop.lua"/>
-
 	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
 
+	<!-- Ruleset Specific Code Changes -->
 	<script name="RRManagerCoreRPG" file="scripts/rr_manager_CoreRPG.lua" ruleset="CoreRPG"/>
-	<script name="RRManager4E" file="scripts/rr_manager_4E.lua"/>
-	<script name="RRManager2E" file="scripts/rr_manager_2E.lua"/>
+	<script name="RRManager4E" file="scripts/rr_manager_4E.lua" ruleset="4E"/>
+	<script name="RRManager2E" file="scripts/rr_manager_2E.lua" ruleset="2E"/>
 
-
+	<!-- Console Windows -->
 	<includefile source="console/rr_console.xml"/>
 	<includefile source="console/rr_console_buttons.xml"/>
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
 	<includefile source="console/rr_console_staged.xml"/>
+
+	<!-- Ruleset Specific UI Changes -->
 	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
 	<includefile source="console/rr_console_CoreRPG.xml" ruleset="CoreRPG"/>
 
-
+	<!-- Miscellaneous Changes -->
 	<includefile source="desktop/rr_desktop_panels.xml"/>
 </root>

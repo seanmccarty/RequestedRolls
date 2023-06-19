@@ -1,3 +1,5 @@
+-- Code for handling roll cancellations by clients and when they have hidden rolls
+
 function onInit()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_DICETOWER, handleRRDiceTower);
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_CANCEL, handleRRCancel);

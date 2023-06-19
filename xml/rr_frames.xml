@@ -16,6 +16,7 @@
 		<bottomright rect="535,126,10,10" /> 
 	</framedef>
 
+	<!-- SFRPG uses a slightly different ct active frame -->
 	<framedef name="stagedRollFrame" ruleset="SFRPG">
 		<bitmap file="graphics/frames/ctentrybox_friend_active.png" />
 		<topleft rect="25,0,10,10" />

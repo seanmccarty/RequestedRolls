@@ -184,7 +184,7 @@ function processOK()
 
 	DiceManager.handleManualRoll(vRoll.aDice);
 	--ActionsManager.handleResolution(vRoll, vSource, vTargets);
-	RRManagerStaged.fORA(vSource, vTargets, vRoll);
+	RRManagerStaged.fOriginalResolveAction(vSource, vTargets, vRoll);
 	close();
 end
 
@@ -255,7 +255,7 @@ function reRoll(sDie, oldValue, fauxRollValue, sReason, nSort)
 			rReRoll.aDice =  {};
 			table.insert(rReRoll.aDice, {value=num,type=sDie,result=num});
 			
-			RRManagerStaged.fORA(nil, nil, rReRoll);
+			RRManagerStaged.fOriginalResolveAction(nil, nil, rReRoll);
 		else
 			local aDice, nMod = DiceManager.convertStringToDice(sDie, true)
 			rReRoll.aDice = aDice;
