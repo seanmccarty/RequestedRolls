@@ -33,9 +33,9 @@
 		<frame name="stagedRollFrame"/>
 		<script file="roll/scripts/rr_stagedroll_entry.lua" />
 		<sheetdata>
-			<label_content_column_static name="reasons_label" insertbefore="list">
+			<label_content_column name="reasons_label" insertbefore="list">
 				<static textres="RR_label_reason" />
-			</label_content_column_static>
+			</label_content_column>
 			<stringc_manualroll name="reasons" insertbefore="list">
 				<script file="roll/scripts/rr_stagedroll_reason.lua" />
 			</stringc_manualroll>
