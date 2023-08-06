@@ -24,6 +24,8 @@
 
 	<string name="RR_option_label_suppressDiceAnimations">View: Suppress dice animations</string>
 
+	<string name="RR_option_label_copyDCPanel">Copy number when DC panel changes</string>
+
 	<!-- Console Main Page -->
 	<string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
 	<string name="RR_label_pendingRolls">My Pending Rolls</string>
