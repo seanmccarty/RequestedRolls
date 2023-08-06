@@ -7,7 +7,7 @@
 
 <root>
 	<windowclass name="RequestRolls">
-		<frame>partysheet</frame>
+		<frame>utilitybox</frame>
 		<placement>
 			<size width="620" height="400" />
 		</placement>
@@ -58,11 +58,11 @@
 				</tab>
 			</tabs_partysheet>
 
-			<resize_partysheet />
-			<help_partysheet>
+			<resize_utilitybox/>
+			<help_utilitybox>
 				<urlres>RR_url_help</urlres>
-			</help_partysheet>
-			<close_partysheet />
+			</help_utilitybox>
+			<close_utilitybox/>
 		</sheetdata>
 	</windowclass>
 

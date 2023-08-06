@@ -22,7 +22,6 @@
 
 	<windowclass name="rr_staged_contents">
 		<margins control="0,0,0,2" />
-		<frame name="groupbox" offset="5,5,5,5" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 			<header_column name="header_tab_title">
