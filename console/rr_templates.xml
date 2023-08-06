@@ -202,7 +202,6 @@
 				<right offset="-5" />
 			</anchored>		
 			<noscroll />
-			<frame name="fielddark" offset="5,5,5,5" />
 			<script>
 				function onInit()
 					setValue("expanding_button_selector",self.datasource[1]);
