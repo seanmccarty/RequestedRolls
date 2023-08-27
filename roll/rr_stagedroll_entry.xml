@@ -13,6 +13,7 @@
 					<top anchor="bottom" offset="2" />
 					<left anchor="center" offset="-10"/>
 				</anchored>
+				<tooltip textres="RR_tooltip_stagedRollDie" />
 				<script>
 					function onButtonPress()
 						--if control is pressed, automatically set the rolled dice to the current field

@@ -98,4 +98,5 @@
 	<string name="RR_label_identifier">Identifier</string>
 	<string name="RR_label_pendingStagedRolls">My Staged Rolls</string>
 	<string name="RR_label_reason">Reasons:</string>
+	<string name="RR_tooltip_stagedRollDie">Hold Ctrl to auto-replace</string>
 </root>
