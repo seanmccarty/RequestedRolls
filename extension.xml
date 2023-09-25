@@ -2,7 +2,7 @@
 
 <root version="3.0">
 	<properties>
-		<name>Requested Rolls</name>
+		<name>Feature: Requested Rolls</name>
 		<version>2.13</version>
 		<author>mccartysr</author>
 		<description>Requested Rolls</description>
