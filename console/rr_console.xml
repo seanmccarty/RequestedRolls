@@ -161,36 +161,40 @@
 			</genericcontrol>
 			<!-- Settings -->
 			<buttonfield name="hiderollresults">
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
-				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="visibilityon" tooltipres="ps_tooltip_showrollon" />
-				<state icon="visibilityoff" tooltipres="ps_tooltip_showrolloff" />
-				<gmvisibleonly />
+				<state icon="visibilityon" tooltipres="ps_tooltip_showrollon" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="visibilityoff" tooltipres="ps_tooltip_showrolloff" frame="buttondown" frameoffset="5,5,5,5"/>
 			</buttonfield>
 			<buttonfield name="clicktoroll">
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="sidebar_icon_default" color="6C6C6C" tooltipres="RR_tooltip_clickToRoll_off" />
-				<state icon="sidebar_icon_default" color="000000" tooltipres="RR_tooltip_clickToRoll_on" />
-				<gmvisibleonly />
+				<pressed offset="1,1" />
+
+				<state icon="sidebar_icon_default" tooltipres="RR_tooltip_clickToRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="sidebar_icon_default" tooltipres="RR_tooltip_clickToRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<tintable/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
 			</buttonfield>
 			<buttonfield name="DClink">
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="RR_field_linked_mono" color="6C6C6C" tooltipres="RR_tooltip_linkDC_off" />
-				<state icon="RR_field_linked_mono" color="000000" tooltipres="RR_tooltip_linkDC_on" />
+				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_on" frame="buttondown" frameoffset="5,5,5,5"/>
 				<gmvisibleonly />
 				<script>
 					function onInit()
+						setColor(ColorManager.getButtonIconColor());
 						DB.addHandler("requestsheet.check.dc", "onUpdate", linker);
 						DB.addHandler("requestsheet.save.dc", "onUpdate", linker);
 						DB.addHandler("requestsheet.skill.dc", "onUpdate", linker);
@@ -213,66 +217,59 @@
 				</script>
 			</buttonfield>
 			<buttonfield name="autoroll">
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="sidebar_icon_recordtype_table" color="6C6C6C" tooltipres="RR_tooltip_autoRoll_off" />
-				<state icon="sidebar_icon_recordtype_table" color="000000" tooltipres="RR_tooltip_autoRoll_on" />
-				<gmvisibleonly />
+				<state icon="sidebar_icon_recordtype_table" tooltipres="RR_tooltip_autoRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="sidebar_icon_recordtype_table" tooltipres="RR_tooltip_autoRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
 			</buttonfield>
 			<buttonfield name="deselectonroll">
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-				<frame name="fielddark" offset="10,8,10,6" />
-				<state icon="tool_target_clear_30" color="6C6C6C" tooltipres="RR_tooltip_deselectOnRoll_off" />
-				<state icon="tool_target_clear_30" color="000000" tooltipres="RR_tooltip_deselectOnRoll_on" />
-				<gmvisibleonly />
+				<state icon="tool_target_clear_30" tooltipres="RR_tooltip_deselectOnRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="tool_target_clear_30" tooltipres="RR_tooltip_deselectOnRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
 			</buttonfield>
-			<buttoncontrol name="mirrortargeting">
+			<button_icon name="mirrortargeting">
+				<icon normal="sidebar_icon_recordtype_battle" />
+				<tooltip textres="RR_tooltip_mirrorTargeting" />
+				<tintable/>
 				<script>
 					function onButtonPress()
 						RR.mirrorTargeting();
 					end
 				</script>
-				<anchored to="leftanchor" height="20" width="20">
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="100" />
 				</anchored>
-				<icon>
-					<normal>sidebar_icon_recordtype_battle</normal>
-				</icon>
-				<color>000000</color>
-				<frame name="buttonup" offset="10,8,10,6" />
-				<tooltip><textres>RR_tooltip_mirrorTargeting</textres></tooltip>
-				<!-- <state icon="sidebar_icon_recordtype_battle" color="1C1C1C" tooltipres="RR_tooltip_deselectOnRoll_off" /> -->
-				<stateframe>
-					<pressed name="buttondown" offset="10,8,10,6" nobaseframe="true" />
-				</stateframe>
-			</buttoncontrol>
-			<buttonfield name="proficiencytargeting">
+			</button_icon>
+			<button_icon name="proficiencytargeting">
+				<icon normal="button_prof" />
+				<tooltip textres="RR_tooltip_proficiencyTargeting" />
 				<script>
 					function onButtonPress()
 						RR.targetSkillProficency();
 					end
 				</script>
-				<anchored to="leftanchor" height="20" width="20">
+				<tintable/>
+				<anchored to="leftanchor" height="23" width="23">
 					<top />
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
-				<icon>
-					<normal>button_prof</normal>
-				</icon>
-				<frame name="buttonup" offset="10,8,10,6" />
-				<tooltip><textres>RR_tooltip_proficiencyTargeting</textres></tooltip>
-				<stateframe>
-					<pressed name="buttondown" offset="10,8,10,6" nobaseframe="true" />
-				</stateframe>
-				<gmvisibleonly />
-			</buttonfield>
+			</button_icon>
 
 			<!-- Roll selectors -->
 			<!-- checks -->
