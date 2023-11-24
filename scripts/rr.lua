@@ -71,6 +71,7 @@ end
 --#region slash handler
 
 local OOB_MSGTYPE_APPLYCLIENTSAVE = "applyClientSaveRR";
+local OOB_MSGTYPE_APPLYNODICE = "applyNoDiceRR";
 
 ---Registers the slash handlers that RR uses. This groups the calls together to make onInit easier to read
 function registerSlashHandlers()
@@ -79,8 +80,10 @@ function registerSlashHandlers()
 	if Session.IsHost  then
 		Comm.registerSlashHandler("RRconsole", processRRConsole);
 		Comm.registerSlashHandler("RRclientsaves", processRRClientSaves);
+		Comm.registerSlashHandler("RRnodice", processRRNoDice);
 	end
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYCLIENTSAVE, handleApplyClientSaveRR);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYNODICE, handleApplyClientNoDiceRR);
 	Comm.registerSlashHandler("RRdebug",processRRdebug);
 end
 
@@ -96,6 +99,7 @@ function processRRCommandList(sCommand, sParams)
 	if Session.IsHost  then	
 		ChatManager.SystemMessage("/RRconsole \t DM only - open the create request window");
 		ChatManager.SystemMessage("/RRclientsaves \t DM only - sets clients to show popups for saves");
+		ChatManager.SystemMessage("/RRnodice \t DM only - sets clients to suppress 3D dice" );
 	end	
 
 	ChatManager.SystemMessage("/RRrolls \t open the rolls window");
@@ -134,6 +138,24 @@ end
 function handleApplyClientSaveRR()
 	ChatManager.SystemMessage("The GM has set your client to show popups for saving throws via Requested Rolls.");
 	OptionsManager.setOption("RR_option_label_pcRolls","on");
+end
+
+---Sends message to set all clients and the host to suppress 3d dice
+---@param sCommand string not used
+---@param sParams string not used
+function processRRNoDice(sCommand, sParams)
+	if Session.IsHost then
+		local msgOOB = {};
+		msgOOB.type = OOB_MSGTYPE_APPLYNODICE;
+		Comm.deliverOOBMessage(msgOOB);
+		ChatManager.SystemMessage("Clients set to suppress 3D dice.");
+	end
+end
+
+---handler for OOB_MSGTYPE_APPLYNODICE
+function handleApplyClientNoDiceRR()
+	ChatManager.SystemMessage("The GM has set your client to not use 3D dice via Requested Rolls.");
+	OptionsManager.setOption("RR_option_label_suppressDiceAnimations","on");
 end
 
 ---Sets debug status. Flips status if on/off parameter is not passed.
