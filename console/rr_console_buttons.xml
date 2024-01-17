@@ -138,17 +138,10 @@
 				<anchored position="insidetopright" offset="0,2" height="0" width="0" />
 			</genericcontrol>
 
-			<buttoncontrol name="bname">
+			<button_text name="bname">
 				<anchored position="insidetopleft" offset="5,5" height="20">
 					<right offset="-5" />
 				</anchored>
-				<frame name="buttonup" offset="5,5,5,5" />
-				<stateframe>
-					<normal name="buttonup" offset="5,5,5,5" nobaseframe="true" />
-					<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
-				</stateframe>
-				<font>button-white</font>
-				<pressed offset="1,1" />
 				<script>
 					function onButtonPress()
 						DB.setValue(window.windowlist.window.getDatabaseNode(),"selected", "string",window.name.getValue());
@@ -158,7 +151,7 @@
 						end
 					end
 				</script>
-			</buttoncontrol>
+			</button_text>
 
 			<hn name="show"/>
 			<hs name="name"/>
