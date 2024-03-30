@@ -17,10 +17,10 @@
 	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
 
 	<!-- Ruleset Specific Code Changes -->
-	<script name="RRManagerCoreRPG" file="scripts/rr_manager_CoreRPG.lua" ruleset="CoreRPG"/>
-	<script name="RRManager4E" file="scripts/rr_manager_4E.lua" ruleset="4E"/>
-	<script name="RRManager2E" file="scripts/rr_manager_2E.lua" ruleset="2E"/>
-	<script name="RRManagerPFRPG2" file="scripts/rr_manager_PFRPG2.lua" ruleset="PFRPG2"/>
+	<script name="RRCoreRPG" file="scripts/rr_config_CoreRPG.lua" ruleset="CoreRPG"/>
+	<script name="RR4E" file="scripts/rr_config_4E.lua" ruleset="4E"/>
+	<script name="RR2E" file="scripts/rr_config_2E.lua" ruleset="2E"/>
+	<script name="RRPFRPG2" file="scripts/rr_config_PFRPG2.lua" ruleset="PFRPG2"/>
 
 	<!-- Console Windows -->
 	<includefile source="console/rr_console.xml"/>

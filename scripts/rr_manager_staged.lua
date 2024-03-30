@@ -105,7 +105,7 @@ function shouldStage(rSource, rTarget, rRoll)
 					end
 				end
 			elseif value["category"] == "Ability" then
-				if RRManagerCoreRPG.hasAbility(ActorManager.getCreatureNode(rSource),value["name"]) then
+				if RRCoreRPG.hasAbility(ActorManager.getCreatureNode(rSource),value["name"]) then
 					table.insert(results,value["name"]);
 				end
 			end

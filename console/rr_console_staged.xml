@@ -220,7 +220,7 @@
 						if CharManager.hasTrait then
 							table.insert(allowableTypes,"Trait");
 						end
-						if RRManagerCoreRPG then
+						if RRCoreRPG then
 							table.insert(allowableTypes,"Ability");
 						end
 						addItems(allowableTypes);
