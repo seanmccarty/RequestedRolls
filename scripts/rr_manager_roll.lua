@@ -62,10 +62,6 @@ function onButtonPress(rollType,nodeCT)
 
 		rRoll.RR = true;
 
-		if Session.IsHost and CombatManager.isCTHidden(ActorManager.getCTNode(rActor)) then
-			rRoll.bSecret = true;
-		end
-
 		if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
 			rRoll.bSecret = true;
 			rRoll.bTower = true;
