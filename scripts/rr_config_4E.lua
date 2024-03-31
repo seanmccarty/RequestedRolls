@@ -2,7 +2,7 @@ local oE35skill;
 
 ---When ruleset is 4E, overrides the standard RR getSaveRoll and creates the getRoll function in ActionInit
 function onInit()
-	RRRollManager.getSaveRoll = getSaveRoll;
+	registerRollGetter("save",getSaveRoll);
 	oE35skill = RRRollManager.E35skill
 	RRRollManager.E35skill = E35skill;
 	if not ActionInit.getRoll then

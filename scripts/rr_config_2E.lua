@@ -8,16 +8,16 @@ function onInit()
 	end
 	DataCommon.save_ltos = aSave;
 
-	RRRollManager.getSaveRoll = getSaveRoll;
-	RRRollManager.getCheckRoll = getCheckRoll;
-	RRRollManager.getSkillRoll = getSkillRoll;
+	RRRollManager.registerRollGetter("save",getSaveRoll);
+	RRRollManager.registerRollGetter("check",getCheckRoll);
+	RRRollManager.registerRollGetter("skill",getSkillRoll)
 end
 
 ---2E uses the score from the character rather than a GM decided difficulty. The target DC is pulled the same way as the charsheet.
 ---@param rActor table the actor to roll
 ---@return table rRoll the roll to be done
-function getCheckRoll(rActor)
-	local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
+function getCheckRoll(rActor, sCheck)
+	-- local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	local nTargetDC = DB.getValue(nodeActor, "abilities.".. sCheck .. ".score", 0);
 	local rRoll = ActionCheck.getRoll(rActor, sCheck, nTargetDC);
@@ -29,8 +29,8 @@ end
 ---2E does not have an equivalent getRoll for saves. This is pulled from perform roll. The target DC is pulled the same way as the charsheet.
 ---@param rActor table the actor to roll
 ---@return table rRoll the roll to be done
-function getSaveRoll(rActor)
-	local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
+function getSaveRoll(rActor,sSave)
+	-- local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
 	local rRoll = {};
 	rRoll.sType = "save";
 	rRoll.aDice = { "d20" };
@@ -55,8 +55,8 @@ end
 ---2E has the skills for NPCs defined the same way as PCs unlike 5E or the other rulesets. The target DC is pulled the same way as the charsheet.
 ---@param rActor table the actor to roll
 ---@return table rRoll the roll to be done
-function getSkillRoll(rActor)
-	local sSkill = DB.getValue("requestsheet.skill.selected", "");
+function getSkillRoll(rActor, sSkill)
+	-- local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local rRoll = nil;
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do

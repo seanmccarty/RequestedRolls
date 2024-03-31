@@ -1,5 +1,5 @@
 function onInit()
-	RRRollManager.getSkillRoll = getSkillRoll;
+	RRRollManager.registerRollGetter("skill",getSkillRoll)
 end
 
 ---This was copied from 5E and the function updated. Checks if an ability is present.
@@ -33,8 +33,8 @@ end
 ---roll should be if it is not explicitly defined on the character.
 ---@param rActor table
 ---@return table
-function getSkillRoll(rActor)
-	local sSkill = DB.getValue("requestsheet.skill.selected", "");
+function getSkillRoll(rActor, sSkill)
+	-- local sSkill = DB.getValue("requestsheet.skill.selected", "");
 	local sSplit = StringManager.split(sSkill, "~");
 	local sFirst = sSplit[1];
 	local sSecond = sSplit[2];

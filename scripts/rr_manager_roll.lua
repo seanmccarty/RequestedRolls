@@ -6,7 +6,22 @@ function onInit()
 		ActionsManager.registerModHandler("sDice",modSDiceRoll);
 		DICE = "sDice";
 	end
-	
+
+	registerRollGetter("init",getInitRoll);
+	registerRollGetter("dice",getDiceRoll);
+	registerRollGetter("save",getSaveRoll);
+	registerRollGetter("check",getCheckRoll);
+	registerRollGetter("skill",getSkillRoll)
+end
+
+local aRollHandlers = {};
+function registerRollGetter(sActionType, callback)
+	aRollHandlers[sActionType] = callback;
+end
+function unregisterRollGetter(sActionType)
+	if aRollHandlers then
+		aRollHandlers[sActionType] = nil;
+	end
 end
 
 ---Advantage doesn't apply to the advanced dice commands, and this need to return true
@@ -15,12 +30,41 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 	return true;
 end
 
+function requestRoll(sRollType, sSubType, tActors, bSecret, nMod)
+	if tActors==nil then
+		ChatManager.SystemMessage("No valid actors for roll");
+		return;
+	end
+
+	local fRollResult = aRollHandlers[sRollType];
+	if not fRollResult then
+		return;
+	end
+
+	ModifierStack.lock();
+	for _,rActor in pairs(tActors) do
+		local rRoll = {};
+		rRoll = fRollResult(rActor, sSubType);
+		rRoll.RR = true;
+		if not Interface.getRuleset()=="2E" then
+			rRoll.nTarget = nMod;
+		end
+		if bSecret == true then
+			rRoll.bSecret = true;
+			rRoll.bTower = true;
+		end
+	
+		ActionsManager.performAction(nil, rActor, rRoll);
+	end
+	ModifierStack.unlock(true);
+end
+
 ---Main entry point for kicking off rolls from the console
----@param rollType string the roll type to be made
+---@param sRollType string the roll type to be made
 ---@param nodeCT table optional - the database node of a single target for drop targeting. 
 ---                    If not given, it uses the selected characters from the console
 ---@return boolean end not used
-function onButtonPress(rollType,nodeCT)
+function onButtonPress(sRollType,nodeCT)
 	local aParty = {};
 	if nodeCT ~= nil then
 		local rActor = ActorManager.resolveActor(nodeCT);
@@ -40,37 +84,23 @@ function onButtonPress(rollType,nodeCT)
 		end
 	end
 
-	if #aParty == 0 then
-		aParty = nil;
-		return;
+	local sSubType = DB.getValue("requestsheet."..sRollType..".selected", ""):lower();
+	local nTargetDC = DB.getValue("requestsheet."..sRollType..".dc", 0);
+	if nTargetDC == 0 then
+		nTargetDC = nil;
 	end
+
+	local bSecret=false;
+	if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
+		bSecret = true;
+	end
+
+	requestRoll(sRollType, sSubType, aParty, bSecret,nTargetDC)
+	-- if #aParty == 0 then
+	-- 	aParty = nil;
+	-- 	return;
+	-- end
 		
-	ModifierStack.lock();
-	for _,rActor in pairs(aParty) do
-		local rRoll = {};
-		if rollType == "init" then
-			rRoll = getInitRoll(rActor);
-		elseif rollType == "dice" then
-			rRoll = getDiceRoll(rActor);
-		elseif rollType == "check" then
-			rRoll = getCheckRoll(rActor);
-		elseif rollType == "save" then
-			rRoll = getSaveRoll(rActor);
-		elseif rollType == "skill" then
-			rRoll = getSkillRoll(rActor);
-		end
-
-		rRoll.RR = true;
-
-		if DB.getValue("requestsheet.hiderollresults", 0) == 1 then
-			rRoll.bSecret = true;
-			rRoll.bTower = true;
-		end
-	
-		ActionsManager.performAction(nil, rActor, rRoll);
-	end
-	ModifierStack.unlock(true);
-
 	if DB.getValue("requestsheet.deselectonroll",0)==1 then
 		for _,entry in pairs(CombatManager.getCombatantNodes()) do
 			DB.setValue(entry,"RRselected", "number", 0);
@@ -87,9 +117,7 @@ end
 ---If it is a complex dice that uses expr, process through custom sDice handler that returns true so that ActionManager does not wipe out aDice.expr
 ---@param rActor any not used
 ---@return table rRoll 
-function getDiceRoll(rActor)
-	local sDice = DB.getValue("requestsheet.dice.selected", ""):lower();
-
+function getDiceRoll(rActor, sDice)
 	local rRoll = {};
 	if DiceManager.isDiceString(sDice) then
 		rRoll.sType = "dice"
@@ -112,39 +140,21 @@ function getDiceRoll(rActor)
     return rRoll;
 end
 
-function getCheckRoll(rActor)
-	local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
+function getCheckRoll(rActor, sCheck)
 	local rRoll = {};
 	if Interface.getRuleset()=="5E" then
 		rRoll = ActionCheck.getRoll(rActor, sCheck);
 	else
 		rRoll = ActionAbility.getRoll(rActor, sCheck);
 	end
-	
-	local nTargetDC = DB.getValue("requestsheet.check.dc", 0);
-	if nTargetDC == 0 then
-		nTargetDC = nil;
-	end
-	rRoll.nTarget = nTargetDC;
-	
     return rRoll;
 end
 
-function getSaveRoll(rActor)
-	local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
-	local rRoll = ActionSave.getRoll(rActor, sSave);
-	
-	local nTargetDC = DB.getValue("requestsheet.save.dc", 0);
-	if nTargetDC == 0 then
-		nTargetDC = nil;
-	end
-	rRoll.nTarget = nTargetDC;
-	
-    return rRoll;
+function getSaveRoll(rActor, sSave)
+	return ActionSave.getRoll(rActor, sSave);
 end
 
-function getSkillRoll(rActor)
-	local sSkill = DB.getValue("requestsheet.skill.selected", "");
+function getSkillRoll(rActor, sSkill)
 	local rRoll = {};
 
 	if Interface.getRuleset()=="5E" then
@@ -152,13 +162,6 @@ function getSkillRoll(rActor)
 	else
 		rRoll = E35skill(rActor, sSkill);
 	end
-
-	local nTargetDC = DB.getValue("requestsheet.skill.dc", 0);
-	if nTargetDC == 0 then
-		nTargetDC = nil;
-	end
-	rRoll.nTarget = nTargetDC;
-	
     return rRoll;
 end
 
