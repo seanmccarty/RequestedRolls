@@ -40,9 +40,6 @@
 
 	<windowclass name="rr_staged_details_window">
 		<frame>referencelist</frame>
-		<placement>
-			<size width="380" height="350" />
-		</placement>
 		<sizelimits>
 			<minimum width="380" height="350" />
 			<dynamic />

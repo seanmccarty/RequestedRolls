@@ -15,12 +15,16 @@
 			<minimum width="575" height="370" />
 			<dynamic />
 		</sizelimits>
+		<helplinkres>RR_url_help</helplinkres>
 		<softclose />
 		<nodelete />
 		<sheetdata>
 			<windowtitlebar name="title">
 				<resource>RR_window_title</resource>
 			</windowtitlebar>
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+			<windowmenubar_utilitybox name="menubar" />
 			<button_text_sm name="manual_rolls">
 				<anchored position="insidetopleft" offset="15,15" width="120" />
 				<state textres="RR_label_pendingRolls" />
@@ -30,8 +34,7 @@
 					end
 				</script>
 			</button_text_sm>
-			<anchor_title_partysheet name="contentanchor" />
-			
+
 			<sub_ps name="main">
 				<class>rr_console</class>
 			</sub_ps>
@@ -57,12 +60,6 @@
 					<subwindow>staged</subwindow>
 				</tab>
 			</tabs_partysheet>
-
-			<resize_utilitybox/>
-			<help_utilitybox>
-				<urlres>RR_url_help</urlres>
-			</help_utilitybox>
-			<close_utilitybox/>
 		</sheetdata>
 	</windowclass>
 
@@ -93,11 +90,11 @@
 				<target>rr_list_pc</target>
 			</scrollbar>
 
-			<label_ps name="label_PC">
+			<label name="label_PC">
 				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_pc" />
 				<center />
-			</label_ps>
+			</label>
 
 			<button_select_all name="PC_all">
 				<anchored to="label_PC" position="right"/>
@@ -126,11 +123,11 @@
 				<target>rr_list_npc</target>
 			</scrollbar>
 
-			<label_ps name="label_NPC">
+			<label name="label_NPC">
 				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
 				<static textres="RR_npc" />
 				<center />
-			</label_ps>
+			</label>
 
 			<button_select_all name="NPC_all">
 				<anchored to="label_NPC" position="right"/>

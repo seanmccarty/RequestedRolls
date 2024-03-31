@@ -54,15 +54,15 @@
 				</anchored>
 			</genericcontrol>
 
-            <label_ps name="label_name_short" width="200">
+            <label name="label_name_short" width="200">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="190" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
 				</anchored>
 				<static textres="RR_label_shortname" />
-			</label_ps>
-			<label_ps name="label_name">
+			</label>
+			<label name="label_name">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="80" />
@@ -70,15 +70,15 @@
 				</anchored>
 				<static textres="RR_label_name" />
 				<center />
-			</label_ps>
-			<label_ps name="label_show">
+			</label>
+			<label name="label_show">
 				<anchored>
 					<top parent="rightanchor" />
 					<left offset="10" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
 				</anchored>
 				<static textres="RR_label_show" />
-			</label_ps>
+			</label>
 <!-- check -->
 			<RR_label_options_lists name="checkstitle">
 				<static textres="RR_label_check" />
