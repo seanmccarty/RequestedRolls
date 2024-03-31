@@ -23,11 +23,12 @@
 	<template name="button_select_random" >
 		<buttoncontrol>
 			<anchored width="20"/>
-			<icon normal="button_ctnextround" pressed="button_ctnextround_down" />
+			<icon normal="button_toolbar_refresh" pressed="button_ctnextround_down" />
 			<tooltip textres="RR_tooltip_select_random" />
 			<script>
 				function onInit()
 					math.randomseed( os.time() );
+					setColor(ColorManager.getButtonIconColor());
 				end
 				function onButtonPress()
 					
