@@ -30,9 +30,9 @@
 	<includefile source="console/rr_console_staged.xml"/>
 
 	<!-- Ruleset Specific UI Changes -->
-	<includefile source="console/rr_console_4E.xml" ruleset="4E"/>
-	<includefile source="console/rr_console_2E.xml" ruleset="2E"/>
-	<includefile source="console/rr_console_CoreRPG.xml" ruleset="CoreRPG"/>
+	<includefile source="console/rr_config_4E.xml" ruleset="4E"/>
+	<includefile source="console/rr_config_2E.xml" ruleset="2E"/>
+	<includefile source="console/rr_config_CoreRPG.xml" ruleset="CoreRPG"/>
 
 	<!-- Miscellaneous Changes -->
 	<includefile source="desktop/rr_desktop_panels.xml"/>
