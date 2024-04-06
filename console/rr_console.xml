@@ -65,90 +65,76 @@
 
 	<windowclass name="rr_console">
 		<sheetdata>
-			<!-- header anchor -->
-			<genericcontrol name="headeranchor">
-				<anchored height="15">
-					<top  />
-					<left offset="10" />
-					<right offset="-15" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-			
+			<anchor_content_top/>
+			<anchor_content_bottom/>
 			<!-- PC list -->
+			<label name="label_PC">
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" height="20"/>
+					<left/>
+				</anchored>
+				<static textres="RR_pc" />
+			</label>
+
+			<button_select_all name="PC_all">
+				<anchored to="label_PC" position="rightlow" offset="10,0"/>
+				<target>PC</target>
+			</button_select_all>
+			<button_select_random name="PC_random">
+				<anchored to="PC_all" position="rightlow"/>
+				<target>PC</target>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="PC_random" position="rightlow"/>
+				<target>PC</target>
+			</button_deselect_all>
+
 			<RR_window_selector name="rr_list_pc" >	
 				<parameters>
 					<pc/>
 				</parameters>
 				<anchored>
-					<top parent="headeranchor" anchor="bottom" relation="relative" offset="5" />
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="0" />
 				</anchored>
 			</RR_window_selector>
 
-			<scrollbar>
-				<anchored to="rr_list_pc" />
-				<target>rr_list_pc</target>
-			</scrollbar>
-
-			<label name="label_PC">
-				<anchored to="rr_list_pc" position="aboveleft" offset="0,0" width="55" />
-				<static textres="RR_pc" />
-				<center />
+			<!-- NPC list -->
+			<label name="label_NPC">
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" width="55" height="20" offset="10"/>
+					<left/>
+				</anchored>
+				<static textres="RR_npc" />
 			</label>
 
-			<button_select_all name="PC_all">
-				<anchored to="label_PC" position="right"/>
-				<target>rr_list_pc</target>
+			<button_select_all name="NPC_all">
+				<anchored to="label_NPC" position="rightlow"/>
+				<target>NPC</target>
 			</button_select_all>
-			<button_select_random name="PC_random">
-				<anchored to="PC_all" position="right"/>
-				<target>rr_list_pc</target>
+			<button_select_random name="NPC_random">
+				<anchored to="NPC_all" position="rightlow"/>
+				<target>NPC</target>
 			</button_select_random>
 			<button_deselect_all>
-				<anchored to="PC_random" position="right"/>
-				<target>rr_list_pc</target>
+				<anchored to="NPC_random" position="rightlow"/>
+				<target>NPC</target>
 			</button_deselect_all>
 
-			<!-- NPC list -->
 			<RR_window_selector name="rr_list_npc">
 				<parameters>
 					<npc/>
 				</parameters>
 				<anchored>
-					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="0" />
 				</anchored>
 			</RR_window_selector>
-			<scrollbar>
-				<anchored to="rr_list_npc" />
-				<target>rr_list_npc</target>
-			</scrollbar>
-
-			<label name="label_NPC">
-				<anchored to="rr_list_npc" position="aboveleft" offset="0,0" width="55" />
-				<static textres="RR_npc" />
-				<center />
-			</label>
-
-			<button_select_all name="NPC_all">
-				<anchored to="label_NPC" position="right"/>
-				<target>rr_list_npc</target>
-			</button_select_all>
-			<button_select_random name="NPC_random">
-				<anchored to="NPC_all" position="right"/>
-				<target>rr_list_npc</target>
-			</button_select_random>
-			<button_deselect_all>
-				<anchored to="NPC_random" position="right"/>
-				<target>rr_list_npc</target>
-			</button_deselect_all>
-
 
 			<!-- Footer anchors -->
 			<genericcontrol name="footeranchor">
 				<anchored height="20">
 					<bottom offset="-95" />
-					<left offset="5" />
-					<right offset="-5" />
+					<left offset="1"/>
+					<right />
 				</anchored>
 				<gmvisibleonly />
 			</genericcontrol>
@@ -160,7 +146,7 @@
 			<buttonfield name="hiderollresults">
 				<anchored to="leftanchor" height="23" width="23">
 					<top />
-					<left anchor="right" relation="relative" offset="15" />
+					<left anchor="right" relation="relative" offset="5" />
 				</anchored>
 				<state icon="visibilityon" tooltipres="ps_tooltip_showrollon" frame="buttonup" frameoffset="5,5,5,5"/>
 				<state icon="visibilityoff" tooltipres="ps_tooltip_showrolloff" frame="buttondown" frameoffset="5,5,5,5"/>
@@ -258,7 +244,7 @@
 				<tooltip textres="RR_tooltip_proficiencyTargeting" />
 				<script>
 					function onButtonPress()
-						RR.targetSkillProficency();
+						RR.targetSkillProficency(DB.getValue("requestsheet.skill.selected", ""));
 					end
 				</script>
 				<tintable/>

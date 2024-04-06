@@ -189,14 +189,62 @@ function getSelectedChars()
 	return list;
 end
 
+---Gets all characters of a given type from the combattracker
+---@param sType string PC or NPC for type
+---@return table list the 
+function getAllCharactersByType(sType)
+	local isPC = false;
+	if sType == "PC" then
+		isPC = true;
+	end
+	local list = {};
+	for _,entry in pairs(CombatManager.getCombatantNodes()) do
+		if ActorManager.isPC(entry)==isPC then
+			table.insert(list, entry);
+		end
+	end
+	return list;
+end
+
+---Selects all characters of a given type for RR rolls
+---@param sType string same as getAllCharactersByType(sType)
+function characterSelectAllByType(sType)
+	for _,entry in getAllCharactersByType(sType) do
+		DB.setValue(entry,"RRselected", "number", 1);
+	end
+end
+
+---Selects all characters of a given type for RR rolls
+---@param sType string same as getAllCharactersByType(sType)
+function characterDeselectAllByType(sType)
+	for _,entry in getAllCharactersByType(sType) do
+		DB.setValue(entry,"RRselected", "number", 0);
+	end
+end
+
+function characterDeselectAll()
+	for _,entry in pairs(CombatManager.getCombatantNodes()) do
+		DB.setValue(entry,"RRselected", "number", 0);
+	end
+end
+
+---Selects all characters of a given type for RR rolls
+---@param sType string same as getAllCharactersByType(sType)
+function characterSelectRandomByType(sType)
+	local list = getAllCharactersByType(sType);
+	local numberOfChars = #list;
+	if numberOfChars > 0 then 
+		RR.characterDeselectAllByType(sType);
+		local randomIndex = math.random(numberOfChars);
+		DB.setValue(list[randomIndex],"RRselected", "number", 1);
+	end
+end
+
 ---Clear selected characters and then select the same targets as the specificied actor
 ---If rActor is nil, it uses the currently active node in the CT
 ---@param rActor table the actor of interest
 function mirrorTargeting(rActor)
-	for _,entry in pairs(CombatManager.getCombatantNodes()) do
-		DB.setValue(entry,"RRselected", "number", 0);
-	end
-
+	characterDeselectAll();
 	if rActor == nil then
 		rActor = CombatManager.getActiveCT();
 	end
@@ -208,12 +256,9 @@ end
 
 ---Zeroes out the current selection and reuses other skill check code to select whoever has the skill proficiency 
 ---The button that uses this should be disabled  in rulesets where it is not applicable.
-function targetSkillProficency()
-	for _,entry in pairs(CombatManager.getCombatantNodes()) do
-		DB.setValue(entry,"RRselected", "number", 0);
-	end
-
-	local sSkill = DB.getValue("requestsheet.skill.selected", "");
+---@param sSkill string the skill to be used for targeting
+function targetSkillProficency(sSkill)
+	characterDeselectAll();
 	for _,rActor in pairs(CombatManager.getCombatantNodes()) do
 		local nodeActor = ActorManager.getCreatureNode(rActor);
 
