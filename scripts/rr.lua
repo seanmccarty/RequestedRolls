@@ -209,7 +209,7 @@ end
 ---Selects all characters of a given type for RR rolls
 ---@param sType string same as getAllCharactersByType(sType)
 function characterSelectAllByType(sType)
-	for _,entry in getAllCharactersByType(sType) do
+	for _,entry in pairs(getAllCharactersByType(sType)) do
 		DB.setValue(entry,"RRselected", "number", 1);
 	end
 end
@@ -217,7 +217,7 @@ end
 ---Selects all characters of a given type for RR rolls
 ---@param sType string same as getAllCharactersByType(sType)
 function characterDeselectAllByType(sType)
-	for _,entry in getAllCharactersByType(sType) do
+	for _,entry in pairs(getAllCharactersByType(sType)) do
 		DB.setValue(entry,"RRselected", "number", 0);
 	end
 end
