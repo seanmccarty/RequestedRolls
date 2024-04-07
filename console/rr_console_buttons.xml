@@ -58,7 +58,6 @@
 			<RR_button_expander_window name="button_expand_stuff">
 				<anchored position="insidetopleft" offset="10,10" />
 				<target>selection_window</target>
-                <target_label>label_noselection</target_label>
 			</RR_button_expander_window>
 			<label name="group_name">
 				<anchored position="insidetopleft" offset="40,10" />
@@ -72,18 +71,19 @@
 				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<gmvisibleonly />
 			</basicnumber>
-			<label name="label_noselection">
-				<static textres="RR_label_nobuttonselected" />
-				<anchored to="dc" position="righthigh" offset="10,0" />
-				<invisible/>
-			</label>
 			<windowlist name="selection_window">
 				<anchored position="insidetopleft" offset="5,35">
 					<right />
+					<sizelimits>
+						<minimum>
+							<height>20</height>
+						</minimum>
+					</sizelimits>
 				</anchored>		
 				<columns width="125" fillwidth="true" />
 				<skipempty/>
 				<noscroll/>
+				<empty><text>Nothing to show. Go to the Other tab and select two stars.</text></empty>
 				<sortby><control>name</control></sortby>
 				<class>rollselectorbutton</class>
 				<datasource>.list</datasource>
@@ -93,14 +93,6 @@
 							return true;
 						else
 							return false;
-						end
-					end
-
-					function onListRearranged (listchanged)	
-						if getWindowCount(true) == 0 and isVisible() then
-							window.label_noselection.setVisible(true);
-						else
-							window.label_noselection.setVisible(false);
 						end
 					end
 

@@ -57,13 +57,13 @@
 			<class>rr_entry</class>				
 			<anchored>
 				<top offset="0"/>
-				<left/>
+				<left offset="5"/>
 				<right/>
 				<sizelimits>
 					<minimum>
 						<height>20</height>
 					</minimum>
-				  </sizelimits>
+				</sizelimits>
 			</anchored>
 
 			<empty><text>No characters of this type in combat tracker</text></empty>
@@ -116,13 +116,11 @@
 				--when expanded, the target label is only shown if target is blank
 				function setExpanded()
 					window[self.target[1]].setVisible(true);
-					window[self.target_label[1]].setVisible(window[self.target[1]].getWindowCount(true)==0);
 					DB.setValue(node,"number",0);
 				end
 
 				function setCollapsed()
 					window[self.target[1]].setVisible(false);
-					window[self.target_label[1]].setVisible(false);
 					DB.setValue(node,"number",1);
 				end
 			</script>
