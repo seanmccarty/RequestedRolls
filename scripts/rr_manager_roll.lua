@@ -46,7 +46,7 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nMod)
 		local rRoll = {};
 		rRoll = fRollResult(rActor, sSubType);
 		rRoll.RR = true;
-		if not Interface.getRuleset()=="2E" then
+		if not (Interface.getRuleset()=="2E") then
 			rRoll.nTarget = nMod;
 		end
 		if bSecret == true then
