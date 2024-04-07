@@ -59,7 +59,14 @@
 				<top offset="0"/>
 				<left/>
 				<right/>
+				<sizelimits>
+					<minimum>
+						<height>20</height>
+					</minimum>
+				  </sizelimits>
 			</anchored>
+
+			<empty><text>No characters of this type in combat tracker</text></empty>
 			<script>
 				function onFilter( w )
 					local isPC = false;
