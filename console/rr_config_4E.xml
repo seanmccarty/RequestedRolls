@@ -3,12 +3,10 @@
 	<!-- Remove save combobx and DC, resize window for roll button only entry -->
 	<windowclass name="rr_console" merge="join">
 		<sheetdata>
-			<genericcontrol name="saveframe">
-				<anchored width="55" />
-			</genericcontrol>
-			<combobox name="save.selected" merge="delete"/>
-			<label name="savedclabel" merge="delete"/>
-			<basicnumber name="save.dc" merge="delete"/>
+			<rollModule name="save" merge="join">
+				<showDC merge="delete"/>
+				<comboWidth merge="delete"/>
+			</rollModule>
 		</sheetdata>
 	</windowclass>
 
