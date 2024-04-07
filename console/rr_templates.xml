@@ -56,7 +56,7 @@
 			<frame name="groupbox" offset="5,5,5,5" />
 			<class>rr_entry</class>				
 			<anchored>
-				<top offset="5"/>
+				<top offset="0"/>
 				<left/>
 				<right/>
 			</anchored>
