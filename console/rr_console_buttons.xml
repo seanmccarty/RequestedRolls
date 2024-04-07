@@ -76,7 +76,7 @@
 					<right />
 					<sizelimits>
 						<minimum>
-							<height>20</height>
+							<height>30</height>
 						</minimum>
 					</sizelimits>
 				</anchored>		
