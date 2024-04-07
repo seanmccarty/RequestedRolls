@@ -173,7 +173,6 @@
 				</anchored>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_off" frame="buttonup" frameoffset="5,5,5,5"/>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_on" frame="buttondown" frameoffset="5,5,5,5"/>
-				<gmvisibleonly />
 				<script>
 					function onInit()
 						setColor(ColorManager.getButtonIconColor());

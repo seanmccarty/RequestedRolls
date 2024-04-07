@@ -65,11 +65,9 @@
 			<label name="skilldclabel">
 				<anchored position="insidetopleft" offset="90,10" />
 				<static textres="dc" />
-				<gmvisibleonly />
 			</label>
 			<basicnumber name="dc">
 				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
-				<gmvisibleonly />
 			</basicnumber>
 			<windowlist name="selection_window">
 				<anchored position="insidetopleft" offset="5,35">
