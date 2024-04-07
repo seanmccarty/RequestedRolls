@@ -30,7 +30,7 @@
 
 	<windowclass name="expanding_button_selector">
 		<margins control="0,0,10,10" />
-		<frame>groupbox</frame>
+		<frame name="groupbox" offset="5,5,5,5"/>
 		<script>
 			function onInit()
 				group_name.setValue(parentcontrol.group_name[1]);

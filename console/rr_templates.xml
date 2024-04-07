@@ -178,9 +178,9 @@
 	<template name="RR_subwindow_expander">
 		<subwindow>
 			<anchored>
-				<top parent="columnanchor" anchor="bottom" relation="relative" offset="6" />
-				<left offset="5" />
-				<right offset="-5" />
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right />
 			</anchored>		
 			<noscroll />
 			<script>
