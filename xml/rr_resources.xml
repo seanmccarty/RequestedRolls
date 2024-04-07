@@ -23,6 +23,7 @@
 	<script name="RRPFRPG2" file="scripts/rr_config_PFRPG2.lua" ruleset="PFRPG2"/>
 
 	<!-- Console Windows -->
+	<includefile source="console/rr_template_rollModule.xml"/>
 	<includefile source="console/rr_console.xml"/>
 	<includefile source="console/rr_console_buttons.xml"/>
 	<includefile source="console/rr_templates.xml"/>

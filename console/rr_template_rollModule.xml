@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<template name="rollModule">
+		<genericcontrol>
+			<anchored height="40"/>
+			<frame name="groupbox"/>
+			<script file="console/scripts/rr_template_rollModule.lua"/>
+		</genericcontrol>
+	</template>
+
+	<template name="RR_button_roll">
+		<button_roll>
+			<script>
+				local _sType = ""
+	
+				function setRollType(sType)
+					_sType = sType;
+				end
+				function onButtonPress()
+					RRRollManager.onButtonPress(_sType);
+				end
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("RR");
+					draginfo.setIcon("action_roll");
+					draginfo.setDescription(_sType);
+					return true;
+				end
+			</script>
+		</button_roll>
+	</template>
+
+	<template name="RR_combobox">
+		<combobox>
+			<anchored width="170" height="20"/>
+			<listmaxsize>12</listmaxsize>
+			<default>Select roll</default>
+			<script>
+				local rootPath = "";
+
+				function setRollType(sType)
+					local node = window.getDatabaseNode();
+					rootPath = DB.getPath(node, sType..".list");
+					DB.addHandler(rootPath..".*.name", "onUpdate", buildOptions);
+					DB.addHandler(rootPath..".*.show", "onUpdate", buildOptions);
+					DB.addHandler(rootPath, "onChildDeleted", buildOptions);
+
+					buildOptions();
+				end
+
+				function onClose()
+					DB.removeHandler(rootPath..".*.name", "onUpdate", buildOptions);
+					DB.removeHandler(rootPath..".*.show", "onUpdate", buildOptions);
+					DB.removeHandler(rootPath, "onChildDeleted", buildOptions);
+				end
+
+				function buildOptions()
+					clear();
+					for _,w in pairs(DB.getChildren(rootPath)) do
+						if DB.getValue(w,"show",0)>=1 then
+							add(DB.getValue(w,"name",""));
+						end
+					end
+				end
+			</script>
+		</combobox>
+	</template>
+
+	<template name="RR_combobox_unsorted">
+		<combobox>
+			<anchored width="170" height="20"/>
+			<listmaxsize>12</listmaxsize>
+			<default>d20</default>
+			<unsorted/>
+			<script>
+				local rootPath = "";
+
+				function setRollType(sType)
+					local node = window.getDatabaseNode();
+					rootPath = DB.getPath(node, sType..".list");
+					DB.addHandler(rootPath..".*.name", "onUpdate", buildOptions);
+					DB.addHandler(rootPath..".*.show", "onUpdate", buildOptions);
+					DB.addHandler(rootPath, "onChildDeleted", buildOptions);
+
+					buildOptions();
+				end
+
+				function onClose()
+					DB.removeHandler(rootPath..".*.name", "onUpdate", buildOptions);
+					DB.removeHandler(rootPath..".*.show", "onUpdate", buildOptions);
+					DB.removeHandler(rootPath, "onChildDeleted", buildOptions);
+				end
+
+				function buildOptions()
+					clear();
+					local listStore = {};
+					for _,w in pairs(DB.getChildren(rootPath)) do
+						if DB.getValue(w,"show",0)>=1 then
+							table.insert(listStore,DB.getValue(w,"name",""));
+						end
+					end
+					table.sort(listStore,RR.naturalSort);
+				addItems(listStore);
+			end
+			</script>
+		</combobox>
+	</template>
+
+	<template name="RR_DCLabel">
+		<label>
+			<static textres="dc" />
+		</label>
+	</template>
+
+	<template name="RR_DCField">
+		<basicnumber>
+			<anchored width="30" height="20"/>
+		</basicnumber>
+	</template>
+</root>
