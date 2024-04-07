@@ -164,43 +164,43 @@
 		</subwindow>
 	</template>
 
-		<!-- For the expander trays on the main page -->
-		<template name="RR_button_expander_window">
-			<buttoncontrol>
-				<anchored width="20" height="20" />
-				<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
-				<state icon="button_expand" tooltipres="RR_tooltip_expand"/>
-				<script>
-					local node;
-	
-					--Get the assigned node and the value. Set the value of the control so the correct icon shows.
-					--Call button press to get the correct visibility
-					function onInit()
-						node = DB.getPath(window.getDatabaseNode(),"collapsed");
-						setValue(DB.getValue(node,0));
-						onButtonPress();
+	<!-- For the expander trays on the main page -->
+	<template name="RR_button_expander_window">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
+			<state icon="button_expand" tooltipres="RR_tooltip_expand"/>
+			<script>
+				local node;
+
+				--Get the assigned node and the value. Set the value of the control so the correct icon shows.
+				--Call button press to get the correct visibility
+				function onInit()
+					node = DB.getPath(window.getDatabaseNode(),"collapsed");
+					setValue(DB.getValue(node,0));
+					onButtonPress();
+				end
+
+				--The control value has already changed when this fires
+				function onButtonPress()
+					if getValue() == 0 then
+						setExpanded();
+					else
+						setCollapsed();
 					end
-	
-					--The control value has already changed when this fires
-					function onButtonPress()
-						if getValue() == 0 then
-							setExpanded();
-						else
-							setCollapsed();
-						end
-					end
-	
-					--when expanded, the target label is only shown if target is blank
-					function setExpanded()
-						window[self.target[1]].setVisible(true);
-						DB.setValue(node,"number",0);
-					end
-	
-					function setCollapsed()
-						window[self.target[1]].setVisible(false);
-						DB.setValue(node,"number",1);
-					end
-				</script>
-			</buttoncontrol>
-		</template>
+				end
+
+				--when expanded, the target label is only shown if target is blank
+				function setExpanded()
+					window[self.target[1]].setVisible(true);
+					DB.setValue(node,"number",0);
+				end
+
+				function setCollapsed()
+					window[self.target[1]].setVisible(false);
+					DB.setValue(node,"number",1);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
 </root>
