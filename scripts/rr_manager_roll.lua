@@ -30,7 +30,7 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 	return true;
 end
 
-function requestRoll(sRollType, sSubType, tActors, bSecret, nMod)
+function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC)
 	if tActors==nil or #tActors==0 then
 		ChatManager.SystemMessage("No valid actors for roll.");
 		return;
@@ -47,7 +47,7 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nMod)
 		rRoll = fRollResult(rActor, sSubType);
 		rRoll.RR = true;
 		if not (Interface.getRuleset()=="2E") then
-			rRoll.nTarget = nMod;
+			rRoll.nTarget = nTargetDC;
 		end
 		if bSecret == true then
 			rRoll.bSecret = true;
