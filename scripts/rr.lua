@@ -85,6 +85,7 @@ function registerSlashHandlers()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYCLIENTSAVE, handleApplyClientSaveRR);
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYNODICE, handleApplyClientNoDiceRR);
 	Comm.registerSlashHandler("RRdebug",processRRdebug);
+	Comm.registerSlashHandler("RRcmd",processRRcmd);
 end
 
 ---Outputs the list of available commands to the chat log
@@ -100,6 +101,7 @@ function processRRCommandList(sCommand, sParams)
 		ChatManager.SystemMessage("/RRconsole \t DM only - open the create request window");
 		ChatManager.SystemMessage("/RRclientsaves \t DM only - sets clients to show popups for saves");
 		ChatManager.SystemMessage("/RRnodice \t DM only - sets clients to suppress 3D dice" );
+		ChatManager.SystemMessage("/RRcmd \t DM only - generates a roll request");
 	end	
 
 	ChatManager.SystemMessage("/RRrolls \t open the rolls window");
@@ -173,6 +175,51 @@ function processRRdebug(sCommand, sParams)
 		end
 	end
 	ChatManager.SystemMessage("RR debug mode is ".. tostring(RR.bDebug));
+end
+
+---A working implementation of slash command. Advanced command to be added on request.
+---@param sCommand string not used
+---@param sParams string a string with entries separated by |. Each entry has the parameter name followed by a colon and the command
+---All command except sType are optional. If no targets are specified, it will use the current selections from the console.
+--- /RRcmd type:check|subType:charisma|DC:10|target:KitKat the Kindly
+function processRRcmd(sCommand, sParams)
+	local _sType = "";
+	local _sSubType = "";
+	local _bSecret = false;
+	local _nTargetDC = nil;
+	local _tTargets = {};
+
+	local cases = {
+		["type"] = function (param) _sType = param; end,
+		["subType"] = function (param) _sSubType = param; end,
+		["secret"] = function (param) _bSecret = param == "true"; end,
+		["DC"] = function (param) _nTargetDC = tonumber(param); end,
+		["target"] = function(param)
+			for _,entry in pairs(CombatManager.getCombatantNodes()) do
+				if ActorManager.getDisplayName(entry) == param then
+					local rActor = ActorManager.resolveActor(entry);
+					if rActor then
+						table.insert(_tTargets, rActor);
+					end
+				end
+			end
+		end
+	}
+
+	local entries = StringManager.split(sParams,"|",true);
+	for _, entry in ipairs(entries) do
+		local cmd = StringManager.split(entry,":",true);
+		if cmd[1] and cmd[2] then
+			cases[cmd[1]](cmd[2]);
+		else
+			ChatManager.SystemMessage("Malformed parameters for RR command: "..entry);
+		end
+	end
+
+	if #_tTargets==0 then
+		_tTargets = RR.getSelectedChars();
+	end
+	RRRollManager.requestRoll(_sType, _sSubType, _tTargets, _bSecret, _nTargetDC);
 end
 
 --#endregion
