@@ -31,8 +31,8 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 end
 
 function requestRoll(sRollType, sSubType, tActors, bSecret, nMod)
-	if tActors==nil then
-		ChatManager.SystemMessage("No valid actors for roll");
+	if tActors==nil or #tActors==0 then
+		ChatManager.SystemMessage("No valid actors for roll.");
 		return;
 	end
 
@@ -79,10 +79,11 @@ function onButtonPress(sRollType,nodeCT)
 					table.insert(aParty, rActor);
 				end
 			end
-		else
-			return;
 		end
 	end
+	-- if #aParty == 0 then
+	-- 	aParty = nil;
+	-- end
 
 	local sSubType = DB.getValue("requestsheet."..sRollType..".selected", ""):lower();
 	local nTargetDC = DB.getValue("requestsheet."..sRollType..".dc", 0);
@@ -96,10 +97,7 @@ function onButtonPress(sRollType,nodeCT)
 	end
 
 	requestRoll(sRollType, sSubType, aParty, bSecret,nTargetDC)
-	-- if #aParty == 0 then
-	-- 	aParty = nil;
-	-- 	return;
-	-- end
+
 		
 	if DB.getValue("requestsheet.deselectonroll",0)==1 then
 		for _,entry in pairs(CombatManager.getCombatantNodes()) do
