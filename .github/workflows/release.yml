@@ -1,0 +1,14 @@
+name: reuseReleaseCode
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+permissions: write-all
+
+jobs:
+  run-release-workflow:
+    uses: seanmccarty/fg-workflows/.github/workflows/reusable-release.yml@main
+    with:
+      add_file_exclusions: '*.code-workspace *.vscode*'
