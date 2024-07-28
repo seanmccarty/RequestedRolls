@@ -48,15 +48,15 @@
 			
 			<tabs_partysheet name="tabs">
 				<tab>
-					<icon>tab_main</icon>
+					<tabres>tab_main</tabres>
 					<subwindow>main</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_other</icon>
+					<tabres>sidebar_tooltip_options</tabres>
 					<subwindow>options</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_other</icon>
+					<tabres>RR_label_stage</tabres>
 					<subwindow>staged</subwindow>
 				</tab>
 			</tabs_partysheet>
