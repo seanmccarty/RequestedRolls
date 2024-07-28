@@ -81,7 +81,7 @@
 				<columns width="125" fillwidth="true" />
 				<skipempty/>
 				<noscroll/>
-				<empty><text>Nothing to show. Go to the Other tab and select two stars.</text></empty>
+				<empty><textres>RR_label_nobuttonselected</textres></empty>
 				<sortby><control>name</control></sortby>
 				<class>rollselectorbutton</class>
 				<datasource>.list</datasource>
