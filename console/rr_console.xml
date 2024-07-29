@@ -26,7 +26,7 @@
 			<anchor_content_utilitybox_bottom />
 			<windowmenubar_utilitybox name="menubar" />
 			<button_text_sm name="manual_rolls">
-				<anchored position="insidetopleft" offset="15,15" width="120" />
+				<anchored position="insidetopleft" offset="45,11" width="120" />
 				<state textres="RR_label_pendingRolls" />
 				<script>
 					function onButtonPress()
@@ -69,6 +69,11 @@
 			<anchor_content_bottom/>
 			<!-- PC list -->
 			<label name="label_PC">
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
 				<anchored>
 					<top parent="contentanchor" anchor="bottom" relation="relative" height="20"/>
 					<left offset="5"/>
@@ -100,6 +105,11 @@
 
 			<!-- NPC list -->
 			<label name="label_NPC">
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
 				<anchored>
 					<top parent="contentanchor" anchor="bottom" relation="relative" width="55" height="20" offset="5"/>
 					<left offset="5"/>
@@ -108,7 +118,7 @@
 			</label>
 
 			<button_select_all name="NPC_all">
-				<anchored to="label_NPC" position="rightlow"/>
+				<anchored to="label_NPC" position="rightlow" offset="5,0"/>
 				<target>NPC</target>
 			</button_select_all>
 			<button_select_random name="NPC_random">

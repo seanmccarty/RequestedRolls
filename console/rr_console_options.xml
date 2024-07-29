@@ -46,6 +46,11 @@
 			<anchor_content_top/>
 			<anchor_content_bottom/>
 			<label name="label_show">
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
 				<anchored>
 					<top parent="contentanchor" />
 					<left offset="10" />
@@ -53,6 +58,11 @@
 				<static textres="RR_label_show" />
 			</label>
 			<label name="label_name">
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
 				<anchored>
 					<top parent="contentanchor" />
 					<left offset="80" />
@@ -61,6 +71,11 @@
 				<center />
 			</label>
 			<label name="label_name_short" width="200">
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
 				<anchored>
 					<top parent="contentanchor" />
 					<left offset="190" />
@@ -191,6 +206,11 @@
 
 	<template name="RR_label_options_lists">
 		<label>
+			<script>
+				function onInit()
+					setColor(ColorManager.getButtonTextColor());
+				end
+			</script>
 			<anchored height="20" width="60">
 				<top parent="contentanchor" anchor="bottom" relation="relative" offset="15" />
 				<left offset="15" />

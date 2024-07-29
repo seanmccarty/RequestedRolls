@@ -22,6 +22,7 @@
 
 	<windowclass name="rr_staged_contents">
 		<margins control="0,0,0,2" />
+		<frame >groupbox</frame>
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 			<header_column name="header_tab_title">
@@ -40,7 +41,6 @@
 			<list_editor name="list" >
 				<datasource>.staged</datasource>
 				<columns fillwidth="true"/>
-
 				<class>rr_staged_entry</class>
 			</list_editor>
 
