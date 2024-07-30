@@ -11,7 +11,7 @@ function onInit()
 	registerRollGetter("dice",getDiceRoll);
 	registerRollGetter("save",getSaveRoll);
 	registerRollGetter("check",getCheckRoll);
-	registerRollGetter("skill",getSkillRoll)
+	registerRollGetter("skill",getSkillRoll);
 end
 
 local aRollHandlers = {};
