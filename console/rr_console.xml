@@ -71,7 +71,7 @@
 			<label name="label_PC">
 				<script>
 					function onInit()
-						setColor(ColorManager.getButtonTextColor());
+						setColor(ColorManager.getSidebarRecordTextColor());
 					end
 				</script>
 				<anchored>
@@ -107,7 +107,7 @@
 			<label name="label_NPC">
 				<script>
 					function onInit()
-						setColor(ColorManager.getButtonTextColor());
+						setColor(ColorManager.getSidebarRecordTextColor());
 					end
 				</script>
 				<anchored>

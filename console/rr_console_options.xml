@@ -48,7 +48,7 @@
 			<label name="label_show">
 				<script>
 					function onInit()
-						setColor(ColorManager.getButtonTextColor());
+						setColor(ColorManager.getSidebarRecordTextColor());
 					end
 				</script>
 				<anchored>
@@ -60,7 +60,7 @@
 			<label name="label_name">
 				<script>
 					function onInit()
-						setColor(ColorManager.getButtonTextColor());
+						setColor(ColorManager.getSidebarRecordTextColor());
 					end
 				</script>
 				<anchored>
@@ -73,7 +73,7 @@
 			<label name="label_name_short" width="200">
 				<script>
 					function onInit()
-						setColor(ColorManager.getButtonTextColor());
+						setColor(ColorManager.getSidebarRecordTextColor());
 					end
 				</script>
 				<anchored>
@@ -208,7 +208,7 @@
 		<label>
 			<script>
 				function onInit()
-					setColor(ColorManager.getButtonTextColor());
+					setColor(ColorManager.getSidebarRecordTextColor());
 				end
 			</script>
 			<anchored height="20" width="60">
