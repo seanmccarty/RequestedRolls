@@ -181,12 +181,14 @@ end
 ---@param sCommand string not used
 ---@param sParams string a string with entries separated by |. Each entry has the parameter name followed by a colon and the command
 ---All command except sType are optional. If no targets are specified, it will use the current selections from the console.
+---sTargetType is all, PC, or NPC
 --- /RRcmd type:check|subType:charisma|DC:10|target:KitKat the Kindly
 function processRRcmd(sCommand, sParams)
 	local _sType = "";
 	local _sSubType = "";
 	local _bSecret = false;
 	local _nTargetDC = nil;
+	local _sTargetType = "";
 	local _tTargets = {};
 
 	local cases = {
@@ -194,6 +196,7 @@ function processRRcmd(sCommand, sParams)
 		["subType"] = function (param) _sSubType = param; end,
 		["secret"] = function (param) _bSecret = param == "true"; end,
 		["DC"] = function (param) _nTargetDC = tonumber(param); end,
+		["targetType"] = function (param) _sTargetType = param; end,
 		["target"] = function(param)
 			for _,entry in pairs(CombatManager.getCombatantNodes()) do
 				if ActorManager.getDisplayName(entry) == param then
@@ -215,6 +218,16 @@ function processRRcmd(sCommand, sParams)
 			ChatManager.SystemMessage("Malformed parameters for RR command: "..entry);
 		end
 	end
+	if not(_sTargetType=="") then
+		if _sTargetType=="all" then
+			for _,entry in pairs(CombatManager.getCombatantNodes()) do
+				table.insert(_tTargets, entry);
+			end
+		else
+			_tTargets = RR.getAllCharactersByType(_sTargetType)
+		end
+	end
+	Debug.chat(_tTargets)
 
 	if #_tTargets==0 then
 		_tTargets = RR.getSelectedChars();
