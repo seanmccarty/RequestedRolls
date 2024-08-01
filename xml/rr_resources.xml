@@ -21,7 +21,7 @@
 	<script name="RR5E" file="scripts/rr_config_5E.lua" ruleset="5E"/>
 	<script name="RR4E" file="scripts/rr_config_4E.lua" ruleset="4E"/>
 	<script name="RR2E" file="scripts/rr_config_2E.lua" ruleset="2E"/>
-	<script name="RRPFRPG2" file="scripts/rr_config_PFRPG2.lua" ruleset="PFRPG2"/>
+	<script name="RRPFRPG2" file="scripts/rr_config_PFRPG2.lua" ruleset="PFRPG2|SFRPG2"/>
 
 	<!-- Console Windows -->
 	<includefile source="console/rr_template_rollModule.xml"/>

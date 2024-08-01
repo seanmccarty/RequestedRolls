@@ -1,6 +1,9 @@
 function onInit()
 	DB.addHandler("combattracker.actiondata.dc", "onUpdate", copyDC);
 	RRRollManager.registerRollGetter("init", getInitRoll);
+
+	OptionsManager.registerOption2("RR_option_label_copyDCPanel", true, "RR_option_header", "RR_option_label_copyDCPanel", "option_entry_cycler", 
+	{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
 end
 
 function copyDC()
