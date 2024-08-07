@@ -1,6 +1,7 @@
 local DICE = "dice";
 
 ---Add the new dice handlers needed for arbitrary dice, this is only used for rulesets that already have a handler for dice
+---Most rulesets use common script names. See the configuration files for specific overrides.
 function onInit()
 	if ActionsManager2 then
 		ActionsManager.registerModHandler("sDice",modSDiceRoll);
@@ -139,63 +140,18 @@ function getDiceRoll(rActor, sDice)
 end
 
 function getCheckRoll(rActor, sCheck)
-	local rRoll = {};
-	if Interface.getRuleset()=="5E" then
-		rRoll = ActionCheck.getRoll(rActor, sCheck);
-	else
-		rRoll = ActionAbility.getRoll(rActor, sCheck);
-	end
-    return rRoll;
+	return ActionAbility.getRoll(rActor, sCheck);
 end
 
 function getSaveRoll(rActor, sSave)
 	return ActionSave.getRoll(rActor, sSave);
 end
 
-function getSkillRoll(rActor, sSkill)
-	local rRoll = {};
-
-	if Interface.getRuleset()=="5E" then
-		rRoll = E5skill(rActor, sSkill);
-	else
-		rRoll = E35skill(rActor, sSkill);
-	end
-    return rRoll;
-end
-
----Takes a NPC and gets the skills and modifiers from its record to check its specified modifier
----@param nodeActor any the database node of the actor in question
----@return table aComponents a table of labels and modifiers found on the character
-function parseComponents(nodeActor)
-	local skillsString = DB.getValue(nodeActor, "skills");
-	if skillsString == nil then
-		return;
-	end
-	local aComponents = {};
-
-	-- Get the comma-separated strings
-	local aClauses, aClauseStats = StringManager.split(skillsString, ",;\r", true);
-
-	-- Check each comma-separated string for a potential skill roll or auto-complete opportunity
-	for i = 1, #aClauses do
-		local nStarts, nEnds, sMod = string.find(aClauses[i], "([d%dF%+%-]+)%s*$");
-		if nStarts then
-			local sLabel = "";
-			if nStarts > 1 then
-				sLabel = StringManager.trim(aClauses[i]:sub(1, nStarts - 1));
-			end
-			local aDice, nMod = DiceManager.convertStringToDice(sMod);
-			table.insert(aComponents, {sLabel = sLabel, nMod = nMod, });
-		end
-	end
-	return aComponents;
-end
-
 ---This lookup is used by rulesets other than 5E
 ---@param rActor any the actor to roll
 ---@param sSkill any the skill to be rolled
 ---@return table rRoll
-function E35skill(rActor, sSkill)
+function getSkillRoll(rActor, sSkill)
 	local rRoll = nil;
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	--if it is an NPC, parse for the particular skill. fall through if it is not found or it is a PC
@@ -226,38 +182,30 @@ function E35skill(rActor, sSkill)
 	return rRoll;
 end
 
----5E specific skill lookup
----@param rActor any the actor to roll
----@param sSkill any the skill to be rolled
----@return table rRoll
-function E5skill(rActor, sSkill)
-	local rRoll = nil;
-	local nodeActor = ActorManager.getCreatureNode(rActor);
-	if ActorManager.isPC(rActor) then
-		for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
-			if DB.getValue(nodeSkill, "name", ""):lower() == sSkill then
-				rRoll = ActionSkill.getRoll(rActor, nodeSkill);
-				break;
-			end
-		end
-	else
-		local aSkills = parseComponents(nodeActor);
-		if aSkills then
-			for k,node in pairs(aSkills) do
-				if string.lower(node.sLabel) ==  string.lower(sSkill) then
-					rRoll = {};
-					rRoll.sType = "skill";
-					rRoll.aDice = { "d20" };
-					rRoll.sDesc = "[SKILL] " .. sSkill;
-					rRoll.nMod = node.nMod;
-					break;
-				end
-			end	
-		end
+---Takes a NPC and gets the skills and modifiers from its record to check its specified modifier
+---@param nodeActor any the database node of the actor in question
+---@return table aComponents a table of labels and modifiers found on the character
+function parseComponents(nodeActor)
+	local skillsString = DB.getValue(nodeActor, "skills");
+	if skillsString == nil then
+		return;
 	end
-	if not rRoll then
-		rRoll = ActionSkill.getUnlistedRoll(rActor, sSkill);
-	end
+	local aComponents = {};
 
-	return rRoll;
+	-- Get the comma-separated strings
+	local aClauses, aClauseStats = StringManager.split(skillsString, ",;\r", true);
+
+	-- Check each comma-separated string for a potential skill roll or auto-complete opportunity
+	for i = 1, #aClauses do
+		local nStarts, nEnds, sMod = string.find(aClauses[i], "([d%dF%+%-]+)%s*$");
+		if nStarts then
+			local sLabel = "";
+			if nStarts > 1 then
+				sLabel = StringManager.trim(aClauses[i]:sub(1, nStarts - 1));
+			end
+			local aDice, nMod = DiceManager.convertStringToDice(sMod);
+			table.insert(aComponents, {sLabel = sLabel, nMod = nMod, });
+		end
+	end
+	return aComponents;
 end
