@@ -26,7 +26,7 @@ Compatible with Hearth Theme.
 # Compatible Rulesets
 DnD: 2E, 3.5E, 4E, 5E  
 PFRPG: 1E, 2E  
-SFRPG  
+SFRPG: 1E, 2E  
 CoreRPG (very important to view the instructions)  
 
 # Extensions with Specific Compatibility
