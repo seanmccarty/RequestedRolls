@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-	<framedef name="stagedRollFrame">
-		<bitmap file="graphics/frames/ctentrybox_friend_active.png" />
-		<offset>15,15,15,15</offset>
-	</framedef>
-
 	<!-- SFRPG uses a slightly different ct active frame -->
+	<!-- Some themes may also need to define this frame -->
 	<framedef name="stagedRollFrame" ruleset="SFRPG">
 		<bitmap file="graphics/frames/ctentrybox_friend_active.png" />
 		<topleft rect="25,0,10,10" />
