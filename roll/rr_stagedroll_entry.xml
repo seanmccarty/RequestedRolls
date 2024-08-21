@@ -32,15 +32,8 @@
 
 	<windowclass name="stagedroll_entry" copy="manualroll_entry">
 		<frame name="ctentrybox_friend_active"/>
+		<!-- the frame may also be set in the onInit of the script file -->
 		<script file="roll/scripts/rr_stagedroll_entry.lua" />
-		<script>
-			--no onInit in the related script file. This is cosmetic only.
-			function onInit()
-				if Interface.isFrame("stagedRollFrame") then
-					setFrame("stagedRollFrame");
-				end
-			end
-		</script>
 		<sheetdata>
 			<label_content_column name="reasons_label" insertbefore="list">
 				<static textres="RR_label_reason" />
