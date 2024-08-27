@@ -33,7 +33,7 @@ function getSaveRoll(rActor,sSave)
 	-- local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
 	local rRoll = {};
 	rRoll.sType = "save";
-	rRoll.aDice = { "d20" };
+	rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
 	local nMod, bADV, bDIS, sAddText = ActorManagerADND.getSave(rActor, sSave);
 	rRoll.nMod = nMod;
 	local sPrettySaveText = DataCommon.saves_stol[sSave];

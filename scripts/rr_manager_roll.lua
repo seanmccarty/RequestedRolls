@@ -121,7 +121,7 @@ function getDiceRoll(rActor, sDice)
 	if DiceManager.isDiceString(sDice) then
 		rRoll.sType = "dice"
 		local aDice, nMod = DiceManager.convertStringToDice(sDice, true)
-		rRoll.aDice = aDice;
+		rRoll.aDice = DiceRollManager.getActorDice(aDice, rActor);
 		rRoll.nMod = nMod;
 	else
 		rRoll.sType = DICE;
@@ -132,7 +132,7 @@ function getDiceRoll(rActor, sDice)
 	end
     rRoll.sDesc = "[DICE] Roll a " .. sDice;
 
-    if Interface.getRuleset()=="5E" and  rRoll.aDice[1] == "d20" then
+    if Interface.getRuleset()=="5E" and  rRoll.aDice[1].type == "d20" then
 		ActionsManager2.encodeAdvantage(rRoll);
     end
 

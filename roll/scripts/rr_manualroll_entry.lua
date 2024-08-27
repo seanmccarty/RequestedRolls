@@ -94,7 +94,7 @@ function processRoll(forceTower)
 		--if the buttons introduce a modifier that would cancel what is already applied, add the appropriate text and remove the extra die that was added
 		if not (bADV and bDIS) then
 			if not bADV and not bDIS then
-				if vRoll.aDice[1] == "d20" then
+				if vRoll.aDice[1].type == "d20" then
 					ActionsManager2.encodeAdvantage(vRoll,bButtonADV,bButtonDIS);
 				end
 			else

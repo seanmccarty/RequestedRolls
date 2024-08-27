@@ -31,7 +31,7 @@ function getSkillRoll(rActor, sSkill)
 				if string.lower(node.sLabel) ==  string.lower(sSkill) then
 					rRoll = {};
 					rRoll.sType = "skill";
-					rRoll.aDice = { "d20" };
+					rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
 					rRoll.sDesc = "[SKILL] " .. sSkill;
 					rRoll.nMod = node.nMod;
 					break;
