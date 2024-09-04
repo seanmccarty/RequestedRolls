@@ -43,17 +43,14 @@ end
 function update()
 	local bEditMode = (window.parentcontrol.window.options_iedit.getValue() == 1);
 	for _,w in ipairs(getWindows()) do
-		if w.isCustom() then
-			w.idelete.setVisibility(bEditMode);
-		else
-			w.idelete.setVisibility(false);
-		end
+		w.idelete.setVisibility(w.isCustom() and bEditMode);
 	end
 end
 
 function addEntry(bFocus)
 	local w = createWindow();
 	w.setCustom(true);
+	w.show.setValue(2);
 	if bFocus and w then
 		w.name.setFocus();
 	end
