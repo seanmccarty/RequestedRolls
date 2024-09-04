@@ -43,6 +43,9 @@
 			<name>SFRPG2</name>
 			<minrelease>3.2</minrelease>
 		</ruleset>
+		<ruleset>
+			<name>Shadowdark</name>
+		</ruleset>
 	</properties>
 	<announcement text="Requested Rolls ~dev_version~ by mccartysr, 2024\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>
 	<base>		

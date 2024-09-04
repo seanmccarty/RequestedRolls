@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="rr_console" merge="join">
+		<sheetdata>
+			<genericcontrol name="footeranchor" merge="join">
+				<anchored height="20">
+					<bottom offset="-65" />
+				</anchored>
+			</genericcontrol>
+
+			<buttonfield name="DClink" merge="delete"/>
+			<buttonfield name="proficiencytargeting" merge="delete"/>
+
+			<rollModule name="check" merge="delete"/>
+			<rollModule name="save" merge="delete"/>
+			<rollModule name="skill" merge="delete"/>
+			<rollModule name="init" merge="delete"/>
+			<rollModule name="dice" merge="join">
+				<anchored>
+					<to merge="delete"/>
+					<position merge="delete"/>
+					<offset merge="delete"/>
+					<top parent="leftanchor" relation="relative" offset="5"/>
+					<left/>
+				</anchored>
+				<comboWidth>300</comboWidth>
+			</rollModule>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Remove the save and check expanders -->
+	<windowclass name="classwindow_buttonselectors" merge="join">
+		<sheetdata>
+			<RR_subwindow_expander name="check_window" merge="delete">
+			</RR_subwindow_expander>
+			<RR_subwindow_expander name="save_window" merge="delete">
+			</RR_subwindow_expander>
+			<RR_subwindow_expander name="skill_window" merge="delete">
+			</RR_subwindow_expander>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Hide the save and checks options subwindow. Would have to rewrite additional functions if it was deleted. -->
+	<windowclass name="rr_options_contents" merge="join">
+		<sheetdata>
+			<RR_label_options_lists name="checkstitle">
+				<invisible/>
+			</RR_label_options_lists>
+			<RR_button_expander_hider name="check.show">
+				<invisible/>
+			</RR_button_expander_hider>
+			<button_iadd name="checks_iadd">
+				<invisible/>
+			</button_iadd>
+			<RR_options_lists name="checks">
+				<invisible/>
+			</RR_options_lists>
+
+			<RR_label_options_lists name="savestitle">
+				<invisible/>
+			</RR_label_options_lists>
+			<RR_button_expander_hider name="save.show">
+				<invisible/>
+			</RR_button_expander_hider>
+			<button_iadd name="saves_iadd">
+				<invisible/>
+			</button_iadd>
+			<RR_options_lists name="saves">
+				<invisible/>
+			</RR_options_lists>
+
+			<RR_label_options_lists name="skillstitle">
+				<invisible/>
+			</RR_label_options_lists>
+			<RR_button_expander_hider name="skill.show">
+				<invisible/>
+			</RR_button_expander_hider>
+			<button_iadd name="skills_iadd">
+				<invisible/>
+			</button_iadd>
+			<RR_options_lists name="skills">
+				<invisible/>
+			</RR_options_lists>
+		</sheetdata>
+	</windowclass>
+</root>

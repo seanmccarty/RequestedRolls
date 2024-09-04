@@ -80,7 +80,7 @@ function processRoll(forceTower)
 	end
 
 	applyClientModifiers();
-	if Interface.getRuleset()=="5E" then
+	if (Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") then
 
 		local bButtonADV = ModifierManager.getKey("ADV");
 		local bButtonDIS = ModifierManager.getKey("DIS");

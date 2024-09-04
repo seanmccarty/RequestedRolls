@@ -35,6 +35,7 @@
 	<includefile source="console/rr_config_4E.xml" ruleset="4E"/>
 	<includefile source="console/rr_config_2E.xml" ruleset="2E"/>
 	<includefile source="console/rr_config_CoreRPG.xml" ruleset="CoreRPG"/>
+	<includefile source="console/rr_config_Shadowdark.xml" ruleset="Shadowdark"/>
 
 	<!-- Miscellaneous Changes -->
 	<includefile source="desktop/rr_desktop_panels.xml"/>
