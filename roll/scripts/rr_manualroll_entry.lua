@@ -32,8 +32,6 @@ function hideDiceList()
 	list.setVisible(false);
 	button_ok.setVisible(false);
 	button_fauxroll.setVisible(false);
-	button_roll.resetAnchor("left");
-	button_roll.setAnchor("right","","right","relative",-10);
 	button_roll.resetAnchor("bottom");
 	button_roll.setAnchor("bottom","spacer_bottom","bottom","",0);
 end
