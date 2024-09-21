@@ -10,12 +10,6 @@ local originalTotal=0;
 local vApplicableIdentifier = nil;
 local sRollID;
 
-function onInit()
-	if Interface.isFrame("stagedRollFrame") then
-		setFrame("stagedRollFrame");
-	end
-end
-
 function onClose()
 	if vTargets then
 		CombatManager.removeCustomDeleteCombatantHandler(onCTEntryDeleted);

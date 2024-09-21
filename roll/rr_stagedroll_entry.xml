@@ -31,8 +31,7 @@
 
 
 	<windowclass name="stagedroll_entry" copy="manualroll_entry">
-		<frame name="ctentrybox_friend_active"/>
-		<!-- the frame may also be set in the onInit of the script file -->
+		<frame name="fieldrequired"/>
 		<script file="roll/scripts/rr_stagedroll_entry.lua" />
 		<sheetdata>
 			<label_content_column name="reasons_label" insertbefore="list">

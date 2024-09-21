@@ -4,7 +4,6 @@
 	<!-- Assets and Windows  -->
 	<includefile source="xml/rr_images.xml" />
 	<includefile source="xml/rr_strings.xml" />
-	<includefile source="xml/rr_frames.xml"/>
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	<includefile source="roll/rr_stagedroll_entry.xml"/>
 
