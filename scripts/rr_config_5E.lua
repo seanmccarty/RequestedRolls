@@ -46,7 +46,7 @@ function getSkillRoll(rActor, sSkill)
 	return rRoll;
 end
 
----Copied from ActionSave.performConcentrationRoll
+---Copied from ActionSave.performConcentrationRoll as of 30 July
 ---@param rActor table the actor
 ---@return table rRoll the roll
 function getConcentrationRoll(rActor)
