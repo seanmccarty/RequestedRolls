@@ -363,7 +363,7 @@ function getControllingClient(rActor)
 	if ActorManager.isPC(rActor) then
 		sNode = ActorManager.getCreatureNodeName(rActor);
 	else
-		if FriendZone and FriendZone.isCohort(rActor) then
+		if (FriendZone and FriendZone.isCohort(rActor)) or (Pets and Pets.isCohort(rActor)) then
 			sNode = getRootCommander(rActor);
 		end
 	end
