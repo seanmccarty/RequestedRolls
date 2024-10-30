@@ -65,8 +65,6 @@
 
 	<!-- Console Main Page Expander Windows -->
 	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Options tab and select two stars.</string>
-	<string name="RR_tooltip_expand">Expand</string>
-	<string name="RR_tooltip_collapse">Collapse</string>
 
 	<!-- Console Options Page -->
 	<string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>

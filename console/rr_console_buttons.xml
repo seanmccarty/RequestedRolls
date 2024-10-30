@@ -168,8 +168,8 @@
 	<template name="RR_button_expander_window">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
-			<state icon="button_collapse" tooltipres="RR_tooltip_collapse"/>
-			<state icon="button_expand" tooltipres="RR_tooltip_expand"/>
+			<state icon="button_collapse" tooltipres="tooltip_collapse"/>
+			<state icon="button_expand" tooltipres="tooltip_expand"/>
 			<script>
 				local node;
 
