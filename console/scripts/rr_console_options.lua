@@ -1,8 +1,3 @@
--- 
--- Please see the license.html file included with this distribution for 
--- attribution and copyright information.
---
-
 function onInit()
 	registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
 	
