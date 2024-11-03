@@ -82,8 +82,8 @@ function processRoll(forceTower)
 
 		local bButtonADV = ModifierManager.getKey("ADV");
 		local bButtonDIS = ModifierManager.getKey("DIS");
-		local bADV = string.match(vRoll.sDesc, "%[ADV%]");
-		local bDIS = string.match(vRoll.sDesc, "%[DIS%]");
+		local bADV = vRoll.bADV;
+		local bDIS = vRoll.bDIS;
 		if RR.bDebug then Debug.chat(bADV, bDIS,bButtonADV, bButtonDIS); end
 
 		--if ADV and DIS are both already applied, skip this code
@@ -98,9 +98,9 @@ function processRoll(forceTower)
 			else
 				if (bADV and bButtonDIS) or (bDIS and bButtonADV) then
 					if bADV then
-						vRoll.sDesc = vRoll.sDesc .. " [DIS]";
+						vRoll.bDIS = true;
 					else
-						vRoll.sDesc = vRoll.sDesc .. " [ADV]";
+						vRoll.bADV = true;
 					end
 					table.remove(vRoll.aDice,2);
 				end

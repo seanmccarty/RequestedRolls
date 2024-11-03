@@ -47,6 +47,7 @@ function getSkillRoll(rActor, sSkill)
 end
 
 ---Copied from ActionSave.performConcentrationRoll as of 30 July
+---Adopted rRoll.bADV and bDIS on 3 Nov 2024
 ---@param rActor table the actor
 ---@return table rRoll the roll
 function getConcentrationRoll(rActor)
@@ -61,10 +62,10 @@ function getConcentrationRoll(rActor)
 		rRoll.sDesc = rRoll.sDesc .. " " .. sAddText;
 	end
 	if bADV then
-		rRoll.sDesc = rRoll.sDesc .. " [ADV]";
+		rRoll.bADV = true;
 	end
 	if bDIS then
-		rRoll.sDesc = rRoll.sDesc .. " [DIS]";
+		rRoll.bDIS = true;
 	end
 	return rRoll;
 end
