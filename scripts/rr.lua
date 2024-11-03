@@ -16,28 +16,22 @@ end
 
 ---Loads the options onto the settings page. Also, adds the shortcut item to the bar if enabled.
 function registerOptions()
-	OptionsManager.registerOption2("RR_option_label_pcRolls", true, "RR_option_header", "RR_option_label_pcRolls", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+	OptionsManager.registerOptionData({sKey = "RR_option_label_pcRolls", bLocal = true, sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_pcRolls"});	
 
-	OptionsManager.registerOption2("RR_option_label_alwaysShowManualDice", true, "RR_option_header", "RR_option_label_alwaysShowManualDice", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+	OptionsManager.registerOptionData({sKey = "RR_option_label_alwaysShowManualDice", bLocal = true, sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_alwaysShowManualDice"});	
 			
-	OptionsManager.registerOption2("RR_option_label_npcRolls", false, "RR_option_header", "RR_option_label_npcRolls", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });	
+	OptionsManager.registerOptionData({sKey = "RR_option_label_npcRolls", sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_npcRolls"});	
 
-	OptionsManager.registerOption2("RR_option_label_broadcastCancellation", false, "RR_option_header", "RR_option_label_broadcastCancellation", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
+	OptionsManager.registerOptionData({sKey = "RR_option_label_broadcastCancellation", sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_broadcastCancellation"});
 
-	OptionsManager.registerOption2("RR_option_label_allowRollStaging", false, "RR_option_header", "RR_option_label_allowRollStaging", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "on" });
+	OptionsManager.registerOptionData({sKey = "RR_option_label_allowRollStaging", sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_allowRollStaging",tCustom = { default = "on" } });
 
-	OptionsManager.registerOption2("RR_option_label_suppressDiceAnimations", true, "RR_option_header", "RR_option_label_suppressDiceAnimations", "option_entry_cycler", 
-		{ labels = "option_val_on", values = "on", baselabel = "option_val_off", baseval = "off", default = "off" });
+	OptionsManager.registerOptionData({sKey = "RR_option_label_suppressDiceAnimations", bLocal = true, sGroupRes = "RR_option_header", sLabelRes = "RR_option_label_suppressDiceAnimations"});
 	
 		--the button to show/hide the shortcut is only shown for the GM
 	if Session.IsHost then
-		OptionsManager.registerOption2("RR_option_label_sidebar", true, "RR_option_header", "RR_option_label_sidebar", "option_entry_cycler", 
-			{ labels = "RR_option_val_hide", values = "hide", baselabel = "RR_option_val_show", baseval = "show", default = "show" });	
+		OptionsManager.registerOptionData({sKey ="RR_option_label_sidebar", bLocal = true, sGroupRes ="RR_option_header", sLabelRes = "RR_option_label_sidebar", 
+			tCustom = { labelsres = "RR_option_val_hide", values = "hide", baselabelres = "RR_option_val_show", baseval = "show", default = "show" }});	
 		
 		--Now that options have been registered we can 	add the shortcut
 		if 	OptionsManager.isOption("RR_option_label_sidebar", "show") then
