@@ -126,8 +126,9 @@
 					function onButtonPress()
 						DB.setValue(window.windowlist.window.getDatabaseNode(),"selected", "string",window.name.getValue());
 						if DB.getValue("requestsheet.clicktoroll", 0) == 1 then
-							--substring 14 to just get the last path of the DB node
-							RRRollManager.onButtonPress(DB.getPath(window.windowlist.window.getDatabaseNode()):sub(14));
+							--parse the path then get the last element of the table to get the rollType
+							local sPath = UtilityManager.parsePath(DB.getPath(window.windowlist.window.getDatabaseNode()))
+							RRRollManager.onButtonPress(sPath[#sPath]);
 						end
 					end
 				</script>
