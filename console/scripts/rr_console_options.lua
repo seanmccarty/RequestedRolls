@@ -24,9 +24,9 @@ end
 function onAbilityChanged()
 	for _,w in ipairs(getWindows()) do
 		if w.isCustom() then
-			w.idelete.setVisibility(bEditMode);
+			w.idelete.setVisible(bEditMode);
 		else
-			w.idelete.setVisibility(false);
+			w.idelete.setVisible(false);
 		end
 	end
 end
@@ -38,7 +38,7 @@ end
 function update()
 	local bEditMode = (window.parentcontrol.window.options_iedit.getValue() == 1);
 	for _,w in ipairs(getWindows()) do
-		w.idelete.setVisibility(w.isCustom() and bEditMode);
+		w.idelete.setVisible(w.isCustom() and bEditMode);
 	end
 end
 
