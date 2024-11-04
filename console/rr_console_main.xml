@@ -365,6 +365,7 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- This is the windowlist for each the expandable trays of buttons -->
 	<!-- setting margins make it the right size when the box is collapsed -->
 	<windowclass name="oldpersonbutton_expanderTray">
 		<margins control="0,0,10,10" />
@@ -438,6 +439,7 @@
 						end
 					end
 
+					-- needed to sort dice nicely
 					function onSortCompare(w1,w2)
 						local a = w1.display_name.getValue()
 						local b = w2.display_name.getValue();
@@ -449,6 +451,7 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- The individual buttons within the expander trays -->
 	<windowclass name="rollselectorbutton">
 		<margins control="0,0,0,10" />
 		<script>
