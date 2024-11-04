@@ -180,7 +180,7 @@
 				<script>
 					function onInit()
 						setColor(ColorManager.getButtonIconColor());
-						DB.addHandler("requestsheet.check.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.rolls.check.dc", "onUpdate", linker);
 						DB.addHandler("requestsheet.save.dc", "onUpdate", linker);
 						DB.addHandler("requestsheet.skill.dc", "onUpdate", linker);
 					end
@@ -192,7 +192,7 @@
 							run=false;
 							node = DB.getPath(nodeUpdated);
 							val = DB.getValue(DB.getPath(nodeUpdated),0);
-							if node ~= "requestsheet.check.dc" then DB.setValue("requestsheet.check.dc","number", val); end
+							if node ~= "requestsheet.rolls.check.dc" then DB.setValue("requestsheet.rolls.check.dc","number", val); end
 							if node ~= "requestsheet.save.dc" then DB.setValue("requestsheet.save.dc","number", val); end
 							if node ~= "requestsheet.skill.dc" then DB.setValue("requestsheet.skill.dc","number", val); end
 							run=true;
@@ -257,7 +257,7 @@
 			</button_icon>
 
 			<!-- Roll selectors -->
-			<rollModule name="check">
+			<rollModule name="rolls.check">
 				<anchored>
 					<top parent="leftanchor" relation="relative" offset="5"/>
 					<left/>
@@ -266,17 +266,17 @@
 				<comboWidth>90</comboWidth>
 				<showDC/>
 			</rollModule>
-			<rollModule name="save">
-				<anchored to="check" position="rightlow" offset="-10,0" />
+			<rollModule name="rolls.save">
+				<anchored to="rolls.check" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_save</titleTextres>
 				<comboWidth>90</comboWidth>
 				<showDC/>
 			</rollModule>
 			<rollModule name="init">
-				<anchored to="save" position="rightlow" offset="-10,0" />
+				<anchored to="rolls.save" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_init</titleTextres>
 			</rollModule>
-			<rollModule name="skill">
+			<rollModule name="rolls.skill">
 				<anchored>
 					<top parent="leftanchor" relation="relative" offset="-5"/>
 					<left/>
@@ -286,14 +286,14 @@
 				<showDC/>
 			</rollModule>
 			<rollModule name="dice">
-				<anchored to="skill" position="rightlow" offset="-10,0" />
+				<anchored to="rolls.skill" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_dice</titleTextres>
 				<comboWidth>125</comboWidth>
 				<unsorted/>
 			</rollModule>
 
 			<!-- old person buttons come last because they are anchored in the middle-->
-			<subwindow name="buttonholderwindow">
+			<!-- <subwindow name="buttonholderwindow">
 				<anchored>
 					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
 					<bottom parent="footeranchor" anchor="top" offset="-10"/>
@@ -302,9 +302,113 @@
 				</anchored>	
 				<class>classwindow_buttonselectors</class>
 				<activate />
-			</subwindow>
+			</subwindow> -->
+			<windowlist name="list2" >
+				<datasource>.rolls</datasource>
+				<columns fillwidth="true"/>
+				<class>new_button</class>
+				<sortby><field>sort_order</field></sortby>
+				<script>
+					function onFilter( w )
+						if  w.show.getValue() == 0 then
+							return true;
+						else
+							return false;
+						end
+					end
+				</script>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
+					<bottom parent="footeranchor" anchor="top" offset="-10"/>
+					<left offset="0" />
+					<right offset="0" />
+				</anchored>
+			</windowlist>
 		</sheetdata>
 	</windowclass>
+
+	<windowclass name="new_button">
+		
+		<margins control="0,0,10,10" />
+		<frame name="groupbox" offset="5,5,5,5"/>
+		<script>
+			function onInit()
+				--group_name.setValue(parentcontrol.group_name[1]);
+				--group_name.setValue("Cehcl");
+				local sDataPath = DB.getPath(getDatabaseNode());
+				if sDataPath == "requestsheet.check" or sDataPath == "requestsheet.save" then
+					selection_window.setColumnWidth(65);
+				end
+				if sDataPath == "requestsheet.dice" then
+					selection_window.setColumnWidth(100);
+					skilldclabel.setVisible(false);
+					dc.setVisible(false);
+				end
+
+				w = self;
+				DB.addHandler(DB.getPath(getDatabaseNode(),"show"), "onUpdate", visibilityChanged);
+				visibilityChanged();
+			end
+
+			function visibilityChanged()
+				vis = DB.getValue(DB.getPath(getDatabaseNode(),"show"))== 1;
+				--w.setVisible(not vis);
+			end
+		</script>
+		<sheetdata>
+			<hn name="show"></hn>
+			<anchor_column name="columnanchor" />	
+			<RR_button_expander_window name="button_expand_stuff">
+				<anchored position="insidetopleft" offset="10,10" />
+				<target>selection_window</target>
+			</RR_button_expander_window>
+			<string_noframe_static name="display_name">
+				<anchored position="insidetopleft" offset="40,12" />
+			</string_noframe_static>
+			<label name="skilldclabel">
+				<anchored position="insidetopleft" offset="90,10" />
+				<static textres="dc" />
+			</label>
+			<basicnumber name="dc">
+				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
+			</basicnumber>
+			<windowlist name="selection_window">
+				<anchored position="insidetopleft" offset="5,35">
+					<right />
+					<sizelimits>
+						<minimum>
+							<height>30</height>
+						</minimum>
+					</sizelimits>
+				</anchored>		
+				<columns width="125" fillwidth="true" />
+				<skipempty/>
+				<noscroll/>
+				<empty><textres>RR_label_nobuttonselected</textres></empty>
+				<sortby><control>name</control></sortby>
+				<class>rollselectorbutton</class>
+				<datasource>.list</datasource>
+				<script>
+					function onFilter( w )
+						if  w.show.getValue() == 2 then
+							return true;
+						else
+							return false;
+						end
+					end
+
+					function onSortCompare(w1,w2)
+						local a = w1.display_name.getValue()
+						local b = w2.display_name.getValue();
+						--Lua defaults to true if less than, windowlist is the opposite
+						return not RR.naturalSort(a,b);
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+
 
 
 	<!-- the individual entries in the npc/pc list -->
