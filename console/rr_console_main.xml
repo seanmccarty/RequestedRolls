@@ -452,6 +452,7 @@
 	</windowclass>
 
 	<!-- The individual buttons within the expander trays -->
+	 <!-- TODO refactor to use display_name -->
 	<windowclass name="rollselectorbutton">
 		<margins control="0,0,0,10" />
 		<script>

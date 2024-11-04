@@ -5,7 +5,8 @@
 			<button_iedit name="options_iedit">
 				<anchored position="insidebottomright" offset="10,10" />
 				<tooltip textres="char_skills_tooltip_edit" />
-				<script>
+				<edittarget>contents</edittarget>
+				<!-- <script>
 					function onValueChanged()
 						local bEditMode = (getValue() == 1);
 						
@@ -14,7 +15,7 @@
 						window.contents.subwindow.skills.update();
 						window.contents.subwindow.dice.update();
 					end
-				</script>
+				</script> -->
 			</button_iedit>
 
 			<subwindow name="contents">
@@ -26,7 +27,6 @@
 				</anchored>
 				<class>rr_options_contents</class>
 				<activate />
-				<!-- <fastinit /> -->
 			</subwindow>
 			<scrollbar>
 				<anchored to="contents" offset="-5,-10"/>
@@ -37,8 +37,8 @@
 
  	<windowclass name="rr_options_contents">
 		<sheetdata>
-			<anchor_content_top/>
-			<anchor_content_bottom/>
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
 			<label name="label_show">
 				<script>
 					function onInit()
@@ -76,74 +76,84 @@
 				</anchored>
 				<static textres="RR_label_shortname" />
 			</label>
-<!-- check -->
-			<RR_label_options_lists name="checkstitle">
-				<static textres="RR_label_check" />
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="rolls.check.show">
-				<anchored to="checkstitle" position="righthigh" relation="relative" offset="0,0" />
-			</RR_button_expander_hider>
-			<button_iadd name="checks_iadd">
-				<anchored> 
-					<bottom parent="rolls.check.show" relation="relative" anchor="bottom" offset="-3"/>
-					<right parent="contentanchor" anchor="right" relation="relative" offset="-2" />
+			
+			<list_content_framed_groupbox name="list" >
+				<datasource>.rolls</datasource>
+				<columns fillwidth="true"/>
+				<class>newDoodad</class>
+				<sortby><field>sort_order</field></sortby>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
+					<!-- <bottom parent="footeranchor" anchor="top" offset="-10"/> -->
+					<left offset="0" />
+					<right offset="0" />
 				</anchored>
-				<target>rolls.checks</target>
+			</list_content_framed_groupbox>
+			<scrollbar_content_list />
+
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="newDoodad">
+		<script>
+			function toggleList()
+				if status.getValue() == 0 then
+					status.setValue(1);
+					options_list.setVisible(false);
+				else
+					status.setValue(0);
+					options_list.setVisible(true);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<string_content_static_top name="display_name">
+				<font>sheetlabel</font>
+				<script>
+					function onClickDown(button, x, y)
+						return true;
+					end
+					function onClickRelease(button, x, y)
+						window.toggleList();
+						return true;
+					end
+				</script>
+				<center/>
+			</string_content_static_top>
+
+			<button_collapse_expand_toggle name="status">
+				<anchored to="display_name" position="lefthigh" offset="-20,0" />
+				<disabled />
+				<colortarget>display_name</colortarget>
+			</button_collapse_expand_toggle>
+
+			<list_content_noscroll_alternating_top name="options_list">
+				<datasource>.list</datasource>
+				<class>item_entry</class>
+				<sortby><control>name</control></sortby>
+				<columns><width>230</width></columns>
+				<script file="console/scripts/rr_console_options.lua" />
+			</list_content_noscroll_alternating_top>
+
+			<spacer_content_top />
+			<button_iadd name="list_iadd">
+				<anchored to="display_name" position="insidetopright" offset="3,0" />
+				<target>options_list</target>
 			</button_iadd>
-			<RR_options_lists name="checks">
-				<datasource>.rolls.check.list</datasource>
-			</RR_options_lists>
-<!-- save -->
-			<RR_label_options_lists name="savestitle">
-				<static textres="RR_label_save" />
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="rolls.save.show">
-				<anchored to="savestitle" position="righthigh" relation="relative" offset="0,0" />
-			</RR_button_expander_hider>
-			<button_iadd name="saves_iadd">
-				<anchored> 
-					<bottom parent="rolls.save.show" relation="relative" anchor="bottom" offset="-3"/>
-					<right parent="contentanchor" anchor="right" relation="relative" offset="-2" />
-				</anchored>
-				<target>rolls.saves</target>
-			</button_iadd>
-			<RR_options_lists name="saves">
-				<datasource>.rolls.save.list</datasource>
-			</RR_options_lists>
-<!-- skill  -->
-			<RR_label_options_lists name="skillstitle">
-				<static textres="RR_label_skill" />
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="rolls.skill.show">
-				<anchored to="skillstitle" position="righthigh" relation="relative" offset="0,0" />
-			</RR_button_expander_hider>
-			<button_iadd name="skills_iadd">
-				<anchored> 
-					<bottom parent="rolls.skill.show" relation="relative" anchor="bottom" offset="-3"/>
-					<right parent="contentanchor" anchor="right" relation="relative" offset="-2" />
-				</anchored>
-				<target>rolls.skills</target>
-			</button_iadd>
-			<RR_options_lists name="skills">
-				<datasource>.rolls.skill.list</datasource>
-			</RR_options_lists>
-<!-- dice  -->
-			<RR_label_options_lists name="dicetitle">
-				<static textres="RR_label_dice" />
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="rolls.dice.show">
-				<anchored to="dicetitle" position="righthigh" relation="relative" offset="0,0" />
-			</RR_button_expander_hider>
-			<button_iadd name="dice_iadd">
-				<anchored> 
-					<bottom parent="rolls.dice.show" relation="relative" anchor="bottom" offset="-3"/>
-					<right parent="contentanchor" anchor="right" relation="relative" offset="-2" />
-				</anchored>
-				<target>rolls.dice</target>
-			</button_iadd>
-			<RR_options_lists name="dice">
-				<datasource>.rolls.dice.list</datasource>
-			</RR_options_lists>
+			<buttonfield name="show">
+				<anchored width="130" height="20" to="display_name" position="insidetopright" relation="relative" offset="25,0" />
+				<pressed offset="1,1" />
+				<state textres="RR_label_shownOnConsole" frame="buttonup" frameoffset="2,2,2,2"/>
+				<state textres="RR_label_hiddenOnConsole" frame="buttondown" frameoffset="2,2,2,2"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonTextColor());
+					end
+				</script>
+			</buttonfield>
+
 		</sheetdata>
 	</windowclass>
 	
@@ -183,51 +193,4 @@
 			</string_textlistitem>
 		</sheetdata>
 	</windowclass>
-
-	<template name="RR_button_expander_hider">
-		<buttonfield>
-			<anchored width="130" height="20"/>
-			<pressed offset="1,1" />
-			<state textres="RR_label_shownOnConsole" frame="buttonup" frameoffset="2,2,2,2"/>
-			<state textres="RR_label_hiddenOnConsole" frame="buttondown" frameoffset="2,2,2,2"/>
-			<script>
-				function onInit()
-					setColor(ColorManager.getButtonTextColor());
-				end
-			</script>
-		</buttonfield>
-	</template>
-
-	<template name="RR_label_options_lists">
-		<label>
-			<script>
-				function onInit()
-					setColor(ColorManager.getSidebarRecordTextColor());
-				end
-			</script>
-			<anchored height="20" width="60">
-				<top parent="contentanchor" anchor="bottom" relation="relative" offset="15" />
-				<left offset="15" />
-			</anchored>
-		</label>
-	</template>
-
-	<!-- Requires parameter datasource -->
-	<template name="RR_options_lists">
-		<windowlist>
-			<frame name="groupbox" offset="5,5,5,5"/>
-			<anchored>
-				<top parent="contentanchor" anchor="bottom" relation="relative" offset="0" />
-				<left offset="5" />
-				<right offset="-5" />
-			</anchored>
-			<child></child>
-			<child><backcolor>1A40301E</backcolor></child>
-			<noscroll />
-			<class>item_entry</class>
-			<sortby><control>name</control></sortby>
-			<columns><width>250</width></columns>
-			<script file="console/scripts/rr_console_options.lua" />
-		</windowlist>
-	</template>
 </root>

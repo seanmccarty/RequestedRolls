@@ -35,8 +35,17 @@ function onListChanged()
 	update();
 end
 
+function onEditModeChanged()
+	local bEditMode = WindowManager.getEditMode(window, "options_iedit");
+	for _,w in ipairs(getWindows()) do
+			w.idelete.setVisible(bEditMode);
+	end
+	-- idelete_spacer.setVisible(bEditMode and not self.isCustom());
+end
+
 function update()
-	local bEditMode = (window.parentcontrol.window.options_iedit.getValue() == 1);
+	-- local bEditMode = (window.windowlist.window.parentcontrol.options_iedit.getValue() == 1);
+	local bEditMode = WindowManager.getEditMode(window, "options_iedit");
 	for _,w in ipairs(getWindows()) do
 		w.idelete.setVisible(w.isCustom() and bEditMode);
 	end
