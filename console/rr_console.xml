@@ -293,20 +293,10 @@
 			</rollModule>
 
 			<!-- old person buttons come last because they are anchored in the middle-->
-			<!-- <subwindow name="buttonholderwindow">
-				<anchored>
-					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
-					<bottom parent="footeranchor" anchor="top" offset="-10"/>
-					<left offset="0" />
-					<right offset="0" />
-				</anchored>	
-				<class>classwindow_buttonselectors</class>
-				<activate />
-			</subwindow> -->
-			<windowlist name="list2" >
+			<windowlist name="oldpersonbuttons_all" >
 				<datasource>.rolls</datasource>
 				<columns fillwidth="true"/>
-				<class>new_button</class>
+				<class>oldpersonbutton_typeEntry</class>
 				<sortby><field>sort_order</field></sortby>
 				<script>
 					function onFilter( w )
@@ -327,50 +317,53 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="new_button">
-		
+	<!-- setting margins make it the right size when the box is collapsed -->
+	<windowclass name="oldpersonbutton_typeEntry">
 		<margins control="0,0,10,10" />
 		<frame name="groupbox" offset="5,5,5,5"/>
+		<!-- TODO setting button width and DC field visibility -->
 		<script>
 			function onInit()
-				--group_name.setValue(parentcontrol.group_name[1]);
-				--group_name.setValue("Cehcl");
 				local sDataPath = DB.getPath(getDatabaseNode());
-				if sDataPath == "requestsheet.check" or sDataPath == "requestsheet.save" then
+				if sDataPath == "requestsheet.rolls.check" or sDataPath == "requestsheet.rolls.save" then
 					selection_window.setColumnWidth(65);
 				end
-				if sDataPath == "requestsheet.dice" then
+				if sDataPath == "requestsheet.rolls.dice" then
 					selection_window.setColumnWidth(100);
-					skilldclabel.setVisible(false);
+					dclabel.setVisible(false);
 					dc.setVisible(false);
 				end
-
-				w = self;
-				DB.addHandler(DB.getPath(getDatabaseNode(),"show"), "onUpdate", visibilityChanged);
-				visibilityChanged();
-			end
-
-			function visibilityChanged()
-				vis = DB.getValue(DB.getPath(getDatabaseNode(),"show"))== 1;
-				--w.setVisible(not vis);
 			end
 		</script>
 		<sheetdata>
 			<hn name="show"></hn>
 			<anchor_column name="columnanchor" />	
-			<RR_button_expander_window name="button_expand_stuff">
-				<anchored position="insidetopleft" offset="10,10" />
-				<target>selection_window</target>
-			</RR_button_expander_window>
+			<buttonfield name="collapsed">
+				<anchored position="insidetopleft" offset="10,10" width="20" height="20"/>
+				<state icon="button_toolbar_collapse" tooltipres="tooltip_collapse"/>
+				<state icon="button_toolbar_expand" tooltipres="tooltip_expand"/>
+				<script>
+					--Call button press to get the correct visibility
+					function onInit()
+						onButtonPress();
+						setColor(UtilityManager.getControlFontColor(window, "display_name"));
+					end
+	
+					--The control value has already changed when this fires
+					function onButtonPress()
+						window.selection_window.setVisible(getValue() == 0);
+					end
+				</script>
+			</buttonfield>
 			<string_noframe_static name="display_name">
 				<anchored position="insidetopleft" offset="40,12" />
 			</string_noframe_static>
-			<label name="skilldclabel">
+			<label name="dclabel">
 				<anchored position="insidetopleft" offset="90,10" />
 				<static textres="dc" />
 			</label>
 			<basicnumber name="dc">
-				<anchored to="skilldclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<anchored to="dclabel" position="righthigh" offset="10,0" width="30" height="20" />
 			</basicnumber>
 			<windowlist name="selection_window">
 				<anchored position="insidetopleft" offset="5,35">
@@ -380,7 +373,7 @@
 							<height>30</height>
 						</minimum>
 					</sizelimits>
-				</anchored>		
+				</anchored>
 				<columns width="125" fillwidth="true" />
 				<skipempty/>
 				<noscroll/>
@@ -407,9 +400,6 @@
 			</windowlist>
 		</sheetdata>
 	</windowclass>
-
-
-
 
 	<!-- the individual entries in the npc/pc list -->
 	<!-- the hidden number "RRselected" is what ties the selection button to the CT nodes -->
