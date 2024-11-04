@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="rr_console">
+		<sheetdata>
+			<anchor_content_top/>
+			<anchor_content_bottom/>
+			<!-- PC list -->
+			<label name="label_PC">
+				<script>
+					function onInit()
+						setColor(ColorManager.getSidebarRecordTextColor());
+					end
+				</script>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" height="20"/>
+					<left offset="5"/>
+				</anchored>
+				<static textres="RR_pc" />
+			</label>
+
+			<button_select_all name="PC_all">
+				<anchored to="label_PC" position="rightlow" offset="10,0"/>
+				<target>PC</target>
+			</button_select_all>
+			<button_select_random name="PC_random">
+				<anchored to="PC_all" position="rightlow"/>
+				<target>PC</target>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="PC_random" position="rightlow"/>
+				<target>PC</target>
+			</button_deselect_all>
+
+			<RR_window_selector name="rr_list_pc" >	
+				<parameters>
+					<pc/>
+				</parameters>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="0" />
+				</anchored>
+			</RR_window_selector>
+
+			<!-- NPC list -->
+			<label name="label_NPC">
+				<script>
+					function onInit()
+						setColor(ColorManager.getSidebarRecordTextColor());
+					end
+				</script>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" width="55" height="20" offset="5"/>
+					<left offset="5"/>
+				</anchored>
+				<static textres="RR_npc" />
+			</label>
+
+			<button_select_all name="NPC_all">
+				<anchored to="label_NPC" position="rightlow" offset="5,0"/>
+				<target>NPC</target>
+			</button_select_all>
+			<button_select_random name="NPC_random">
+				<anchored to="NPC_all" position="rightlow"/>
+				<target>NPC</target>
+			</button_select_random>
+			<button_deselect_all>
+				<anchored to="NPC_random" position="rightlow"/>
+				<target>NPC</target>
+			</button_deselect_all>
+
+			<RR_window_selector name="rr_list_npc">
+				<parameters>
+					<npc/>
+				</parameters>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="0" />
+				</anchored>
+			</RR_window_selector>
+
+			<!-- Footer anchors -->
+			<genericcontrol name="footeranchor">
+				<anchored height="20">
+					<bottom offset="-95" />
+					<left offset="1"/>
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="leftanchor">
+				<anchored to="footeranchor" position="insidetopleft" width="0" height="0" />
+				<disabled />
+			</genericcontrol>
+			<!-- Settings -->
+			<buttonfield name="hiderollresults">
+				<anchored to="leftanchor" height="23" width="23">
+					<top anchor="bottom" relation="relative"/>
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<state icon="visibilityon" tooltipres="ps_tooltip_showrollon" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="visibilityoff" tooltipres="ps_tooltip_showrolloff" frame="buttondown" frameoffset="5,5,5,5"/>
+			</buttonfield>
+			<buttonfield name="clicktoroll">
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<pressed offset="1,1" />
+
+				<state icon="sidebar_icon_default" tooltipres="RR_tooltip_clickToRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="sidebar_icon_default" tooltipres="RR_tooltip_clickToRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<tintable/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
+			</buttonfield>
+			<buttonfield name="DClink">
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+						DB.addHandler("requestsheet.rolls.check.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.save.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.skill.dc", "onUpdate", linker);
+					end
+					
+					--use var run to prevent recursion. set other DC nodes to same value
+					run = true;
+					function linker(nodeUpdated)
+						if run and self.getValue() == 1 then
+							run=false;
+							node = DB.getPath(nodeUpdated);
+							val = DB.getValue(DB.getPath(nodeUpdated),0);
+							if node ~= "requestsheet.rolls.check.dc" then DB.setValue("requestsheet.rolls.check.dc","number", val); end
+							if node ~= "requestsheet.save.dc" then DB.setValue("requestsheet.save.dc","number", val); end
+							if node ~= "requestsheet.skill.dc" then DB.setValue("requestsheet.skill.dc","number", val); end
+							run=true;
+						end
+						
+					end
+				</script>
+			</buttonfield>
+			<buttonfield name="autoroll">
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<state icon="sidebar_icon_recordtype_table" tooltipres="RR_tooltip_autoRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="sidebar_icon_recordtype_table" tooltipres="RR_tooltip_autoRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
+			</buttonfield>
+			<buttonfield name="deselectonroll">
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<state icon="tool_target_clear_30" tooltipres="RR_tooltip_deselectOnRoll_off" frame="buttonup" frameoffset="5,5,5,5"/>
+				<state icon="tool_target_clear_30" tooltipres="RR_tooltip_deselectOnRoll_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<script>
+					function onInit()
+						setColor(ColorManager.getButtonIconColor());
+					end
+				</script>
+			</buttonfield>
+			<button_icon name="mirrortargeting">
+				<icon normal="sidebar_icon_recordtype_battle" />
+				<tooltip textres="RR_tooltip_mirrorTargeting" />
+				<tintable/>
+				<script>
+					function onButtonPress()
+						RR.mirrorTargeting();
+					end
+				</script>
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="100" />
+				</anchored>
+			</button_icon>
+			<button_icon name="proficiencytargeting">
+				<icon normal="button_prof" />
+				<tooltip textres="RR_tooltip_proficiencyTargeting" />
+				<script>
+					function onButtonPress()
+						RR.targetSkillProficency(DB.getValue("requestsheet.skill.selected", ""));
+					end
+				</script>
+				<tintable/>
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+			</button_icon>
+
+			<!-- Roll selectors -->
+			<rollModule name="rolls.check">
+				<anchored>
+					<top parent="leftanchor" relation="relative" offset="5"/>
+					<left/>
+				</anchored>
+				<titleTextres>RR_label_check</titleTextres>
+				<comboWidth>90</comboWidth>
+				<showDC/>
+			</rollModule>
+			<rollModule name="rolls.save">
+				<anchored to="rolls.check" position="rightlow" offset="-10,0" />
+				<titleTextres>RR_label_save</titleTextres>
+				<comboWidth>90</comboWidth>
+				<showDC/>
+			</rollModule>
+			<rollModule name="init">
+				<anchored to="rolls.save" position="rightlow" offset="-10,0" />
+				<titleTextres>RR_label_init</titleTextres>
+			</rollModule>
+			<rollModule name="rolls.skill">
+				<anchored>
+					<top parent="leftanchor" relation="relative" offset="-5"/>
+					<left/>
+				</anchored>
+				<titleTextres>RR_label_skill</titleTextres>
+				<comboWidth>190</comboWidth>
+				<showDC/>
+			</rollModule>
+			<rollModule name="dice">
+				<anchored to="rolls.skill" position="rightlow" offset="-10,0" />
+				<titleTextres>RR_label_dice</titleTextres>
+				<comboWidth>125</comboWidth>
+				<unsorted/>
+			</rollModule>
+
+			<!-- old person buttons come last because they are anchored in the middle-->
+			<windowlist name="oldpersonbuttons_list" >
+				<datasource>.rolls</datasource>
+				<columns fillwidth="true"/>
+				<class>oldpersonbutton_expanderTray</class>
+				<sortby><field>sort_order</field></sortby>
+				<script>
+					function onFilter( w )
+						if  w.show.getValue() == 0 then
+							return true;
+						else
+							return false;
+						end
+					end
+				</script>
+				<anchored>
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
+					<bottom parent="footeranchor" anchor="top" offset="-10"/>
+					<left offset="0" />
+					<right offset="0" />
+				</anchored>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+
+
+	<!-- the individual entries in the npc/pc list -->
+	<!-- the hidden number "RRselected" is what ties the selection button to the CT nodes -->
+	<windowclass name="rr_entry">
+		<script>
+			function onInit()
+				registerMenuItem(Interface.getString("RR_tooltip_openCharacterSheet"), "sidebar_icon_recordtype_charsheet", 3);
+				registerMenuItem(Interface.getString("RR_tooltip_mirrorTargeting_specific"), "sidebar_icon_recordtype_battle", 4);
+				registerMenuItem(Interface.getString("RR_tooltip_deleteRolls"), "sidebar_icon_recordtype_hindrance", 6);
+				registerMenuItem(Interface.getString("RR_tooltip_forceRolls"), "sidebar_icon_recordtype_table", 7);
+			end
+			function onMenuSelection(selection, subselection, subsubselection)
+				if selection == 3 then
+					local node = getDatabaseNode();
+					local type, record = DB.getValue(getDatabaseNode(),"link");
+					if record == "" then
+						record = DB.getPath(node);
+					end
+					Interface.openWindow(type, record);
+				elseif selection == 4 then
+					RR.mirrorTargeting(getDatabaseNode());
+				elseif selection == 6 then
+					RRActionManager.notifyAllRolls(getDatabaseNode(), false);
+				elseif selection == 7 then
+					RRActionManager.notifyAllRolls(getDatabaseNode(), true);
+				end
+			end
+			function onDrop(x, y, draginfo)
+				local nodeCT = getDatabaseNode();
+				local sCTNode = DB.getPath(nodeCT);
+				return CombatDropManager.handleAnyDrop(draginfo, sCTNode);
+			end
+		</script>
+		<sheetdata> 
+			<hn name="RRselected" />
+			<hn name="RRdirty" />
+			<anchor_column name="columnanchor" />
+			<hsx name="name">
+				<anchored height="20">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>	
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit()
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
+					end
+					function onValueChanged()
+						super.onValueChanged()
+						window.RRselected.setTooltipText(getValue());
+						window.RRselected.setStateTooltipText(1, getValue());
+					end
+				</script>
+			</hsx>
+		
+			<tokenfield name="token">
+				<anchored width="40" height="40">
+					<top parent="columnanchor" anchor="bottom" offset="10"/>
+					<left offset="10"/>
+				</anchored>
+				<readonly />
+				<nodrag />
+				<nodrop />
+				<empty>token_empty</empty>			
+			</tokenfield>		
+			
+			<!-- The first state is empty so that it is invisible -->
+			<buttonfield name="RRselected">
+				<!-- tool tip text will only update after the first time the combat tracker is opened in a session -->
+				<state/>
+				<state color="32FF32" icon="RR_SelectionIndicator"/>
+				<hover color="F2D10D" icon="RR_SelectionIndicator"/>
+				<anchored  to="token" position="over" offset="3,3"/>
+			</buttonfield>
+
+			<!-- The first state is empty so that it is invisible -->
+			<buttonfield  name="RRdirty">
+				<anchored height="10">
+					<bottom parent="token" anchor="bottom" offset="5"/>
+					<left parent="token" anchor="left" offset="5"/>
+					<right/>
+				</anchored>
+				<disabled/>
+				<state />
+				<state color="E80000" icon="RR_RollIndicator"/>
+			</buttonfield>
+
+			<!-- show currently active character, first state is invisible -->
+			<buttonfield  name="active">
+				<anchored height="14">
+					<bottom parent="token" anchor="top" offset="9"/>
+					<left parent="token" anchor="left" offset="6"/>
+					<right/>
+				</anchored>
+				<disabled/>
+				<state />
+				<state color="FFFF00" icon="RR_RollIndicator"/>
+			</buttonfield>
+		</sheetdata>
+	</windowclass>
+
+	<!-- setting margins make it the right size when the box is collapsed -->
+	<windowclass name="oldpersonbutton_expanderTray">
+		<margins control="0,0,10,10" />
+		<frame name="groupbox" offset="5,5,5,5"/>
+		<!-- TODO setting button width and DC field visibility -->
+		<script>
+			function onInit()
+				local sDataPath = DB.getPath(getDatabaseNode());
+				if sDataPath == "requestsheet.rolls.check" or sDataPath == "requestsheet.rolls.save" then
+					selection_window.setColumnWidth(65);
+				end
+				if sDataPath == "requestsheet.rolls.dice" then
+					selection_window.setColumnWidth(100);
+					dclabel.setVisible(false);
+					dc.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+			<hn name="show"></hn>
+			<anchor_column name="columnanchor" />	
+			<buttonfield name="collapsed">
+				<anchored position="insidetopleft" offset="10,10" width="20" height="20"/>
+				<state icon="button_toolbar_collapse" tooltipres="tooltip_collapse"/>
+				<state icon="button_toolbar_expand" tooltipres="tooltip_expand"/>
+				<script>
+					--Call button press to get the correct visibility
+					function onInit()
+						onButtonPress();
+						setColor(UtilityManager.getControlFontColor(window, "display_name"));
+					end
+	
+					--The control value has already changed when this fires
+					function onButtonPress()
+						window.selection_window.setVisible(getValue() == 0);
+					end
+				</script>
+			</buttonfield>
+			<string_noframe_static name="display_name">
+				<anchored position="insidetopleft" offset="40,12" />
+			</string_noframe_static>
+			<label name="dclabel">
+				<anchored position="insidetopleft" offset="90,10" />
+				<static textres="dc" />
+			</label>
+			<basicnumber name="dc">
+				<anchored to="dclabel" position="righthigh" offset="10,0" width="30" height="20" />
+			</basicnumber>
+			<windowlist name="selection_window">
+				<anchored position="insidetopleft" offset="5,35">
+					<right />
+					<sizelimits>
+						<minimum>
+							<height>30</height>
+						</minimum>
+					</sizelimits>
+				</anchored>
+				<columns width="125" fillwidth="true" />
+				<skipempty/>
+				<noscroll/>
+				<empty><textres>RR_label_nobuttonselected</textres></empty>
+				<sortby><control>name</control></sortby>
+				<class>rollselectorbutton</class>
+				<datasource>.list</datasource>
+				<script>
+					function onFilter( w )
+						if  w.show.getValue() == 2 then
+							return true;
+						else
+							return false;
+						end
+					end
+
+					function onSortCompare(w1,w2)
+						local a = w1.display_name.getValue()
+						local b = w2.display_name.getValue();
+						--Lua defaults to true if less than, windowlist is the opposite
+						return not RR.naturalSort(a,b);
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rollselectorbutton">
+		<margins control="0,0,0,10" />
+		<script>
+			function onInit()
+				DB.addHandler(DB.getPath(getDatabaseNode(),"name"), "onUpdate", nameChanged);
+				DB.addHandler(DB.getPath(getDatabaseNode(),"name_short"), "onUpdate", nameChanged);
+				nameChanged()
+			end
+
+			function nameChanged()
+				if name_short.getValue()~="" then
+					display_name.setValue(name_short.getValue());
+				else
+					display_name.setValue(name.getValue());
+				end
+				bname.setText(display_name.getValue());
+			end
+		</script>
+		<sheetdata>
+			<button_text name="bname">
+				<anchored position="insidetopleft" offset="5,5" height="20">
+					<right offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						DB.setValue(window.windowlist.window.getDatabaseNode(),"selected", "string",window.name.getValue());
+						if DB.getValue("requestsheet.clicktoroll", 0) == 1 then
+							--parse the path then get the last element of the table to get the rollType
+							local sPath = UtilityManager.parsePath(DB.getPath(window.windowlist.window.getDatabaseNode()))
+							RRRollManager.onButtonPress(sPath[#sPath]);
+						end
+					end
+				</script>
+			</button_text>
+
+			<hn name="show"/>
+			<hs name="name"/>
+			<hs name="name_short"/>
+			<hs name="display_name"/>
+		</sheetdata>
+	</windowclass>	
+</root>
