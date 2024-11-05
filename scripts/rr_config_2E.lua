@@ -1,13 +1,5 @@
 ---When ruleset is 2E, overrides the standard RR get(Type)Roll
----2E does not define save_ltos and this is needed for the auto build for saves to work
 function onInit()
-	--in the other rulesets, save_ltos  uses the save name as the array key you can lookup against
-	local aSave = {};
-	for _,w in ipairs(DataCommon.pssavedata) do
-		aSave[w] = 1;
-	end
-	DataCommon.save_ltos = aSave;
-
 	RRRollManager.registerRollGetter("save",getSaveRoll);
 	RRRollManager.registerRollGetter("check",getCheckRoll);
 	RRRollManager.registerRollGetter("skill",getSkillRoll)

@@ -18,9 +18,9 @@
 		</sheetdata>
 	</windowclass>
 	
-	<windowclass name="expanding_button_selector" merge="join">
+	<windowclass name="oldpersonbutton_expanderTray" merge="join">
 		<sheetdata>
-			<label name="skilldclabel">
+			<label name="dclabel">
 				<invisible/>
 			</label>
 			<basicnumber name="dc">

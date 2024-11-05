@@ -14,53 +14,80 @@ function onInit()
 end
 
 function buildComboOptions()
+	DB.setValue("requestsheet.rolls.dice.display_name", "string", "Die");
+	DB.setValue("requestsheet.rolls.dice.sort_order", "number", 4);
+	if DB.findNode("requestsheet.rolls.dice.list") == nil then
+		local node = DB.createNode("requestsheet.rolls.dice.list");
+		local dice = {"d4","d6","d8","d10","d20"};
+		for _,w in ipairs(dice) do
+			local node2 = DB.createChild(node);
+			DB.setValue(node2,"name","string",w);
+			DB.setValue(node2, "show", "number", "1");
+		end
+	end
+
 	if DataCommon then
-		DB.setValue("requestsheet.rolls.check.display_name", "string", "Check");
-		DB.setValue("requestsheet.rolls.save.display_name", "string", "Save");
-		DB.setValue("requestsheet.rolls.skill.display_name", "string", "Skill");
-		DB.setValue("requestsheet.rolls.dice.display_name", "string", "Die");
 
-		DB.setValue("requestsheet.rolls.check.sort_order", "number", 1);
-		DB.setValue("requestsheet.rolls.save.sort_order", "number", 2);
-		DB.setValue("requestsheet.rolls.skill.sort_order", "number", 3);
-		DB.setValue("requestsheet.rolls.dice.sort_order", "number", 4);
-		if DataCommon.psabilitydata and DB.findNode("requestsheet.rolls.check.list") == nil then
-			local node = DB.createNode("requestsheet.rolls.check.list");
-			for _,w in ipairs(DataCommon.psabilitydata) do
-				local node2 = DB.createChild(node);
-				DB.setValue(node2,"name","string",w);
-				DB.setValue(node2, "show", "number", "2");
+		if DataCommon.psabilitydata then 
+			DB.setValue("requestsheet.rolls.check.display_name", "string", "Check");
+			DB.setValue("requestsheet.rolls.check.sort_order", "number", 1);
+			if DB.findNode("requestsheet.rolls.check.list") == nil then
+				local node = DB.createNode("requestsheet.rolls.check.list");
+				for _,w in ipairs(DataCommon.psabilitydata) do
+					local node2 = DB.createChild(node);
+					DB.setValue(node2,"name","string",w);
+					DB.setValue(node2, "show", "number", "1");
+				end
 			end
+		else
+			DB.deleteNode("requestsheet.rolls.check");
 		end
-		-- TODO fix to include rulesets other than 5E
-		if DataCommon.psabilitydata and DB.findNode("requestsheet.rolls.save.list") == nil then
-			local node = DB.createNode("requestsheet.rolls.save.list");
-			for _,w in ipairs(DataCommon.psabilitydata) do
-				local node2 = DB.createChild(node);
-				DB.setValue(node2,"name","string",w);
-				DB.setValue(node2, "show", "number", "2");
-			end
+		-- TODO add cleaner handling of initialization
+		local saveData = DataCommon.pssavedata;
+		if saveData==nil then
+			saveData = DataCommon.psabilitydata;
 		end
-
-		if DataCommon.skilldata and DB.findNode("requestsheet.rolls.skill.list") == nil then
-			local node = DB.createNode("requestsheet.rolls.skill.list");
-			for k, _ in pairs(DataCommon.skilldata) do
-				local node2 = DB.createChild(node);
-				DB.setValue(node2,"name","string",k);
-				DB.setValue(node2, "show", "number", "2");
-			end
+		if Interface.getRuleset()=="4E" then
+			saveData = nil;
 		end
-
-		if DB.findNode("requestsheet.rolls.dice.list") == nil then
-			local node = DB.createNode("requestsheet.rolls.dice.list");
-			local dice = {"d4","d6","d8","d10","d20"};
-			for _,w in ipairs(dice) do
-				local node2 = DB.createChild(node);
-				DB.setValue(node2,"name","string",w);
-				DB.setValue(node2, "show", "number", "2");
+		if saveData then 
+			DB.setValue("requestsheet.rolls.save.display_name", "string", "Save");
+			DB.setValue("requestsheet.rolls.save.sort_order", "number", 2);
+			if DB.findNode("requestsheet.rolls.save.list") == nil then
+				local node = DB.createNode("requestsheet.rolls.save.list");
+				for _,w in ipairs(saveData) do
+					local node2 = DB.createChild(node);
+					DB.setValue(node2,"name","string",w);
+					DB.setValue(node2, "show", "number", "1");
+				end
 			end
+		else
+			DB.deleteNode("requestsheet.rolls.save");
 		end
 
+		if DataCommon.skilldata then
+			DB.setValue("requestsheet.rolls.skill.display_name", "string", "Skill");
+			DB.setValue("requestsheet.rolls.skill.sort_order", "number", 3);
+			if  DB.findNode("requestsheet.rolls.skill.list") == nil then
+				local node = DB.createNode("requestsheet.rolls.skill.list");
+				for k, _ in pairs(DataCommon.skilldata) do
+					local node2 = DB.createChild(node);
+					DB.setValue(node2,"name","string",k);
+					DB.setValue(node2, "show", "number", "1");
+				end
+			end
+		else
+			DB.deleteNode("requestsheet.rolls.skill");
+		end
+	else
+		DB.deleteNode("requestsheet.rolls.check");
+		DB.deleteNode("requestsheet.rolls.save");
+		if Interface.getRuleset()=="CoreRPG" then
+			DB.setValue("requestsheet.rolls.skill.display_name", "string", "Skill");
+			DB.setValue("requestsheet.rolls.skill.sort_order", "number", 3);
+		else 
+			DB.deleteNode("requestsheet.rolls.skill");
+		end
 	end
 end
 

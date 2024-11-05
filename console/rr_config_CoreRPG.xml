@@ -23,9 +23,9 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="expanding_button_selector" merge="join">
+	<windowclass name="oldpersonbutton_expanderTray" merge="join">
 		<sheetdata>
-			<label name="skilldclabel">
+			<label name="dclabel">
 				<invisible/>
 			</label>
 			<basicnumber name="dc">
@@ -35,45 +35,8 @@
 	</windowclass>
 
 	<!-- Remove the save and check expanders -->
-	<windowclass name="classwindow_buttonselectors" merge="join">
-		<sheetdata>
-			<RR_subwindow_expander name="save_window" merge="delete">
-			</RR_subwindow_expander>
-			<RR_subwindow_expander name="check_window" merge="delete">
-			</RR_subwindow_expander>
-		</sheetdata>
-	</windowclass>
 
 	<!-- Hide the save and checks options subwindow. Would have to rewrite additional functions if it was deleted. -->
-	<windowclass name="rr_options_contents" merge="join">
-		<sheetdata>
-			<RR_label_options_lists name="savestitle">
-				<invisible/>
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="save.show">
-				<invisible/>
-			</RR_button_expander_hider>
-			<button_iadd name="saves_iadd">
-				<invisible/>
-			</button_iadd>
-			<RR_options_lists name="saves">
-				<invisible/>
-			</RR_options_lists>
-
-			<RR_label_options_lists name="checkstitle">
-				<invisible/>
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="check.show">
-				<invisible/>
-			</RR_button_expander_hider>
-			<button_iadd name="checks_iadd">
-				<invisible/>
-			</button_iadd>
-			<RR_options_lists name="checks">
-				<invisible/>
-			</RR_options_lists>
-		</sheetdata>
-	</windowclass>
 
 	<!-- redefines compoents not available in CoreRPG -->
 	<windowclass name="rr_staged_details_window">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
+	<!-- TODO add collapse and expand all for lists-->
     <windowclass name="rr_options">
 		<sheetdata>
 			<anchor_content_top />

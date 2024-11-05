@@ -24,26 +24,3 @@ function onMenuSelection(item)
 		addEntry(true);
 	end
 end
-
---TODO delete after constructing initial rolls in RR onInit for other rulesets
--- checks 
-function constructDefaultChecks()
-	buildList(DataCommon.ability_ltos,DataCommon.psabilitydata);
-end
-
--- default saves, ability data is for non-5E rulesets
-function constructDefaultSaves()
-	if DataCommon.save_ltos then 
-		aSave = DataCommon.save_ltos;
-	else
-		aSave = DataCommon.ability_ltos;
-	end
-
-	if DataCommon.pssavedata then 
-		aPsSave = DataCommon.pssavedata;
-	else
-		aPsSave = DataCommon.psabilitydata;
-	end
-
-	buildList(aSave, aPsSave);
-end

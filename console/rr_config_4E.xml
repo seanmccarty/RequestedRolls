@@ -10,32 +10,6 @@
 		</sheetdata>
 	</windowclass>
 
-	<!-- Remove the save expanders -->
-	<windowclass name="classwindow_buttonselectors" merge="join">
-		<sheetdata>
-			<RR_subwindow_expander name="save_window" merge="delete">
-			</RR_subwindow_expander>
-		</sheetdata>
-	</windowclass>
-
-	<!-- Hide the save options subwindow. Would have to rewrite additional functions if it was deleted. -->
-	<windowclass name="rr_options_contents" merge="join">
-		<sheetdata>
-			<RR_label_options_lists name="savestitle">
-				<invisible/>
-			</RR_label_options_lists>
-			<RR_button_expander_hider name="save.show">
-				<invisible/>
-			</RR_button_expander_hider>
-			<button_iadd name="saves_iadd">
-				<invisible/>
-			</button_iadd>
-			<RR_options_lists name="saves">
-				<invisible/>
-			</RR_options_lists>
-		</sheetdata>
-	</windowclass>
-
 	<windowclass name="rr_staged_details_window">
 		<frame>referencelist</frame>
 		<sizelimits>
