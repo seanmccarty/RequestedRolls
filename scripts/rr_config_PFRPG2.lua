@@ -9,9 +9,9 @@ end
 function copyDC()
 	if OptionsManager.getOption("RR_option_label_copyDCPanel") == "on" then
 		local val = DB.getValue("combattracker.actiondata.dc")
-		DB.setValue("requestsheet.check.dc","number", val)
-		DB.setValue("requestsheet.save.dc","number", val)
-		DB.setValue("requestsheet.skill.dc","number", val)
+		DB.setValue("requestsheet.rolls.check.dc","number", val)
+		DB.setValue("requestsheet.rolls.save.dc","number", val)
+		DB.setValue("requestsheet.rolls.skill.dc","number", val)
 	end
 end
 

@@ -86,8 +86,8 @@ function onButtonPress(sRollType,nodeCT)
 	-- 	aParty = nil;
 	-- end
 
-	local sSubType = DB.getValue("requestsheet."..sRollType..".selected", ""):lower();
-	local nTargetDC = DB.getValue("requestsheet."..sRollType..".dc", 0);
+	local sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", ""):lower();
+	local nTargetDC = DB.getValue("requestsheet.rolls."..sRollType..".dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
 	end

@@ -124,8 +124,8 @@
 					function onInit()
 						setColor(ColorManager.getButtonIconColor());
 						DB.addHandler("requestsheet.rolls.check.dc", "onUpdate", linker);
-						DB.addHandler("requestsheet.save.dc", "onUpdate", linker);
-						DB.addHandler("requestsheet.skill.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.rolls.save.dc", "onUpdate", linker);
+						DB.addHandler("requestsheet.rolls.skill.dc", "onUpdate", linker);
 					end
 					
 					--use var run to prevent recursion. set other DC nodes to same value
@@ -136,8 +136,8 @@
 							node = DB.getPath(nodeUpdated);
 							val = DB.getValue(DB.getPath(nodeUpdated),0);
 							if node ~= "requestsheet.rolls.check.dc" then DB.setValue("requestsheet.rolls.check.dc","number", val); end
-							if node ~= "requestsheet.save.dc" then DB.setValue("requestsheet.save.dc","number", val); end
-							if node ~= "requestsheet.skill.dc" then DB.setValue("requestsheet.skill.dc","number", val); end
+							if node ~= "requestsheet.rolls.save.dc" then DB.setValue("requestsheet.rolls.save.dc","number", val); end
+							if node ~= "requestsheet.rolls.skill.dc" then DB.setValue("requestsheet.rolls.skill.dc","number", val); end
 							run=true;
 						end
 						
@@ -189,7 +189,7 @@
 				<tooltip textres="RR_tooltip_proficiencyTargeting" />
 				<script>
 					function onButtonPress()
-						RR.targetSkillProficency(DB.getValue("requestsheet.skill.selected", ""));
+						RR.targetSkillProficency(DB.getValue("requestsheet.rolls.skill.selected", ""));
 					end
 				</script>
 				<tintable/>
@@ -200,7 +200,7 @@
 			</button_icon>
 
 			<!-- Roll selectors -->
-			<rollModule name="rolls.check">
+			<rollModule name="check">
 				<anchored>
 					<top parent="leftanchor" relation="relative" offset="5"/>
 					<left/>
@@ -209,17 +209,17 @@
 				<comboWidth>90</comboWidth>
 				<showDC/>
 			</rollModule>
-			<rollModule name="rolls.save">
-				<anchored to="rolls.check" position="rightlow" offset="-10,0" />
+			<rollModule name="save">
+				<anchored to="check" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_save</titleTextres>
 				<comboWidth>90</comboWidth>
 				<showDC/>
 			</rollModule>
 			<rollModule name="init">
-				<anchored to="rolls.save" position="rightlow" offset="-10,0" />
+				<anchored to="save" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_init</titleTextres>
 			</rollModule>
-			<rollModule name="rolls.skill">
+			<rollModule name="skill">
 				<anchored>
 					<top parent="leftanchor" relation="relative" offset="-5"/>
 					<left/>
@@ -229,7 +229,7 @@
 				<showDC/>
 			</rollModule>
 			<rollModule name="dice">
-				<anchored to="rolls.skill" position="rightlow" offset="-10,0" />
+				<anchored to="skill" position="rightlow" offset="-10,0" />
 				<titleTextres>RR_label_dice</titleTextres>
 				<comboWidth>125</comboWidth>
 				<unsorted/>

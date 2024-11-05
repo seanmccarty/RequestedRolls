@@ -39,7 +39,7 @@
 
 				function setRollType(sType)
 					local node = window.getDatabaseNode();
-					rootPath = DB.getPath(node, sType..".list");
+					rootPath = DB.getPath(node, "rolls."..sType..".list");
 					DB.addHandler(rootPath..".*.name", "onUpdate", buildOptions);
 					DB.addHandler(rootPath..".*.show", "onUpdate", buildOptions);
 					DB.addHandler(rootPath, "onChildDeleted", buildOptions);
@@ -76,7 +76,7 @@
 
 				function setRollType(sType)
 					local node = window.getDatabaseNode();
-					rootPath = DB.getPath(node, sType..".list");
+					rootPath = DB.getPath(node, "rolls."..sType..".list");
 					DB.addHandler(rootPath..".*.name", "onUpdate", buildOptions);
 					DB.addHandler(rootPath..".*.show", "onUpdate", buildOptions);
 					DB.addHandler(rootPath, "onChildDeleted", buildOptions);

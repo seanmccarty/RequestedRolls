@@ -41,9 +41,9 @@ function onInit()
 
 	if _nComboWidth>0 then
 		if _unsorted then
-			_ctrlCombo = window.createControl("RR_combobox_unsorted",sName..".selected");
+			_ctrlCombo = window.createControl("RR_combobox_unsorted","rolls."..sName..".selected");
 		else
-			_ctrlCombo = window.createControl("RR_combobox",sName..".selected");
+			_ctrlCombo = window.createControl("RR_combobox","rolls."..sName..".selected");
 		end
 		_ctrlCombo.setRollType(sName);
 		_ctrlCombo.setAnchor("left", sButton, "right", "relative", 5);
@@ -53,7 +53,7 @@ function onInit()
 	end
 
 	if _showDC then
-		_ctrlDCLabel = window.createControl("RR_DCLabel",sName.."_DCLabel");
+		_ctrlDCLabel = window.createControl("RR_DCLabel","rolls."..sName.."_DCLabel");
 		_ctrlDCLabel.setAnchor("left", sButton, "right", "relative", 5);
 		_ctrlDCLabel.setAnchor("top", sName, "center", "absolute", -(math.floor(_nButtonH/2)) + 0);
 
