@@ -64,16 +64,15 @@
 	<string name="RR_tooltip_openCharacterSheet">Open character sheet</string>
 
 	<!-- Console Main Page Expander Windows -->
-	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Options tab and select two stars.</string>
+	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Options tab and a select checkbox to show on the expander.</string>
 
 	<!-- Console Options Page -->
 	<string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>
 	<string name="RR_tooltip_deleteRolls">Delete All Rolls for Player</string>
-	<string name="RR_tooltip_show_on">Show in combobox</string>
-	<string name="RR_tooltip_show_off">Do not show on console</string>
-	<string name="RR_tooltip_show_both">Show in combobox and button</string>
+	<string name="RR_tooltip_show_combobox">Show in combobox</string>
+	<string name="RR_tooltip_show_bigButton">Show in big buttons</string>
 	<string name="RR_label_name">Name</string>
-	<string name="RR_label_shortname">Short Name</string>
+	<string name="RR_label_shortname">Optional Button Name</string>
 	<string name="RR_label_show">Show?</string>
 	<string name="RR_label_shownOnConsole">Shown on Console</string>
 	<string name="RR_label_hiddenOnConsole">Hidden on Console</string>

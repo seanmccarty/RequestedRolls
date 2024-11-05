@@ -432,7 +432,7 @@
 				<datasource>.list</datasource>
 				<script>
 					function onFilter( w )
-						if  w.show.getValue() == 2 then
+						if  w.show_expander.getValue() == 1 then
 							return true;
 						else
 							return false;
@@ -488,7 +488,7 @@
 				</script>
 			</button_text>
 
-			<hn name="show"/>
+			<hn name="show_expander"/>
 			<hs name="name"/>
 			<hs name="name_short"/>
 			<hs name="display_name"/>

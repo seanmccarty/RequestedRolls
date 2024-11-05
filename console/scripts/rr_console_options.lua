@@ -1,60 +1,18 @@
 function onInit()
 	registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
-	
-	-- Construct default skills, if DataCommon does not exist, no way to build default list for special 
-	-- If the control is not visible, it is disabled for the current ruleset
-	if self.isVisible() then
-		if DataCommon then
-			if self.datasource[1] == ".skill.list" then
-				constructDefaultSkills();
-			end
-			if self.datasource[1] == ".check.list" then
-				constructDefaultChecks();
-			end
-			if self.datasource[1] == ".save.list" then
-				constructDefaultSaves();
-			end
-		end
-	end
-	if self.datasource[1] == ".dice.list" then
-		constructDefaultDice();
-	end
-end
-
-function onAbilityChanged()
-	for _,w in ipairs(getWindows()) do
-		if w.isCustom() then
-			w.idelete.setVisible(bEditMode);
-		else
-			w.idelete.setVisible(false);
-		end
-	end
-end
-
-function onListChanged()
-	update();
 end
 
 function onEditModeChanged()
-	local bEditMode = WindowManager.getEditMode(window, "options_iedit");
+	local bEditMode = WindowManager.getEditMode(window, "sheet_iedit");
 	for _,w in ipairs(getWindows()) do
 			w.idelete.setVisible(bEditMode);
-	end
-	-- idelete_spacer.setVisible(bEditMode and not self.isCustom());
-end
-
-function update()
-	-- local bEditMode = (window.windowlist.window.parentcontrol.options_iedit.getValue() == 1);
-	local bEditMode = WindowManager.getEditMode(window, "options_iedit");
-	for _,w in ipairs(getWindows()) do
-		w.idelete.setVisible(w.isCustom() and bEditMode);
 	end
 end
 
 function addEntry(bFocus)
 	local w = createWindow();
-	w.setCustom(true);
-	w.show.setValue(2);
+	w.show.setValue(1);
+	w.show_expander.setValue(0);
 	if bFocus and w then
 		w.name.setFocus();
 	end
@@ -67,6 +25,7 @@ function onMenuSelection(item)
 	end
 end
 
+--TODO delete after constructing initial rolls in RR onInit for other rulesets
 -- checks 
 function constructDefaultChecks()
 	buildList(DataCommon.ability_ltos,DataCommon.psabilitydata);
@@ -88,101 +47,3 @@ function constructDefaultSaves()
 
 	buildList(aSave, aPsSave);
 end
-
--- Create default skill selection
-function constructDefaultSkills()
-		-- Collect existing entries
-		local entrymap = {};
-
-		for _,w in pairs(getWindows()) do
-			local sLabel = w.name.getValue(); 
-		
-			if DataCommon.skilldata[sLabel] then
-				if not entrymap[sLabel] then
-					entrymap[sLabel] = { w };
-				else
-					table.insert(entrymap[sLabel], w);
-				end
-			else
-				w.setCustom(true);
-			end
-		end
-
-		-- Set properties and create missing entries for all known skills. skill data table is built differently so we use different logic.
-		for k, t in pairs(DataCommon.skilldata) do
-			local matches = entrymap[k];
-			if not matches then
-				local w = createWindow();
-				if w then
-					w.name.setValue(k);
-					w.show.setValue(2);
-					matches = { w };
-				end
-			end
-			
-			-- Update properties, need to loop through so only the first instance is made readonly
-			local bCustom = false;
-			for _, match in pairs(matches) do
-				match.setCustom(bCustom);
-				bCustom = true;
-			end
-		end
-end
-
----Uses the same build list process as checks and saves
-function constructDefaultDice()
-	local ltos = {
-		["d4"] = "",
-		["d6"] = "",
-		["d8"] = "",
-		["d10"] = "",
-		["d20"] = "",
-	};
-
-	local strings = {
-		"d4","d6","d8","d10","d20"
-	};
-	buildList(ltos,strings);
-end
-
----Builds the default check or save list based on the provided tables, sets standard rolls to not deletable
----@param ltosTable table the ltos table from DataCommon for the relevant list
----@param psTable table the party sheet table from DataCommon for the relevant list
-function buildList(ltosTable, psTable)
-	-- Collect existing entries
-	local entrymap = {};
-	-- look for all entries with the same name as a standard roll
-	for _,w in pairs(getWindows()) do
-		local sLabel = w.name.getValue(); 
-	
-		if ltosTable[sLabel:lower()] then
-			if not entrymap[sLabel] then
-				entrymap[sLabel] = { w };
-			else
-				table.insert(entrymap[sLabel], w);
-			end
-		else
-			w.setCustom(true);
-		end
-	end
-	-- Set properties and create missing entries for all known checks/saves
-	for k, t in pairs(psTable) do
-		local matches = entrymap[t];
-		if not matches then
-			local w = createWindow();
-			if w then
-				w.name.setValue(t);
-				w.show.setValue(2);
-				matches = { w };
-			end
-		end
-		
-		-- Update properties, need to loop through so only the first instance is made readonly
-		local bCustom = false;
-		for _, match in pairs(matches) do
-			match.setCustom(bCustom);
-			bCustom = true;
-		end
-	end
-end
-

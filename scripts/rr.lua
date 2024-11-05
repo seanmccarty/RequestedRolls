@@ -439,6 +439,11 @@ function runMigration()
 	migrateNode("requestsheet.save.list","requestsheet.rolls.save.list");
 	migrateNode("requestsheet.skill.list","requestsheet.rolls.skill.list");
 	migrateNode("requestsheet.dice.list","requestsheet.rolls.dice.list");
+
+	migrateExpanderCheckbox("requestsheet.rolls.check.list");
+	migrateExpanderCheckbox("requestsheet.rolls.save.list");
+	migrateExpanderCheckbox("requestsheet.rolls.skill.list");
+	migrateExpanderCheckbox("requestsheet.rolls.dice.list");
 end
 
 ---Copies a source node to the destination and deletes the source node
@@ -448,6 +453,19 @@ function migrateNode(source, destination)
 	if DB.findNode(source) and DB.findNode(destination) == nil then
 		DB.copyNode(source,destination);
 		DB.deleteNode(source);
+	end
+end
+
+--- Migrate from the old system of using a single button to set showing the string in combobox and expanders
+--- to using two individual checkboxes
+--- @param listNode string the node with star selectors to be transformed e.g. requestsheet.rolls.check.list
+function migrateExpanderCheckbox(listNode)
+	for _,w in pairs(DB.getChildren(listNode)) do
+		--a value of two meant that it would show up in teh expanders
+		if DB.getValue(w,"show",0)== 2 then
+			DB.setValue(w,"show_expander","number",1);
+			DB.setValue(w,"show","number",1);
+		end
 	end
 end
 

@@ -2,99 +2,35 @@
 <root>
     <windowclass name="rr_options">
 		<sheetdata>
-			<button_iedit name="options_iedit">
-				<anchored position="insidebottomright" offset="10,10" />
-				<tooltip textres="char_skills_tooltip_edit" />
-				<edittarget>contents</edittarget>
-				<!-- <script>
-					function onValueChanged()
-						local bEditMode = (getValue() == 1);
-						
-						window.contents.subwindow.checks.update();
-						window.contents.subwindow.saves.update();
-						window.contents.subwindow.skills.update();
-						window.contents.subwindow.dice.update();
-					end
-				</script> -->
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<area_content_framed_groupbox_bottom name="area_controls">
+				<anchored height="20" />
+			</area_content_framed_groupbox_bottom>
+			<button_iedit name="sheet_iedit">
+				<anchored to="area_controls" position="insidetopright" offset="0,0" />
+				<edittarget>content</edittarget>
 			</button_iedit>
-
-			<subwindow name="contents">
-				<anchored>
-					<top offset="0" />
-					<bottom offset="-35" />
-					<left offset="0" />
-					<right offset="-15" />
-				</anchored>
+			<sub_content_scroll name="content">
 				<class>rr_options_contents</class>
-				<activate />
-			</subwindow>
-			<scrollbar>
-				<anchored to="contents" offset="-5,-10"/>
-				<target>contents</target>
-			</scrollbar>
+			</sub_content_scroll>
+			<scrollbar_content />
         </sheetdata>
     </windowclass>
 
  	<windowclass name="rr_options_contents">
 		<sheetdata>
-			<anchor_content_utilitybox_top />
-			<anchor_content_utilitybox_bottom />
-			<label name="label_show">
-				<script>
-					function onInit()
-						setColor(ColorManager.getSidebarRecordTextColor());
-					end
-				</script>
-				<anchored>
-					<top parent="contentanchor" />
-					<left offset="10" />
-				</anchored>
-				<static textres="RR_label_show" />
-			</label>
-			<label name="label_name">
-				<script>
-					function onInit()
-						setColor(ColorManager.getSidebarRecordTextColor());
-					end
-				</script>
-				<anchored>
-					<top parent="contentanchor" />
-					<left offset="80" />
-				</anchored>
-				<static textres="RR_label_name" />
-				<center />
-			</label>
-			<label name="label_name_short" width="200">
-				<script>
-					function onInit()
-						setColor(ColorManager.getSidebarRecordTextColor());
-					end
-				</script>
-				<anchored>
-					<top parent="contentanchor" />
-					<left offset="190" />
-				</anchored>
-				<static textres="RR_label_shortname" />
-			</label>
-			
-			<list_content_framed_groupbox name="list" >
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<list_content_framed_groupbox_alternating name="list" >
 				<datasource>.rolls</datasource>
-				<columns fillwidth="true"/>
-				<class>newDoodad</class>
+				<class>rr_options_lists</class>
 				<sortby><field>sort_order</field></sortby>
-				<anchored>
-					<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
-					<!-- <bottom parent="footeranchor" anchor="top" offset="-10"/> -->
-					<left offset="0" />
-					<right offset="0" />
-				</anchored>
-			</list_content_framed_groupbox>
-			<scrollbar_content_list />
-
+			</list_content_framed_groupbox_alternating>
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="newDoodad">
+	<windowclass name="rr_options_lists">
 		<script>
 			function toggleList()
 				if status.getValue() == 0 then
@@ -108,7 +44,6 @@
 		</script>
 		<sheetdata>
 			<anchor_content_top />
-
 			<string_content_static_top name="display_name">
 				<font>sheetlabel</font>
 				<script>
@@ -133,7 +68,7 @@
 				<datasource>.list</datasource>
 				<class>item_entry</class>
 				<sortby><control>name</control></sortby>
-				<columns><width>230</width></columns>
+				<columns><width>350</width></columns>
 				<script file="console/scripts/rr_console_options.lua" />
 			</list_content_noscroll_alternating_top>
 
@@ -153,7 +88,6 @@
 					end
 				</script>
 			</buttonfield>
-
 		</sheetdata>
 	</windowclass>
 	
@@ -161,36 +95,25 @@
 	<windowclass name="item_entry">
 		<script file="console/scripts/rr_console_options_item.lua" />
 		<sheetdata>
-			<anchor_listitem_left_sm name="leftanchor" />
-			<anchor_listitem_right_sm name="rightanchor" />
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
 
-			<button_idelete name="idelete">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-2" />
-				</anchored>
-			</button_idelete>
-			
-			<RR_button_selector_star name="show">
-				<anchored position="insidetopleft" offset="2,6" />
-			</RR_button_selector_star>
-			<string_textlistitem name="name_short">
-				<anchored to="rightanchor" width="75">
-					<top />
-					<right anchor="left" relation="relative" offset="-7" />
-				</anchored>
-				<multilinespacing>20</multilinespacing>
+			<button_listitem_idelete name="idelete">
+				<editmode>sheet_iedit</editmode>
+			</button_listitem_idelete>
+			<button_listitem_checkbox_left name="show">
+				<tooltip textres="RR_tooltip_show_combobox"/>
+			</button_listitem_checkbox_left>
+			<button_listitem_checkbox_left name="show_expander">
+				<tooltip textres="RR_tooltip_show_bigButton"/>
+			</button_listitem_checkbox_left>
+			<string_listitem_right_text name="name_short">
 				<tabtarget prev="name"/>
-			</string_textlistitem>
-			<string_textlistitem name="name">
-				<anchored to="rightanchor">
-					<top />
-					<left parent="" offset="20" />
-					<right anchor="left" relation="relative" offset="-7" />
-				</anchored>
-				<multilinespacing>20</multilinespacing>
+				<tooltip textres="RR_label_shortname"/>
+			</string_listitem_right_text>
+			<string_listitem_center_underline name="name">
 				<tabtarget next="name_short" />
-			</string_textlistitem>
+			</string_listitem_center_underline>
 		</sheetdata>
 	</windowclass>
 </root>

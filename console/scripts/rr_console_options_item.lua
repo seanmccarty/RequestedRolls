@@ -1,5 +1,3 @@
-local iscustom = true;
-
 function onInit()
 	setRadialOptions();
 end
@@ -15,32 +13,10 @@ function onMenuSelection(selection, subselection)
 	end
 end
 
--- This function is called to set the entry to non-custom or custom.
--- Custom entries have configurable stats and editable labels.
-function setCustom(state)
-	iscustom = state;
-	
-	if iscustom then
-		name.setEnabled(true);
-		name.setLine(true);
-	else
-		name.setEnabled(false);
-		name.setLine(false);
-	end
-	
-	setRadialOptions();
-end
-
-function isCustom()
-	return iscustom;
-end
 
 function setRadialOptions()
 	resetMenuItems();
-
-	if iscustom then
-		registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
-		registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
-	end
+	registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+	registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
 end
 

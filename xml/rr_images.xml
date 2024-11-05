@@ -3,11 +3,6 @@
 <root>
 	<icon name="Logo_Mccartysr" file="graphics/icons/logo_mccartysr.png" />
 
-	<!-- Not all rulesets have the stars, so they have to be included -->
-	<icon name="button_prof" file="graphics/buttons/button_prof.png" />
-	<icon name="button_prof_down" file="graphics/buttons/button_prof_down.png" />
-	<icon name="button_prof_double" file="graphics/buttons/button_prof_double.png" />
-
 	<!-- Sidebar icon -->
 	<icon name="RR_sidebar" file="graphics/buttons/rr_sidebar.png" />
 

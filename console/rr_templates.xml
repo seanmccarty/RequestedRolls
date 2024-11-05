@@ -86,14 +86,4 @@
 
 		</windowlist>
 	</template>
-
-	<!-- Used on Options page -->
-	<template name="RR_button_selector_star">
-		<buttonfield>
-			<anchored width="12" height="12" />
-			<state icon="button_prof" tooltipres="RR_tooltip_show_off" />
-			<state icon="button_prof_down" tooltipres="RR_tooltip_show_on" />
-			<state icon="button_prof_double" tooltipres="RR_tooltip_show_both" />
-		</buttonfield>
-	</template>
 </root>
