@@ -10,26 +10,16 @@
 			</area_content_framed_groupbox_bottom>
 			<button_iedit name="sheet_iedit">
 				<anchored to="area_controls" position="insidetopright" offset="0,0" />
-				<edittarget>content</edittarget>
+				<edittarget>list</edittarget>
 			</button_iedit>
-			<sub_content_scroll name="content">
-				<class>rr_options_contents</class>
-			</sub_content_scroll>
-			<scrollbar_content />
-        </sheetdata>
-    </windowclass>
-
- 	<windowclass name="rr_options_contents">
-		<sheetdata>
-			<anchor_content_top />
-			<anchor_content_bottom />
-			<list_content_framed_groupbox_alternating name="list" >
+			<list_content_framed_groupbox name="list" >
 				<datasource>.rolls</datasource>
 				<class>rr_options_lists</class>
 				<sortby><field>sort_order</field></sortby>
-			</list_content_framed_groupbox_alternating>
-		</sheetdata>
-	</windowclass>
+			</list_content_framed_groupbox>
+			<scrollbar_content_list />
+        </sheetdata>
+    </windowclass>
 
 	<windowclass name="rr_options_lists">
 		<script>
