@@ -54,6 +54,7 @@
 					<subwindow>staged</subwindow>
 				</tab>
 			</tabs_partysheet>
+			<resize_utilitybox />
 		</sheetdata>
 	</windowclass>
 
