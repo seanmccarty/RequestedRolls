@@ -10,41 +10,6 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="rr_staged_details_window">
-		<frame>referencelist</frame>
-		<sizelimits>
-			<minimum width="380" height="350" />
-			<dynamic />
-		</sizelimits>
-		<sheetdata>
-			<windowtitlebar name="title">
-				<resource>RR_window_prefix_stagedDetail</resource>
-			</windowtitlebar>
-			<anchor_title_partysheet name="contentanchor" />
-			
-			<genericcontrol name="contentframe">
-				<anchored to="contentanchor">
-					<top anchor="bottom" offset="0" />
-					<left />
-					<right />
-					<bottom parent="" offset="-30" />
-				</anchored>
-			</genericcontrol>
-
-			<subwindow_record name="main">
-				<class>rr_staged_details_content</class>
-				<activate />
-			</subwindow_record>
-
-			<scrollbar_record>
-				<target>main</target>
-			</scrollbar_record>
-
-			<resize_referencelist />
-			<close_referencelist />
-		</sheetdata>
-	</windowclass>
-
 	<template name="list_editor">
 		<windowlist name="list">
 			<anchored>
