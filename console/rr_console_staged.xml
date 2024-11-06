@@ -34,17 +34,15 @@
 				</anchored>
 				<target>list</target>
 			</button_iadd>
-			<spacer_list_content_link_label_left/>
-			<label_list_content_string_left name="label_stat">
-				<anchored width="180" />
+			<spacer_list_content_link_label_left name="left_spacer"/>
+			<label_list_content_string_left name="label_id">
+				<anchored width="170" />
 				<static textres="RR_label_identifier" />
 			</label_list_content_string_left>
-			<label_list_content_string_left name="label_stat2">
-				<!-- <anchored width="50" /> -->
+			<label_list_content_string_left name="label_type">
 				<static textres="RR_label_type" />
 			</label_list_content_string_left>
-			<label_list_content_string_left name="label_stat3">
-				<anchored width="100" />
+			<label_list_content_string_left name="label_rollType">
 				<static textres="RR_label_rollType" />
 			</label_list_content_string_left>
 		</sheetdata>
@@ -101,7 +99,7 @@
 				</script>
 			</buttonc_listitem_left>
 			<string_listitem_left_noframe_static name="name">
-				<anchored width="200"/>
+				<anchored width="180"/>
 			</string_listitem_left_noframe_static>
 			<string_listitem_left_noframe_static name="type"/>
 			<stringc_listitem_center_noframe_static name="rolls"/>
