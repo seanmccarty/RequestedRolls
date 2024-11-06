@@ -2,66 +2,55 @@
 <root>
 	<windowclass name="rr_staged">
 		<sheetdata>
-			<subwindow name="contents">
-				<anchored>
-					<top offset="0" />
-					<bottom offset="-15" />
-					<left offset="0" />
-					<right offset="-15" />
-				</anchored>
-				<class>rr_staged_contents</class>
-				<activate />
-			</subwindow>
-			<scrollbar>
-				<anchored to="contents" offset="-5,-10"/>
-				<target>contents</target>
-			</scrollbar>
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="rr_staged_contents">
-		<margins control="0,0,0,2" />
-		<frame >groupbox</frame>
-		<sheetdata>
-			<anchor_column name="columnanchor" />
-			<header_column name="header_tab_title">
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<!-- <header_content_framed_headersimple name="header">
 				<static textres="RR_tab_title_staged" />
-				<center />
-			</header_column>
-			<button_iedit name="list_iedit">
-				<anchored to="header_tab_title" position="insidetopright" offset="-5,0" />
+			</header_content_framed_headersimple> -->
+			<area_content_framed_groupbox_bottom name="area_controls">
+				<anchored height="20" />
+			</area_content_framed_groupbox_bottom>
+			<button_iedit name="sheet_iedit">
+				<anchored to="area_controls" position="insidetopright" offset="0,0" />
 				<edittarget>list</edittarget>
 			</button_iedit>
+
+			<list_content_labeled_framed_groupbox name="list" >
+				<datasource>.staged</datasource>
+				<class>rr_staged_entry</class>
+				<sortby><field>sort_order</field></sortby>
+				<child merge="resetandadd"></child>
+				<child merge="add"><backcolor>1A40301E</backcolor></child>
+			</list_content_labeled_framed_groupbox>
+			<scrollbar_content_list />
+
+			
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
 			<button_iadd name="list_iadd">
-				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
+				</anchored>
 				<target>list</target>
 			</button_iadd>
-
-			<list_editor name="list" >
-				<datasource>.staged</datasource>
-				<columns fillwidth="true"/>
-				<class>rr_staged_entry</class>
-			</list_editor>
-
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="35,1" width="60" />
+			<spacer_list_content_link_label_left/>
+			<label_list_content_string_left name="label_stat">
+				<anchored width="180" />
 				<static textres="RR_label_identifier" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="157,1" width="67" />
+			</label_list_content_string_left>
+			<label_list_content_string_left name="label_stat2">
+				<!-- <anchored width="50" /> -->
 				<static textres="RR_label_type" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveright" offset="5,1">
-					<left offset="211" />
-				</anchored>
+			</label_list_content_string_left>
+			<label_list_content_string_left name="label_stat3">
+				<anchored width="100" />
 				<static textres="RR_label_rollType" />
-			</label_fieldtop>
+			</label_list_content_string_left>
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="rr_staged_entry">
-		<margins control="0,0,0,2" />
 		<script>
 			local currentNode ;
 			local w;
@@ -98,45 +87,24 @@
 			end
 		</script>
 		<sheetdata>
-			<anchor_column name="columnanchor" />
-			
-			<!-- <anchored height="40"/> -->
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<right offset="-15" />
-				</anchored>
-			</genericcontrol>
-			<button_details name="details">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" offset="10"/>
-					<left offset="10"/>
-				</anchored>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			<button_listitem_idelete name="idelete">
+				<editmode>sheet_iedit</editmode>
+			</button_listitem_idelete>
+			<buttonc_listitem_left name="activatedetail">
+				<icon normal="button_details" pressed="button_details_down" />
 				<script>
 					function onButtonPress()
 						Interface.openWindow("rr_staged_details_window", window.getDatabaseNode());
 					end
 				</script>
-			</button_details>
-			<stringfield name="name">
-				<anchored width="130" to="details" position="righthigh" offset="10,0" />
-				<readonly/>
-			</stringfield>
-			<stringfield name="type">
-				<anchored to="name" position="righthigh" offset="10,0" width="60" height="20" />
-				<readonly/>
-			</stringfield>
-			<stringcontrol name="rolls">
-				<anchored to="type" position="righthigh" offset="10,0" width="200" height="20" />
-				<readonly/>
-			</stringcontrol>
-			<button_idelete name="idelete">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<editmode>list_iedit</editmode>
-			</button_idelete>
+			</buttonc_listitem_left>
+			<string_listitem_left_noframe_static name="name">
+				<anchored width="200"/>
+			</string_listitem_left_noframe_static>
+			<string_listitem_left_noframe_static name="type"/>
+			<stringc_listitem_center_noframe_static name="rolls"/>
 		</sheetdata>
 	</windowclass>
 
