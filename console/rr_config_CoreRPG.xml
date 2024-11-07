@@ -34,40 +34,6 @@
 		</sheetdata>
 	</windowclass>
 
-	<!-- Remove the save and check expanders -->
-
-	<!-- Hide the save and checks options subwindow. Would have to rewrite additional functions if it was deleted. -->
-
-	<!-- not defined in CoreRPG -->
-	<template name="list_editor">
-		<windowlist name="list">
-			<anchored>
-				<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
-				<left />
-				<right />
-			</anchored>
-			<allowdelete />
-			<child></child>
-			<child><backcolor>1A40301E</backcolor></child>
-			<noscroll />
-			<script>
-				function onInit()
-					registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
-				end
-				
-				function onMenuSelection(selection)
-					if selection == 5 then
-						self.addEntry(true);
-					end
-				end
-				
-				function addEntry(bFocus)
-					return createWindow();
-				end
-			</script>
-		</windowlist>
-	</template>
-
 	<!-- Add the code to get actor so that rActor is present when going through the roll chain. Otherwise, it would need to look up the active users current identity. -->
 	<windowclass name="char_attribute" merge="join">
 		<margins control="0,0,0,3" />

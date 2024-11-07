@@ -4,9 +4,6 @@
 		<sheetdata>
 			<anchor_content_top />
 			<anchor_content_bottom />
-			<!-- <header_content_framed_headersimple name="header">
-				<static textres="RR_tab_title_staged" />
-			</header_content_framed_headersimple> -->
 			<area_content_framed_groupbox_bottom name="area_controls">
 				<anchored height="20" />
 			</area_content_framed_groupbox_bottom>
@@ -35,16 +32,16 @@
 				<target>list</target>
 			</button_iadd>
 			<spacer_list_content_link_label_left name="left_spacer"/>
-			<label_list_content_string_left name="label_id">
-				<anchored width="170" />
+			<label_list_content_string_noframe_left name="label_id">
+				<anchored width="180" />
 				<static textres="RR_label_identifier" />
-			</label_list_content_string_left>
-			<label_list_content_string_left name="label_type">
+			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_type">
 				<static textres="RR_label_type" />
-			</label_list_content_string_left>
-			<label_list_content_string_left name="label_rollType">
+			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_rollType">
 				<static textres="RR_label_rollType" />
-			</label_list_content_string_left>
+			</label_list_content_string_noframe_left>
 		</sheetdata>
 	</windowclass>
 
@@ -106,6 +103,7 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- TODO refactor top level detail window -->
 	<windowclass name="rr_staged_details_window">
 		<frame>charsheethelper</frame>
 		<sizelimits>
@@ -152,22 +150,18 @@
 			end
 		</script>
 		<sheetdata>
-			<anchor_column name="columnanchor" />
-			
-			<label_column name="name_label">
+			<anchor_content_top />
+			<anchor_content_bottom />
+
+			<label_content_column name="name_label">
 				<static textres="RR_label_identifier" />
-			</label_column>
-			<string_column name="name" />
+			</label_content_column>
+			<string_content_column name="name" />
 			
-			<label_column name="type_label">
+			<label_content_column name="type_label">
 				<static textres="RR_label_type" />
-			</label_column>
-			<combobox name="type">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="97" />
-					<right offset="-5" />
-				</anchored>
+			</label_content_column>
+			<combobox_content_column name="type">
 				<default textres="RR_default_stagedType" />
 				<script>
 					function onInit()
@@ -188,23 +182,9 @@
 						addItems(allowableTypes);
 					end
 				</script>
-				<listdirection>down</listdirection>
-			</combobox>
+			</combobox_content_column>
 
-			<header_column name="header_rollType">
-				<static textres="RR_label_rollType" />
-				<center />
-			</header_column>
-			<button_iedit name="list_iedit">
-				<anchored to="header_rollType" position="insidetopright" offset="-5,0" />
-				<edittarget>list</edittarget>
-			</button_iedit>
-			<button_iadd name="list_iadd">
-				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
-				<target>list</target>
-			</button_iadd>
-
-			<list_editor name="list">
+			<list_content_labeled_framed_groupbox name="list" >
 				<datasource>.rollTypes</datasource>
 				<class>rr_staged_details_entry_rollType</class>
 				
@@ -226,47 +206,47 @@
 						return w;
 					end
 				</script>
-			</list_editor>
-			
-			<label_fieldtop>
-				<anchored to="list" position="aboveleft" offset="-2,1" width="60" />
-				<static textres="RR_label_stage" />
-			</label_fieldtop>
-			<label_fieldtop>
-				<anchored to="list" position="aboveright" offset="5,1">
-					<left offset="40" />
+				<sortby><field>sort_order</field></sortby>
+				<child merge="resetandadd"></child>
+				<child merge="add"><backcolor>1A40301E</backcolor></child>
+			</list_content_labeled_framed_groupbox>
+			<scrollbar_content_list />
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<button_iadd name="list_iadd">
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
 				</anchored>
+				<target>list</target>
+			</button_iadd>
+			<button_iedit name="list_iedit">
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
+				</anchored>
+				<edittarget>list</edittarget>
+			</button_iedit>
+			<label_list_content_string_noframe_left name="label_id">
+				<static textres="RR_label_stage" />
+				<anchored width="40"/>
+			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_type">
 				<static textres="RR_label_rollType" />
-			</label_fieldtop>
+			</label_list_content_string_noframe_left>
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="rr_staged_details_entry_rollType">
-		<margins control="0,0,0,5" />
 		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="0">
-					<top offset="2" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			<button_listitem_idelete name="idelete">
 				<editmode>list_iedit</editmode>
-			</button_idelete>
-			<button_checkbox name="selected">
-				<anchored position="insidetopleft" offset="15,2" width="20" height="20" />
-			</button_checkbox>
-			<stringu name="type">
-				<anchored to="selected" position="righthigh" offset="10,0" height="20">
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<delaykeyupdate />
-			</stringu>
+			</button_listitem_idelete>
+			<button_listitem_checkbox_left name="selected"/>
+			<string_listitem_center_underline name="type"/>
 		</sheetdata>
 	</windowclass>
 </root>
