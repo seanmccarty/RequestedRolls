@@ -112,6 +112,21 @@
 					end
 				</script>
 			</buttonfield>
+			<RR_DCLabel>
+				<anchored to="display_name" position="insidetopleft" offset="30,0" />
+			</RR_DCLabel>
+			<button_checkbox name="dc_show">
+				<anchored to="display_name" position="insidetopleft" offset="45,0" width="20" height="20"/>
+				<tooltip textres="RR_tooltip_show_DC"/>
+			</button_checkbox>
+			<label>
+				<anchored to="display_name" position="insidetopleft" offset="70,0" />
+				<static textres="RR_label_buttonWidth" />
+			</label>
+			<basicnumber name="button_width">
+				<anchored to="display_name" position="insidetopleft" offset="115,0" width="30" height="20" />
+				<tooltip textres="RR_tooltip_buttonWidth"/>
+			</basicnumber>
 		</sheetdata>
 	</windowclass>
 	

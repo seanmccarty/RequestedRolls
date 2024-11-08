@@ -71,11 +71,14 @@
 	<string name="RR_tooltip_deleteRolls">Delete All Rolls for Player</string>
 	<string name="RR_tooltip_show_combobox">Show in combobox</string>
 	<string name="RR_tooltip_show_bigButton">Show in big buttons</string>
+	<string name="RR_tooltip_show_DC">Show DC in big buttons</string>
+	<string name="RR_tooltip_buttonWidth">Set width of buttons on main page</string>
 	<string name="RR_label_name">Name</string>
 	<string name="RR_label_shortname">Optional Button Name</string>
 	<string name="RR_label_show">Show?</string>
 	<string name="RR_label_shownOnConsole">Shown on Console</string>
 	<string name="RR_label_hiddenOnConsole">Hidden on Console</string>
+	<string name="RR_label_buttonWidth">Width</string>
 
 	<!-- Chat Messages -->
 	<string name="RR_msg_rollNotConnected" >Requested Rolls: Player not connected. Roll is available on host.</string>

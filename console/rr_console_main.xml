@@ -120,6 +120,7 @@
 				</anchored>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_off" frame="buttonup" frameoffset="5,5,5,5"/>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_on" frame="buttondown" frameoffset="5,5,5,5"/>
+				<!-- TODO accoutn for some rulesets are different -->
 				<script>
 					function onInit()
 						setColor(ColorManager.getButtonIconColor());
@@ -374,14 +375,34 @@
 		<script>
 			function onInit()
 				local sDataPath = DB.getPath(getDatabaseNode());
-				if sDataPath == "requestsheet.rolls.check" or sDataPath == "requestsheet.rolls.save" then
-					selection_window.setColumnWidth(65);
-				end
-				if sDataPath == "requestsheet.rolls.dice" then
-					selection_window.setColumnWidth(100);
+				DB.addHandler(sDataPath ..".dc_show", "onUpdate", dcChange);
+				DB.addHandler(sDataPath ..".button_width", "onUpdate", widthChange);
+				dcChange();
+				widthChange();
+
+				
+				--if sDataPath == "requestsheet.rolls.check" or sDataPath == "requestsheet.rolls.save" then
+				--	selection_window.setColumnWidth(65);
+				--end
+				--if sDataPath == "requestsheet.rolls.dice" then
+				--	selection_window.setColumnWidth(100);
+				--	dclabel.setVisible(false);
+				--	dc.setVisible(false);
+				--end
+			end
+
+			function dcChange()
+				if DB.getValue(getDatabaseNode(),"dc_show",0)==0 then
 					dclabel.setVisible(false);
 					dc.setVisible(false);
+				else
+					dclabel.setVisible(true);
+					dc.setVisible(true);
 				end
+			end
+
+			function widthChange()
+				selection_window.setColumnWidth(DB.getValue(getDatabaseNode(),"button_width",125));
 			end
 		</script>
 		<sheetdata>
