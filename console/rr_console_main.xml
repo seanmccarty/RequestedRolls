@@ -371,7 +371,6 @@
 	<windowclass name="oldpersonbutton_expanderTray">
 		<margins control="0,0,10,10" />
 		<frame name="groupbox" offset="5,5,5,5"/>
-		<!-- TODO setting button width and DC field visibility -->
 		<script>
 			function onInit()
 				local sDataPath = DB.getPath(getDatabaseNode());
@@ -379,16 +378,6 @@
 				DB.addHandler(sDataPath ..".button_width", "onUpdate", widthChange);
 				dcChange();
 				widthChange();
-
-				
-				--if sDataPath == "requestsheet.rolls.check" or sDataPath == "requestsheet.rolls.save" then
-				--	selection_window.setColumnWidth(65);
-				--end
-				--if sDataPath == "requestsheet.rolls.dice" then
-				--	selection_window.setColumnWidth(100);
-				--	dclabel.setVisible(false);
-				--	dc.setVisible(false);
-				--end
 			end
 
 			function dcChange()
