@@ -60,8 +60,6 @@
 				DB.removeHandler(DB.getPath(currentNode, "rollTypes"),"onChildUpdate",rebuildSummary);
 			end
 
-
-
 			function rebuildSummary()
 				local sSummaryString = "";
 				local nodes = DB.getChildren(currentNode,"rollTypes");
@@ -103,39 +101,24 @@
 		</sheetdata>
 	</windowclass>
 
-	<!-- TODO refactor top level detail window -->
 	<windowclass name="rr_staged_details_window">
-		<frame>charsheethelper</frame>
+		<frame>utilitybox</frame>
 		<sizelimits>
 			<minimum width="380" height="350" />
 			<dynamic />
 		</sizelimits>
 		<sheetdata>
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+			<windowmenubar_utilitybox name="menubar" />
 			<windowtitlebar_charsheethelper name="title">
 				<prefix>RR_window_prefix_stagedDetail</prefix>
 			</windowtitlebar_charsheethelper>
-			<anchor_title_charsheethelper name="contentanchor" />
 			
-			<genericcontrol name="contentframe">
-				<anchored to="contentanchor">
-					<top anchor="bottom" offset="0" />
-					<left />
-					<right />
-					<bottom parent="" offset="-30" />
-				</anchored>
-			</genericcontrol>
-
-			<subwindow_record name="main">
+			<sub_content_framed_groupbox name="sub_contents">
 				<class>rr_staged_details_content</class>
-				<activate />
-			</subwindow_record>
-
-			<scrollbar_record>
-				<target>main</target>
-			</scrollbar_record>
-
-			<resize_charsheethelper />
-			<close_charsheethelper />
+			</sub_content_framed_groupbox>
+			<resize_utilitybox />
 		</sheetdata>
 	</windowclass>
 
@@ -152,7 +135,6 @@
 		<sheetdata>
 			<anchor_content_top />
 			<anchor_content_bottom />
-
 			<label_content_column name="name_label">
 				<static textres="RR_label_identifier" />
 			</label_content_column>
@@ -183,11 +165,9 @@
 					end
 				</script>
 			</combobox_content_column>
-
-			<list_content_labeled_framed_groupbox name="list" >
+			<list_content_labeled_alternating name="list" >
 				<datasource>.rollTypes</datasource>
 				<class>rr_staged_details_entry_rollType</class>
-				
 				<script>
 					function addEntry(bFocus, sName)
 						local w = createWindow();
@@ -209,7 +189,7 @@
 				<sortby><field>sort_order</field></sortby>
 				<child merge="resetandadd"></child>
 				<child merge="add"><backcolor>1A40301E</backcolor></child>
-			</list_content_labeled_framed_groupbox>
+			</list_content_labeled_alternating>
 			<scrollbar_content_list />
 
 			<anchor_list_content_label_left />
