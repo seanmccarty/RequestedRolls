@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root>
-	<!-- TODO add collapse and expand all for lists-->
-    <windowclass name="rr_options">
+	<windowclass name="rr_options">
+		<script>
+			function onCollapseAll()
+				for _,w in ipairs(list.getWindows()) do
+					if w.status.getValue() == 0 then
+						w.status.setValue(1);
+						w.options_list.setVisible(false);
+					end
+				end
+			end
+			function onExpandAll()
+				for _,w in ipairs(list.getWindows()) do
+					if w.status.getValue() == 1 then
+						w.status.setValue(0);
+						w.options_list.setVisible(true);
+					end
+				end
+			end
+		</script>
 		<sheetdata>
 			<anchor_content_top />
 			<anchor_content_bottom />
@@ -12,14 +29,30 @@
 				<anchored to="area_controls" position="insidetopright" offset="0,0" />
 				<edittarget>list</edittarget>
 			</button_iedit>
+			<button_expand_base name="button_expand">
+				<anchored to="area_controls" position="insidetopleft" offset="0,0" />
+				<script>
+					function onButtonPress()
+						window.onExpandAll();
+					end
+				</script>
+			</button_expand_base>
+			<button_collapse_base name="button_collapse">
+				<anchored to="area_controls" position="insidetopleft" offset="25,0" />
+				<script>
+					function onButtonPress()
+						window.onCollapseAll();
+					end
+				</script>
+			</button_collapse_base>
 			<list_content_framed_groupbox name="list" >
 				<datasource>.rolls</datasource>
 				<class>rr_options_lists</class>
 				<sortby><field>sort_order</field></sortby>
 			</list_content_framed_groupbox>
 			<scrollbar_content_list />
-        </sheetdata>
-    </windowclass>
+		</sheetdata>
+	</windowclass>
 
 	<windowclass name="rr_options_lists">
 		<script>
@@ -88,7 +121,6 @@
 		<sheetdata>
 			<anchor_listitem_left_sm />
 			<anchor_listitem_right_sm />
-
 			<button_listitem_idelete name="idelete">
 				<editmode>sheet_iedit</editmode>
 			</button_listitem_idelete>
