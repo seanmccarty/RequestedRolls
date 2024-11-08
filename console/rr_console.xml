@@ -19,8 +19,9 @@
 			<anchor_content_utilitybox_top />
 			<anchor_content_utilitybox_bottom />
 			<windowmenubar_utilitybox name="menubar" />
+			<!-- TODO update to button icon as part of toolbar -->
 			<button_text_sm name="manual_rolls">
-				<anchored position="insidetopleft" offset="45,11" width="120" />
+				<anchored position="insidetopleft" offset="45,9" width="120" />
 				<state textres="RR_label_pendingRolls" />
 				<script>
 					function onButtonPress()
@@ -29,16 +30,15 @@
 				</script>
 			</button_text_sm>
 
-			<sub_ps name="main">
+			<sub_content_hidden name="main">
 				<class>rr_console</class>
-			</sub_ps>
-			<sub_ps name="options">
+			</sub_content_hidden>
+			<sub_content_hidden name="options">
 				<class>rr_options</class>
-				<fastinit />
-			</sub_ps>
-			<sub_ps name="staged">
+			</sub_content_hidden>
+			<sub_content_hidden name="staged">
 				<class>rr_staged</class>
-			</sub_ps>
+			</sub_content_hidden>
 			
 			<tabs_partysheet name="tabs">
 				<tab>
