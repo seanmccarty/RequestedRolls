@@ -18,6 +18,7 @@
 				<sortby><field>sort_order</field></sortby>
 				<child merge="resetandadd"></child>
 				<child merge="add"><backcolor>1A40301E</backcolor></child>
+				<empty><text>-------</text></empty>
 			</list_content_labeled_framed_groupbox>
 			<scrollbar_content_list />
 
