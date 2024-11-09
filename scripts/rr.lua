@@ -311,7 +311,6 @@ function processRRcmd(sCommand, sParams)
 			_tTargets = RR.getAllCharactersByType(_sTargetType)
 		end
 	end
-	Debug.chat(_tTargets)
 
 	if #_tTargets==0 then
 		_tTargets = RR.getSelectedChars();
