@@ -120,13 +120,15 @@
 				</anchored>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_off" frame="buttonup" frameoffset="5,5,5,5"/>
 				<state icon="RR_field_linked_mono" tooltipres="RR_tooltip_linkDC_on" frame="buttondown" frameoffset="5,5,5,5"/>
-				<!-- TODO accoutn for some rulesets are different -->
+				<!-- Set handlers for all roll types where the dc field is shown. -->
 				<script>
 					function onInit()
 						setColor(ColorManager.getButtonIconColor());
-						DB.addHandler("requestsheet.rolls.check.dc", "onUpdate", linker);
-						DB.addHandler("requestsheet.rolls.save.dc", "onUpdate", linker);
-						DB.addHandler("requestsheet.rolls.skill.dc", "onUpdate", linker);
+						for _,w in pairs(DB.getChildren("requestsheet.rolls")) do
+							if DB.getValue(w,"dc_show",0)==1 then
+								DB.addHandler(DB.getPath(w,"dc"), "onUpdate", linker);
+							end
+						end
 					end
 					
 					--use var run to prevent recursion. set other DC nodes to same value
@@ -134,11 +136,13 @@
 					function linker(nodeUpdated)
 						if run and self.getValue() == 1 then
 							run=false;
-							node = DB.getPath(nodeUpdated);
+							node = DB.getParent(nodeUpdated);
 							val = DB.getValue(DB.getPath(nodeUpdated),0);
-							if node ~= "requestsheet.rolls.check.dc" then DB.setValue("requestsheet.rolls.check.dc","number", val); end
-							if node ~= "requestsheet.rolls.save.dc" then DB.setValue("requestsheet.rolls.save.dc","number", val); end
-							if node ~= "requestsheet.rolls.skill.dc" then DB.setValue("requestsheet.rolls.skill.dc","number", val); end
+							for _,w in pairs(DB.getChildren("requestsheet.rolls")) do
+								if DB.getValue(w,"dc_show",0)==1 and not (w==node) then
+									DB.setValue(w, "dc","number",val);
+								end
+							end
 							run=true;
 						end
 						

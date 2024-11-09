@@ -57,7 +57,7 @@ function onInit()
 		_ctrlDCLabel.setAnchor("left", sButton, "right", "relative", 5);
 		_ctrlDCLabel.setAnchor("top", sName, "center", "absolute", -(math.floor(_nButtonH/2)) + 0);
 
-		_ctrlDCField = window.createControl("RR_DCField",sName..".dc");
+		_ctrlDCField = window.createControl("RR_DCField","rolls."..sName..".dc");
 		_ctrlDCField.setAnchor("left", sButton, "right", "relative", 5);
 		_ctrlDCField.setAnchor("top", sName, "center", "absolute", -(math.floor(_nButtonH/2)) + 0);
 		_rightMostControl = _ctrlDCField;
