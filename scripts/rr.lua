@@ -8,9 +8,11 @@ function onInit()
 	if Session.IsHost then DB.createNode(dbRootName); end
 	registerOptions();
 	registerSlashHandlers();
-	initializeDirtyState();
-	runMigration();
-	buildComboOptions();
+	if Session.IsHost then
+		initializeDirtyState();
+		runMigration();
+		buildComboOptions();
+	end
 end
 
 function buildComboOptions()
