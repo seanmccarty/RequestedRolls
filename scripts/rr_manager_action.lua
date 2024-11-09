@@ -387,8 +387,7 @@ end
 ---@return string|nil nodePath the root character node of the chain
 function getRootCommander(rActor)
 	local sRecord = ActorManager.getCreatureNodeName(rActor);
-	local sRecordSansModule = StringManager.split(sRecord, "@")[1];
-	local aRecordPathSansModule = StringManager.split(sRecordSansModule, ".");
+	local aRecordPathSansModule, _ = UtilityManager.parsePath(sRecord);
 	if aRecordPathSansModule[1] and aRecordPathSansModule[2] then
 		return aRecordPathSansModule[1] .. "." .. aRecordPathSansModule[2];
 	end
