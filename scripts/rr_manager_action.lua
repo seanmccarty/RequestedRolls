@@ -354,34 +354,28 @@ function needsBroadcast(rSource, msgOOB)
     handleApplyRollRR(msgOOB);
 end
 
----For a given actor, determines who the owning client is and if they are connected. Returns nil for inactive identities and those owned by the GM
+---For a given actor, determines who the owning client is and if they are connected. Returns nil for those owned by the GM or if the owner is not connected
+---Prefers DB node owners, otherwise it checks for NPCowner from the extension Assistant GM
+---This does not check if the identity is active before establishing ownership
 ---@param rActor table the actor who the owner needs to be determined for
 ---@return string|nil sOwner the controlling client if they are connected. otherwise returns nil
 function getControllingClient(rActor)
-	local isControlled = false;
-	local sNode = nil;
-	if ActorManager.isPC(rActor) then
-		sNode = ActorManager.getCreatureNodeName(rActor);
-	else
-		if (FriendZone and FriendZone.isCohort(rActor)) or (Pets and Pets.isCohort(rActor)) then
-			sNode = getRootCommander(rActor);
+	local sNode = ActorManager.getCreatureNodeName(rActor);
+	local sOwner = DB.getOwner(sNode);
+	local userList = User.getActiveUsers();
+	if sOwner == nil then
+		sOwner = DB.getValue(sNode..".NPCowner",nil);
+	end
+	for _, value in pairs(userList) do
+		if value == sOwner then
+			return sOwner;
 		end
 	end
 
-	--There will be an active identity if the client is connected. If sNode is still nil, nothing will be found
-	for _, value in pairs(User.getAllActiveIdentities()) do
-		if "charsheet." .. value == sNode then
-			isControlled = true;
-		end
-	end
-	
-	if isControlled then
-		return DB.getOwner(sNode);
-	else
-		return nil;
-	end	
+	return nil;
 end
 
+---DEPRECATE as unused
 ---For a given cohort actor, determine the root character node that owns it
 ---@param rActor table the actor we need the root commander for
 ---@return string|nil nodePath the root character node of the chain
