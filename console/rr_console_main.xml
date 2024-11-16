@@ -190,7 +190,7 @@
 				</anchored>
 			</button_icon>
 			<button_icon name="proficiencytargeting">
-				<icon normal="button_prof" />
+				<icon normal="button_prof_down" />
 				<tooltip textres="RR_tooltip_proficiencyTargeting" />
 				<script>
 					function onButtonPress()
