@@ -277,6 +277,7 @@ function processRRcmd(sCommand, sParams)
 	local _nTargetDC = nil;
 	local _sTargetType = "";
 	local _tTargets = {};
+	local _sDesc = "";
 
 	local cases = {
 		["type"] = function (param) _sType = param; end,
@@ -293,7 +294,8 @@ function processRRcmd(sCommand, sParams)
 					end
 				end
 			end
-		end
+		end,
+		["desc"] = function (param) _sDesc = param; end
 	}
 
 	local entries = StringManager.split(sParams,"|",true);
@@ -318,7 +320,7 @@ function processRRcmd(sCommand, sParams)
 	if #_tTargets==0 then
 		_tTargets = RR.getSelectedChars();
 	end
-	RRRollManager.requestRoll(_sType, _sSubType, _tTargets, _bSecret, _nTargetDC);
+	RRRollManager.requestRoll(_sType, _sSubType, _tTargets, _bSecret, _nTargetDC, _sDesc);
 end
 
 --#endregion

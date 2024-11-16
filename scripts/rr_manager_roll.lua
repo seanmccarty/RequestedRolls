@@ -31,7 +31,7 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 	return true;
 end
 
-function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC)
+function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 	if tActors==nil or #tActors==0 then
 		ChatManager.SystemMessage("No valid actors for roll.");
 		return;
@@ -53,6 +53,10 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC)
 		if bSecret == true then
 			rRoll.bSecret = true;
 			rRoll.bTower = true;
+		end
+
+		if sDesc then
+			rRoll.sDesc = rRoll.sDesc .. " " .. sDesc;
 		end
 	
 		ActionsManager.performAction(nil, rActor, rRoll);
@@ -97,7 +101,9 @@ function onButtonPress(sRollType,nodeCT)
 		bSecret = true;
 	end
 
-	requestRoll(sRollType, sSubType, aParty, bSecret,nTargetDC)
+	local sDesc = DB.getValue("requestsheet.rollreason", nil);
+
+	requestRoll(sRollType, sSubType, aParty, bSecret, nTargetDC, sDesc)
 
 		
 	if DB.getValue("requestsheet.deselectonroll",0)==1 then

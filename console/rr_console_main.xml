@@ -203,6 +203,13 @@
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
 			</button_icon>
+			<basicstring name="rollreason">
+				<anchored to="leftanchor" height="23" width="150">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<tooltip>Reason for roll</tooltip>
+			</basicstring>
 
 			<!-- Roll selectors -->
 			<rollModule name="check">
