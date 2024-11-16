@@ -65,7 +65,7 @@
 	<string name="RR_tooltip_openCharacterSheet">Open character sheet</string>
 
 	<!-- Console Main Page Expander Windows -->
-	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Options tab and a select checkbox to show on the expander.</string>
+	<string name="RR_label_nobuttonselected">Nothing to show. Go to the Options tab and select a checkbox to show on the expander.</string>
 
 	<!-- Console Options Page -->
 	<string name="RR_tooltip_forceRolls">Make All Rolls for Player</string>
