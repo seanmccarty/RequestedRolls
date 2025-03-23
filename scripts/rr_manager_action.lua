@@ -24,7 +24,9 @@ OOB_MSGTYPE_ALLROLLS = "allrollsRR";
 local sTypes = {
 	["concentration"] = { },
 	["death_auto"] = { },
-	["stabilization"] = { }
+	["stabilization"] = { }, 
+	["parcelseeharvest"] = {},
+	["parcelharvest"] = {}
 };
 
 --a list of the start of sSaveDesc that should trigger a popup
