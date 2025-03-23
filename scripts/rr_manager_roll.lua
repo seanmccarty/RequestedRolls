@@ -43,8 +43,9 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 	end
 
 	ModifierStack.lock();
+	local rRoll = {};
+	local sActors = "";
 	for _,rActor in pairs(tActors) do
-		local rRoll = {};
 		rRoll = fRollResult(rActor, sSubType);
 		rRoll.RR = true;
 		if not (Interface.getRuleset()=="2E") then
@@ -60,8 +61,11 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 		end
 	
 		ActionsManager.performAction(nil, rActor, rRoll);
+		sActors = sActors..ActorManager.getDisplayName(rActor).."; ";
 	end
 	ModifierStack.unlock(true);
+	local msg = {font = "systemfont", icon = "Logo_Mccartysr", text = "Requested "..rRoll.sDesc.. "- "..sActors};
+	Comm.addChatMessage(msg);
 end
 
 ---Main entry point for kicking off rolls from the console
