@@ -64,7 +64,7 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 		sActors = sActors..ActorManager.getDisplayName(rActor).."; ";
 	end
 	ModifierStack.unlock(true);
-	local msg = {font = "systemfont", icon = "Logo_Mccartysr", text = "Requested "..rRoll.sDesc.. "- "..sActors};
+	local msg = {text = "Requested "..rRoll.sDesc.. "- "..sActors, secret=true};
 	Comm.addChatMessage(msg);
 end
 

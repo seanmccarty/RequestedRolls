@@ -302,7 +302,7 @@ function notifyAllRolls(rSource, bMakeRoll)
 		end
 		Comm.deliverOOBMessage(msgOOB, sOwner);
 
-		local msg = {font = "systemfont", icon = "portrait_gm_token"};
+		local msg = {icon = "portrait_gm_token"};
 		if bMakeRoll then
 			msg.text = Interface.getString("RR_msg_rollAll_GM")..ActorManager.getDisplayName(rSource);
 		else
@@ -333,7 +333,7 @@ function handleAllRollsRR(msgOOB)
 		end
 	end
 	if bActioned then
-		local msg = {font = "systemfont", icon = "portrait_gm_token"};
+		local msg = {icon = "portrait_gm_token", secret=true};
 		if bMakeRoll then
 			msg.text = Interface.getString("RR_msg_rollAll_player")
 		else
