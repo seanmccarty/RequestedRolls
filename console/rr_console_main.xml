@@ -175,6 +175,20 @@
 					end
 				</script>
 			</buttonfield>
+			<button_icon name="pizzapizza">
+				<icon normal="pizza_pizza" />
+				<tooltip textres="pizza_tooltip_pizzaButton" />
+				<tintable/>
+				<script>
+					function onButtonPress()
+						Interface.openWindow("PizzaRequest", "");
+					end
+				</script>
+				<anchored to="leftanchor" height="23" width="23">
+					<top />
+					<left anchor="right" relation="relative" offset="60" />
+				</anchored>
+			</button_icon>
 			<button_icon name="mirrortargeting">
 				<icon normal="sidebar_icon_recordtype_battle" />
 				<tooltip textres="RR_tooltip_mirrorTargeting" />
@@ -186,7 +200,7 @@
 				</script>
 				<anchored to="leftanchor" height="23" width="23">
 					<top />
-					<left anchor="right" relation="relative" offset="100" />
+					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
 			</button_icon>
 			<button_icon name="proficiencytargeting">

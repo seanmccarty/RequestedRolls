@@ -38,4 +38,8 @@
 
 	<!-- Miscellaneous Changes -->
 	<includefile source="desktop/rr_desktop_panels.xml"/>
+
+	<!-- Pizza -->
+	<includefile source="pizza/pizza.xml"/>
+	<script name="Pizza" file="pizza/pizza.lua"/>
 </root>

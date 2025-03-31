@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="PizzaRequest">
+		<frame>utilitybox</frame>
+		<sizelimits>
+			<minimum width="300" height="300" />
+			<dynamic />
+		</sizelimits>
+		<helplinkres>RR_url_help</helplinkres>
+		<softclose />
+		<nodelete />
+		<script>
+			function processOK()
+				Pizza.applyPizza(text.getValue());
+				close();
+			end
+			function processCancel()
+				close();
+			end
+		</script>
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>pizza_window_title</resource>
+			</windowtitlebar>
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+			<windowmenubar_utilitybox name="menubar" />
+
+			<sub_content_bottom name="sub_buttons">
+				<class>dialog_buttons_okcancel</class>
+			</sub_content_bottom>
+
+			<string_content_top name="text" >
+				<anchored>
+					<bottom parent="bottomanchor" relation="current" offset="-15" />
+				</anchored>
+			</string_content_top>
+			<scrollbar_content_text />
+			<resize_utilitybox />
+		</sheetdata>
+	</windowclass>
+</root>

@@ -15,4 +15,8 @@
 
 	<!-- From CoreRPG, used for clearing all rolls for a player -->
 	<icon name="sidebar_icon_recordtype_hindrance" file="graphics/sidebar/sidebar_icon_hindrance.png" />
+
+	<!-- Pizza -->
+	<icon name="pizza_pizza" file="graphics/buttons/pizza.png" />
+	<icon name="pizza_chat" file="graphics/buttons/pizza_black.png" />
 </root>
