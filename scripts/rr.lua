@@ -15,7 +15,7 @@ function onInit()
 	end
 end
 
----comment
+---Used to configure the expander trays on the RR console
 ---@param rollType string the name for the node used in the database to hold these
 ---@param display_name string the display name
 ---@param sort_order number the order it should appear in on the console
@@ -42,6 +42,10 @@ function initializeRollLists()
 		end
 	end
 
+	if Interface.getRuleset()=="CoreRPG" then
+		setComboConfiguration("skill","Skill",3,1,65)
+	end
+
 	if DataCommon then
 		local abilityData = DataCommon.psabilitydata;
 		if abilityData == nil then
@@ -57,8 +61,6 @@ function initializeRollLists()
 					DB.setValue(node2, "show", "number", "1");
 				end
 			end
-		else
-			DB.deleteNode("requestsheet.rolls.check");
 		end
 		-- TODO add cleaner handling of initialization
 		local saveData = DataCommon.pssavedata;
@@ -81,8 +83,6 @@ function initializeRollLists()
 					DB.setValue(node2, "show", "number", "1");
 				end
 			end
-		else
-			DB.deleteNode("requestsheet.rolls.save");
 		end
 
 		if DataCommon.skilldata then
@@ -95,18 +95,6 @@ function initializeRollLists()
 					DB.setValue(node2, "show", "number", "1");
 				end
 			end
-		else
-			if Interface.getRuleset()~="2E" then
-				DB.deleteNode("requestsheet.rolls.skill");
-			end
-		end
-	else
-		DB.deleteNode("requestsheet.rolls.check");
-		DB.deleteNode("requestsheet.rolls.save");
-		if Interface.getRuleset()=="CoreRPG" then
-			setComboConfiguration("skill","Skill",3,1,65)
-		else 
-			DB.deleteNode("requestsheet.rolls.skill");
 		end
 	end
 end
