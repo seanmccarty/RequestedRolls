@@ -11,17 +11,27 @@ function onInit()
 	if Session.IsHost then
 		initializeDirtyState();
 		runMigration();
-		buildComboOptions();
+		initializeRollLists();
 	end
 end
 
-function buildComboOptions()
-	if  DB.findNode("requestsheet.rolls.dice.dc_show") == nil then
-		DB.setValue("requestsheet.rolls.dice.display_name", "string", "Die");
-		DB.setValue("requestsheet.rolls.dice.sort_order", "number", 4);
-		DB.setValue("requestsheet.rolls.dice.dc_show", "number", 0);
-		DB.setValue("requestsheet.rolls.dice.button_width", "number", 100);
+---comment
+---@param rollType string the name for the node used in the database to hold these
+---@param display_name string the display name
+---@param sort_order number the order it should appear in on the console
+---@param dc_show number 0 to hide, 1 to show
+---@param button_width number the width in pixels for the button in the expander trays
+function setComboConfiguration(rollType, display_name, sort_order,dc_show,button_width)
+	if  DB.findNode("requestsheet.rolls."..rollType..".dc_show") == nil then
+		DB.setValue("requestsheet.rolls."..rollType..".display_name", "string", display_name);
+		DB.setValue("requestsheet.rolls."..rollType..".sort_order", "number", sort_order);
+		DB.setValue("requestsheet.rolls."..rollType..".dc_show", "number", dc_show);
+		DB.setValue("requestsheet.rolls."..rollType..".button_width", "number", button_width);
 	end
+end
+
+function initializeRollLists()
+	setComboConfiguration("dice","Die",4,0,100);
 	if DB.findNode("requestsheet.rolls.dice.list") == nil then
 		local node = DB.createNode("requestsheet.rolls.dice.list");
 		local dice = {"d4","d6","d8","d10","d20"};
@@ -38,12 +48,7 @@ function buildComboOptions()
 			abilityData = DataCommon.abilities;
 		end
 		if abilityData then 
-			if  DB.findNode("requestsheet.rolls.check.dc_show") == nil then
-				DB.setValue("requestsheet.rolls.check.display_name", "string", "Check");
-				DB.setValue("requestsheet.rolls.check.sort_order", "number", 1);
-				DB.setValue("requestsheet.rolls.check.dc_show", "number", 1);
-				DB.setValue("requestsheet.rolls.check.button_width", "number", 65);
-			end
+			setComboConfiguration("check","Check",1,1,65);
 			if DB.findNode("requestsheet.rolls.check.list") == nil then
 				local node = DB.createNode("requestsheet.rolls.check.list");
 				for _,w in ipairs(abilityData) do
@@ -67,12 +72,7 @@ function buildComboOptions()
 			saveData = nil;
 		end
 		if saveData then 
-			if  DB.findNode("requestsheet.rolls.save.dc_show") == nil then
-				DB.setValue("requestsheet.rolls.save.display_name", "string", "Save");
-				DB.setValue("requestsheet.rolls.save.sort_order", "number", 2);
-				DB.setValue("requestsheet.rolls.save.dc_show", "number", 1);
-				DB.setValue("requestsheet.rolls.save.button_width", "number", 65);
-			end
+			setComboConfiguration("save","Save",2,1,65);
 			if DB.findNode("requestsheet.rolls.save.list") == nil then
 				local node = DB.createNode("requestsheet.rolls.save.list");
 				for _,w in ipairs(saveData) do
@@ -86,12 +86,7 @@ function buildComboOptions()
 		end
 
 		if DataCommon.skilldata then
-			if  DB.findNode("requestsheet.rolls.skill.dc_show") == nil then
-				DB.setValue("requestsheet.rolls.skill.display_name", "string", "Skill");
-				DB.setValue("requestsheet.rolls.skill.sort_order", "number", 3);
-				DB.setValue("requestsheet.rolls.skill.dc_show", "number", 1);
-				DB.setValue("requestsheet.rolls.skill.button_width", "number", 125);
-			end
+			setComboConfiguration("skill","Skill",3,1,125);
 			if  DB.findNode("requestsheet.rolls.skill.list") == nil then
 				local node = DB.createNode("requestsheet.rolls.skill.list");
 				for k, _ in pairs(DataCommon.skilldata) do
@@ -109,10 +104,7 @@ function buildComboOptions()
 		DB.deleteNode("requestsheet.rolls.check");
 		DB.deleteNode("requestsheet.rolls.save");
 		if Interface.getRuleset()=="CoreRPG" then
-			DB.setValue("requestsheet.rolls.skill.display_name", "string", "Skill");
-			DB.setValue("requestsheet.rolls.skill.sort_order", "number", 3);
-			DB.setValue("requestsheet.rolls.skill.dc_show", "number", 1);
-			DB.setValue("requestsheet.rolls.skill.button_width", "number", 65);
+			setComboConfiguration("skill","Skill",3,1,65)
 		else 
 			DB.deleteNode("requestsheet.rolls.skill");
 		end
