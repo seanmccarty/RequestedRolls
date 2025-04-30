@@ -28,7 +28,7 @@ function getSaveRoll(rActor,sSave)
 	rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
 	local nMod, bADV, bDIS, sAddText = ActorManagerADND.getSave(rActor, sSave);
 	rRoll.nMod = nMod;
-	local sPrettySaveText = DataCommon.saves_stol[sSave];
+	local sPrettySaveText = DataCommon.saves_stol[sSave] or "";
 	rRoll.sDesc = "[SAVE] vs. " .. StringManager.capitalize(sPrettySaveText);
 	if sAddText and sAddText ~= "" then
 		rRoll.sDesc = rRoll.sDesc .. " " .. sAddText;
