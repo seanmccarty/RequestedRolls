@@ -33,7 +33,11 @@ function buildComboOptions()
 	end
 
 	if DataCommon then
-		if DataCommon.psabilitydata then 
+		local abilityData = DataCommon.psabilitydata;
+		if abilityData == nil then
+			abilityData = DataCommon.abilities;
+		end
+		if abilityData then 
 			if  DB.findNode("requestsheet.rolls.check.dc_show") == nil then
 				DB.setValue("requestsheet.rolls.check.display_name", "string", "Check");
 				DB.setValue("requestsheet.rolls.check.sort_order", "number", 1);
@@ -42,7 +46,7 @@ function buildComboOptions()
 			end
 			if DB.findNode("requestsheet.rolls.check.list") == nil then
 				local node = DB.createNode("requestsheet.rolls.check.list");
-				for _,w in ipairs(DataCommon.psabilitydata) do
+				for _,w in ipairs(abilityData) do
 					local node2 = DB.createChild(node);
 					DB.setValue(node2,"name","string",w);
 					DB.setValue(node2, "show", "number", "1");
@@ -55,6 +59,9 @@ function buildComboOptions()
 		local saveData = DataCommon.pssavedata;
 		if saveData==nil then
 			saveData = DataCommon.psabilitydata;
+		end
+		if saveData==nil then
+			saveData = DataCommon.saves;
 		end
 		if Interface.getRuleset()=="4E" then
 			saveData = nil;
@@ -94,7 +101,9 @@ function buildComboOptions()
 				end
 			end
 		else
-			DB.deleteNode("requestsheet.rolls.skill");
+			if Interface.getRuleset()~="2E" then
+				DB.deleteNode("requestsheet.rolls.skill");
+			end
 		end
 	else
 		DB.deleteNode("requestsheet.rolls.check");
