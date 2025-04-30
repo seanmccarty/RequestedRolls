@@ -11,7 +11,9 @@ function onInit()
 	if Session.IsHost then
 		initializeDirtyState();
 		runMigration();
-		initializeRollLists();
+		if DB.findNode("requestsheet.rolls") == nil then
+			initializeRollLists();
+		end
 	end
 end
 
@@ -22,30 +24,31 @@ end
 ---@param dc_show number 0 to hide, 1 to show
 ---@param button_width number the width in pixels for the button in the expander trays
 function setComboConfiguration(rollType, display_name, sort_order,dc_show,button_width)
-	if  DB.findNode("requestsheet.rolls."..rollType..".dc_show") == nil then
-		DB.setValue("requestsheet.rolls."..rollType..".display_name", "string", display_name);
-		DB.setValue("requestsheet.rolls."..rollType..".sort_order", "number", sort_order);
-		DB.setValue("requestsheet.rolls."..rollType..".dc_show", "number", dc_show);
-		DB.setValue("requestsheet.rolls."..rollType..".button_width", "number", button_width);
+	DB.setValue("requestsheet.rolls."..rollType..".display_name", "string", display_name);
+	DB.setValue("requestsheet.rolls."..rollType..".sort_order", "number", sort_order);
+	DB.setValue("requestsheet.rolls."..rollType..".dc_show", "number", dc_show);
+	DB.setValue("requestsheet.rolls."..rollType..".button_width", "number", button_width);
+end
+
+function setDefaultRollOptions(rollType, rollEntries)
+	local node = DB.createNode("requestsheet.rolls."..rollType..".list");
+	for _,w in ipairs(rollEntries) do
+		local node2 = DB.createChild(node);
+		DB.setValue(node2,"name","string",w);
+		DB.setValue(node2, "show", "number", "1");
 	end
 end
 
 function initializeRollLists()
 	setComboConfiguration("dice","Die",4,0,100);
-	if DB.findNode("requestsheet.rolls.dice.list") == nil then
-		local node = DB.createNode("requestsheet.rolls.dice.list");
-		local dice = {"d4","d6","d8","d10","d20"};
-		for _,w in ipairs(dice) do
-			local node2 = DB.createChild(node);
-			DB.setValue(node2,"name","string",w);
-			DB.setValue(node2, "show", "number", "1");
-		end
-	end
+	local dice = {"d4","d6","d8","d10","d20"};
+	setDefaultRollOptions("dice",dice);
 
 	if Interface.getRuleset()=="CoreRPG" then
 		setComboConfiguration("skill","Skill",3,1,65)
 	end
 
+	-- For each of the rollTypes, where the data is stored depends on the ruleset, try the common names in each rulset until one of them is found
 	if DataCommon then
 		local abilityData = DataCommon.psabilitydata;
 		if abilityData == nil then
@@ -53,14 +56,7 @@ function initializeRollLists()
 		end
 		if abilityData then 
 			setComboConfiguration("check","Check",1,1,65);
-			if DB.findNode("requestsheet.rolls.check.list") == nil then
-				local node = DB.createNode("requestsheet.rolls.check.list");
-				for _,w in ipairs(abilityData) do
-					local node2 = DB.createChild(node);
-					DB.setValue(node2,"name","string",w);
-					DB.setValue(node2, "show", "number", "1");
-				end
-			end
+			setDefaultRollOptions("check", abilityData);
 		end
 		-- TODO add cleaner handling of initialization
 		local saveData = DataCommon.pssavedata;
@@ -75,25 +71,17 @@ function initializeRollLists()
 		end
 		if saveData then 
 			setComboConfiguration("save","Save",2,1,65);
-			if DB.findNode("requestsheet.rolls.save.list") == nil then
-				local node = DB.createNode("requestsheet.rolls.save.list");
-				for _,w in ipairs(saveData) do
-					local node2 = DB.createChild(node);
-					DB.setValue(node2,"name","string",w);
-					DB.setValue(node2, "show", "number", "1");
-				end
-			end
+			setDefaultRollOptions("save",saveData);
 		end
 
 		if DataCommon.skilldata then
 			setComboConfiguration("skill","Skill",3,1,125);
-			if  DB.findNode("requestsheet.rolls.skill.list") == nil then
-				local node = DB.createNode("requestsheet.rolls.skill.list");
-				for k, _ in pairs(DataCommon.skilldata) do
-					local node2 = DB.createChild(node);
-					DB.setValue(node2,"name","string",k);
-					DB.setValue(node2, "show", "number", "1");
-				end
+			--cannot use normal setDefaultRollOptions becuase skilldata has a different format
+			local node = DB.createNode("requestsheet.rolls.skill.list");
+			for k, _ in pairs(DataCommon.skilldata) do
+				local node2 = DB.createChild(node);
+				DB.setValue(node2,"name","string",k);
+				DB.setValue(node2, "show", "number", "1");
 			end
 		end
 	end
