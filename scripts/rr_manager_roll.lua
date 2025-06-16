@@ -39,6 +39,7 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 
 	local fRollResult = aRollHandlers[sRollType];
 	if not fRollResult then
+		ChatManager.SystemMessage("Roll type does not exist.");
 		return;
 	end
 
