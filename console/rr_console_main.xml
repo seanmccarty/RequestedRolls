@@ -78,9 +78,9 @@
 
 			<!-- Footer anchors -->
 			<genericcontrol name="footeranchor">
-				<anchored height="20">
-					<bottom offset="-95" />
-					<left offset="1"/>
+				<anchored height="10">
+					<bottom offset="-130" />
+					<left offset="0"/>
 					<right />
 				</anchored>
 			</genericcontrol>
@@ -259,6 +259,14 @@
 				<titleTextres>RR_label_dice</titleTextres>
 				<comboWidth>125</comboWidth>
 				<unsorted/>
+			</rollModule>
+			<rollModule name="table">
+				<anchored>
+					<top parent="leftanchor" relation="relative" offset="-5"/>
+					<left/>
+				</anchored>
+				<titleTextres>RR_label_table</titleTextres>
+				<comboWidth>240</comboWidth>
 			</rollModule>
 
 			<!-- old person buttons come last because they are anchored in the middle-->

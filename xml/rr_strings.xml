@@ -39,6 +39,7 @@
 	<string name="RR_label_check">Check</string>
 	<string name="RR_label_save">Save</string>
 	<string name="RR_label_skill">Skill</string>
+	<string name="RR_label_table">Table</string>
 	<string name="RR_label_attack">Attack</string>
 
 	<string name="RR_tooltip_select_all">Select All</string>
