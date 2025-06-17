@@ -42,6 +42,9 @@
 	<string name="RR_label_table">Table</string>
 	<string name="RR_label_attack">Attack</string>
 
+	<string name="RR_label_why">Why</string>
+	<string name="RR_tooltip_rollReason">Reason for Roll</string>
+
 	<string name="RR_tooltip_select_all">Select All</string>
 	<string name="RR_tooltip_select_none">Deselect All</string>
 	<string name="RR_tooltip_select_random">Select Random</string>

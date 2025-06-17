@@ -217,13 +217,7 @@
 					<left anchor="right" relation="relative" offset="30" />
 				</anchored>
 			</button_icon>
-			<basicstring name="rollreason">
-				<anchored to="leftanchor" height="23" width="150">
-					<top />
-					<left anchor="right" relation="relative" offset="30" />
-				</anchored>
-				<tooltip>Reason for roll</tooltip>
-			</basicstring>
+
 
 			<!-- Roll selectors -->
 			<rollModule name="check">
@@ -268,6 +262,26 @@
 				<titleTextres>RR_label_table</titleTextres>
 				<comboWidth>240</comboWidth>
 			</rollModule>
+			<!-- The roll reason field -->
+			<genericcontrol name="reasonFrame">
+				<anchored to="table" position="right" offset="-10,0" width="197"/>
+				<frame name="groupbox"/>
+			</genericcontrol>
+			<label name="why">
+				<anchored>
+					<top parent="reasonFrame" anchor="center" offset="-10"/>
+					<left parent="reasonFrame" offset="10"/>
+				</anchored>
+				<static textres="RR_label_why" />
+				<tooltip><textres>RR_tooltip_rollReason</textres></tooltip>
+			</label>
+			<basicstring name="rollreason">
+				<anchored height="20">
+					<top parent="reasonFrame" offset="10"/>
+					<left parent="why" anchor="right" offset="5"/>
+					<right parent="reasonFrame" offset="-13"/>
+				</anchored>
+			</basicstring>
 
 			<!-- old person buttons come last because they are anchored in the middle-->
 			<windowlist name="oldpersonbuttons_list" >
