@@ -44,6 +44,9 @@ function initializeRollLists()
 	local dice = {"d4","d6","d8","d10","d20"};
 	setDefaultRollOptions("dice",dice);
 
+	setComboConfiguration("table","Table",5,0,200);
+	-- no defaults for tables
+
 	if Interface.getRuleset()=="CoreRPG" then
 		setComboConfiguration("skill","Skill",3,1,65)
 	end
@@ -468,6 +471,11 @@ function runMigration()
 	migrateExpanderCheckbox("requestsheet.rolls.save.list");
 	migrateExpanderCheckbox("requestsheet.rolls.skill.list");
 	migrateExpanderCheckbox("requestsheet.rolls.dice.list");
+
+	-- 2.20
+	if DB.findNode("requestsheet.rolls.table") == nil then
+		setComboConfiguration("table","Table",5,0,200);
+	end
 end
 
 ---Copies a source node to the destination and deletes the source node

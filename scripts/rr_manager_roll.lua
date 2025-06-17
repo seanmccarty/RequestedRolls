@@ -13,6 +13,7 @@ function onInit()
 	registerRollGetter("save",getSaveRoll);
 	registerRollGetter("check",getCheckRoll);
 	registerRollGetter("skill",getSkillRoll);
+	registerRollGetter("table",getTableRoll);
 end
 
 local aRollHandlers = {};
@@ -95,7 +96,11 @@ function onButtonPress(sRollType,nodeCT)
 	-- 	aParty = nil;
 	-- end
 
-	local sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", ""):lower();
+	-- tables are case-sensitive, all other rolls are lowercase for comparison
+	local sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", "");
+	if sRollType~="table" then
+		sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", ""):lower();
+	end
 	local nTargetDC = DB.getValue("requestsheet.rolls."..sRollType..".dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
@@ -189,6 +194,21 @@ function getSkillRoll(rActor, sSkill)
 		local  nSkillMod = CharManager.getSkillValue(rActor, sSkillLookup, sSubSkill);
 		rRoll = ActionSkill.getRoll(rActor, sSkill, nSkillMod);
 	end
+
+	return rRoll;
+end
+
+---Modified from TablerManager.performRoll
+---@param _ any typically rActor, unused
+---@param sTableName string the full name of the table, case-sensitive
+---@return table rRoll 
+function getTableRoll(_, sTableName)
+	local nodeTable = TableManager.findTable(sTableName)
+	local rRoll = {};
+	rRoll.aDice, rRoll.nMod = TableManager.getTableDice(nodeTable);
+	rRoll.sType = "table";
+	rRoll.sDesc = string.format("[%s] %s", Interface.getString("table_tag"), StringManager.capitalizeAll(DB.getValue(nodeTable, "name", "")));
+	rRoll.sNodeTable = DB.getPath(nodeTable);
 
 	return rRoll;
 end
