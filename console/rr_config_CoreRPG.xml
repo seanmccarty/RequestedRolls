@@ -5,7 +5,7 @@
 		<sheetdata>
 			<genericcontrol name="footeranchor" merge="join">
 				<anchored height="20">
-					<bottom offset="-65" />
+					<bottom offset="-85" />
 				</anchored>
 			</genericcontrol>
 
@@ -17,7 +17,7 @@
 			<rollModule name="skill" merge="join">
 				<anchored><top offset="0"/></anchored>
 				<showDC merge="delete"/>
-				<comboWidth>240</comboWidth>
+				<comboWidth>245</comboWidth>
 			</rollModule>
 			<rollModule name="init" merge="delete"/>
 		</sheetdata>
