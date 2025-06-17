@@ -92,7 +92,7 @@
 				<datasource>.list</datasource>
 				<class>item_entry</class>
 				<sortby><control>name</control></sortby>
-				<columns><width>350</width></columns>
+				<columns dynamic="true"><width>350</width></columns>
 				<script file="console/scripts/rr_console_options.lua" />
 			</list_content_noscroll_alternating_top>
 

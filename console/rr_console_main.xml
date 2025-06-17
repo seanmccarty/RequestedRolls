@@ -286,7 +286,7 @@
 			<!-- old person buttons come last because they are anchored in the middle-->
 			<windowlist name="oldpersonbuttons_list" >
 				<datasource>.rolls</datasource>
-				<columns fillwidth="true"/>
+				<columns fillwidth="true" />
 				<class>oldpersonbutton_expanderTray</class>
 				<sortby><field>sort_order</field></sortby>
 				<script>
@@ -480,7 +480,7 @@
 						</minimum>
 					</sizelimits>
 				</anchored>
-				<columns width="125" fillwidth="true" />
+				<columns width="125" fillwidth="true" dynamic="true"/>
 				<skipempty/>
 				<noscroll/>
 				<empty><textres>RR_label_nobuttonselected</textres></empty>
