@@ -10,9 +10,15 @@ function onInit()
 	registerSlashHandlers();
 	if Session.IsHost then
 		initializeDirtyState();
+		-- must run migration before attempting to initialize roll lists
 		runMigration();
 		if DB.findNode("requestsheet.rolls") == nil then
 			initializeRollLists();
+		end
+
+		-- 2.20 migration step, check must occur after the rolls are initialized or it will block the rest of the roll types
+		if DB.findNode("requestsheet.rolls.table") == nil then
+			setComboConfiguration("table","Table",5,0,200);
 		end
 	end
 end
@@ -471,11 +477,6 @@ function runMigration()
 	migrateExpanderCheckbox("requestsheet.rolls.save.list");
 	migrateExpanderCheckbox("requestsheet.rolls.skill.list");
 	migrateExpanderCheckbox("requestsheet.rolls.dice.list");
-
-	-- 2.20
-	if DB.findNode("requestsheet.rolls.table") == nil then
-		setComboConfiguration("table","Table",5,0,200);
-	end
 end
 
 ---Copies a source node to the destination and deletes the source node
