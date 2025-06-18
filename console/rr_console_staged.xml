@@ -18,7 +18,7 @@
 				<sortby><field>sort_order</field></sortby>
 				<child merge="resetandadd"></child>
 				<child merge="add"><backcolor>1A40301E</backcolor></child>
-				<empty><text>-------</text></empty>
+				<empty><textres>library_recordtype_filter_empty</textres></empty>
 			</list_content_labeled_framed_groupbox>
 			<scrollbar_content_list />
 
