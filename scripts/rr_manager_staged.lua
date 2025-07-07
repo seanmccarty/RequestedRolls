@@ -130,6 +130,8 @@ function addDefaultRolls(nodeParent, nodeChildAdded)
 		local node4 = DB.createChild(node);
 		DB.setValue(node4, "type","string","Skill");
 	end
+	local node7 = DB.createChild(node);
+	DB.setValue(node7, "type","string","Damage");
 	local node6 = DB.createChild(node);
 	DB.setValue(node6, "type","string","Dice");
 end
