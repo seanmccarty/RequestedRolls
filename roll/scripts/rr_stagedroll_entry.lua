@@ -81,6 +81,9 @@ function setData(rRoll, rSource, aTargets,rApplicableIdentifier)
 	list.applySort();
 	vRoll = rRoll;
 
+	-- Staged rolls should not be able to be restaged
+	vRoll.blockStage = true;
+
 	if rSource then
 		source.setValue(ActorManager.getDisplayName(rSource));
 		vSource = rSource;

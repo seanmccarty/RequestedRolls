@@ -60,7 +60,7 @@ function resolveAction(rSource, rTarget, rRoll)
 	end
 	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
 	local rApplicableIdentifier = shouldStage(rSource, rTarget, rRoll);
-	if OptionsManager.isOption("RR_option_label_allowRollStaging","on") and #rApplicableIdentifier>0 then
+	if #rApplicableIdentifier>0 then
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fOriginalResolveAction(rSource, rTarget, rRoll);
@@ -71,12 +71,15 @@ end
 ---@param rSource any
 ---@param rTarget any
 ---@param rRoll any
----@return table results a table of the features, feats, etc... that this roll may apply to
+---@return table results a table of the features, feats, etc... that this roll may apply to. An empty table 
 function shouldStage(rSource, rTarget, rRoll)
-	if rRoll and (tonumber(rRoll.nTarget) or 0) > 0 then
-		--rRoll.nTarget = nil;
-		--rRoll.sDesc = rRoll.sDesc .. "\n[Staged]"
+	if not OptionsManager.isOption("RR_option_label_allowRollStaging","on") then
+		return {};
 	end
+	if rRoll and rRoll.blockStage then
+		return {};
+	end
+
 	local results = {};
 	if rRoll and rRoll.sType and stageArray[rRoll.sType:lower()] then
 		if RR.bDebug then Debug.chat("1",stageArray[rRoll.sType]); end
