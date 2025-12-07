@@ -39,6 +39,9 @@
 			<sub_content_hidden name="staged">
 				<class>rr_staged</class>
 			</sub_content_hidden>
+			<sub_content_hidden name="contest">
+				<class>rr_contest</class>
+			</sub_content_hidden>
 			
 			<tabs_partysheet name="tabs">
 				<tab>
@@ -52,6 +55,10 @@
 				<tab>
 					<tabres>RR_label_stage</tabres>
 					<subwindow>staged</subwindow>
+				</tab>
+				<tab>
+					<tabres>RR_label_contest</tabres>
+					<subwindow>contest</subwindow>
 				</tab>
 			</tabs_partysheet>
 			<resize_utilitybox />

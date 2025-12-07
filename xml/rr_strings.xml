@@ -104,6 +104,11 @@
 	<string name="RR_label_pendingStagedRolls">My Staged Rolls</string>
 	<string name="RR_label_reason">Reasons:</string>
 	<string name="RR_tooltip_stagedRollDie">Hold Ctrl to auto-replace</string>
+
+	<!-- Contest Mode -->
+	<string name="RR_label_contest">Contest</string>
+	<string name="RR_window_prefix_contestDetail">Contest</string>
+	<string name="RR_label_subType">Roll Sub Type</string>
 	
 	<!-- Pizza -->
 	<string name="pizza_window_title">Type a pizza request</string>

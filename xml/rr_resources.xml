@@ -14,6 +14,7 @@
 	<script name="RRRollManager" file="scripts/rr_manager_roll.lua"/>
 	<script name="RRDropManager" file="scripts/rr_manager_drop.lua"/>
 	<script name="RRManagerStaged" file="scripts/rr_manager_staged.lua"/>
+	<script name="RRManagerContest" file="scripts/rr_manager_contest.lua"/>
 
 	<!-- Ruleset Specific Code Changes -->
 	<script name="RRCoreRPG" file="scripts/rr_config_CoreRPG.lua" ruleset="CoreRPG"/>
@@ -29,6 +30,7 @@
 	<includefile source="console/rr_templates.xml"/>
 	<includefile source="console/rr_console_options.xml"/>
 	<includefile source="console/rr_console_staged.xml"/>
+	<includefile source="console/rr_console_contest.xml"/>
 
 	<!-- Ruleset Specific UI Changes -->
 	<includefile source="console/rr_config_4E.xml" ruleset="4E"/>

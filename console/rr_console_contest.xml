@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="rr_contest">
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<area_content_framed_groupbox_bottom name="area_controls">
+				<anchored height="20" />
+			</area_content_framed_groupbox_bottom>
+			<button_iedit name="sheet_iedit">
+				<anchored to="area_controls" position="insidetopright" offset="0,0" />
+				<edittarget>list</edittarget>
+			</button_iedit>
+
+			<list_content_labeled_framed_groupbox name="list" >
+				<datasource>.contest</datasource>
+				<class>rr_contest_entry</class>
+				<sortby><field>sort_order</field></sortby>
+				<child merge="resetandadd"></child>
+				<child merge="add"><backcolor>1A40301E</backcolor></child>
+				<empty><textres>library_recordtype_filter_empty</textres></empty>
+			</list_content_labeled_framed_groupbox>
+			<scrollbar_content_list />
+
+			
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<button_iadd name="list_iadd">
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
+				</anchored>
+				<target>list</target>
+			</button_iadd>
+			<spacer_list_content_link_label_left name="left_spacer"/>
+			<label_list_content_string_noframe_left name="label_id">
+				<anchored width="180" />
+				<static textres="RR_label_identifier" />
+			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_rollType">
+				<static textres="RR_label_rollType" />
+			</label_list_content_string_noframe_left>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_contest_entry">
+		<sheetdata>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			<button_listitem_idelete name="idelete">
+				<editmode>sheet_iedit</editmode>
+			</button_listitem_idelete>
+			<buttonc_listitem_left name="activatedetail">
+				<icon normal="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("rr_contest_details_window", window.getDatabaseNode());
+					end
+				</script>
+			</buttonc_listitem_left>
+			<string_listitem_left_noframe_static name="name">
+				<anchored width="180"/>
+			</string_listitem_left_noframe_static>
+			<string_listitem_left_noframe_static name="rollType"/>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_contest_details_window">
+		<frame>utilitybox</frame>
+		<sizelimits>
+			<minimum width="380" height="350" />
+			<dynamic />
+		</sizelimits>
+		<sheetdata>
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+			<windowmenubar_utilitybox name="menubar" />
+			<windowtitlebar_charsheethelper name="title">
+				<prefix>RR_window_prefix_contestDetail</prefix>
+			</windowtitlebar_charsheethelper>
+			
+			<sub_content_framed_groupbox name="sub_contents">
+				<class>rr_contest_details_content</class>
+			</sub_content_framed_groupbox>
+			<resize_utilitybox />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_contest_details_content">
+		<script>
+			function onDrop(x, y, draginfo)
+				local sDragType = draginfo.getType();
+				if sDragType~="" then
+					list.addEntry(true, sDragType);
+					return true;
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+			<label_content_column name="name_label">
+				<static textres="RR_label_identifier" />
+			</label_content_column>
+			<string_content_column name="name" />
+			
+			<label_content_column name="type_label">
+				<static textres="RR_label_rollType" />
+			</label_content_column>
+			<combobox_content_column name="rollType">
+				<script>
+					function onInit()
+						super.onInit();
+						for k, _ in pairs(GameSystem.actions) do
+							addItem(k);
+						end
+					end
+				</script>
+			</combobox_content_column>
+			<list_content_labeled_alternating name="list" >
+				<datasource>.subtypes</datasource>
+				<class>rr_contest_details_entry_rollType</class>
+				<script>
+					function addEntry(bFocus, sName)
+						local w = createWindow();
+						if w then
+							w.origin.setValue(1);
+						
+							if bFocus then
+								w.type.setFocus();
+							end
+
+							if sName then
+								w.type.setValue(sName);
+							end
+						end
+						
+						return w;
+					end
+				</script>
+				<sortby><field>sort_order</field></sortby>
+				<child merge="resetandadd"></child>
+				<child merge="add"><backcolor>1A40301E</backcolor></child>
+			</list_content_labeled_alternating>
+			<scrollbar_content_list />
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<button_iadd name="list_iadd">
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
+				</anchored>
+				<target>list</target>
+			</button_iadd>
+			<button_iedit name="list_iedit">
+				<anchored to="labelrightanchor">
+					<top />
+					<right relation="relative" />
+				</anchored>
+				<edittarget>list</edittarget>
+			</button_iedit>
+			<label_list_content_string_noframe_left name="label_id">
+				<static textres="RR_label_stage" />
+				<anchored width="100"/>
+			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_type">
+				<static textres="RR_label_subType" />
+			</label_list_content_string_noframe_left>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_contest_details_entry_rollType">
+		<sheetdata>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			<button_listitem_idelete name="idelete">
+				<editmode>list_iedit</editmode>
+			</button_listitem_idelete>
+			<combobox_listitem_left name="origin">
+				<parameters>
+					<nodefault/>
+					<labels>originator|target</labels>
+					<values>originator|target</values>
+				</parameters>
+			</combobox_listitem_left>
+			<string_listitem_center_underline name="type"/>
+		</sheetdata>
+	</windowclass>
+</root>
