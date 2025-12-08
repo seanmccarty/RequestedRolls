@@ -26,6 +26,8 @@ function unregisterRollGetter(sActionType)
 	end
 end
 
+---Determine which ruleset dependent handlers are available
+---@return table handlers all registered handlers currently available
 function listAvailableHandlers()
 	local list = {};
 	for k, _ in pairs(aRollHandlers) do
@@ -40,7 +42,30 @@ function modSDiceRoll(rSource, rTarget, rRoll)
 	return true;
 end
 
+---Initate a roll request from the console or a chat command
+---Parameters except for sRollType and tActors are optional
+---If a client initiates the roll, it is passed to the host so it can then pass it to the correct client for popup
+---@param sRollType string the registered primary roll type to be rolled, e.g. skill
+---@param sSubType string|nil the specific stat for the roll, e.g. Perception
+---@param tActors table database nodes of the actors that will be executing the rolls
+---@param bSecret boolean|nil
+---@param nTargetDC number|nil
+---@param sDesc string|nil
 function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
+	if not Session.IsHost then
+		local tTransfer = {};
+		tTransfer.sRollType = sRollType;
+		tTransfer.sSubType = sSubType;
+		tTransfer.tActors = tActors;		
+		tTransfer.bSecret = bSecret;
+		tTransfer.nTargetDC = nTargetDC;
+		tTransfer.sDesc = sDesc;
+		RR.notifyApplyRollRequestRR(tTransfer);
+
+		local msg = {text = "Requested roll sent to host for execution.", secret=true};
+		Comm.addChatMessage(msg);
+		return;
+	end
 	if tActors==nil or #tActors==0 then
 		ChatManager.SystemMessage("No valid actors for roll.");
 		return;

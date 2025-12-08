@@ -145,6 +145,7 @@ end
 
 local OOB_MSGTYPE_APPLYCLIENTSAVE = "applyClientSaveRR";
 local OOB_MSGTYPE_APPLYNODICE = "applyNoDiceRR";
+local OOB_MSGTYPE_APPLYROLLREQUEST = "applyRollRequestRR";
 
 ---Registers the slash handlers that RR uses. This groups the calls together to make onInit easier to read
 function registerSlashHandlers()
@@ -157,6 +158,7 @@ function registerSlashHandlers()
 	end
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYCLIENTSAVE, handleApplyClientSaveRR);
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYNODICE, handleApplyClientNoDiceRR);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYROLLREQUEST, handleApplyRollRequestRR);
 	Comm.registerSlashHandler("RRdebug",processRRdebug);
 	Comm.registerSlashHandler("RRcmd",processRRcmd);
 end
@@ -307,6 +309,37 @@ function processRRcmd(sCommand, sParams)
 		_tTargets = RR.getSelectedChars();
 	end
 	RRRollManager.requestRoll(_sType, _sSubType, _tTargets, _bSecret, _nTargetDC, _sDesc);
+end
+
+---Handler for OOB_MSGTYPE_APPLYROLLREQUEST
+---Receives the argument table from a client call to requestRoll and executes it on host
+---@param msgOOB table 
+function handleApplyRollRequestRR(msgOOB)
+	local tArgTable = Utility.decodeJSON(msgOOB.tArgTable);
+	local tDatabasePaths = {};
+	for k,v in pairs(tArgTable.tActors) do
+		table.insert(tDatabasePaths,DB.findNode(v) or nil);
+	end
+	-- encodeJSON does not work on database nodes, so we have to convert it back from the strings we transferred
+	tArgTable.tActors = tDatabasePaths;
+
+	RRRollManager.requestRoll(tArgTable.sRollType or "", tArgTable.sSubType or "", tArgTable.tActors or {}, tArgTable.bSecret or false, tArgTable.nTargetDC or nil, tArgTable.sDesc or "");
+end
+
+---Encodes a table of arguments from requestRoll so that the host can execute it and pass it to the correct client
+---@param tArgTable any the table of arguments passed from requestRoll
+function notifyApplyRollRequestRR(tArgTable)
+	local msgOOB = {};
+	msgOOB.type = OOB_MSGTYPE_APPLYROLLREQUEST;
+	local tStringPaths = {};
+	for k,v in pairs(tArgTable.tActors) do
+		table.insert(tStringPaths,DB.getPath(v));
+	end
+	-- encodeJSON does not work on database nodes, so we convert it to string paths before encoding
+	tArgTable.tActors = tStringPaths;
+
+	msgOOB.tArgTable = Utility.encodeJSON(tArgTable);
+	Comm.deliverOOBMessage(msgOOB, "");
 end
 
 --#endregion
