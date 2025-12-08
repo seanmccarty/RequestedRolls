@@ -26,6 +26,14 @@ function unregisterRollGetter(sActionType)
 	end
 end
 
+function listAvailableHandlers()
+	local list = {};
+	for k, _ in pairs(aRollHandlers) do
+		table.insert(list,k);
+	end
+	return list;
+end
+
 ---Advantage doesn't apply to the advanced dice commands, and this need to return true
 function modSDiceRoll(rSource, rTarget, rRoll)
 	ActionsManager2.encodeDesktopMods(rRoll);

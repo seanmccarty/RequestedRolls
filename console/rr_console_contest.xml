@@ -111,9 +111,7 @@
 				<script>
 					function onInit()
 						super.onInit();
-						for k, _ in pairs(GameSystem.actions) do
-							addItem(k);
-						end
+						addItems(RRRollManager.listAvailableHandlers());
 					end
 				</script>
 			</combobox_content_column>
