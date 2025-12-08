@@ -181,8 +181,8 @@ function processOK()
 
 
 	DiceManager.handleManualRoll(vRoll.aDice);
-	--ActionsManager.handleResolution(vRoll, vSource, vTargets);
-	RRManagerStaged.fOriginalResolveAction(vSource, vTargets, vRoll);
+	vRoll.blockStage = true;
+	ActionsManager.resolveAction(vSource, vTargets, vRoll);
 	close();
 end
 
