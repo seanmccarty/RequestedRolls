@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	<windowclass name="charsheet_actions_contents" merge="join">
+		<sheetdata>
+			<sub_content_top name="rr_actions_contest">
+				<class>rr_actions_contest</class>
+			</sub_content_top>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_actions_contest">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_content_top />
+
+			<label_charframetop name="contest_header">
+				<anchored to="contentanchor" height="20">
+					<top relation="relative" offset="8" postoffset="8" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<icons>char_attacks</icons>
+				<static textres="RR_header_contestSubSheet" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						local bVisible = window.contests.isVisible ();
+						if bVisible then
+							setFont("subwindowsmalltitle_disabled");
+							window.contests.setVisible(false);
+						else
+							setFont("subwindowsmalltitle");
+							window.contests.setVisible(true);
+						end
+						return true;
+					end
+				</script>
+			</label_charframetop>
+			<list_content_noscroll_top name="contests">
+				<datasource>requestsheet.contest</datasource>
+				<class>rr_actions_contest_buttons</class>
+				<sortby><control>name</control></sortby>
+			</list_content_noscroll_top>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="rr_actions_contest_buttons">
+		<sheetdata>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			<spacer_listitem_left/>
+			<string_listitem_left_underline_static name="name">
+				<anchored width="250"/>
+			</string_listitem_left_underline_static>
+			<button_listitem_roll_left>
+				<script>
+					function onDragStart(_, _, _, draginfo)
+						ActionCheck.performRoll(draginfo, ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode()), "dexterity");
+						draginfo.setType("contest");
+						Debug.chat(GameSystem.targetactions);
+						return true;
+					end
+					function onButtonPress()
+						RRRollManager.onButtonPress("init");
+					end
+				</script>
+			</button_listitem_roll_left>
+		</sheetdata>
+	</windowclass>
+</root>

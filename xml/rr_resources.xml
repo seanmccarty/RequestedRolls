@@ -7,6 +7,9 @@
 	<includefile source="roll/rr_manualroll_entry.xml" />
 	<includefile source="roll/rr_stagedroll_entry.xml"/>
 
+	<!-- Contested Rolls -->
+	<includefile source="campaign/record_char_actions.xml"/>
+
 	<!-- Manager Code -->
 	<script name="RR" file="scripts/rr.lua"/>
 	<script name="RRActionManager" file="scripts/rr_manager_action.lua"/>
