@@ -75,19 +75,25 @@
 			<button_listitem_roll_left>
 				<script>
 					function onDragStart(_, _, _, draginfo)
-						local fRollResult = RRRollManager.getRollGetter("check");
+						local contestNode = DB.getPath(window.getDatabaseNode());
 						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
-						local rRoll = fRollResult(rActor, "strength");
+
+						local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
+						local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
 						rRoll.bContest = true;
+						rRoll.contestNode = contestNode;
 						ActionsManager.performAction(draginfo, rActor, rRoll);
 						draginfo.setType("contest");
 						return true;
 					end
 					function onButtonPress()
-						local fRollResult = RRRollManager.getRollGetter("check");
+						local contestNode = DB.getPath(window.getDatabaseNode());
 						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
-						local rRoll = fRollResult(rActor, "dexterity");
+
+						local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
+						local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
 						rRoll.bContest = true;
+						rRoll.contestNode = contestNode;
 						local rTargets = TargetingManager.getFullTargets(rActor);
 						--We have to convert target table to string or it will get lost when converted in buildThrow
 						local rsTargets = {};

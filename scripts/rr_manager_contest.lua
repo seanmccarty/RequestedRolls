@@ -10,11 +10,14 @@ function onInit()
 
 end
 
-function getRollType()
-	return DB.getValue("requestsheet.contest.id-00001.rollType","");
+function getRollType(sNode)
+	return DB.getValue(sNode..".rollType","");
 end
 
 -- TODO not just first
-function getFirstTargetSubType()
-	return DB.getValue("requestsheet.contest.id-00001.subtypes.id-00002.type","");
+function getFirstTargetSubType(sNode)
+	return DB.getValue(sNode..".subtypes.id-00002.type","");
+end
+function getFirstOriginSubType(sNode)
+	return DB.getValue(sNode..".subtypes.id-00001.type","");
 end

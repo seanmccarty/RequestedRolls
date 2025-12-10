@@ -66,7 +66,7 @@ function resolveAction(rSource, rTarget, rRoll)
 		fOriginalResolveAction(rSource, rTarget, rRoll);
 		if rRoll.bContest then
 			local rollType = rRoll.sType;
-			local subType = RRContestManager.getFirstTargetSubType();
+			local subType = RRContestManager.getFirstTargetSubType(rRoll.contestNode);
 			-- TODO rolls without a subType, such as initiative
 			local nTotal = ActionsManager.total(rRoll);
 			local rTargets = {};

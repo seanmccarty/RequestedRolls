@@ -185,7 +185,7 @@ function getDiceRoll(rActor, sDice)
 	end
     rRoll.sDesc = "[DICE] Roll a " .. sDice;
 
-	if (Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") and  rRoll.aDice[1].type == "d20" then
+	if (Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") and rRoll.aDice[1] and rRoll.aDice[1].type == "d20" then
 		ActionsManager2.encodeAdvantage(rRoll);
     end
 
