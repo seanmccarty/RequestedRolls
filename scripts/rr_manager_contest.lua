@@ -21,3 +21,49 @@ end
 function getFirstOriginSubType(sNode)
 	return DB.getValue(sNode..".subtypes.id-00001.type","");
 end
+
+function onDragStart(contestNode, rActor, draginfo)
+	local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
+	local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
+	rRoll.bContest = true;
+	rRoll.contestNode = contestNode;
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+	draginfo.setType("contest");
+	return true;
+end
+
+function onButtonPress(contestNode, rActor)
+	local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
+	local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
+	rRoll.bContest = true;
+	rRoll.contestNode = contestNode;
+	local rTargets = TargetingManager.getFullTargets(rActor);
+	--We have to convert target table to string or it will get lost when converted in buildThrow
+	local rsTargets = {};
+	for k,v in pairs(rTargets) do
+		table.insert(rsTargets, ActorManager.getCreatureNodeName(v));
+	end
+	local sTargets = table.concat(rsTargets,"#||#");
+	rRoll.contestTargets = sTargets;
+	ActionsManager.performAction(nil, rActor, rRoll);
+end
+
+function finishContest(rSource, rTarget, rRoll)
+	if rRoll.bContest then
+		local rollType = rRoll.sType;
+		local subType = RRContestManager.getFirstTargetSubType(rRoll.contestNode);
+		-- TODO rolls without a subType, such as initiative
+		local nTotal = ActionsManager.total(rRoll);
+		local rTargets = {};
+		if rTarget then
+			rTargets = {ActorManager.getCreatureNodeName(rTarget)};
+		else
+			local rsTargets = StringManager.split(rRoll.contestTargets,"#||#");
+			for k,v in pairs(rsTargets) do
+				table.insert(rTargets, DB.getPath(v));
+			end
+		end
+		RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
+		-- Debug.chat("old", rRoll,rTarget, "rSource",rSource)
+	end
+end

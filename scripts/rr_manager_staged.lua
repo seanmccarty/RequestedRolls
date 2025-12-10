@@ -64,23 +64,7 @@ function resolveAction(rSource, rTarget, rRoll)
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fOriginalResolveAction(rSource, rTarget, rRoll);
-		if rRoll.bContest then
-			local rollType = rRoll.sType;
-			local subType = RRContestManager.getFirstTargetSubType(rRoll.contestNode);
-			-- TODO rolls without a subType, such as initiative
-			local nTotal = ActionsManager.total(rRoll);
-			local rTargets = {};
-			if rTarget then
-				rTargets = {ActorManager.getCreatureNodeName(rTarget)};
-			else
-				local rsTargets = StringManager.split(rRoll.contestTargets,"#||#");
-				for k,v in pairs(rsTargets) do
-					table.insert(rTargets, DB.getPath(v));
-				end
-			end
-			RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
-			-- Debug.chat("old", rRoll,rTarget, "rSource",rSource)
-		end
+		RRContestManager.finishContest(rSource, rTarget, rRoll);
 	end
 end
 
