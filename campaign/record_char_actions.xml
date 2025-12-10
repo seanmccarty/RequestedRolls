@@ -9,6 +9,23 @@
 		</sheetdata>
 	</windowclass>
 
+	<!-- The npc_combat classes add it to the NPC sheets -->
+	<windowclass name="npc_combat_2024" merge="join">
+		<sheetdata>
+			<sub_content_column name="sub_rr_contest">
+				<class>rr_actions_contest</class>
+			</sub_content_column>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="npc_combat_2014" merge="join">
+		<sheetdata>
+			<sub_content_column name="sub_rr_contest">
+				<class>rr_actions_contest</class>
+			</sub_content_column>
+		</sheetdata>
+	</windowclass>
+
 	<windowclass name="rr_actions_contest">
 		<margins control="0,0,0,2" />
 		<sheetdata>
