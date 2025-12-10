@@ -19,7 +19,7 @@ function getSkillRoll(rActor, sSkill)
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	if ActorManager.isPC(rActor) then
 		for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
-			if DB.getValue(nodeSkill, "name", ""):lower() == sSkill then
+			if DB.getValue(nodeSkill, "name", ""):lower() == sSkill:lower() then
 				rRoll = ActionSkill.getRoll(rActor, nodeSkill);
 				break;
 			end

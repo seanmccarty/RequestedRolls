@@ -81,6 +81,13 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 		return;
 	end
 
+	-- all rolls except for tables are lower case for comparison
+	if sRollType~="table" then
+		if sSubType~=nil then
+			sSubType = sSubType:lower();
+		end
+	end
+
 	ModifierStack.lock();
 	local rRoll = {};
 	local sActors = "";
