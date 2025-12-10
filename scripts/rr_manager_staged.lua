@@ -71,11 +71,11 @@ function resolveAction(rSource, rTarget, rRoll)
 			local nTotal = ActionsManager.total(rRoll);
 			local rTargets = {};
 			if rTarget then
-				rTargets = {rTarget};
+				rTargets = {ActorManager.getCreatureNodeName(rTarget)};
 			else
 				local rsTargets = StringManager.split(rRoll.contestTargets,"#||#");
 				for k,v in pairs(rsTargets) do
-					table.insert(rTargets, ActorManager.resolveActor(v));
+					table.insert(rTargets, DB.getPath(v));
 				end
 			end
 			RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
