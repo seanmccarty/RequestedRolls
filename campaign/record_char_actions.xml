@@ -58,13 +58,28 @@
 			<button_listitem_roll_left>
 				<script>
 					function onDragStart(_, _, _, draginfo)
-						ActionCheck.performRoll(draginfo, ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode()), "dexterity");
+						local fRollResult = RRRollManager.getRollGetter("check");
+						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
+						local rRoll = fRollResult(rActor, "strength");
+						rRoll.bContest = true;
+						ActionsManager.performAction(draginfo, rActor, rRoll);
 						draginfo.setType("contest");
-						Debug.chat(GameSystem.targetactions);
 						return true;
 					end
 					function onButtonPress()
-						RRRollManager.onButtonPress("init");
+						local fRollResult = RRRollManager.getRollGetter("check");
+						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
+						local rRoll = fRollResult(rActor, "dexterity");
+						rRoll.bContest = true;
+						local rTargets = TargetingManager.getFullTargets(rActor);
+						--We have to convert target table to string or it will get lost when converted in buildThrow
+						local rsTargets = {};
+						for k,v in pairs(rTargets) do
+							table.insert(rsTargets, ActorManager.getCreatureNodeName(v));
+						end
+						local sTargets = table.concat(rsTargets,"#||#");
+						rRoll.contestTargets = sTargets;
+						ActionsManager.performAction(draginfo, rActor, rRoll);
 					end
 				</script>
 			</button_listitem_roll_left>

@@ -64,17 +64,22 @@ function resolveAction(rSource, rTarget, rRoll)
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fOriginalResolveAction(rSource, rTarget, rRoll);
-		--TODO not just the current CT actor as target
-		if ActorManager.getCTNodeName(CombatManager.getActiveCT()) ~= ActorManager.getCTNodeName(rSource) then
-			local rollType = RRContestManager.getRollType();
+		if rRoll.bContest then
+			local rollType = rRoll.sType;
 			local subType = RRContestManager.getFirstTargetSubType();
 			-- TODO rolls without a subType, such as initiative
 			local nTotal = ActionsManager.total(rRoll);
-			RRRollManager.requestRoll(rollType, subType, {CombatManager.getActiveCT()}, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
-			Debug.chat("old", rRoll,rTarget)
-			-- local rRoll = ActionCheck.getRoll(CombatManager.getActiveCT(), "Strength", ActionsManager.total(rRoll), false);
-			-- Debug.chat(1, rRoll);
-			--ActionCheck.modRoll(CombatManager.getActiveCT(), nil, rRoll);
+			local rTargets = {};
+			if rTarget then
+				rTargets = {rTarget};
+			else
+				local rsTargets = StringManager.split(rRoll.contestTargets,"#||#");
+				for k,v in pairs(rsTargets) do
+					table.insert(rTargets, ActorManager.resolveActor(v));
+				end
+			end
+			RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
+			-- Debug.chat("old", rRoll,rTarget, "rSource",rSource)
 		end
 	end
 end

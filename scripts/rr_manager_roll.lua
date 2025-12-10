@@ -26,6 +26,10 @@ function unregisterRollGetter(sActionType)
 	end
 end
 
+function getRollGetter(sActiontype)
+	return aRollHandlers[sActiontype] or nil;
+end
+
 ---Determine which ruleset dependent handlers are available
 ---@return table handlers all registered handlers currently available
 function listAvailableHandlers()
