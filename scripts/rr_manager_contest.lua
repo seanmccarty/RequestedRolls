@@ -7,7 +7,6 @@ function onInit()
 	-- insert into list of Actions and targetactions so that CombatDropManager and ActionsManager.actionDrop will process drops on the combat tracker
 	ActionsManager.initAction("contest");
 	table.insert(GameSystem.targetactions, "contest");
-
 end
 
 function getRollType(sNode)
@@ -22,21 +21,24 @@ function getFirstOriginSubType(sNode)
 	return DB.getValue(sNode..".subtypes.id-00001.type","");
 end
 
-function onDragStart(contestNode, rActor, draginfo)
+function setupContestRoll(contestNode, rActor)
 	local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
 	local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
 	rRoll.bContest = true;
 	rRoll.contestNode = contestNode;
+
+	return rRoll;
+end
+
+function onDragStart(contestNode, rActor, draginfo)
+	local rRoll = RRContestManager.setupContestRoll(contestNode, rActor);
 	ActionsManager.performAction(draginfo, rActor, rRoll);
 	draginfo.setType("contest");
 	return true;
 end
 
 function onButtonPress(contestNode, rActor)
-	local fRollResult = RRRollManager.getRollGetter(RRContestManager.getRollType(contestNode));
-	local rRoll = fRollResult(rActor, RRContestManager.getFirstOriginSubType(contestNode));
-	rRoll.bContest = true;
-	rRoll.contestNode = contestNode;
+	local rRoll = RRContestManager.setupContestRoll(contestNode, rActor);
 	local rTargets = TargetingManager.getFullTargets(rActor);
 	--We have to convert target table to string or it will get lost when converted in buildThrow
 	local rsTargets = {};
@@ -63,7 +65,7 @@ function finishContest(rSource, rTarget, rRoll)
 				table.insert(rTargets, DB.getPath(v));
 			end
 		end
-		RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest vs DC "..tostring(nTotal));
+		RRRollManager.requestRoll(rollType, subType, rTargets, rRoll.bSecret, nTotal, "Contest with "..ActorManager.getDisplayName(rSource).." vs DC "..tostring(nTotal));
 		-- Debug.chat("old", rRoll,rTarget, "rSource",rSource)
 	end
 end
