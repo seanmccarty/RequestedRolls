@@ -70,7 +70,7 @@
 			<anchor_listitem_right_sm />
 			<spacer_listitem_left/>
 			<string_listitem_left_underline_static name="name">
-				<anchored width="250"/>
+				<anchored width="210"/>
 			</string_listitem_left_underline_static>
 			<button_listitem_roll_left>
 				<script>

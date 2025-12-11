@@ -87,15 +87,6 @@
 	</windowclass>
 
 	<windowclass name="rr_contest_details_content">
-		<script>
-			function onDrop(x, y, draginfo)
-				local sDragType = draginfo.getType();
-				if sDragType~="" then
-					list.addEntry(true, sDragType);
-					return true;
-				end
-			end
-		</script>
 		<sheetdata>
 			<anchor_content_top />
 			<anchor_content_bottom />
@@ -122,7 +113,7 @@
 					function addEntry(bFocus, sName)
 						local w = createWindow();
 						if w then
-							w.origin.setValue(1);
+							w.character.setValue(1);
 						
 							if bFocus then
 								w.type.setFocus();
@@ -159,7 +150,7 @@
 				<edittarget>list</edittarget>
 			</button_iedit>
 			<label_list_content_string_noframe_left name="label_id">
-				<static textres="RR_label_stage" />
+				<static textres="library_category_label_create" />
 				<anchored width="100"/>
 			</label_list_content_string_noframe_left>
 			<label_list_content_string_noframe_left name="label_type">
@@ -175,7 +166,7 @@
 			<button_listitem_idelete name="idelete">
 				<editmode>list_iedit</editmode>
 			</button_listitem_idelete>
-			<combobox_listitem_left name="origin">
+			<combobox_listitem_left name="character">
 				<parameters>
 					<nodefault/>
 					<labels>originator|target</labels>

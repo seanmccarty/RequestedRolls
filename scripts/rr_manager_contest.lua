@@ -47,7 +47,7 @@ function getSubTypes(sNode, bIsOriginator)
 
 	-- for each child node in the contest node, if matches the actor type (originator or target), we collect the subType
 	for _,v in pairs(DB.getChildren(sNode..".subtypes")) do
-		if DB.getValue(v,"origin","")==sComparator then
+		if DB.getValue(v,"character","")==sComparator then
 			table.insert(tSubTypes,DB.getValue(v,"type",""));
 		end
 	end
