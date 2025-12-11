@@ -56,11 +56,17 @@
 					end
 				</script>
 			</label_charframetop>
-			<list_content_noscroll_top name="contests">
+			<list_content_noscroll_alternating_top name="contests">
+				<script>
+					function onListChanged()
+						local bHasContents = not (getWindowCount()==0);
+						window.contest_header.setVisible(bHasContents)
+					end
+				</script>
 				<datasource>requestsheet.contest</datasource>
 				<class>rr_actions_contest_buttons</class>
 				<sortby><control>name</control></sortby>
-			</list_content_noscroll_top>
+			</list_content_noscroll_alternating_top>
 		</sheetdata>
 	</windowclass>
 
