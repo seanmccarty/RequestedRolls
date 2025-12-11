@@ -8,7 +8,7 @@
 	<includefile source="roll/rr_stagedroll_entry.xml"/>
 
 	<!-- Contested Rolls -->
-	<includefile source="campaign/record_char_actions.xml"/>
+	<includefile source="campaign/record_char_actions.xml" ruleset="5E"/>
 
 	<!-- Manager Code -->
 	<script name="RR" file="scripts/rr.lua"/>

@@ -10,11 +10,6 @@ function onInit()
 	-- insert into list of Actions and targetactions so that CombatDropManager and ActionsManager.actionDrop will process drops on the combat tracker
 	ActionsManager.initAction("contest");
 	table.insert(GameSystem.targetactions, "contest");
-
-	registerModGetter("skill",ActionSkill.modRoll);
-	registerModGetter("init",ActionInit.modRoll);
-	registerModGetter("check",ActionCheck.modRoll);
-	registerModGetter("save", ActionSave.modRoll);
 end
 
 ---Replace EffectManager.notifyExpire so that I can use the various modRolls without expiring effects that end up being unused
