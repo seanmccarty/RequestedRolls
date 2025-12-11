@@ -109,6 +109,7 @@
 	<string name="RR_label_contest">Contest</string>
 	<string name="RR_window_prefix_contestDetail">Contest</string>
 	<string name="RR_label_subType">Roll Sub Type</string>
+	<string name="RR_label_summary">Summary</string>
 	<string name="RR_header_contestSubSheet">Requested Rolls Contest</string>
 	
 	<!-- Pizza -->

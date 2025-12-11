@@ -4,6 +4,10 @@ function onInit()
 	if Session.IsHost then
 		DB.createNode("requestsheet.contest");
 		DB.setPublic("requestsheet.contest",true);
+		DB.addHandler("requestsheet.contest.*.subtypes", "onChildUpdate",updateSummary)
+		for _,node in pairs(DB.getChildren("requestsheet.contest")) do
+			updateSummaryHelper(node);
+		end
 	end
 
 	fOriginalEffectNotifyExpire = EffectManager.notifyExpire;
@@ -12,6 +16,24 @@ function onInit()
 	-- insert into list of Actions and targetactions so that CombatDropManager and ActionsManager.actionDrop will process drops on the combat tracker
 	ActionsManager.initAction("contest");
 	table.insert(GameSystem.targetactions, "contest");
+end
+
+---Concatenates the subtypes for a given contest roll into a string for easy display by DB linked controls
+---@param nodeContest any the databasenode reference for the contest roll you would like to build
+function updateSummaryHelper(nodeContest)
+	local tOriginators = RRContestManager.getSubTypes(DB.getPath(nodeContest),true);
+	local tTargets = RRContestManager.getSubTypes(DB.getPath(nodeContest),false);
+	if #tOriginators == 0 then tOriginators = {"no subtype"}; end
+	if #tTargets == 0 then tTargets = {"no subtype"}; end
+	local sSummary = table.concat(tOriginators,"|").. " VS. "..table.concat(tTargets,"|");
+	DB.setValue(nodeContest,"summary","string",sSummary);
+end
+
+---Passed the actual contest node, e.g., requestsheet.contest.<id-00001> to the helper since that is what getSubTypes needs
+---@param nodeParent any the parent of the child node that triggered the update
+---@param nodeChildUpdated any not used
+function updateSummary(nodeParent, nodeChildUpdated)
+	RRContestManager.updateSummaryHelper(DB.getParent(nodeParent));
 end
 
 ---Replace EffectManager.notifyExpire so that I can use the various modRolls without expiring effects that end up being unused

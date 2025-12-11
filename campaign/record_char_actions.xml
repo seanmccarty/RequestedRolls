@@ -74,10 +74,6 @@
 		<sheetdata>
 			<anchor_listitem_left_sm />
 			<anchor_listitem_right_sm />
-			<spacer_listitem_left/>
-			<string_listitem_left_underline_static name="name">
-				<anchored width="210"/>
-			</string_listitem_left_underline_static>
 			<button_listitem_roll_left>
 				<script>
 					function onDragStart(_, _, _, draginfo)
@@ -92,6 +88,10 @@
 					end
 				</script>
 			</button_listitem_roll_left>
+			<string_listitem_left_noframe_static name="name">
+				<anchored width="150"/>
+			</string_listitem_left_noframe_static>
+			<string_listitem_center_noframe_static name="summary"/>
 		</sheetdata>
 	</windowclass>
 </root>

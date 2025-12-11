@@ -40,6 +40,9 @@
 			<label_list_content_string_noframe_left name="label_rollType">
 				<static textres="RR_label_rollType" />
 			</label_list_content_string_noframe_left>
+			<label_list_content_string_noframe_left name="label_summary">
+				<static textres="RR_label_summary" />
+			</label_list_content_string_noframe_left>
 		</sheetdata>
 	</windowclass>
 
@@ -62,6 +65,7 @@
 				<anchored width="180"/>
 			</string_listitem_left_noframe_static>
 			<string_listitem_left_noframe_static name="rollType"/>
+			<string_listitem_center_noframe_static name="summary"/>
 		</sheetdata>
 	</windowclass>
 
