@@ -75,14 +75,14 @@
 			<button_listitem_roll_left>
 				<script>
 					function onDragStart(_, _, _, draginfo)
-						local contestNode = DB.getPath(window.getDatabaseNode());
+						local sContestNode = DB.getPath(window.getDatabaseNode());
 						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
-						return RRContestManager.onDragStart(contestNode, rActor, draginfo);
+						return RRContestManager.onDragStart(sContestNode, rActor, draginfo);
 					end
 					function onButtonPress()
-						local contestNode = DB.getPath(window.getDatabaseNode());
+						local sContestNode = DB.getPath(window.getDatabaseNode());
 						local rActor = ActorManager.resolveActor(WindowManager.getTopWindow(window).getDatabaseNode());
-						RRContestManager.onButtonPress(contestNode, rActor);
+						RRContestManager.onButtonPress(sContestNode, rActor);
 					end
 				</script>
 			</button_listitem_roll_left>

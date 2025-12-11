@@ -64,6 +64,7 @@ function resolveAction(rSource, rTarget, rRoll)
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fOriginalResolveAction(rSource, rTarget, rRoll);
+		--if it is not a contest roll, the following function does nothing
 		RRContestManager.finishContest(rSource, rTarget, rRoll);
 	end
 end
