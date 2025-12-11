@@ -57,7 +57,7 @@ end
 ---comment
 ---@param rActor table actor table or string
 ---@param sType string the main type of the roll
----@param tSubTypes string the table of subtypes they can yse
+---@param tSubTypes table the table of subtypes they can yse
 ---@return string|nil sBestSubType the roll the character should use
 function getBestSubType(rActor,sType,tSubTypes)
 	if not tSubTypes then 

@@ -31,7 +31,10 @@
 			"ActionsManager2",
 			"RRTowerManager",
 			"ModifierStack",
-			"DataCommon"
+			"DataCommon",
+			"RRRollManager",
+			"RRContestManager",
+			"RRActionManger"
 		],
 		"Lua.workspace.ignoreDir": [
 			".vscode",
