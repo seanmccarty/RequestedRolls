@@ -1,13 +1,11 @@
-local oE35skill;
-
 ---When ruleset is 4E, overrides the standard RR getSaveRoll and creates the getRoll function in ActionInit
 function onInit()
 	RRRollManager.registerRollGetter("save",getSaveRoll);
-	oE35skill = RRRollManager.E35skill
-	RRRollManager.E35skill = E35skill;
 	if not ActionInit.getRoll then
 		ActionInit.getRoll = addInitRoll;
 	end
+
+	RRRollManager.registerRollGetter("skill", getSkillRoll)
 	-- This is for things like death saving throws since 4E does not use sSaveDesc
 	RRActionManager.registerRollType("autosave")
 end
@@ -52,9 +50,9 @@ end
 ---@param rActor any the actor to roll
 ---@param sSkill any the skill to be rolled
 ---@return table rRoll
-function E35skill(rActor, sSkill)
-	local rRoll = oE35skill(rActor, sSkill);
-	if not ActorManager.isPC(rActor)  and sSkill == "Perception" then
+function getSkillRoll(rActor, sSkill)
+	local rRoll = RRRollManager.getSkillRoll(rActor, sSkill);
+	if (not ActorManager.isPC(rActor))  and sSkill == "perception" then
 		local nodeActor = ActorManager.getCreatureNode(rActor);
 		rRoll = ActionSkill.getRoll(rActor, sSkill, DB.getValue(nodeActor,"perceptionval"));
 	end
