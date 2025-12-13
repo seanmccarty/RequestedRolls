@@ -10,6 +10,7 @@ end
 ---@return table rRoll the roll to be done
 function getCheckRoll(rActor, sCheck)
 	-- local sCheck = DB.getValue("requestsheet.check.selected", ""):lower();
+	sCheck = sCheck:lower();
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	local nTargetDC = DB.getValue(nodeActor, "abilities.".. sCheck .. ".score", 0);
 	local rRoll = ActionCheck.getRoll(rActor, sCheck, nTargetDC);
@@ -23,6 +24,7 @@ end
 ---@return table rRoll the roll to be done
 function getSaveRoll(rActor,sSave)
 	-- local sSave = DB.getValue("requestsheet.save.selected", ""):lower();
+	sSave = sSave:lower();
 	local rRoll = {};
 	rRoll.sType = "save";
 	rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);

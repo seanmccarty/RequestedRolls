@@ -81,12 +81,6 @@ function requestRoll(sRollType, sSubType, tActors, bSecret, nTargetDC, sDesc)
 		return;
 	end
 
-	-- all rolls except for tables are lower case for comparison
-	if sRollType~="table" then
-		if sSubType~=nil then
-			sSubType = sSubType:lower();
-		end
-	end
 
 	ModifierStack.lock();
 	local rRoll = {};
@@ -142,9 +136,6 @@ function onButtonPress(sRollType,nodeCT)
 
 	-- tables are case-sensitive, all other rolls are lowercase for comparison
 	local sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", "");
-	if sRollType~="table" then
-		sSubType = DB.getValue("requestsheet.rolls."..sRollType..".selected", ""):lower();
-	end
 	local nTargetDC = DB.getValue("requestsheet.rolls."..sRollType..".dc", 0);
 	if nTargetDC == 0 then
 		nTargetDC = nil;
@@ -200,11 +191,11 @@ function getDiceRoll(rActor, sDice)
 end
 
 function getCheckRoll(rActor, sCheck)
-	return ActionAbility.getRoll(rActor, sCheck);
+	return ActionAbility.getRoll(rActor, sCheck:lower());
 end
 
 function getSaveRoll(rActor, sSave)
-	return ActionSave.getRoll(rActor, sSave);
+	return ActionSave.getRoll(rActor, sSave:lower());
 end
 
 ---This lookup is used by rulesets other than 5E
@@ -219,7 +210,7 @@ function getSkillRoll(rActor, sSkill)
 		local aSkills = parseComponents(nodeActor);
 		if aSkills then
 			for k,node in pairs(aSkills) do
-				if string.lower(node.sLabel) ==  string.lower(sSkill) then
+				if node.sLabel:lower() ==  sSkill:lower() then
 					rRoll = ActionSkill.getRoll(rActor, sSkill, node.nMod);
 				end
 			end
