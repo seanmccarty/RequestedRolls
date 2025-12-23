@@ -47,7 +47,7 @@ end
 
 function initializeRollLists()
 	setComboConfiguration("dice","Die",4,0,100);
-	local dice = {"d4","d6","d8","d10","d20"};
+	local dice = {"d4","d6","d8","d10","d20","d100"};
 	setDefaultRollOptions("dice",dice);
 
 	setComboConfiguration("table","Table",5,0,200);
@@ -57,6 +57,10 @@ function initializeRollLists()
 		setComboConfiguration("skill","Skill",3,1,65)
 	end
 
+	local nShowDC = 1;
+	if Interface.getRuleset()=="2E" then
+		nShowDC = 0;
+	end
 	-- For each of the rollTypes, where the data is stored depends on the ruleset, try the common names in each rulset until one of them is found
 	if DataCommon then
 		local abilityData = DataCommon.psabilitydata;
@@ -64,7 +68,7 @@ function initializeRollLists()
 			abilityData = DataCommon.abilities;
 		end
 		if abilityData then 
-			setComboConfiguration("check","Check",1,1,65);
+			setComboConfiguration("check","Check",1,nShowDC,65);
 			setDefaultRollOptions("check", abilityData);
 		end
 		-- TODO add cleaner handling of initialization
@@ -79,12 +83,12 @@ function initializeRollLists()
 			saveData = nil;
 		end
 		if saveData then 
-			setComboConfiguration("save","Save",2,1,65);
+			setComboConfiguration("save","Save",2,nShowDC,65);
 			setDefaultRollOptions("save",saveData);
 		end
 
 		if DataCommon.skilldata then
-			setComboConfiguration("skill","Skill",3,1,125);
+			setComboConfiguration("skill","Skill",3,nShowDC,125);
 			--cannot use normal setDefaultRollOptions becuase skilldata has a different format
 			local node = DB.createNode("requestsheet.rolls.skill.list");
 			for k, _ in pairs(DataCommon.skilldata) do
@@ -92,6 +96,10 @@ function initializeRollLists()
 				DB.setValue(node2,"name","string",k);
 				DB.setValue(node2, "show", "number", "1");
 			end
+		end
+
+		if Interface.getRuleset()=="2E" then
+			setComboConfiguration("skill","Skill",3,nShowDC,125);
 		end
 	end
 end

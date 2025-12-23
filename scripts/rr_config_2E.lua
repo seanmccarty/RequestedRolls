@@ -54,7 +54,7 @@ function getSkillRoll(rActor, sSkill)
 	local rRoll = nil;
 	local nodeActor = ActorManager.getCreatureNode(rActor);
 	for _,nodeSkill in pairs(DB.getChildren(nodeActor, "skilllist")) do
-		if DB.getValue(nodeSkill, "name", ""):lower() == sSkill then
+		if DB.getValue(nodeSkill, "name", ""):lower() == sSkill:lower() then
 			local nTargetDC = DB.getValue(nodeSkill, "total", 20);
 			rRoll = ActionSkill.getRoll(rActor, nodeSkill, nTargetDC);
 			break;
