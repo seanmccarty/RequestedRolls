@@ -34,6 +34,7 @@
 			<anchored width="170" height="20"/>
 			<listmaxsize>12</listmaxsize>
 			<default>Select roll</default>
+			<listdirection>up</listdirection>
 			<script>
 				local rootPath = "";
 
@@ -66,10 +67,7 @@
 	</template>
 
 	<template name="RR_combobox_unsorted">
-		<combobox>
-			<anchored width="170" height="20"/>
-			<listmaxsize>12</listmaxsize>
-			<default>d20</default>
+		<RR_combobox>
 			<unsorted/>
 			<script>
 				local rootPath = "";
@@ -99,10 +97,10 @@
 						end
 					end
 					table.sort(listStore,RR.naturalSort);
-				addItems(listStore);
-			end
+					addItems(listStore);
+				end
 			</script>
-		</combobox>
+		</RR_combobox>
 	</template>
 
 	<template name="RR_DCLabel">
