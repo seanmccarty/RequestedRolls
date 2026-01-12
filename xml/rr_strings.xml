@@ -29,6 +29,8 @@
 	<!-- Console Main Page -->
 	<string name="RR_url_help">https://github.com/seanmccarty/RequestedRolls/wiki</string>
 	<string name="RR_label_pendingRolls">My Pending Rolls</string>
+	<string name="RR_tooltip_import">Import RR Console Config</string>
+	<string name="RR_tooltip_export">Export RR Console Config</string>
 
 	<string name="RR_pc">PCs</string>
 	<string name="RR_npc">NPCs</string>

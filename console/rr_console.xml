@@ -12,6 +12,10 @@
 		<helplinkres>RR_url_help</helplinkres>
 		<softclose />
 		<nodelete />
+		<windowmenu>
+			<right>RR_import</right>
+			<right>RR_export</right>
+		</windowmenu>
 		<sheetdata>
 			<windowtitlebar name="title">
 				<resource>RR_window_title</resource>

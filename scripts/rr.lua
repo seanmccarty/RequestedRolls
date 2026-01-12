@@ -21,6 +21,21 @@ function onInit()
 			setComboConfiguration("table","Table",5,0,200);
 		end
 	end
+
+	ToolbarManager.registerButton("RR_export",
+		{
+			sType = "action",
+			sIcon = "button_toolbar_export",
+			sTooltipRes = "RR_tooltip_export",
+			fnActivate = RR.export,
+		});
+	ToolbarManager.registerButton("RR_import",
+		{
+			sType = "action",
+			sIcon = "button_toolbar_import",
+			sTooltipRes = "RR_tooltip_import",
+			fnActivate = RR.import,
+		});
 end
 
 ---Used to configure the expander trays on the RR console
@@ -562,4 +577,28 @@ function naturalSort(a,b)
 	return ca < cb or ca == cb and a < b
 end
 
-
+function export()
+	if not Session.IsHost then
+		return;
+	end
+	Interface.dialogFileSave(RR.onExportDialog, { xml = "XML Files" });
+end
+function onExportDialog(sResult, sPath)
+	if sResult ~= "ok" then
+		return;
+	end
+	DB.export(sPath,"requestsheet");
+end
+function import()
+	if not Session.IsHost then
+		return;
+	end
+	Interface.dialogFileOpen(RR.onImportDialog, { xml = "XML Files" });
+end
+function onImportDialog(sResult, sPath)
+	if sResult ~= "ok" then
+		return;
+	end
+	DB.deleteNode("requestsheet");
+	DB.import(sPath,"requestsheet");
+end
