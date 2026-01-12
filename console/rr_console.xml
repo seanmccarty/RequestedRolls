@@ -13,6 +13,7 @@
 		<softclose />
 		<nodelete />
 		<windowmenu>
+			<left>RR_openManualRolls</left>
 			<right>RR_import</right>
 			<right>RR_export</right>
 		</windowmenu>
@@ -23,16 +24,6 @@
 			<anchor_content_utilitybox_top />
 			<anchor_content_utilitybox_bottom />
 			<windowmenubar_utilitybox name="menubar" />
-			<!-- TODO update to button icon as part of toolbar -->
-			<button_text_sm name="manual_rolls">
-				<anchored position="insidetopleft" offset="45,9" width="120" />
-				<state textres="RR_label_pendingRolls" />
-				<script>
-					function onButtonPress()
-						Interface.openWindow("manualrolls", "");
-					end
-				</script>
-			</button_text_sm>
 
 			<sub_content_hidden name="main">
 				<class>rr_console</class>

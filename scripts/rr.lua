@@ -36,6 +36,14 @@ function onInit()
 			sTooltipRes = "RR_tooltip_import",
 			fnActivate = RR.import,
 		});
+
+	ToolbarManager.registerButton("RR_openManualRolls",
+		{
+			sType = "action",
+			sIcon = "sidebar_icon_default",
+			sTooltipRes = "RR_label_pendingRolls",
+			fnActivate = function() Interface.openWindow("manualrolls", "") end,
+		});
 end
 
 ---Used to configure the expander trays on the RR console
