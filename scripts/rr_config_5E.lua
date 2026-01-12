@@ -47,26 +47,9 @@ function getSkillRoll(rActor, sSkill)
 	return rRoll;
 end
 
----Copied from ActionSave.performConcentrationRoll as of 30 July
----Adopted rRoll.bADV and bDIS on 3 Nov 2024
+---5E specific concentration roll
 ---@param rActor table the actor
 ---@return table rRoll the roll
 function getConcentrationRoll(rActor)
-	local rRoll = { };
-	rRoll.sType = "concentration";
-	rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
-	local nMod, bADV, bDIS, sAddText = ActorManager5E.getSave(rActor, "constitution");
-	rRoll.nMod = nMod;
-
-	rRoll.sDesc = "[CONCENTRATION]";
-	if sAddText and sAddText ~= "" then
-		rRoll.sDesc = rRoll.sDesc .. " " .. sAddText;
-	end
-	if bADV then
-		rRoll.bADV = true;
-	end
-	if bDIS then
-		rRoll.bDIS = true;
-	end
-	return rRoll;
+	return ActionSave.getConcentrationRoll(rActor);
 end
