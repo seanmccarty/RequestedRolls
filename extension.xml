@@ -47,7 +47,7 @@
 			<name>Shadowdark</name>
 		</ruleset>
 	</properties>
-	<announcement text="Requested Rolls ~dev_version~ by mccartysr, 2025\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>
+	<announcement text="Requested Rolls ~dev_version~ by mccartysr, 2026\rFor slash commands type /RR" font="emotefont" icon="Logo_Mccartysr"/>
 	<base>		
 		<includefile source="xml/rr_resources.xml" />
 	</base>    
