@@ -3,11 +3,6 @@ function onInit()
 	RRRollManager.registerRollGetter("check",getCheckRoll)
 	RRRollManager.registerRollGetter("skill",getSkillRoll);
 	RRRollManager.registerRollGetter("concentration", getConcentrationRoll);
-
-	RRContestManager.registerModGetter("skill",ActionSkill.modRoll);
-	RRContestManager.registerModGetter("init",ActionInit.modRoll);
-	RRContestManager.registerModGetter("check",ActionCheck.modRoll);
-	RRContestManager.registerModGetter("save", ActionSave.modRoll);
 end
 
 ---5E uses a different name for the script

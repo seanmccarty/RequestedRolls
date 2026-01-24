@@ -44,11 +44,6 @@ function RREffectNotifyExpire(varEffect, nMatch, bImmediate)
 	end
 end
 
-local aModHandlers = {};
-function registerModGetter(sActionType, callback)
-	aModHandlers[sActionType] = callback;
-end
-
 ---Get roll type for specific contest roll
 ---@param sNode string the database path of the specific contest roll
 ---@return string rollType the overall type of the roll, e.g., skill, check
@@ -89,7 +84,7 @@ function getBestSubType(rActor,sType,tSubTypes)
 		return tSubTypes[1];
 	end
 	local fRollResult = RRRollManager.getRollGetter(sType);
-	local fModResult = aModHandlers[sType];
+	local fModResult = ActionsManager.getModHandler(sType);
 
 	-- lock the modifiers so we can get the full nMod for a roll without expiring the effect, setting suspend keeps them from being expired after the lock is lifted
 	ActionsManager.lockModifiers()
