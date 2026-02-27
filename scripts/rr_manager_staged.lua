@@ -87,16 +87,34 @@ function shouldStage(rSource, rTarget, rRoll)
 		if RR.bDebug then Debug.chat("1",stageArray[rRoll.sType]); end
 		for index, value in ipairs(stageArray[rRoll.sType:lower()]) do
 			if value["category"] == "Feat" then
-				if CharManager.hasFeat(ActorManager.getCreatureNode(rSource),value["name"]) then
-					table.insert(results,value["name"]);
+				if Interface.getRuleset() == "5E" then
+					if ActorManager5E.hasFeat(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
+				else
+					if CharManager.hasFeat(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
 				end
 			elseif value["category"] == "Feature" then
-				if CharManager.hasFeature(ActorManager.getCreatureNode(rSource),value["name"]) then
-					table.insert(results,value["name"]);
+				if Interface.getRuleset() == "5E" then
+					if ActorManager5E.hasFeature(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
+				else
+					if CharManager.hasFeature(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
 				end
 			elseif value["category"] == "Trait" then
-				if CharManager.hasTrait(ActorManager.getCreatureNode(rSource),value["name"]) then
-					table.insert(results,value["name"]);
+				if Interface.getRuleset() == "5E" then
+					if ActorManager5E.hasTrait(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
+				else
+					if CharManager.hasTrait(ActorManager.getCreatureNode(rSource), value["name"]) then
+						table.insert(results, value["name"]);
+					end
 				end
 			elseif value["category"] == "Effect" then
 				--effects are special, using by type  allows is to find entries like Lucky:d20 where d20 is not 
