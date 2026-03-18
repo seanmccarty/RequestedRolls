@@ -60,6 +60,7 @@ function resolveAction(rSource, rTarget, rRoll)
 	end
 	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
 	local rApplicableIdentifier = shouldStage(rSource, rTarget, rRoll);
+	-- TODO check for staging before and after results are known
 	if #rApplicableIdentifier>0 then
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
@@ -177,7 +178,7 @@ function addStagedRoll(rSource, vTargets, rRoll,rApplicableIdentifier)
 	local rRollTemp = UtilityManager.copyDeep(rRoll);
 	rRollTemp.sDesc = "[STAGING]\n" .. rRollTemp.sDesc
 	if Interface.getRuleset()=="5E" then
-		ActionsManager2.decodeAdvantage(rRollTemp);
+		ActionD20.decodeAdvantage(rRollTemp);
 	end
 	local rMessage = ActionsManager.createActionMessage(rSource, rRollTemp);
 	Comm.deliverChatMessage(rMessage);
