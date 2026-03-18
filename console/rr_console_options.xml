@@ -141,7 +141,6 @@
 	
 	<!-- List Items-->
 	<windowclass name="item_entry">
-		<script file="console/scripts/rr_console_options_item.lua" />
 		<sheetdata>
 			<anchor_listitem_left_sm />
 			<anchor_listitem_right_sm />
