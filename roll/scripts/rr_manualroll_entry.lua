@@ -79,23 +79,21 @@ function processRoll(forceTower)
 
 	applyClientModifiers();
 	if (Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") then
-
-		local bButtonADV = ModifierManager.getKey("ADV");
-		local bButtonDIS = ModifierManager.getKey("DIS");
 		local bADV = vRoll.bADV;
 		local bDIS = vRoll.bDIS;
-		if RR.bDebug then Debug.chat(bADV, bDIS,bButtonADV, bButtonDIS); end
 
 		--if ADV and DIS are both already applied, skip this code
-		--if ADV and DIS are both not applied, encode advantage as normal. We have to pass the button values 
-		--  becuase we already consumed them to make sure they reset every roll. Only encode advantage if the first die is a d20.
-		--if the buttons introduce a modifier that would cancel what is already applied, add the appropriate text and remove the extra die that was added
+		--if ADV and DIS are both not applied, encode advantage as normal. Only encode advantage if the first die is a d20.
+		--if the buttons introduce a modifier that would cancel what is already applied, remove the extra die that was added
 		if not (bADV and bDIS) then
 			if not bADV and not bDIS then
 				if vRoll.aDice[1].type == "d20" then
-					ActionsManager2.encodeAdvantage(vRoll,bButtonADV,bButtonDIS);
+					ActionD20.encodeAdvantage(vRoll);
 				end
 			else
+				-- since I am not using standard advantage encoding, I need to consume the keys
+				local bButtonADV = ModifierManager.getKey("ADV");
+				local bButtonDIS = ModifierManager.getKey("DIS");
 				if (bADV and bButtonDIS) or (bDIS and bButtonADV) then
 					if bADV then
 						vRoll.bDIS = true;
