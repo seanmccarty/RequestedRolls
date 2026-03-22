@@ -9,14 +9,6 @@ function onInit()
 	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_ALLROLLS, handleAllRollsRR);
 end
 
----Helper function for if strings start with a certain sequence
----@param String string the string to search
----@param Start string the string it should start with
----@return boolean boolean if string starts with the given sequence
-function starts(String,Start)
-	return string.sub(String,1,string.len(Start))==Start
-end
-
 OOB_MSGTYPE_APPLYROLL = "applyrollRR";
 OOB_MSGTYPE_ALLROLLS = "allrollsRR";
 
@@ -71,7 +63,7 @@ end
 ---@return boolean bool is this is a popup type save
 function isPopupSaveDesc(sDesc)
 	for i,s in ipairs(saveDescs) do
-		if starts(sDesc,s) then
+		if StringManager.startsWith(sDesc,s) then
 			return true;
 		end
 	end
@@ -96,7 +88,7 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 	end
 
 	--if if it starts with the dicetower_tag then it is a roll that was dropped on the tower and should be bypassed
-	if rRoll.sDesc and starts(rRoll.sDesc,"[" .. Interface.getString("dicetower_tag") .. "]") then
+	if rRoll.sDesc and StringManager.startsWith(rRoll.sDesc,"[" .. Interface.getString("dicetower_tag") .. "]") then
 		bBypass = true;
 	end
 
