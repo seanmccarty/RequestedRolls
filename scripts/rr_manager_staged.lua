@@ -61,7 +61,7 @@ function resolveAction(rSource, rTarget, rRoll)
 	if RR.bDebug then Debug.chat("resolve",rSource, rTarget, rRoll); end
 	local rApplicableIdentifier = shouldStage(rSource, rTarget, rRoll);
 	-- TODO check for staging before and after results are known
-	if #rApplicableIdentifier>0 then
+	if next(rApplicableIdentifier) ~= nil then
 		addStagedRoll(rSource, rTarget, rRoll, rApplicableIdentifier);
 	else
 		fOriginalResolveAction(rSource, rTarget, rRoll);
@@ -83,54 +83,55 @@ function shouldStage(rSource, rTarget, rRoll)
 		return {};
 	end
 
+	-- each entry is [sIdentifyingString] = bShouldExpire
 	local results = {};
 	if rRoll and rRoll.sType and stageArray[rRoll.sType:lower()] then
 		if RR.bDebug then Debug.chat("1",stageArray[rRoll.sType]); end
-		for index, value in ipairs(stageArray[rRoll.sType:lower()]) do
+		for _, value in ipairs(stageArray[rRoll.sType:lower()]) do
 			if value["category"] == "Feat" then
 				if Interface.getRuleset() == "5E" then
 					if ActorManager5E.hasFeat(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				else
 					if CharManager.hasFeat(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				end
 			elseif value["category"] == "Feature" then
 				if Interface.getRuleset() == "5E" then
 					if ActorManager5E.hasFeature(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				else
 					if CharManager.hasFeature(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				end
 			elseif value["category"] == "Trait" then
 				if Interface.getRuleset() == "5E" then
 					if ActorManager5E.hasTrait(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				else
 					if CharManager.hasTrait(ActorManager.getCreatureNode(rSource), value["name"]) then
-						table.insert(results, value["name"]);
+						results[value["name"]] = false;
 					end
 				end
 			elseif value["category"] == "Effect" then
 				--effects are special, using by type  allows is to find entries like Lucky:d20 where d20 is not 
 				--  part of the search string. There cannot be spaces in the search string.
-				local aEffectsByType = EffectManager.getEffectsByType(rSource, value["name"]);
+				local aEffectsByType = EffectManager.getCompsDataByTag(rSource, value["name"],{bIgnoreExpire=true});
 				if #aEffectsByType>0 then
-					table.insert(results,aEffectsByType[1].original);
+					results[aEffectsByType[1].original] = true;
 				else
-					if EffectManager.hasEffect(rSource,value["name"]) then
-						table.insert(results,value["name"]);
+					if EffectManager.hasTextOrTag(rSource,value["name"],{bIgnoreExpire=true}) then
+						results[value["name"]] = true;
 					end
 				end
 			elseif value["category"] == "Ability" then
 				if RRCoreRPG.hasAbility(ActorManager.getCreatureNode(rSource),value["name"]) then
-					table.insert(results,value["name"]);
+					results[value["name"]] = false;
 				end
 			end
 		end

@@ -51,7 +51,11 @@ function setData(rRoll, rSource, aTargets,rApplicableIdentifier)
 	end
 
 	vApplicableIdentifier = rApplicableIdentifier;
-	reasons.setValue(table.concat(vApplicableIdentifier,"; "));
+	local summaryString = "";
+	for key,v in pairs(rApplicableIdentifier) do
+		summaryString = summaryString ..  key .. "; ";
+	end
+	reasons.setValue(summaryString);
 
 	rolltype.setValue(StringManager.capitalize(rRoll.sType));
 	
@@ -270,5 +274,6 @@ function reRoll(sDie, oldValue, fauxRollValue, sReason, nSort)
 end
 
 function expireUsedEffect(sEffect)
-	EffectManager.notifyRemove(ActorManager.getCTNodeName(vSource),sEffect);
+	EffectManager.hasTextOrTag(vSource, sEffect, nil);
+	return vApplicableIdentifier[sEffect] or false;
 end

@@ -80,18 +80,20 @@ function action(draginfo)
 	if sDragLabel then
 		local aDice, nMod = DiceManager.convertStringToDice(nDragMod, true)
 		window.addDice(aDice, sDragLabel);
-		window.expireUsedEffect(sDragLabel)
-		local fullText = getValue();
-		local startIndex = getCursorPosition();
-		local endIndex = getSelectionPosition();
-		local resultText = "";
-		-- if it is not the first entry, keep the first entry through the character before the string (hence minus 1)
-		if startIndex>1 then
-			resultText = string.sub(fullText,1,startIndex-1)
+		local deleteEffect = window.expireUsedEffect(sDragLabel..":"..nDragMod)
+		if deleteEffect then
+			local fullText = getValue();
+			local startIndex = getCursorPosition();
+			local endIndex = getSelectionPosition();
+			local resultText = "";
+			-- if it is not the first entry, keep the first entry through the character before the string (hence minus 1)
+			if startIndex>1 then
+				resultText = string.sub(fullText,1,startIndex-1)
+			end
+			resultText = resultText .. string.sub(fullText,endIndex)
+			setValue(resultText)
+			bParsed = false;
 		end
-		resultText = resultText .. string.sub(fullText,endIndex)
-		setValue(resultText)
-		bParsed = false;
 	end
 end
 
