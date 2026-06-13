@@ -126,10 +126,20 @@ function rollOverride(rSource, vTargets, rRoll, bMultiTarget)
 
 		--death auto and concentration rolls originate on host. They need to be sent to the players to check for the popup setting
 		--stabilization is for 3.5E and PFRPG1 and 2
-		if Session.IsHost == true then
-			if rRoll.sType and sTypes[rRoll.sType] then 
-				rRoll.RR = true; 
+		--if the roll is already client-side, it is probably ready for showing as popup
+		if rRoll.sType and sTypes[rRoll.sType] then
+			if Session.IsHost == true then
+				rRoll.RR = true;
 				rRoll.bPopup = true;
+			else
+				if RR.isManualSaveRollPcOn() then
+					if bMultiTarget then
+						ManualRollManager.addRoll(rRoll, rSource, vTargets);
+					else
+						ManualRollManager.addRoll(rRoll, rSource, { vTargets });
+					end
+					return;
+				end
 			end
 		end
 
