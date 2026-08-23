@@ -78,7 +78,9 @@ function processRoll(forceTower)
 	end
 
 	applyClientModifiers();
-	if (Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") then
+	-- do not try to encode advantage for dice strings
+	if (not vRoll.aDice.expr) and
+	(Interface.getRuleset()=="5E" or Interface.getRuleset()=="Shadowdark") then
 		local bADV = vRoll.bADV;
 		local bDIS = vRoll.bDIS;
 

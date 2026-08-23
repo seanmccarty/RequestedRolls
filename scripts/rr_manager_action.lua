@@ -171,11 +171,13 @@ function shouldStopAnimationRoll(rRoll)
 	end
 end
 
----Checks if the dice qualify for being stopped because the expression isn't a dice math, that suppression is enabled, and that manual rolls are not turned on
+---Checks if the dice qualify for being stopped because the expression isn't a dice math,
+---is not set directly to a string, that suppression is enabled, and that manual rolls are not turned on
 ---@param aDice table the aDice table
 ---@return boolean stopAnimation 
 function shouldStopAnimationDice(aDice)
 	if ((not aDice.expr) or DiceManager.isDiceString(aDice.expr))
+	and (type(aDice) ~= "string")
 	and OptionsManager.isOption("RR_option_label_suppressDiceAnimations","on")
 	and OptionsManager.isOption("MANUALROLL","off") then
 		return true;
