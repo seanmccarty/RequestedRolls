@@ -15,7 +15,7 @@ function onInit()
 
 	-- insert into list of Actions and targetactions so that CombatDropManager and ActionsManager.actionDrop will process drops on the combat tracker
 	ActionsManager.initAction("contest");
-	table.insert(GameSystem.targetactions, "contest");
+	GameManager.setActionProperty("contest", "sTargeting","each")
 end
 
 ---Concatenates the subtypes for a given contest roll into a string for easy display by DB linked controls
